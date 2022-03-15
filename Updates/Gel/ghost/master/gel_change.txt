@@ -1,0 +1,435 @@
+//******************************************************************************
+// YAYA　ゴーストテンプレート
+// 切り替えトーク辞書
+//******************************************************************************
+
+//******************************************************************************
+// ゴースト切り替え 
+//******************************************************************************
+/*
+Functions are described in the following format.
+[Event] + [Ghost Name]
+Events include the following:
+Depending on the event, if there is no corresponding function, it will be OnClose or OnBoot.
+Ghost names are prefixed with _.
+If there is no corresponding ghost name, the ghost name part is "Other".
+
+"Or 'in the name, or +-/ *, single-byte space, etc.
+Any characters used in the system will be converted to _.
+Example: the "MobileMaster"-> OnGhostChanging_the__MobileMaster_
+
+OnGhostChanging When trying to switch to another ghost. If not, OnClose is called.
+OnGhostChanged When switching from another ghost. If not, OnBoot is called.
+OnGhostCalling when trying to call another ghost
+OnGhostCalled When called from another ghost. If not, OnBoot is called.
+OnGhostCallComplete Calls another ghost, and when the called ghost completes launching, instead of OnOtherGhostBooted
+
+OnOtherGhostBooted When another ghost is called and the called ghost has finished booting
+OnOtherGhostClosed when another ghost is closed
+OnOtherGhostChanged When another ghost switches to another ghost and the startup of the ghost to be switched to is completed
+*/
+
+
+//Emilyへ切り替え
+OnGhostChanging_Emily
+{
+	ONCLOSE_VAR
+	--
+	if emotion > -1{
+		"%(gelBase)Oh, a predecessor. Have fun with Emily!"
+	}else{
+		"Zzzz...\w8"
+	}
+}
+
+OnGhostChanged_Emily{
+
+	returnlocation = "OnGhostChanged_EmilyPartTwo,%reference0,%reference1,%reference2,%reference3,%reference4"
+	ONBOOT_SETUP
+	//for the detection of crashes
+	closed = 0
+	"test"
+	
+	
+}
+
+
+//Emilyから切り替り
+OnGhostChanged_EmilyPartTwo
+{
+	
+	"%(gelBase)Later, Emily!\w8 She's cute."
+}
+
+OnGhostChanging_Gel
+{
+	ONCLOSE_VAR
+	if emotion > -1{
+		"%(gelBase)Um, okay... why do you... nevermind."
+		"%(gelBase)%(username), why do you have another port of me?"
+		"%(gelBase)Do you really need two?\w8 ...or more..."
+	}else{
+		"Zzzz...\w8"
+	}
+}
+
+//To an unspecified ghost
+OnGhostChangingOther
+{
+	ONCLOSE_VAR
+	--
+	//If Gel is closed while holding another ghost Lap Friend
+	if holding >= 600{
+		holding = 0
+		case emotion{
+			when -1 , 0 , 3{
+				"%(gelBase)...cold..."
+			}
+			others{
+				"Ah, I%(will) see you later then, %username. Bye, little friend!\w8%(gelBase)"
+			}
+		
+		}
+		
+		
+	}elseif emotion > -1{
+		"%(gelBase)See you later! Have fun with %(reference[0])."
+		"%(gelBase)Bye, %(username). Good luck with %(reference[0])."
+	}else{
+		"Zzzz...\w8"
+	}
+}
+
+OnOtherGhostClosed_Dusty{
+	if holding == 600{
+		holding = 0
+		case emotion{
+			when -1 , 0 , 3{
+				"Bye kitty...%(gelBase)"
+			}
+			others{
+				"%(gelSurprised)Wait a sec, Dusty, you have a cat!%(gelBase)"
+			
+			}
+		}
+		
+		
+	}
+	
+
+}
+
+OnOtherGhostChanged_Dusty{
+	if holding == 600{
+		holding = 0
+		case emotion{
+			when -1 , 0 , 3{
+				"%(gelBase)Bye kitty..."
+			}
+			others{
+				"%(gelBase)%(gelSurprised)Wait a sec, Dusty, you have a cat!"
+			
+			}
+		}
+		
+	}
+
+}
+
+
+
+
+//From an unspecified ghost
+OnGhostChangedOther
+{
+	returnlocation	= "OnGhostChangedOtherPartTwo,%reference0,%reference1,%reference2,%reference3,%reference4"
+	ONBOOT_SETUP
+	//for the detection of crashes
+	closed = 0
+	
+}
+
+
+OnGhostChangedOtherPartTwo{
+	timesinceload = 0
+	--
+	
+	_timeslot = GetTimeSlot
+	
+	
+	//if it's been over a year
+	if _daydiff > 365{
+		if checkGreatTP2{
+			"%(gelLookForward)\i[65]\i[74]What the %(heck), User -no %(you) do%(not) get a first name--- it's been OVER A YEAR!! You just left me! It has been %_daydiff DAYS SINCE YOU LEFT ME!"
+			trust-=30
+		}elseif trust >= TNEG1{
+			"%(gelLookForward)\i[65]\i[77]%_daydiff days, user. %_daydiff. I%(am) not %(you)r keeper, but you coulda said hello!"
+			trust-=10
+		
+		}else{
+			"%(gelLookForward)\i[65]\i[72]%(damn), it was a really good time alone before you %(fudging) pulled me back here, huh? I did%(not) miss you. Not a smidge."
+		
+		}
+			
+	}elseif _daydiff > 70{
+		if checkGreatTP2{
+			"%(gelLookForward)\i[74]Wow, %username, it has been %_daydiff whole days since I last saw you. Did you even miss me? At all? Come ON, %username!!"
+			trust-=15
+		}elseif trust >= TNEG1{
+			"%(gelLookForward)\i[77]H-H-Hey, %username! It's.\w6.\w6.\w6 really been, uh, a while. I hope you've been having fun with... whatever."
+			trust-=5
+				
+		}else{
+			"%(gelLookAway)\i[72]You know, things had been pretty good for me until you came around. I won't greet you."
+				
+		}
+			
+	}elseif _daydiff > 20{
+		if checkGreatTP2{
+			"%(gelLookForward)Oh, I am so glad to see you. A little upset, I've really missed you, but. I know you had a reason for not saying hello."
+			trust-=30
+		}elseif trust >= TNEG1{
+			"%(gelLookForward)\i[65]\i[77]%_daydiff days, user. %_daydiff. I%(am) not %(you)r keeper, but you coulda said hello!"
+			trust-=10
+				
+		}else{
+			"%(gelLookForward)\i[65]\i[72]%(damn), it was a really good time alone before you %(fudging) pulled me back here, huh? I did%(not) miss you. Not a smidge."
+		
+		}
+			
+	}else{
+		"L-L-La-Later, %reference0. Hi, %username!\e"
+		case _timeslot{
+		when "Morning","Purple"
+		{
+			"%(gelBase)L-Later, %reference0, and gooood morning, %(username)!\e"
+			"%(gelBase)I-I wonder if %reference0 has gotten any morning coffee yet...\e"
+			if port > 4500{
+				"%(gelBase)Thr-Three parts coffee, one part milk, and three spoons of sugar.\w4.\w4. I have my plans.\w8 Do you think %reference0 would want some?\e"
+				"%(gelBase)I%(am)-- I%(am) hungry.\w8 I would kill for a donut.\e"
+			}
+		}
+		when "Afternoon","Dust"
+		{
+			"%(gelBase)%(username), good afternoon! I hope %reference0 can make the most of theirs.\e"
+			"%(gelBase)Ha-Happy dust, %(username)! And I hope %reference0 has been staying safe and healthy.\e"
+			
+
+		}
+		when "Evening","Orange"
+		{
+			"%(gelBase)Ha-Have you and %reference0 had dinner yet?\e"
+			"%(gelBase)I ho-hope you're having a nice orange, %(username). Same for %reference0.\e"
+			
+			if port > 4500{
+				"%(gelBase)L-L-L-La-Later, %reference0, have a good %_timeslot and eat lots of sweets!\e"
+				"%(gelBase)I-I%(am) hungry. \w8Hope %reference0 has eaten.\e"
+			}
+		}
+		when "Night","Dark"
+		{
+			"%(gelBase)It-It's pretty late. Maybe you should think of wrapping up what you're doing instead of talking to me and %reference0.\e"
+			"%(gelBase)Ha-Ha-Happy dark, %(username). I hope %reference0 is getting some good rest, now.\e"
+		}
+		others
+		{
+			//For other times-- Night/Black
+			"%(gelBase)It-It's the middle of the night. Ok.\e"
+			"%(gelBase)It-It's black out, %(username). What are you up to? \w8.\w4.\w4.What were you up to with %reference0??\e"
+			"%(gelBase)La-Late night grind with %reference0? I hope I can assist you well!\e"
+		}
+		}//case
+	}
+	
+}
+
+OnGhostCalledOther
+{
+	returnlocation = "OnGhostCalledOtherPartTwo,%reference0,%reference1,%reference2,%reference3,%reference4"
+	ONBOOT_SETUP
+	//for the detection of crashes
+	closed = 0
+	
+	
+}
+
+OnGhostCalledOtherPartTwo{
+	--
+	timesinceload = 0
+	--
+	_pal = reference2
+		if lastboot != thisboot{
+		if userbirthday == (thisboot[0,"/"] + thisboot[1,"/"]){
+			//birthday is covered mostly in ONBOOT_SETUP, this is a stub in case we want to make sure the full message only plays once by interference
+			
+		}else{
+			_daydiff = GetBootDifference
+		
+			//if it's been over a year
+			if _daydiff > 365{
+				if checkGreatTP2{
+					"Wh-%(gelLookForward)\i[77]\i[84]What the %(heck), User -no %(you) do%(not) get a first name--- it's been OVER A YEAR!! You just left me! It has been %_daydiff DAYS SINCE YOU LEFT ME!"
+					trust-=30
+				}elseif trust >= TNEG1{
+					"%(gelLookForward)\i[77]\i[87]%_daydiff days, user. %_daydiff. I%(am) not %(you)r keeper, but you coulda said hello!"
+					trust-=10
+				
+				}else{
+					"%(gelLookForward)\i[77]\i[82]%(damn), it was a really good time alone before you %(fudging) pulled me back here, huh? I didn't miss you. Not a smidge."
+				
+				}
+			
+			}elseif _daydiff > 70{
+				if checkGreatTP2{
+					"%(gelLookForward)\i[84]Wow, %username, it has been %_daydiff whole days since I last saw you. Did you even miss me? At all? Come ON, %username!! And %_pal!"
+					trust-=15
+				}elseif trust >= TNEG1{
+					"H-H-%(gelLookForward)\i[87]Hey, %username! It's.\w6.\w6.\w6 really been, uh, a while. I hope you've been having fun with... %_pal."
+					trust-=5
+				
+				}else{
+					"Y-%(gelLookAway)\i[82]You know, things had been pretty good for me until you came around. I won't greet you. Hello, %_pal. At least there's you."
+				
+				}
+			
+			}elseif _daydiff > 20{
+				if checkGreatTP2{
+					"%(gelLookForward)Oh, I am so glad to see you. A little upset, I've really missed you, but. I know you had a reason for not saying hello.  Talkin to %_pal and not me..."
+					trust-=30
+				}elseif trust >= TNEG1{
+					"%(gelLookForward)\i[77]\i[87]%_daydiff days, user. %_daydiff. I%(am) not %(you)r keeper, but you coulda said hello! Talkin to %_pal and not me..."
+					trust-=10
+				
+				}else{
+					"%(gelLookForward)\i[77]\i[82]%(damn), it was a really good time alone before you %(fudging) pulled me back here, huh? I didn't miss you. Not a smidge."
+				
+				}
+			
+			}else{
+				case _timeslot{
+				when "Morning","Purple"
+				{
+					"G-\w6%(gelBase)Gooood morning, %(username), %_pal."
+					"G-\w6%(gelBase)Good purple, %(username), %_pal."
+				}
+				when "Afternoon","Dust"
+				{
+					"%(gelBase)%(username), good afternoon! Heya, %_pal!"
+					"Ha-\w6%(gelBase)Happy dust, %(username), %_pal!!"
+
+				}
+				when "Evening","Orange"
+				{
+					"\w6%(gelBase)G-Good evenin'."
+					"\w6%(gelBase)I ho-hope you're having a nice orange, %(username)."
+				}
+				when "Night","Dark"
+				{
+					"It- \w6%(gelBase)It's pretty late. Maybe you should think of wrapping up what you're doing instead of talking to me and %_pal."
+					"Ha-\w6%(gelBase)Happy dark, %(username). What's up, %_pal?"
+				}
+				others
+				{
+					//For other times-- Night/Black
+					"It-\w6%(gelBase)It's the middle of the night. Ok."
+					"It-\w6%(gelBase)It's black out, %(username). What are you up to? With both me and %_pal."
+				}
+				}//case
+			}
+		}
+	}else{
+	
+			case _timeslot{
+		when "Morning","Purple"
+		{
+			"A-%(gelBase)Again? So soon?"
+			"M-%(gelBase)Mornin'. Nice to see you again so soon."
+		}
+		when "Afternoon","Dust"
+		{
+			"W-%(gelBase)Welcome back, %(username). Is your afternoon going well?\e"
+			"Ha-%(gelBase)Happy dust, %(username)!"
+
+		}
+		when "Evening","Orange"
+		{
+			"G-%(gelBase)Good evenin'. Nice to see you again."
+			"I-%(gelBase)I hope you're having a nice orange, %(username). What can I do for you now?"
+		}
+		when "Night","Dark"
+		{
+			"He-%(gelBase)Here again?\w8 Uh, hope your night's been off to a fun start. Let us know what %_pal and I can do to help you out.\e"
+			"Ha-%(gelBase)Happy dark, %(username). How may I help you?\e"
+		}
+		others
+		{
+			//For other times-- Night/Black
+			"It-%(gelSquint)It's %_timeslot, %username."
+			"It-%(gelBase)It's black out, %(username). What are you up to? %_pal?"
+		}
+		}//case
+
+	
+	
+	}
+
+}
+ 
+//******************************************************************************
+// Below this is for switching talk processing
+// No need to tweak normally, but please change as needed.
+// Functions starting with // AYATEMPLATE. Are in _tmpl_util.dic.
+//******************************************************************************
+
+OnGhostChanging
+{
+	AYATEMPLATE.ExecuteChangeCallTalk("OnGhostChanging","OnClose")
+}
+
+OnGhostChanged
+{
+	if claustro > 1{
+		claustro--
+	}
+	AYATEMPLATE.ExecuteChangeCallTalk("OnGhostChanged","OnBoot")
+}
+
+OnGhostCalling
+{
+	AYATEMPLATE.ExecuteChangeCallTalk("OnGhostCalling")
+}
+
+OnGhostCalled
+{
+	AYATEMPLATE.ExecuteChangeCallTalk("OnGhostCalled","OnBoot")
+}
+
+OnGhostCallComplete
+{	
+	SENDERROR("OnGhostCallComplete","info")
+	AYATEMPLATE.ExecuteChangeCallTalk("OnGhostCallComplete")
+}
+
+OnOtherGhostClosed
+{
+	claustro++
+	AYATEMPLATE.ExecuteChangeCallTalkOther("OnOtherGhostClosed")
+}
+
+OnOtherGhostBooted
+{
+	if claustro > 1{
+		claustro--
+	}
+	AYATEMPLATE.ExecuteChangeCallTalkOther("OnOtherGhostBooted")
+}
+
+OnOtherGhostChanged
+{
+	if claustro > 1{
+		claustro--
+	}
+	AYATEMPLATE.ExecuteChangeCallTalkOther("OnOtherGhostChanged")
+}
+
+

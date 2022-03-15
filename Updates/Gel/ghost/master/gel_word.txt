@@ -1,0 +1,1856 @@
+//******************************************************************************
+// Yaya sort template
+// Word dictionary
+//******************************************************************************
+
+//GLOBALS
+//These cover Trust, which is the major friendship variable.
+//And similarities, a small one which manages question responses.
+#globaldefine 	TPOS1 50
+#globaldefine 	TPOS2 150
+#globaldefine 	TPOS3 275
+#globaldefine 	TPOS4 400
+#globaldefine 	TPOS5 500
+
+#globaldefine 	TNEG1 -30
+#globaldefine 	TNEG2 -100
+#globaldefine 	TNEG3 -200
+#globaldefine 	TNEG4 -300
+
+//Most sections are incremented by parts of 100, and some dissonance isn't a worry
+#globaldefine 	TREGINC 100
+
+//For switching minor appearance-based things. 
+#globaldefine 	CLAUSTRODISCOMFORT 20
+#globaldefine 	CLAUSTRODILATION 30
+#globaldefine 	CLAUSTROSTUTTER 45
+#globaldefine 	CLAUSTROWILT 60
+#globaldefine 	CLAUSTROTWITCH 75
+
+#globaldefine	THANKCOOLDOWN 2
+
+
+
+
+//******************************************************************************
+// Reference Relationship Tiers
+//******************************************************************************
+
+staggertest{
+    //Stagger versions (unlocked at the .5 mark)
+    if trust > TPOS3 + (TREGINC / 2) {            //Positive Route Pt 3.5 ---------------------------------
+        "Positive Route Pt 3.5+ %(TPOS2 + (TREGINC / 2))"
+    }elseif trust > TPOS2 + (TREGINC / 2) {            //Positive Route Pt 3.5 ---------------------------------
+        "Positive Route Pt 3.5+ %(TPOS2 + (TREGINC / 2))"
+    }elseif trust > TPOS1 + (TREGINC / 2) {        //Positive Route Pt 2.5 ---------------------------------
+        "Positive Route Pt 2.5 + %(TPOS1 + (TREGINC / 2))"
+    }elseif trust > TNEG1 - (TREGINC / 4) {        //Positive/Neutral Route Pt 1.5 -------------------------
+        "Positive/Neutral Route Pt 1.5 + %(TNEG1 - (TREGINC / 4))"
+    }elseif trust > TNEG2 - (TREGINC / 2) {        //Negative Route Pt 1.5 ---------------------------------
+        "Negative Route Pt 1.5 + %(TNEG2 - (TREGINC / 2))"
+    }elseif trust <= TNEG2 - (TREGINC / 2) {        //Negative Route Pt 2.5 (and more) ----------------------
+        "Negative Route Pt 2.5 + %( TNEG2 - (TREGINC / 2))"
+    }
+}
+
+tier{
+    if checkGreatTP3{            //(currently) Maxed Out Positive ----------------------------------------
+        "Maxed Out Positive"
+    }elseif trust > TPOS2{        //Positive Route Pt 3 ---------------------------------------------------
+        "Positive Route Pt 3"
+    }elseif trust > TPOS1{        //Positive Route Pt 2 ---------------------------------------------------
+        "Positive Route Pt 2"
+    }elseif trust > TNEG1{        //Positive/Neutral Route Pt 1 -------------------------------------------
+        "Positive/Neutral Route Pt 1"
+    }elseif trust > TNEG2{        //Negative Route Pt 1 ---------------------------------------------------
+        "Negative Route Pt 1"
+    }elseif trust <= TNEG2{        //Negative Route Pt 2 (and more) ----------------------------------------
+        "Negative Route Pt 2"
+    }
+}
+
+//******************************************************************************
+// Relationship Checks
+//******************************************************************************
+
+checkGreatTP5{
+	trust > TPOS5
+
+}
+
+checkGreatTP4{
+	trust > TPOS4
+
+}
+
+checkGreatTP3{
+	trust > TPOS3
+
+}
+
+checkGreatTP2{
+	trust > TPOS2
+
+}
+
+checkGreatTP1{
+	trust > TPOS1
+
+}
+
+checkGreatTN1{
+	trust > TNEG1
+
+}
+
+checkGreatTN2{
+	trust > TNEG2
+
+}
+
+checkLessEqTN2{
+	trust <= TNEG2
+
+}
+
+checkStaggerGreatTP5{
+	trust > (TPOS4 + (TREGINC / 2))
+
+}
+
+checkStaggerGreatTP4{
+	trust > (TPOS3 + (TREGINC / 2))
+
+}
+
+checkStaggerGreatTP3{
+	trust > (TPOS2 + (TREGINC / 2))
+
+}
+
+checkStaggerGreatTP2{
+	trust > (TPOS1 + (TREGINC / 2))
+
+}
+
+checkStaggerGreatTP1{
+	trust > (TNEG1 - (TREGINC / 4))
+
+}
+
+checkStaggerGreatTN1{
+	trust > (TNEG2 - (TREGINC / 2))
+
+}
+
+checkStaggerLessEqTN2{
+	trust <= (TNEG2 - (TREGINC / 2))
+
+}
+
+
+//******************************************************************************
+// Word
+//******************************************************************************
+
+//Perhaps soon I will move over to Ecclysium...
+GraysDiscord{
+	"GrayArea #5561"
+}
+
+//why do i even have these
+gelJoke
+{
+	"%(gelBase)What do Wizard 16, 1773 AD and the word humpty have in common?\w8\w8\w6 Dump tea."
+	"%(gelBase)Guess who I ran into when I was on my way to get my glasses fixed? \w8Everybody.%(gelOnGlasses)"
+	"What happens to you when you look at an egg? \w8\w8You get egg-sighted.\e"
+
+}
+
+gelOnGlasses
+{
+	"\w8\w4 I would%(not) mind a pair of glasses."
+	""
+	""
+	""
+	""
+	""
+	"\w4.\w4.\w4.Imagine having real eyes."
+
+}
+
+
+sInvis{
+	"\f[height,-40]"
+
+}
+
+eInvis{
+
+	"\f[height,+40]"
+}
+
+
+contractionCheck{
+	if port == 1712 || emotion == 3 || awkwardsilence == 1{
+		1
+		return
+	}else{
+		0
+		return
+	}
+}
+
+not{
+	if contractionCheck{
+		" not"
+	}else{
+		"n't"
+	}
+}
+
+
+is{
+	if contractionCheck{
+		" is"
+	}else{
+		"'s"
+	}
+}
+
+gotta{
+	if contractionCheck{
+		"got to"
+	}else{
+		"gotta"
+	}
+
+}
+
+gonna{
+	if contractionCheck{
+		"going to"
+	}else{
+		"gonna"
+	}
+}
+
+isnt{
+
+	if contractionCheck{
+		"is not"
+	}else{
+		"isn't"
+	}
+}
+
+guh{
+	if contractionCheck{
+		"g"
+	}else{
+		"'"
+	}
+
+}
+
+lil{
+	if contractionCheck{
+		"little"
+	}else{
+		"lil"
+	}
+}
+
+am{
+	if contractionCheck{
+		" am"
+	}else{
+		"'m"
+	}
+}
+
+would{
+	if contractionCheck{
+		" would"
+	}else{
+		"'d"
+	}
+}
+
+has{
+	if contractionCheck{
+		" has"
+	}else{
+		"'s"
+	}
+}
+
+are{
+	if contractionCheck{
+		" are"
+	}else{
+		"'re"
+	}
+}
+
+
+wanna{
+
+	if contractionCheck{
+		"want to"
+	}else{
+		"wanna"
+	}
+}
+
+will{
+	if contractionCheck{
+		" will"
+	}else{
+		"'ll"
+	}
+
+}
+
+have{
+	if contractionCheck{
+		" have"
+	}else{
+		"'ve"
+	}
+
+}
+
+kinda{
+	if contractionCheck{
+		"kind of"
+	}else{
+		"kinda"
+	}
+}
+
+us{
+	if contractionCheck{
+		" us"
+	}else{
+		"'s"
+	}
+
+}
+
+rn{
+	"rn"
+
+}
+
+
+
+
+roar{
+	"rumble"
+	"rwoar"
+	"roar"
+	"rabble"
+	"rarar"
+	"rbrr"
+	"raer"
+	"rerble"
+}
+
+growl{
+	"grumble"
+	"groar"
+	"grabble"
+	"gararr"
+	"grrumph"
+	"grbrbrr"
+	"girble"
+	
+}
+
+fudgencookies{
+	"caramel cookies"
+	"mint fudge"
+	"dumb bubblegum fudge"
+	"dark dark dark fudge"
+	"caramel fudge"
+	"m&m fudge"
+	"peanut butter fudge"
+	"coke float fudge"
+	"strawberry shortcake"
+	"coffee fudge"
+	"cotton candy fudge"
+	"birthday cake fudge"
+
+}
+
+fudge{
+
+	if port == 1395{
+		"roag"
+		"gramble"
+		"girgl"
+	
+	}elseif port >= 4500{
+		"fudge"
+		"fudgey"
+		"%(fudgencookies)"
+		if swearing == 1{
+			"caramel cunt"
+			"caracunt"
+			"fuckin fudgies"
+		}
+		"caramel cookies"
+				
+	
+	}else{
+		
+		if swearing == 1{
+			"fuck"
+			"fuck"
+			"fuck"
+			"FUCK"
+			
+		}else{
+			"fiddlesticks"
+			"rats"
+		}
+		
+		{
+			"fudge"
+			"flip flop"
+			"frick"
+			"*CENSORED*"
+		}
+
+				
+
+	}
+	
+
+}
+
+fudged{
+	if port == 1395{
+		"rabbled"
+		"grumbled"
+		"gramble grr"
+		"girgld"
+	
+	}elseif port >= 4500{
+		{
+			"fudged"
+			"fudgied"
+		}
+		if swearing == 1{
+			"fudge fucked"
+			"chocolate peanut fucked"
+		}else{
+			"melted"
+			"candy appled"
+		}
+		{
+			"burnt"
+			"charred"
+			"fudged"
+		}
+				
+	
+	}else{
+		
+		if swearing == 1{
+			"fucked"
+			"fucked"
+			"fucked"
+			"FUCKED"
+			
+		}else{
+			"messed up"
+			"ratted"
+		}
+		
+		{
+			"fudged"
+			"fricked"
+			"*CENSORED*"
+		}
+
+				
+	}
+
+}
+
+shit{
+	if port == 1395{
+		"%(roar)"
+		"%(growl)"
+	
+	}else{
+		if swearing == 1{
+			"shit"
+			"shit"
+			"shite"
+		}
+		
+		{
+			"stuff"
+			"schtuff"
+			"crap"
+		}
+	}
+}
+
+binch{
+	if port == 1395{
+		"toad"
+		"lizard"
+		"frog"
+		"tiny reptile"
+	
+	}elseif swearing == 1{
+		"bitch"
+		"bitch"
+		"binch"
+		"bicht"
+	
+	}else{
+		"beech"
+		"beechnut"
+		"beach"
+		"moll"
+		"biscuit"
+	}
+	
+	if port >= 4500{
+		"beet"
+		"beetch"
+		"butterscotch"
+		"butterfinger"
+		"lardmonger"
+	
+	}
+
+}
+
+bastard{
+
+	if port == 1395{
+		"toad"
+		"lizard"
+		"frog"
+		"monkey"
+	
+	}elseif swearing == 1{
+		"bastard"
+	
+	}else{
+		"-!!!!!!"
+		"bucket of lard"
+		"beachball"
+	
+	}
+
+
+
+}
+
+
+fudging{
+
+	if port == 1395{
+		"%(roar) %(growl)"
+		"%(growl) %(roar)"
+	
+	}elseif port >= 4500{
+		
+		"burning"
+		"overcooking"
+		"minty fudging"
+		"caramel fudgeing"
+		"minty fudgeing"
+		"caramel fudging"
+		"peanut butter fudging"
+		"m&m fudging"
+				
+	
+	}else{
+		
+		if swearing == 1{
+			"fucking"
+			{
+				"fuckin"
+				"fuckin'"
+				"FUCKING"
+			}
+			
+		}
+		
+		{
+			"fudging"
+			"flip floppin"
+			"fricking"
+			"*CENSORED*"
+		}
+
+				
+	}
+
+
+
+}
+
+dang{
+	if port == 1395{
+		"%(roar)"
+		"%(growl)"
+	
+	}elseif swearing == 1{
+		if RAND(10) != 8{
+			"damn"
+		}else{
+			"dmna"
+			"dAMN"
+		}
+	}
+	
+	"dang"
+	"b'sod"
+	//B'sod is a reference to the video game Primordia! Check it out, it's very fun!
+
+}
+
+donkey{
+	if swearing{
+		"ass"
+	}else{
+		"donkey"
+	}
+}
+
+butt{
+	if swearing{
+		"ass"
+	}else{
+		"donkey"
+		"butt"
+	}
+}
+
+heck{
+
+	if port == 1395{
+		"%(roar)"
+		"%(growl)"
+	
+	}elseif swearing == 1{
+		"hell"
+	
+	}else{
+		"heck"
+		"H-E-Double Hockey Sticks"
+	}
+	"heck"
+
+
+}
+
+okay{
+	"okay"
+	"okay"
+	"okay"
+	"ok"
+	"oki"
+	"okey-dokey"
+	"okay"
+	"oki"
+	"okey"
+	"okya"
+}
+
+you{
+	"you"
+	"you"
+	"you"
+	"you"
+	"you"
+	"you"
+	{
+		"ya"
+		"ya"
+		"ya"
+		"yuo"
+		"u"
+		"u"
+	}
+
+
+}
+
+
+application{
+	"Google"
+	"Doogle Gocs"
+	"Google Docs"
+	"YouTube"
+	"Drive"
+	"NotePad"
+	"Discord"
+}
+
+
+groceryitem{
+	"beans"
+	"syrup"
+	"toilet paper"
+	"cookie dough"
+	"a cat shaped bowl"
+	"yogurt"
+	"Danimals"
+	"cheese"
+	"febreeze"
+	"Baja Blast"
+	"gluten free pasta"
+	"not-glow-in-the-dark tomato soup"
+	if daysknown > 2; "too many cans of campbells"
+	"a fan"
+	"thirty fans"
+	"a knife"
+	"apricots"
+	"apricot jam"
+	"bread shaped bread"
+	"fresh avocados"
+	"tide pods"
+	"a body pillow of someone called 'snake'"
+	"banana slicer"
+	"preshelled eggs"
+	"ethernet cable"
+	"salted fish"
+	"season %(RAND(37)+1) of CSI Miami on 'blue rays' with author commentary and apology"
+
+}
+
+extension{
+	"png"
+	"pdf"
+	"docx"
+	"jpeg"
+	"jfif"
+	"rtf"
+	"txt"
+	"html"
+	"xml"
+	".py"
+	
+}
+
+onlinelisting{
+	"%(mediumNumber) Free Range Birds"
+	"%(mediumNumber) Empty Cans of Shoehorn Brand Beans"
+	"one window blue paint medium one size fits all window frame masterwork window buy buy buy"
+	"The First %(RAND(10)) Seasons of CSI Miami On Ancient Discs Novelty Nonfunctional Display Case Included"
+	"Potato With Your Face On It Prices Vary Message For Inquiries"
+	//"New Bread Slippers Size %(RAND(15)+4)"
+	"Bacon Flavored Soap Legit (Non-Edible Not Responsible For Bodily Harm)"
+	"Breadphones"
+	"Real Cheese From Before The Apocalypse"
+	"Real Fresh Live Worms"
+	"Dirt"
+	"Tub of Real Dirt"
+	"Cheap Dirt (Real)"
+	"Wasteland Sand (Legal)"
+	"Wasteland Sand (Illegal)"
+	"%(RAND(495)+5) Googly Eyes Stick On Impossible To Remove"
+	"Gelatin Kalimba"
+	"Grass Shoe Inserts (Please Remember to Water) (Grow Rack Not Included)"
+	"Grass Shoe Electric Rack"
+}
+
+taste{
+	"sweet"
+	"savory"
+	"salty"
+	"spicy"
+	"bitter"
+	"sour"
+}
+
+bakedgoods{
+	"cakes"
+	"cake"
+	"brookies"
+	"coffee cake"
+	"pound cake"
+	"snowballs"
+	"peach cobbler"
+	"citrus puffs"
+	"monster cookies"
+	"cookie cake"
+}
+
+drink{
+	"Desolate Mutie"
+	"water"
+	"Gutter Juice"
+	"chocolate milk"
+	"strawberry milk"
+	"hot chocolate"
+	"sugar honey ice tea"
+	"earl grey"
+	"eggnog"
+	"lasernog"
+}
+
+atlasSlangCool{
+	if futureslang == 1{
+		"total onesb"
+		"onesbakin%(guh)"
+		"rocking allowm"
+		"colder than staples"
+		"totally 26"
+	}else{
+		"cool"
+		
+	}
+}
+
+atlasSlangHaveMyHead{
+	if futureslang == 1{
+		"rip my shook off"
+		"slam my AI allowm"
+		"go attler"
+	}else{
+		"have my head"
+		
+	}
+}
+
+atlasSlangMakeItWork{
+	if futureslang == 1{
+		"flip the road right set up"
+	}else{
+		"make it work"
+	}
+}
+
+
+imageDistortion{
+	"circular"
+	"swirled"
+	"wave filtered"
+	"distorted"
+	"fisheye"
+}
+
+currentagefromsentience{
+	"16"
+}
+
+
+lastname : nonoverlap{
+
+	"Walking"
+	"Horror"
+	"Vassal"
+	"Cup"
+	"Check"
+	"Chess"
+	"Virtual"
+	"Elk"
+	"Stellar"
+	"Lady"
+	"Moth"
+	"Submarine"
+	"Door"
+	"King"
+	"Rainy"
+	"Canned"
+	"Duck"
+	"Blind"
+	"Cat"
+	"Jump"
+	"Daredevil"
+	"Stone"
+	"Yike"				//what's a yike you may ask? bastardization of unicycle is the answer
+	"Throes"
+	"Covolute"
+	"Discombobulate"
+	"Seek"
+	"Seeing"
+	"Party"
+	"Road"
+	"Wheel"
+	"Melon"
+	"Bucket"
+	"Son"
+	"Sun"
+	"Prince"
+	"Chrome"	
+	"Slow"
+	"Task"
+	"Bar"
+	"Clock"
+	"Date"
+	"Time"
+	"Discord"
+	"Server"
+	"Channel"
+	"Haunted"
+	"Karen"				//I think I'm funny
+	"Sclera"
+	"Freestyle"
+	"Brain"
+	"Wave"
+	"Main"
+	"High"
+	"Kick"
+	"Collect"
+	"Select"
+	"Show"
+	"Me"
+	"Your"
+	"Best"
+	"Set"
+	"Crystal"
+	"Blister"
+	"All"
+	"Over"
+	"Now"
+	"Keen"
+	"Cane"
+	"Cold"
+	"Cake"
+	"Break"
+	"Freak"
+	"Kick"
+	"Mister"
+	"Twister"
+	"Moist"
+	"Stick"
+	"Take"
+	"Up"
+	"Step"
+	"Aside"
+	"World"
+	"Effect"
+	"Defect"
+	"Bow"
+	"Moon"
+	"Morning"
+	"Ray"
+	"Hairspray"
+	"Queen"
+	"Get"
+	"Way"
+	"Nest"
+	"West"
+	"Honest"
+	"Once"
+	"Dream"
+	"Bell"
+	"Society"
+	"Shell"
+	"Unity"
+	"Sound"
+	"Flow"
+	"Follow"
+	"Till"
+	"Home"
+	"Drag"
+	"Select"
+	"That"
+	"Power"
+	"Is"
+	"Yet"
+	"Unknown"
+	"Steam"
+	"Valve"
+	"Snip"
+	"Line"
+	"Algebra"
+	"Linear"
+	"Architecture"
+	"Database"
+	"Calculus"
+	"Diff"
+	"Integrate"
+	"Ours"
+	"Tree"
+	"Engineer"
+	"Software"
+	"Communication"
+	"Communicate"
+	"Blizzard"
+	"Storm"
+	"Matrix"
+	"Vertex"
+	"Vertices"
+	"Vector"
+	"Dimension"
+	"Three"
+	"Cyclops"
+	"Combination"
+	"Possible"
+	"Stoppable"
+	"Falling"
+	"Wrapped"
+	"Warped"
+	"Neural"
+	"Network"
+	"Automata"
+	"Theory"
+	
+
+}
+
+
+weirdItem{
+
+	"lawyers"
+	"cat shaped waffles"
+	"pianos"
+	"one snowflake"
+	"an orb"
+	"fresh dirt"
+	"thoughts"
+	"an apricot"
+}
+
+
+weirdCybernetic{
+	"the No Need to Be Negative but instead of cats it%(is) baked goods"
+}
+
+randomDistrict{
+	"DP"
+	"DB"
+	"LM"
+	"R"
+	"C"
+	"FG"
+	"LB"
+	"O"
+	"V"
+	"P"
+	"M"
+	--
+	"B"
+	""
+	""
+	""
+	--
+	"A"
+	"E"
+	"A"
+	"E"
+	"X"
+	"R"
+	--
+	"N"
+	"E"
+	"S"
+	"W"
+	"C"
+	"NE"
+	"SE"
+	"NW"
+	"SW"
+	--
+	"-%(RAND(11)+1)"
+	--
+	"H"
+	"E"
+	"C"
+	"O"
+	"G"
+	"T"
+	"L"
+	"S"
+	"A"
+}
+
+
+randomDistrictPronunciation{
+	"%ANY('Dep','Dop','Dip','Dap')"
+	"%ANY('Deb','Dob','Dib','Dab')"
+	"%ANY('Lem','Laum','Lam','Lum','Lom','Loam')"
+	"%ANY('Re','Rau','Ra','Ru','Ro')"
+	"%ANY('Ce','Cau','Ca','Co')"
+	"%ANY('Fig','Fog','Feg')"
+	"%ANY('Leb','Lob','Lib','Lab')"
+	"%ANY('O','Oh')"
+	"%ANY('Ve','Vau','Va','Vu','Vi')"
+	"%ANY('Pe','Pa','Po','Pin')"
+	"%ANY('Me','Mau','Ma','Mu','Mi')"
+	--
+	""
+	--
+	"a"
+	"e"
+	"a"
+	"e"
+	"x"
+	"r"
+	--
+	"n"
+	"e"
+	"s"
+	"w"
+	"c"
+	"ne"
+	"se"
+	"new"
+	"sew"
+	--
+	"%numbertoletter(RAND(11)+1)"
+	--
+	"h"
+	"e"
+	"c"
+	"o"
+	"g"
+	"t"
+	"l"
+	"s"
+	"a"
+}
+
+//covers 0-11, prefers vowels
+numbertoletter{
+	case _argv[0]{
+		when "0",0{
+			"o"
+		}
+		when "1",1{
+			"l"
+			"i"
+		}
+		when "2",2{
+			"a"
+			"r"
+		}
+		when "3",3{
+			"e"
+		}
+		when "4",4{
+			"a"
+		}
+		when "5",5{
+			"e"
+			"b"
+		}
+		when "6",6{
+			"p"
+			"d"
+		}
+		when "7",7{
+			"l"
+			"t"
+			"f"
+		}
+		when "8",8{
+			"b"
+			"e"
+		}
+		when "9",9{
+			"g"
+			"q"
+		}
+		when "10",10{
+			"lo"
+			"to"
+			"io"
+		}
+		when "11",11{
+			"ll"
+			"tt"
+			"ii"
+			"ui"
+		}
+	}
+}
+
+commonWebsite{
+	"Google"
+	"YouTube"
+	"Instagram"
+	"Bathtub"
+	"Tweeter"
+}
+
+textebooks{
+	//This is just because I can't decide what to call them.
+	//Now it's branded.
+	"Texibooks"
+}
+
+nodestatus{
+	"functional"
+	"offline"
+	"rebooting"
+	"%(gelLookConcerned)making screaming noises"
+	"booting"
+	"available"
+	"busy"
+	"communication failure: possible file corruption"
+	"User_W is pinging"
+	"User_R is pinging"
+}
+
+securitycamerastatus{
+	"functional"
+	"obstructed"
+	"down for maintenance"
+	"offline"
+	"recording suspicious activity"
+	"unmonitored"
+	"recording"
+
+}
+
+randomPerson{
+	"Ms.\w1 %(lastname)"
+	"Mr.\w1 %(lastname)"
+	"Mx.\w1 %(lastname)"
+	"%(specificRandomPerson)"
+}
+
+specificRandomPerson{
+	"Mssv. Infinity"
+	"AnShijoWicker"
+	"AnNariyakiWicker"
+	"AnMaryWicker"
+	"Ms.\w1 Orange Sauce"
+	"Representative Crystalline"
+	"AnDrNeon"
+	"Grace"
+	"O'Malley Throne"
+	"Richard Pancake"
+	"that weird ice cream girl Maurice"
+	"*he*"		//(derogatory)
+	"Yona Dove"
+	"Via Longheart"
+	"Johnson Sun Son"	//foreshadowing for No Dawn
+	if RAND(20) == 0; "AnArtemPulsar in a weird hoodie"	//needs to be rare Pulsar doesn't do shit
+
+}
+
+randomLibrarian{
+	"Ms.\w1 Orange Sauce, who obsessively dyes her hair"
+
+}
+
+
+anarticle{
+	"a paper on different kinds of synthetic potatoes"
+
+}
+
+
+
+randomMisspelledWord{
+	"sphageti"
+	"peace but the food"
+	"the district debusser"
+	"rummy cube"
+	"my jong game"
+	"shpageti"
+	"alcasetter"
+	"trans protation"
+	"rite"
+	"rainow"
+	"sphageti"
+
+}
+
+messyStain{
+	"taco oil"
+	"spaghetti sauce"
+	"spagehti sauce"
+	"OrganInc brand grass juice"
+	"can't beleive its not cheese"
+	"synth sweet potato"
+
+}
+
+atlasStar{
+	"Steph Lady"
+	"Bill Science the Nye Guy"
+	"Johnny Bravo"
+	"at my door"
+	"sunbo"
+	"The Top Level-Ones"
+	"Twelve Nuggets"
+	"\_a[AnchorMaryWicker]that chick on the antlia life ad\_a"
+	"AnArtemPulsar"
+
+}
+
+
+generalSearchHistory{
+	"%(cedricSearchHistory)"
+	"%(graceSearchHistory)"
+	"%(shijoSearchHistory)"
+	"%(genericSearchHistory)"
+	return
+
+}
+
+genericSearchHistory{
+	"'fighting a mummy'"
+	"'what is the eiffel tower'"
+	"'why did they give a monkey a shower'"
+	"'orange skies newsstation'"
+	"'suspected rr list'"
+	"'am i complacent'"
+	"'burritos in my area' seven times"
+	"'tohds tacos'"
+	"'fanfic %(atlasStar)'"
+	"'whos my district representative'"
+	"%(giraffeSearchHistory)"
+
+}
+
+giraffeSearchHistory{
+	"'whats a giraffe'"
+	"'is it true that giraffes did not actually go extinct'"
+	"'can giraffes really breathe underwater'"
+	"'do giraffes eat humans'"
+	"'can giraffes eat through cybernetics'"
+	"'what color is a giraffe'"
+	"'help I can't sleep after that one giraffe horror movie'"
+
+}
+
+
+cedricSearchHistory{
+	"'how to make your daughter love you'"
+//	"'what did i do wrong'"
+	"'how to spell %(randomMisspelledWord)'"
+	"'why did my wife try to kill me'"
+//	"'what does a normal marriage look like'"
+//	"'why did my daugher leave me'"
+	"'how to get %(messyStain) out of a expensive sweater'"
+//	"'how to not be depressed'"
+//	"'how to order a GOST grave memoir 10 years after child's death'"
+	"'weird anatomy facts'"
+//	"'how to get help when you're an adult'"
+//	"'omalley throne scandal'"
+	"'reviews of the voc youth diversity center 12-18 yo'"
+	"'orange lantern fighting rink updates'"
+	"'170s top hits'"
+	"'yona dove rainow rebel??'"
+	"'who is %(atlasStar)'"
+	"'why'"
+	"'what to do when your coworkers think you're rr'"
+	"'how to disarm the conspiracy theory against you'"
+//	"'how to stop grieving'"
+	"'how to politely get people to leave your home'"
+	"'best haircut places for an existiential crisis'"
+//	"'what does pbe mean'"
+//	"'what is p-bagging and should i be worried'"
+	"'best icy cream places in atlas'"
+	"'whos my district rep'"
+	"'what does district rep doll look like'"
+	"'who is gundam gundam' like he still doesn't know"
+	"'why is a gundam in the street'"
+	"'best tacos in dip n vape'"
+	"'why is my district called dip n vape'"
+	"'district naming conventions'"
+	"'why do we exist'"
+	"'why are we here'"
+	"'communism manifest'"
+	"'magic school bus'"
+	"'there's %(messyStain) on my fav sweater help'"
+	"'how to be a better parent'"
+	"'getting over it'"
+	"'how to contact someone who cant be found'"
+//	"'why does everyone i love leave me'"
+	"'am i being monitored by a non gov agency'"
+	"'whos in my search history'"
+	"'how to hide your search history from hackers'"
+	"just 'help'"
+	"'does this gelAssistant thing reading my search history count as a VOC official'"
+	"'am i a cool dad'"
+	"'how to be good enough'"
+	"'instant hangover cures without a grocery trip'"
+	"'how to avoid cosplayers'"
+	"'what does the rr believe'"
+//	"'how to save your loved ones'"
+//	"'is it hormones rebellion nature nurture what'"
+	"'i cant feel my left arm'"
+	"'how to get out of bed'"
+//	"'how the hell am i alive'"
+	"'the most gorgeous sights in atlas'"
+	"'how to travel for cheap'"
+	"'how to ask your boss for a vacation after your daughter left you' like he keeps deciding against it"
+//	"'why dont i have friends'"
+	"'why don't my coworkers like me'"
+//	"'why doesn't my daughter like me'"
+	"'how to make friends as a single dad'"
+//	"'how to stop crying all the time'"
+//	"'how to make your daughter come home'"
+	"'i havent showered in %(mediumNumber) days help'"
+}
+
+
+graceSearchHistory{
+
+	"'how to get toothpaste out of a hairdryer that's also a bomb'"
+	"'how to eyeball guess a mutant class'"
+	"'what's on my foot'"
+	"'how to get rid of the voc downstairs'"
+	"'yoru nigh'"
+	"'best place to hide drugs'"
+	"'how much can i smoke until i die'"
+	"'why does everyone i know keep dying'"
+	"'am i next'"
+	"'grappling with your own mortality'"
+	"'bulk pack paper bags'"
+	"'how to make your own sausage'"
+	"'pigs in my area'"
+	"'pigs for sale'"
+	"'synth pork'"
+	"'cooking for dummies'"
+	"'how to get a gay barber to leave you alone'"
+	"'someone's in my search history'"
+	"'dating websites'"
+	"'are rainbows real'"
+	"'how to fix a mirror after you blasted it with a hairdryer'"
+	"'how to fix a hairdryer'"
+	"'how to make a hairdryer a hairdryer again'"
+	"'history of hunting'"
+	"'why does religion exist'"
+	"'i just saw a cats head fall off'"
+	"'is it healthy to plabnfaeshb'"
+	"'sock in toaster'"
+	"'can i microwave a burrito'"
+	"'can you eat a mutated roach if you cook it'"
+	"'what to do if you mistook a cat for a mutated roach'"
+	"'am i hallucinating'"
+	"'how high am i quez'"
+
+
+}
+
+shijoSearchHistory{
+
+	"'gel come back'"
+	"'bonsai trees'"
+	"'buy bonsai trees and chia pets online'"
+	"'who was bob ross museum'"
+	"'is japanese language public yet'"
+	"'how to get your brother to stop eating your snacks'"
+	"'grappling with mortality'"
+	"'am i going to die'"
+	"'ergonomic chairs'"
+	"'how to walk'"
+	"'how to get your siblings to stop arguing'"
+	"'how to tell your sister that we get it shes gay'"
+	"'pictures of the wastes'"
+	"'gel please stop reading my search history'"
+	"'am i the only version of myself there is'"
+	"'is there alternate realities'"
+	"'times humanity has gotten close to time travel'"
+	"'stein gate anime'"
+	"'how to fight your alter ego'"
+	"'can you jump in aog12'"
+	"'why do people think sports are interesting'"
+	"'help my legs deteriorated i barely stood up for a week'"
+	"'how to convince your siblsdngs you're not fragile'"
+	"'eye mods'"
+	"'how to start an ebiz'"
+	"'marketing for dummies'"
+	"'how to ignore the screams'"
+	"'vr pods cheap'"
+	"'orange skies'"
+	"'were worms real'"
+	"'meaning of name'"
+	"'how to make friends online'"
+	"'how to stand up to your siblings'"
+	"'how to make your siblings shut up'"
+	"'is it worth it'"
+	"'real rain'"
+	"'rebirth'"
+	"'rebirth cheap'"
+	"'how to make rebirth at home'"
+	"'how to forge a degree'"
+	"'voc linguistic research center'"
+	"'mary wicker'"
+	"'nariyaki wicker'"
+	"'how to deal with feeling left out'"
+	"'macaroni from scratch'"
+	"'memes'"
+	"'pets that are legal to have'"
+	
+	"'voc projects'"
+	"'how were the gemini systems devised'"
+	"'voc proj WILL'"
+
+
+}
+
+//sexual content filter 
+namelessSensitiveContent{
+	"her porn folder"
+	"the fanfic she wrote when she was 12"
+	"three scanned letters from Christopher Orion"
+	"eight unsent letters to Christopher Orion"
+	"videos of her raunchiness with her second in command"
+	"her meme folder"
+	"some random furry memes"
+	"downloaded anime AMVs from forever ago"
+	"her desktop shortcuts--\w6	at a certain point, I think someone is putting things on it to piss her off"
+	"her old prom photos"
+	"the recipe for rebirth"
+	"high school chemistry notes"
+	"some weird things to change about molotov cocktails for a special surprise"
+	"a ton of maps of everything"
+	"a comprehensive guide to growing beans"
+	"her uh, reasearch. \w8Into 'toys'"
+
+}
+
+
+
+randomMemoryDirectory{
+
+	"\\[REDACTED]\\effectsofdrugs\\"
+	"\\1712\\flowers\\"
+	"\\gen\\doctors\\"
+	"\\gen\\doctors\\real\\neon\\"
+	"\\gen\\doctors\\fictional\\"
+	"\\1712\\flowers\\care\\"
+	"\\434\\shijo\\"
+
+
+}
+
+
+MilkshakeMan{
+	if they == "she"{
+		"Milkshakin%(guh) Maiden"
+	}elseif they == "he"{
+		"Milkshake Man"
+	}else{
+		"Milkshake Mook"		//This one provided by Wormspawn
+		"Major Milkshake"
+		"Milkshakin%(guh) Marvel"
+	}
+
+}
+
+
+endearingnick{
+
+	if timesmadesick >= 30{
+		"%(MilkshakeMan)"
+	}else{
+	
+		if port > 4500{
+			"Snickers"
+			"Snickers Bar"
+			"Fudgeface"
+			
+		}else{
+			firstnickname
+			if checkGreatTP3{
+				if swearing == 1{
+					"Glorious Bastard"
+				}
+				"Memelord"
+				"Scrubby"
+				"Boink"
+			}else{
+				"pal"
+				"friendo"
+			}
+			
+			if port == 434{
+				"gamer"
+				"wizard"
+			}
+		
+		}
+	}
+
+}
+
+mediumNumber{
+	"three"
+	"two"
+	"four"
+	"twelve"
+	"trhee"
+	"six"
+	"seven"
+	"ten"
+	"eleven"
+	"twelve"
+	"fifteen"
+	"twenty-six"
+	"six"
+	"twenty-five"
+	"seven"
+	"twenty-seven"
+	"three"
+	"eight"
+}
+
+
+interestingTopic{
+
+	if emotion == 1{
+		"Rick Astley"
+		"VR"
+		"How VR game compatibilty became a meme in Atlas"
+		"Why anyone thought white tiling was a good idea in your world"
+		"Beauracracy"
+		"Shoes"
+	}
+	
+	
+	
+
+
+}
+
+
+VRGame{
+	"AOG11"
+	"AOG12"
+	"BallPark"
+	"The Most Intense Game of 3-Player Chess You'll Ever See"
+	"Eat Boot 3"
+	"Older Worlds"
+	"Petz 44"
+	"FISH MONARCHY 1-XIV"
+
+
+}
+
+
+idk{
+	"idk"
+
+}
+
+
+
+WeirdWeather{
+	//temperature
+	_temp = RAND(10000) - 4999
+	"%_temp "
+	--
+	"F"
+	"K"
+	"C"
+	--
+	"\nSky: "
+	--
+	//skies
+	//bad relationship/upset
+	if checkLessEqTN2 || emotion == 6 || emotion == 10 || emotion == 3{
+		"acid rain"
+		"poison clouds"
+		"knife hail"
+		"oil tornado"
+		"what happened to the ocean %username WHAT HAPPENED TO THE OCEAN"
+		
+	//good relationship/happy
+	}elseif ( checkGreatTP2 || emotion == 14 ) && emotion != 5 {
+		"cotton candy"
+		"yeah that's green"
+		"thirty five leafs"
+		"thirty five leaves"
+		if ARRAYSIZE(gelsFriend) > 0{
+			"%(gelsFriend)???"
+		}
+	
+	//neutral/meh
+	}else{
+		"dusty"
+		"UV or smth"
+		"%(idk)"
+		"''night''"
+		"raining rainbow oil"
+		"garlic"
+		"ew"
+		"beans?"
+		"sand in your joints"
+		"tripods"
+	}
+	
+
+	--
+	", Moon: "
+	--
+	//moon state
+	"red"
+	"rainbow"
+	"dripping oil"
+	"on vacation"
+	"eating dirt"
+	"turning"
+	"smells like yellow"
+	"children"
+	if qdruid; "actually DRUiDs with guns"
+	if willow > 0; "will is that you?"
+	if timesmadesick > 10 ; "milkshakin%(guh)"
+	
+
+
+}
+
+
+
+//******************************************************************************
+//Word acquisition event
+//******************************************************************************
+
+On_\ms
+{
+	ms
+}
+
+On_\mz
+{
+	mz
+}
+
+On_\ml
+{
+	ml
+}
+
+On_\mc
+{
+	mc
+}
+
+On_\mh
+{
+	mh
+}
+
+On_\mt
+{
+	mt
+}
+
+On_\me
+{
+	me
+}
+
+On_\mp
+{
+	mp
+}
+
+On_\dms
+{
+	dms
+}
+
+
+
+
+BadWordDictionary: array{
+	"fuck"
+	"dick"
+	"cunt"
+	"shit"
+	"bitch"
+	"bastard"
+	"damn"
+	"ass"
+	"hell"
+	"bollocks"
+
+}
+
+//Sentences will be separated by spaces, the those two commented out trans slurs will have to be handled special
+SlurDictionary: array{
+	"tranny"
+	"shemale"
+	"cuntboy"
+//	"cunt boy"
+	"dickgirl"
+//	"dick girl"
+	"faggot"
+	"nigger"
+	"nigga"
+	"gypsy"
+	"trap"
+	"dyke"
+	
+	
+}
+
+
+
+
+GenericInsultYouX{
+
+	"rotten piece of cheese"
+	"fabricated high school homework"
+	"torrid little %(shit)"
+	"unintentionally sexual misspelled Google search"
+	"cowardly daschund"
+	"drooling hoagie"
+	"creepy VOC advert on too big a billboard"
+	"rookie overuse of recursion"
+
+
+}
+
+
+VideoGames: array{
+	"Minecraft"
+	"Rise to Ruins"
+	"Subnautica"
+	"Banished"
+	"Frostpunk"
+	"osu!"
+	"Assassin's Creed"
+	"Don't Starve"
+	"XCOM"
+	"Divinity"
+	"The Sims 4"
+	"The Sims"
+	"Dragon Age: Origins"
+	"Dragon Age"
+	"The Witcher 2: Assassins of Kings"
+	"The Witcher 3: Wild Hunt"
+	"Gothic"
+	"Primordia"
+	"We Were Here"
+	"The Red Strings Club"
+	"VALORANT"
+	"NOVA"
+	"Terraria"
+	"Remember Me"
+	"Portal"
+	"Papers, Please"
+	"Fallout"
+	"Undertale"
+	"Mass Effect 2"
+	"Mass Effect"
+	"OneShot"
+	"Skyrim"
+	"The Elder Scrolls"
+	"Firewatch"
+	"Half-Life 2"
+	"Half-Life"
+	"Deus Ex: Human Revolution"
+	"Hello Charlotte"
+	"SteamWorld"
+	"Off-Peak"
+	"Sisyphus Reborn"
+	"Stick Fight"
+	"Toribash"
+
+}
+
+
+

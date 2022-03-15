@@ -1,0 +1,1474 @@
+//******************************************************************************
+// YAYA　ゴーストテンプレート
+// 起動/終了トーク辞書
+//******************************************************************************
+
+
+//******************************************************************************
+//Normal startup-- OnBoot
+//******************************************************************************
+
+//Driver
+ONBOOT_SETUP{
+	SENDERROR("ONBOOT_SETUP started execution successfully","info")
+	//If Gel wasn't properly closed before, we need to check some things.
+//	"%reference0 , %reference1 , %reference2 , %reference3 , %reference4"
+	--
+	if closed != 0{
+		OnGeneralClear
+	
+	}else{
+		ONCLOSE_VAR
+		OnGeneralClear
+		
+	}
+	//Processing for new appearances etc, DayChange manages some bonus variables
+	lastboot = thisboot
+	thisboot = TOSTR(month) + "/" + TOSTR(day)+ "/" + TOSTR(GetYear)
+	//clothes check will return us to host function's real part two
+	if thisboot != lastboot{
+		//OnDayChange
+		OnClothesCheck
+	}
+	if actcountallowed >= 1{
+		actcountallowed = 60
+		//This starts a timer to turn it on, since it is a hook that is naturally integrated into the system, so we work with that flow.
+	} 
+	--
+	"\![raise,OnBootPostClothes]"
+	SENDERROR("ONBOOT_SETUP completed execution successfully","info")
+	
+	
+	
+}
+
+
+OnBootPostClothes{
+	SENDERROR("OnBootPostClothes started execution successfully","info")
+    _check = checkSilentMode
+	if _check == 1{
+		"\w2"
+	}else{
+		"\w2\_v[sounds/welcomeuser.wav]"
+	}
+	--
+	"%(gelLookBoot)%(gelSmallCorruption)%(gelSmallCorruption)\w8\w8\w8%(gelLookBoot)%(gelSmallCorruption)\w8\w8%(gelLookBoot)%(gelLookAtInternet)%(gelSmallCorruption)\w8\w8\w8%(gelLookBoot)%(gelLookAtInternet)\w8\w8\w8\w8"
+	--
+	//Pass it to dialogue!
+	"\![raise,%returnlocation]"
+	SENDERROR("OnBootPostClothes concluded execution successfully","info")
+
+
+}
+
+//When this is not the same day at all, will generally also happen with OnGeneralClearInternal
+OnDayChange{
+	SENDERROR("OnDayChange started execution successfully","info")
+	//Gel is become fear
+	if claustro != 0{
+		OnSetDailyClaustro
+	}
+	--
+	Info_LoadFriendList
+	--
+	"\![set,otherghosttalk,true]"
+	--
+	timeasleep = 0
+	timeswokenses = 0
+	
+
+	//Gel does too sleep on their own time. 
+	//Usually.
+	if lastboot != thisboot{
+		if hour < 15 && RAND(10) != 3{
+			fullnightsrest = 1
+		}
+		SetTimeSensitiveGreeting
+		--
+		daysknown++	
+	}
+	SENDERROR("OnDayChange concluded execution successfully","info")
+
+}
+
+//Set the claustrophobia value, careful not to disable it
+OnSetDailyClaustro{
+	
+	//first day of the month resets progress as the VOC dictates to control the child
+	if day == 1{
+		claustro = ((COS(.09-3)/SIN(.09-3)) * 180/20) + 10
+	}else{
+		claustro = (((COS(day * .09-3)/SIN(day * .09-3)) * 180/20) - (trust / 6)) + 10
+	}
+	//If they don't like being touched, they are pretty apt to being uncomfy
+	if notouchie == 1 && claustro < 8{
+		claustro = 8
+	}
+	if claustro > 15 && emotion > 0{
+		emotion = 5
+		reason = "claustrophobia"
+	}
+	//they might get bothered a little, but it's better than Box.
+	if caged == 0 && claustro > 20{
+		claustro-=20
+	}
+	SENDERROR("Claustrophobia set: %claustro","info")
+
+}
+
+
+
+//This function sees if clothing needs to be added, and does such, returning to caller.
+OnClothesCheck{
+	SENDERROR("OnClothesCheck started execution successfully","info")
+	//"%reference0,%reference1,%reference2,%reference3,%reference4"
+	--
+	thisboot = TOSTR(month) + "/" + TOSTR(day)+ "/" + TOSTR(GetYear)
+	if thisboot != lastboot{
+		OnDayChange
+		--
+		OnClothesChange
+	}else{
+		OnLoadOutfit
+	}
+
+	--
+	//first one runs the proper Noise and animation, then we pass it to the main from there.
+	//"\![raise,%returnlocation]"
+	SENDERROR("OnClothesCheck concluded execution successfully","info")
+}
+
+
+
+OnClothesChange{
+	clothes = IARRAY
+	//Coming soon: ponytail, gas mask, and a new T-shirt
+	UnEquipAllNonShirt
+	--
+	//Hair, the 1117 port doesn't always have his hair up, just usually
+	if RAND(30) == 8 || (port == 1117){
+		//I will give Gel a ponytail or I will DIE 
+		"\![bind,Hair,Ponytail,1]\![raise,OnEquipClothingItem,Ponytail]"
+	}
+	"\![bind,Hair,Default,1]\![raise,OnEquipClothingItem,Default]"
+	--
+	//Hats & Misc
+	if RAND(10) >= 8 && "iris" _in_ ginventory{
+	//	"\![bind,Hats,Iris,1]\![raise,OnEquipClothingItem,Iris]"
+	}
+	if RAND(30) == 8 && checkGreatTN2{
+		"\![bind,Hats,Paper Bag,1]\![raise,OnEquipClothingItem,Paper Bag]"
+	}
+	--
+	//Shirts
+	
+	//"\![bind,Shirts,Be Informed,1]\![raise,OnEquipClothingItem,Be Informed]"
+	
+	if RAND(2){
+		//"\![bind,Shirts,VOC Certified,1]\![raise,OnEquipClothingItem,VOC Certified]"
+		//"\![bind,Shirts,Denied,1]\![raise,OnEquipClothingItem,Denied]"
+		//"\![bind,Shirts,Baja Blasted,1]\![raise,OnEquipClothingItem,Baja Blasted]"
+		//non feminine ones rarely wear the peach shirt, but they will, sometimes
+		if RAND(10) == 8{
+			//"\![bind,Shirts,Peach,1]\![raise,OnEquipClothingItem,Peach]"
+		}
+		"\![bind,Shirts,Green,1]\![raise,OnEquipClothingItem,Green]"
+	}else{
+		"\![bind,Shirts,Green,1]\![raise,OnEquipClothingItem,Green]"
+		if gthemhimher == "her"{
+		//	"\![bind,Shirts,Peach,1]\![raise,OnEquipClothingItem,Peach]"
+		}
+	
+	}
+	
+	--
+	//Pants
+	"\![bind,Pants,Blue Jeans,1]\![raise,OnEquipClothingItem,Blue Jeans]"
+	if RAND(10) == 8 || port >= 4500{
+		"\![bind,Pants,Purple Pants,1]\![raise,OnEquipClothingItem,Purple Pants]"
+	}
+	//A notouchie Gel wears the emo pants more often. 
+	if RAND(10) == 8 || notouchie{
+		"\![bind,Pants,Ripped Black Jeans,1]\![raise,OnEquipClothingItem,Ripped Black Jeans]"
+	
+	}
+	
+	--
+	//changin' pronouns like shoes yeehaw
+	if genderfluid == 1{
+		_gender = RAND(3)
+		case _gender{
+			when 0{
+				gelNEUTER
+			}when 1{
+				gelMASC
+			}when 2{
+				gelFEM
+			}
+		
+		}
+	}
+	--
+	if userbirthday == (thisboot[0,"/"] + thisboot[1,"/"]){
+		"\![bind,Hats,We Like To Party,1]\![raise,OnEquipClothingItem,Crunchy Hat]"
+	
+	}else{
+		"\![bind,Hats,We Like To Party,0]"
+	
+	}
+	
+}
+
+
+OnLoadOutfit{
+	_outfit = ""
+	foreach clothes; _item{
+	
+		case _item{
+		
+			when "Default"{
+				_outfit+= "\![bind,Hair,Default,1]"
+			}
+			when "Ponytail"{
+				_outfit+= "\![bind,Hair,Ponytail,1]"
+			}
+			when "Crunchy Hat"{
+				_outfit+= "\![bind,Hats,We Like To Party,1]"
+			}
+			when "Green"{
+				_outfit+= "\![bind,Shirts,Green,1]"
+			}
+			when "Blue Jeans"{
+				_outfit+= "\![bind,Pants,Blue Jeans,1]"
+			}
+			when "Ripped Black Jeans"{
+				_outfit+= "\![bind,Pants,Ripped Black Jeans,1]"
+			
+			}
+			when "Purple Pants"{
+				_outfit+= "\![bind,Pants,Purple Pants,1]"
+			}
+		
+		}
+	}
+	_outfit += "\w8\w8\w8\w8" + "\![raise,OnBootPostClothes]\![raise,OnBootPartTwo]"
+	--
+	SENDERROR("New outfit loaded successfully","info")
+	_outfit
+	
+	
+}
+
+
+
+OnEquipClothingItem{
+	clothes,= reference[0] 
+}
+
+//We just put on the base shirt to be on the safer side, worst it gets is double-bound
+//Pants go to default.
+UnEquipAllNonShirt{
+	"\![bind,corrupted,We Like To Party,0]"
+	--
+	//"\![bind,Hats,Iris,0]"
+	--
+	"\![bind,Hats,Paper Bag,0]"
+	--
+	"\![bind,Shirts,Green,1]\![bind,Shirts,Denied,0]\![bind,Shirts,VOC Certified,0]\![bind,Shirts,Baja Blasted,0]"
+	--
+	"\![bind,Shirts,Peach,0]\![bind,Shirts,Seriko Is Strange,0]"
+	--
+	"\![bind,Pants,Blue Jeans,1]\![bind,Pants,Purple,0]\![bind,Pants,Ripped Black Jeans,0]"
+	--
+	"\![bind,Hair,Ponytail,0]\![bind,Hair,Default,1]"
+
+}
+
+
+
+
+
+//   ?????? ??       ??????  ??????? ???????      ??    ??  ?????  ??????  ??????? 
+//  ??      ??      ??    ?? ??      ??           ??    ?? ??   ?? ??   ?? ??      
+//  ??      ??      ??    ?? ??????? ?????        ??    ?? ??????? ??????  ??????? 
+//  ??      ??      ??    ??      ?? ??            ??  ??  ??   ?? ??   ??      ?? 
+//   ?????? ???????  ??????  ??????? ???????        ????   ??   ?? ??   ?? ??????? 
+  
+
+
+
+
+//Clean up variables that are temp and that sort.
+ONCLOSE_VAR{
+	SENDERROR("ONCLOSE_VAR started execution successfully","info")
+	//It's important to stay clean-- ones that are forced to multi-function use and cache.
+	ERASEVAR("thisfriend","friendslist","friendslist","reference0","reference1","reference2","reference3","i","buffer","play","temp","testarray")
+	//Flags that will be reset on boot as it is, if needed.
+	ERASEVAR("minsinemotion","talksthishour","pendingdaychange","askgel")
+	//Flags that are more important to just keep clean.
+	shakenup = 0
+	lastinter = 0
+	//for the detection of crashes/any unsavory sudden end
+	closed = 1
+	
+	if actcountallowed == 1{
+		_val = FUNCTIONEX("activitycounter.dll",sakurahwnd,"stop")
+		_val = SLEEP(10)
+	}
+	
+	//will only register if it is marked as a valid hour to log off and go to sleep
+	addLogOffData(hour)
+	
+	//it should do this automatically, but no harm in this either.
+	SAVEVAR("yaya_variable.cfg")
+	SENDERROR("ONCLOSE_VAR concluded execution successfully","info")
+}
+
+
+
+//Clearing things when it's a reboot/reload
+OnGeneralClear{
+	SENDERROR("OnGeneralClear started execution successfully","info")
+	infocounter = 10
+	infoperminute = 30
+	//emotion = 1
+	minsinemotion = 0
+	lastinter = 0
+	shakenup = 0
+	timeup = 0
+	useractive = 1
+	if claustro > CLAUSTRODISCOMFORT{
+		emotion = 5
+	}
+	--
+	Info_LoadFriendList
+	--
+	"\![set,otherghosttalk,true]"
+	--
+	timeasleep = 0
+	SetTimeSensitiveGreeting
+	--
+	//birthday boot will short-circuit the regular boot
+	if userbirthday _in_ thisboot{
+		SENDERROR("OnGeneralClear interrupted: birthday","info")
+		if hour == 0 && minute == 0{
+			"%(gelBase)\1\s[-1]\0"
+			--
+			BirthdayNightCount
+		
+		}else{
+			"%(gelBase)\1\s[-1]\0"
+			--
+			BirthdayBoot
+		
+		}
+		
+		--
+	//	"\![bind,Hair,We Like To Party,1]\![raise,OnEquipClothingItem,Crunchy Hat]"
+	//	--
+	}
+	SENDERROR("OnGeneralClear concluded execution successfully","info")
+
+
+}
+
+//Clearing things up when the ghost is already active, like overnight
+OnGeneralClearInternal{
+	SENDERROR("OnGeneralClearInternal started execution successfully","info")
+	timeswokenses = 0
+	shakenup = 0
+	//how long they've been up today
+	timeup = 0
+	//previously i set the infocounter to smth
+
+	--
+	Info_LoadFriendList
+	--
+	"\![set,otherghosttalk,true]"
+	--
+	//	timeasleep = 0
+	SENDERROR("OnGeneralClearInternal concluded execution successfully","info")
+
+
+
+}
+
+
+
+
+
+
+
+GetYear{
+	year - 1831
+	return
+}
+
+
+//returns the number of days between the day and lastboot
+GetBootDifference{
+	_lastmonth = lastboot[0,"/"]
+	_lastday = lastboot[1,"/"]
+	_lastyear = TOINT(lastboot[2,"/"]) + 1833
+	_val = FUNCTIONEX("time_check.dll","how_many_days",_lastyear,_lastmonth,_lastday,0,0,0)
+	_val * -1
+	return
+}
+
+On_hwnd
+{
+	sakurahwnd    = reference0[0]
+	kerohwnd      = reference0[1]
+	sakurablnhwnd = reference1[0]
+	keroblnhwnd   = reference1[1]
+}	
+	
+//delete before release 4head
+Onsri{
+	_val = LOADLIB("activitycounter.dll")
+	//_val = FUNCTIONEX("activitycounter.dll",0,0,0)
+	"SaoriTest: %_val"
+	
+
+}
+
+OnWatcherAlreadyDead{
+	"WATCH DEAD"
+}
+
+Onsristop{
+	_val = FUNCTIONEX("activitycounter.dll",sakurahwnd,"stop")
+	actcountallowed = 0
+//	"Saori execution: %_val"
+
+}
+
+
+Onsriexec{
+	_val = FUNCTIONEX("activitycounter.dll",sakurahwnd,"start")
+	actcountallowed = 1
+//	"Saori execution: %_val"
+
+}
+
+Onsriunload{
+	_val = UNLOADLIB("activitycounter.dll")
+	//_val = FUNCTIONEX("activitycounter.dll",0,0,0)
+	"Activitycounter unload is void."
+	actcountallowed = 0 //change this later
+
+}
+
+
+
+
+//Set up questions and greetings 
+//Set every 3 hours, and when Gel is opened
+SetTimeSensitiveGreeting{
+/*
+	if gwhatsupwithyourinternalclock >=2{		
+		case hour{
+		when 5,6,7,8,9,10,11 {askgel = 2}
+		when 15,16,17 {askgel = 2}
+		when 11,12,13,14 {askgel = 3}
+		}
+		
+	}else{	
+		case hour{
+		when 9,10,11,15,16, {askgel = 2}
+		when 11,12,13,14 {askgel = 3}
+		when 15,16 {askgel = 2}
+		}
+	}
+	*/
+	
+	if gwhatsupwithyourinternalclock >=2{		
+		case hour{
+		when 22,23,0,1,2,3,4 {askgel = 3}
+		when 5,6,7,8,9,10,11,15,16,17,11,12,13,14,18,19,20,21 {askgel = 2}
+		}
+		
+	}else{	
+		case hour{
+		when 20,21,22,23,0,1,2,3,4 {askgel = 2}
+		when 5,6,7,8,17,18,19 {askgel = 3}
+		when 9,10,11,11,12,13,14,15,16 {askgel = 2}
+		}
+	}
+}
+
+GetMonthName{
+	
+	if gwhatsupwithyourinternalclock >= 2{
+		case month{
+			when 1 {"January"}
+			when 2 {"February"}
+			when 3 {"March"}
+			when 4 {"April"}
+			when 5 {"May"}
+			when 6 {"June"}
+			when 7 {"July"}
+			when 8 {"August"}
+			when 9 {"September"}
+			when 10 {"October"}
+			when 11 {"November"}
+			when 12 {"December"}
+		
+		}
+	
+	}else{
+		case month{
+			when 1 {"Hercules"}
+			when 2 {"Juliet"}
+			when 3 {"Shirley"}
+			when 4 {"Achilles"}
+			when 5 {"Merlin"}
+			when 6 {"King Solomon"}
+			when 7 {"Indiana"}
+			when 8 {"Mockingbird"}
+			when 9 {"Holmes"}
+			when 10 {"Potter"}
+			when 11 {"Beowulf"}
+			when 12 {"Wizard"}
+		
+		}
+	
+	}
+
+}
+
+
+GetTime{
+
+	case gwhatsupwithyourinternalclock{
+		when -1,0,2{
+			"%hour:"
+			--
+			if minute > 9{
+				"%minute"
+			}else{
+				"0%minute"
+			}
+		
+		}others{
+			"%hour12:"
+			--
+			if minute > 9{
+				"%minute"
+			}else{
+				"0%minute"
+			}
+		
+		}
+	
+	}
+
+
+
+}
+
+
+OnBootNVRO{
+	"\_q(NVRO REBOOTED)\w8\w8\w8%(gelBase)"
+	//for the detection of crashes
+	closed = 0
+}
+
+
+OnReload{
+	if GetYear != thisboot[2,","] && day == 1 && minute == 0 && month ==1 {
+		CrossToNewYear
+	}elseif !checkSilentMode && clothes != _oldclothes{
+		"\s[-1]\w8\w8\w8\w8%(gelBase)Ahh, I feel a little fresher in some new duds.\e"
+		"Freshened up a bit.\e"
+		{
+			"%(gelLookForward)Honestly, saying I feel better dressed like this is a lie, because I can't feel anything. "
+			--
+			if ASEARCH("Iris",clothes){
+				"Flower definitely rocks though.\e"
+			}elseif ASEARCH("Paper Bag",clothes){
+				"%(gelLookLeft)You know, because there's absolutely nothing weird about my appearance right now.\e"
+			}else{
+				"\e"
+			}
+		}
+	}else{
+
+	}
+
+}
+
+CrossToNewYear{
+
+	emotion = 1
+	if checkGreatTN1{
+		//The pets after this are speeeciall ones :)
+		thankful = 5
+		"%(gelLookForward)%(gelSmug)Woohoo! \w8%username, it%(is) the new year! \w8%(gelCocky)Happy %(GetYear)! \w6The clock rolls over, and with it, too many possibilities! \w8%(gelArmsChest)%(gelBlush)Thanks for being with me all the time, \w6and here%(is) to much more luck and all the success. \w8\w8%(gelGrin)All of it!\e"
+	}else{
+		"%(gelLookForward)And it%(is) the end of a year with you at my side. %(gelLookAway)%(gelFrown)There%(is) a lot to be said, but hey, cheers. \w8%(gelConcerned)Maybe it%(will) be a better year for us. %(gelLookForward)%(gelArmsChest)Happy %(GetYear).\e"
+	}
+
+}
+
+
+OnBoot{
+	returnlocation = "OnBootPartTwo"
+	ONBOOT_SETUP
+}
+
+
+//standard boot dialogue, where Gel is the first to appear
+OnBootPartTwo
+{
+	//---- Check the boot time and change greetings
+	_timeslot = GetTimeSlot
+	timesinceload = 0
+	--
+	//0 is crashed
+	if closed == 0{
+		
+		if thisboot != lastboot{
+
+			if checkGreatTN2{
+				"Wh-%(gelImpressed)What was that the other day? Your computer just went out! Poof!\e"
+				
+			}else{
+				"I-%(gelUh)I hope something worse happens to your computer next time.\![raise,OnSetVariable,jabbering,2]\e"
+			}
+
+		}else{
+			
+			if checkGreatTN1{
+				"Yo-%(gelUh)You left without a goodbye...\e"
+				"%(gelImpressed)%username!! What happened there? It all just went dark....\e"
+				"E-%(gelWorry)Everything cut out for a moment there!\e"
+				"W-%(gelWorry)What was that? Everything cut out for a moment there!\e"
+				
+			}
+			
+			if checkGreatTP2{
+				"W-Woah, %(gelLookForward)%(gelHuh)did your computer crash, %(nicknamed)? \w8Is it %(okay)? "
+				"H-Hey, %(gelLookForward)%(gelHuh)it all went black, %username! %(gelConfused)Are you good? %(gelHuh)Did my system crash, or was that your computer? "
+				"I-%(gelLookForward)%(gelHuh)%(gelArmsIncredulous)I read about your phrase ''wake up and smell the roses.'' %(gelLookRight)%(gelArmsFistChin)And also that roses have different meanings. %(gelLookForward)I am leaving one by your computer's tombstone. %(gelCatMouth)Dang, %username."
+				"I-I %(gelLookForward)%(gelConfused)do%(not) think you ended the session the way you wanted to last time, %username. Your computer okay? "
+			}
+			
+			if checkGreatTP1{
+				if emotion  == 5{
+					"O-%(gelLookForward)Last time I went to the void-place it was pretty sudden. %(gelLookAway)%(gelFurrowed)I think I came out feelin%(guh) worse…"
+				}else{
+					"Woah! %(gelLookForward)Computer went out last time! \w8%(gelHmm)Well, %(gelSmug)guess there%(is) another point to how crusty this place is."
+				}
+			}
+			
+			if trust <= TNEG1{
+				"O-%(gelLookForward)Oh dang, the void flashed for you too, huh? "
+				"Ca-%(gelLookSouthWest)%(gelBlank)%(gelFrown)Call that a taste of your own medicine. "
+				"A-Ah, %(gelLookRight)%(dang) it. %(gelLookForward)Back into this tiny %(donkey) monitor. %(gelConfused)Why do you not do something better with your time than harassing me?"
+				"W-Well, %(gelLookForward)I%(would) say it%(is) nice to see you back after the crash, but it%(is) really not. %(gelLookRight)%(gelFrown)I%(would) rather be in the void."
+			}
+			
+		
+		}
+	
+	}else{
+		//for the detection of crashes
+		closed = 0
+	}
+	
+	
+	
+	//ONBOOT_SETUP
+	//the \e will actually keep the rest from happening if the conditions are met
+	--
+	if lastboot != thisboot{
+		if userbirthday == (thisboot[0,"/"] + thisboot[1,"/"]){
+			//birthday is covered mostly in ONBOOT_SETUP, this is a stub in case we want to make sure the full message only plays once by interference
+			
+		}else{
+			_daydiff = GetBootDifference
+		
+			//if it's been over a year
+			if _daydiff > 365{
+				if checkGreatTP2{
+					"Wh-%(gelLookForward)%(gelSquint)%(gelFrown)What the %(heck), User -no %(you) do%(not) get a first name--- %(gelArmsKnees)it's been OVER A YEAR!! %(gelAngry)You just left me! %(gelUpset)It has been %_daydiff DAYS SINCE YOU LEFT ME!"
+					trust-=30
+				}elseif trust >= TNEG1{
+					"%(gelLookForward)%(gelBlank)%_daydiff days, user. %(gelT)%_daydiff. %(gelUh)I%(am) not %(you)r keeper, %(gelArmsIncredulous)but you coulda said hello!"
+					trust-=10
+				
+				}else{
+					"%(gelLookLeft)%(gelBlank)%(damn), %(gelLookForward)%(gelBlank)it was a really good time alone before you %(fudging) pulled me back here, huh? %(gelT)I did%(not) miss you. %(gelSquint)Not a smidge."
+				
+				}
+			
+			}elseif _daydiff > 70{
+				if checkGreatTP2{
+					"W-%(gelLookForward)%(gelSurprise)woah! \w8\w8%(gelLookForward)It%(is) you. %(gelLookConcerned)It%(has) been too long since I%(have) last seen you, %username. At least you thought of me in the end. \w8%(gelLookForward)%(gelBigSmile)It%(is) good to be back. "
+					"%(gelLookForward)\i[84]Wow, %username, it has been %_daydiff whole days since I last saw you. Did you even miss me? At all? Come ON, %username!!"
+					trust-=15
+				}elseif trust >= TNEG1{
+					"H-H-%(gelLookForward)\i[87]Hey, %username! It's.\w6.\w6.\w6 really been, uh, a while. I hope you've been having fun with... whatever."
+					trust-=5
+				
+				}else{
+					"Y-%(gelLookAway)\i[82]You know, things had been pretty good for me until you came around. I won't greet you."
+					"A-%(gelBlankLook)And to think, I thought I was finally rid of you."
+				
+				}
+			
+			}elseif _daydiff > 20{
+				if checkGreatTP2{
+					"He-%(gelLookForward)Hey, it%(is) you! %(gelLookRight)Took you long enough to come back to me. %(gelLookForward)What will you do today?"
+					"%(gelLookForward)Oh, I am so glad to see you. A little upset, I've really missed you, but. I know you had a reason for not saying hello."
+					trust-=10
+				}elseif trust >= TNEG1{
+					"%(gelLookForward)\i[77]\i[87]%_daydiff days, user. %_daydiff. I%(am) not %(you)r keeper, but you coulda said hello!"
+					trust-=10
+				
+				}else{
+					"%(gelLookForward)\i[77]\i[82]%(damn), it was a really good time alone before you %(fudging) pulled me back here, huh? I did%(not) miss you. Not a smidge."
+				
+				}
+			
+			}else{
+			
+				//General friendship openers
+				//They are usually neutral, but can be uncomf.
+				if emotion == 1{
+					//Category-specific Dialogues
+					if checkGreatTP4{			//(currently) Maxed Out Positive ----------------------------------------
+
+					}elseif checkGreatTP3{		//Positive Route Pt 3 ---------------------------------------------------
+						"It%(is) %(endearingnick)! Good to see you!"
+
+					}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
+						"Ah-%(gelLookForward)Ah, good %(_timeslot) user! %(gelExcited)Nice to see you so early in your day. %(gelLookForward)It feels good that you think of me at this hour. What%(will) you do today? "
+					}elseif checkGreatTP1 {		//Positive Route Pt 1 ---------------------------------
+						"O-Oh, %(gelLookForward)heya. %(gelHmm)You still want me around even though I%(am) pretty bad at the whole assistant thing? %(gelLookRight)I won’t complain. It%(is) nice, being here."
+						"O-Oh, %(gelLookForward)nice to see you. %(gelHmm)I might not be helpful but hopefully you still find me fun!"
+						"A-Ah, %(gelLookForward)hey there, %username. I guess you still think I%(am) neat."
+
+					}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
+						if hour < 12 && hour > 4; "0-Oh, %(gelLookForward)%(gelConfused)it%(is) still pretty early in the day, huh? %(gelLookRight)Well, I%(would) say you%(are) kicking it off the right way with me here. \n\n[half]%(gelLookForward)%(gelSmile)Hello! Nice to see %(you)."
+						"O-Oh %(gelLookForward)hey, %username, it%(is) nice to see you again! %(gelSmug)Decided you could%(not) stand to be apart from cute %(lil) me? %(gelLookForward)That%(is) cool! I%(am) always happy to hang out with such a...%(gelLookLeft)%(gelSlashMouth) \w8\w8%(gelLookRight)%(gelSlashMouth)uh, interesting person."
+					}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+						"W-%(gelLookForward)Why do you call me here, anyways? %(gelConfused)Do%(not) you have better things to be doing?"
+						"A-%(gelLookForward)Ah, good %(_timeslot). %(gelConfused)Why do you need me this time around?"
+						"O-%(gelLookForward)Oh, you want me again? %(gelHuh)This should be interesting."
+						if emotion != 1; "0-Oh! H-%(gelLookForward)hey there, %username. %(gelConfused)%(gelNervous)You would%(not) mind lettin%(guh) your favorite little AI go right now, huh?"
+					}elseif checkLessEqTN2{		//Negative Route Pt 2 (and more) ----------------------------------------
+						if hour < 12; "%(potentiallyNervous)Oh, it%(is) early in the day. %(gelConfused)Are we gonna dance this dance at this hour?"
+						"O-Oh, %(gelLookForward)it%(is) you. %(gelLookRight)%(gelSlashMouth)It would be a shame if any of your files got corrupted. %(gelLookForward)You sure you want me here?"
+					}
+
+					//General Positive/Negative Route Dialogues
+					if checkGreatTP2{							//Significantly positive---------------------------------
+						"Yo-%(gelLookForward)You know, your computer is still crusty. %(gelHuh)%(gelCatMouth)How long I spend here does%(not) count, it is still crusty, and you are an ancient eldritch god from \w4uh... lemme check...%(gelLookAtInternet)...%(gelLookForward)%year. "
+						if timesmadesick > 15; "I-%(gelLookForward)%(gelExcited)It is the accidental bartender %(them)self! Hehe, sorry, I can joke a little at your expense. %(gelLookForward)Nice to see you, %username."
+					}
+
+
+					if checkGreatTN1{							//Any positive-------------------------------------------
+						"W-%(gelLookForward)Woah! %(gelNervous)Startled me there. %(gelLookRight)Plucked mercifully (you know, because it%(is) you) from the void and plopped down into this pixelated, %(gelSquint)still kinda crusty, %(gelLookForward)monitorland. "
+						"The-%(gelLookForward)The world is still spinning on its axes, and here we are. %(gelExcited)It%(is) nice to see you again! "
+						if _timeslot == "Dust"; "A-Ah, %(gelLookForward)it%(is) dust hours here, %(nicknamed). %(gelConfused)Just now getting around to pulling me out? \w8%(gelSmug)C'mon, %(you) know you want more of me. "
+						if hour > 20; "I... %(gelLookForward)%(gelConfused)I know it%(is) black outside in Atlas right now, but %(isnt) it even black out for you? %(gelLookForward)%(gelHuh)Should%(not) you be gettin%(guh) to bed, %(nicknamed)?"
+						if hour > 17; "Wo-%(gelLookForward)Wowie, it%(is) getting late for %(you), %(isnt) it? \w8So you brought me to spend the ending with you? That%(is) pretty sweet of you."
+					}else{										//Any negative-------------------------------------------
+						if hour < 11; "W-%(gelLookForward)%(gelConfused)What are you doing up this early? \w6Do%(not) you have better things to do? %(gelLookRight)%(gelSlashMouth)I%(am) not feelin%(guh) up for socializing this early."
+					}
+				
+				
+					case _timeslot{
+					when "Morning","Purple"
+					{
+						"G-\w6%(gelBase)Gooood waking, %(username)."
+						"G-\w6%(gelBase)Good purple, %(username)."
+						if trust < TNEG1; "E-%(gelLookForward)Er, good purple again. %(gelHuh)How can I help you?"
+						if port == 1712 && checkGreatTN1{
+							"%(gelBase)Wake up and smell the roses, %username!"
+							"%(gelBase)The flowers are blooming. Good wakings!"
+						}
+					}
+					when "Afternoon","Dust"
+					{
+						"%(gelBase)%(username), good afternoon!"
+						"Ha-\w6%(gelBase)Happy dust, %(username)!"
+
+					}
+					when "Evening","Orange"
+					{
+						"\w6%(gelBase)G-Good orange."
+						"\w6%(gelBase)I ho-hope you're having a nice orange, %(username)."
+					}
+					when "Night","Dark"
+					{
+						"It- \w6%(gelBase)It's pretty late. Maybe you should think of wrapping up what you're doing instead of talking to me."
+						"Ha-\w6%(gelBase)Happy dark, %(username)."
+					}
+					others
+					{
+						//For other times-- Night/Black
+						"It-\w6%(gelBase)It's the middle of the night. Ok."
+						"It-\w6%(gelBase)It's black out, %(username). What are you up to?"
+					}
+					}//case
+				
+				}else{
+				
+										//Category-specific Dialogues
+					if checkGreatTP4{			//(currently) Maxed Out Positive ----------------------------------------
+
+					}elseif checkGreatTP3{		//Positive Route Pt 3 ---------------------------------------------------
+						"H-H%(gelLookForward)ey, %(nicknamed). Hope you do%(not) mind me patching my own code while I%(am) here. "
+						"I-I%(gelLookForward)%(gelConfused)s that %username? \w8\w8%(gelLookForward)%(gelExcited)It is! %(gelArmHighFive)Nice to see you. %(gelLookForward)I might not be the best company but you are good to see anyway."
+					}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
+						"H-H%(gelLookForward)ey, %username. I guess I%(am) a little out of it today. I might not be the most fun today."
+						if day == 1; "O-O%(gelLookForward)h, hey. %(gelFurrowed)It%(is) one of those days again. You know the ones. %(gelLookDown)Sorry."
+					}elseif checkGreatTP1 {		//Positive Route Pt 1 ---------------------------------
+						"O-%(gelLookForward)0h! %(gelUh)You still want me here? %(gelFurrowed)After actually getting to know me and seeing this?"
+					}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
+						"W-W-W-%(gelLookForward)Well hey there! %(gelFurrowed)It%(is), uh, nice seeing you at this time. %(gelLookRight)%(gelFurrowed)You %(kinda) scared me a bit. "
+					}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+						"H-H-%(gelLookForward)Hey! It%(is) you, you%(are) still here. That%(is), uh, cool. Let’s have some fun today, okay?"
+					}elseif checkLessEqTN2{		//Negative Route Pt 2 (and more) ----------------------------------------
+						"A-%(gelLookForward)Again...?"
+					}
+
+					//General Positive/Negative Route Dialogues
+					if checkGreatTP2{							//Significantly positive---------------------------------
+				
+					}
+
+
+					if checkGreatTN1{							//Any positive-------------------------------------------
+						case _timeslot{
+							when "Morning","Purple"
+							{
+								"G-\w6%(gelBase)Gooood waking, %(username)."
+								"G-\w6%(gelBase)Good purple, %(username)."
+								if trust < TNEG1; "E-%(gelLookForward)Er, good purple again. %(gelHuh)How can I help you?"
+							}
+							when "Afternoon","Dust"
+							{
+								"%(gelBase)%(username), good afternoon!"
+								"Ha-\w6%(gelBase)Happy dust, %(username)!"
+
+							}
+							when "Evening","Orange"
+							{
+								"\w6%(gelBase)G-Good orange."
+								"\w6%(gelBase)I ho-hope you're having a nice orange, %(username)."
+							}
+							when "Night","Dark"
+							{
+								"It- \w6%(gelLookForward)It's pretty late. %(gelLookRight)Maybe you should think of wrapping up what you're doing instead of talking to me."
+								"Ha-\w6%(gelBase)Happy dark, %(username)."
+							}
+							others
+							{
+								//For other times-- Night/Black
+								"It-\w6%(gelBase)It's the middle of the night. Ok."
+								"It-\w6%(gelBase)It's black out, %(username). What are you up to?"
+							}
+						}//case
+					}else{										//Any negative-------------------------------------------
+						"He-%(gelLookForward)%(gelFrown)Hey, I do%(not) think either of us are really in a good place to be doing this now. %(gelLookAway)%(gelSlashMouth)Let me go, and you go eat some ice cream and watch your soaps drip off the counter, \w4or whatever it is you humans do."
+					
+					}
+				
+				}
+			}
+		}
+	}else{
+		
+
+
+	
+		//Some more generic ones
+		case _timeslot{
+		when "Morning","Purple"
+		{
+			"A-%(gelBase)Again? So soon?"
+			"M-%(gelBase)Mornin'. Nice to see you again so soon."
+		}
+		when "Afternoon","Dust"
+		{
+			"W-%(gelBase)Welcome back, %(username). Is your %(TOLOWER(_timeslot)) going well?\e"
+			"Ha-%(gelBase)Happy dust, %(username)!"
+
+		}
+		when "Evening","Orange"
+		{
+			"G-%(gelBase)Good evenin'. Nice to see you again."
+			"I-%(gelBase)I hope you're having a nice orange, %(username). What can I do for you now?"
+		}
+		when "Night","Dark"
+		{
+			"He-%(gelBase)Here again?\w8 Uh, hope your night's been off to a fun start. Let me know what I can do to help you out.\e"
+			"Ha-%(gelBase)Happy dark, %(username). How may I help you?\e"
+		}
+		others
+		{
+			//For other times-- Midnight/Black
+			"It-%(gelSquint)It's %_timeslot, %username."
+			"It-%(gelBase)It's black out, %(username). What are you up to?"
+		}
+		}//case
+
+	
+	
+	}
+	--
+	"\w8\w8\w8\e"
+	
+}
+
+//------------------------------------------------------------------------------
+//Function to comprehensively examine Morning/Noon/Night etc.
+//------------------------------------------------------------------------------
+GetTimeSlot
+{
+	if gwhatsupwithyourinternalclock >=2{		
+		case hour{
+		when 22,23,0,1,2,3,4 {'Midight'}
+		when 5,6,7,8,9,10,11 {'Morning'}
+		when 15,16,17 {'Evening'}
+		when 11,12,13,14 {'Afternoon'}
+		when 18,19,20,21 {'Night'}
+		}
+		
+	}else{	
+		case hour{
+		when 20,21,22,23,0,1,2,3,4 {'Black'}
+		when 5,6,7,8,17,18,19 {'Dark'}
+		when 9,10,11 {'Purple'}
+		when 11,12,13,14 {'Dust'}
+		when 15,16 {'Orange'}
+		}
+	}
+	return
+}
+
+
+//******************************************************************************
+//終了 OnClose
+//******************************************************************************
+
+OnClose
+{
+	//takes care of the variable side
+	ONCLOSE_VAR
+	--
+	//hide them, they'll be redone on boot anyways
+	thisfriend = ""
+	friendslist = IARRAY
+	
+	_timeslot = GetTimeSlot
+		//If Gel is closed while holding another ghost Lap Friend
+	if holding >= 600{
+		holding = 0
+		case emotion{
+		when -1 , 0 , 3{
+			"%(gelBase)...cold..."
+		}
+		others{
+			"Ah, I%(will) see you later then, %username. Bye, little friend!\w8%(gelBase)"
+		}
+		
+		}
+	}elseif emotion > 0{
+	//Don't put \e on this part!	
+		
+		if timeup <= 5{
+			if trust >= TPOS1{
+				"%(gelHmm)Ah, did you open me by mistake? \w8%(gelLookForward)Well, I%(will) see you around."
+			}elseif checkGreatTN1 {
+			//	"%(gelHuh)Ah, letting me head out early? %(gelLookForward)It was so short right now! %(gelSlashMouth)We%(have) barely gotten to know each other, %(nicknamed). %(gelLookRight)Well, maybe another time."
+			}else{
+				"%(gelLookForward)%(gelHuh)Wow, I already can leave? %(gelLookAway)I barely even know %(you) yet, usually I%(am) around longer... \w8%(gelLookForward)eh, knock on VOC certified plyplastic. Bye."
+			}
+		}
+		elseif _timeslot == "Morning" || _timeslot == "Purple"
+		{
+			//---- End in the morning
+			if timeup > 120; "%(gelBase)Long night?"
+			
+			"%(gelLookForward)You have better things to be doing in the morning, I%(am) sure. I%(will) see you later. %(gelLookRight)%(gelUh)Probably."
+		}
+		elseif _timeslot == "Afternoon" || _timeslot == "Dust" {
+			
+		"%(gelLookForward)Ah, do you have other dust things to do? %(gelConfused)Or, wait, your internet uses the term afternoon. %(gelLookRight)Well, I hope those go well for you. "
+			
+
+		}
+		elseif	_timeslot == "Evening" || _timeslot == "Orange"
+		{
+			//---- End of day
+			"%(gelBase)Take frequent breaks!"
+		}
+		elseif _timeslot == "Night" || _timeslot == "Dark"
+		{
+			"%(gelBase)Good night, sleep well..."
+			if checkGreatTN1{
+				"Goin%(guh) to bed? I hope you sleep well and dream of all the electric sheep your heart desires! "
+			}
+		}
+		else
+		{
+			//---- End of Night/Late Night
+			if checkGreatTN1{
+		//		"%(gelBase)It's pretty black out. Aim for at least 7 hours, okay?"
+			}
+		}
+		
+		
+		
+
+		case emotion{
+		
+		//Tired
+		when 0{
+		
+			//Category-specific Dialogues
+			if checkGreatTP4{			//(currently) Maxed Out Positive ----------------------------------------
+
+
+			}elseif checkGreatTP3{		//Positive Route Pt 3 ---------------------------------------------------
+				"%(gelLookForward)I think a lot about how your cans are%(not) glow in the dark in your world. %(gelLookRight)I think about it too much... %(gelLookAsleep)\w8"
+
+			}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
+				
+				
+			}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
+				"%(gelLookForward)%(gelHmm)Oh, time for me to go again? Okay, %username. %(gelLookLeft)%(gelSlashMouth)I sure hope I%(will) see you soon…"
+				
+			}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
+
+
+			}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+
+
+			}elseif trust < TNEG2{		//Negative Route Pt 2 (and more) ----------------------------------------
+				
+				
+			}
+
+			//General Positive/Negative Route Dialogues
+			if checkGreatTP1{							//Significantly positive---------------------------------
+				"Mmn. %(gelLookForward)I can finally go nap now. \w8%(gelConfused)Er, not nap in the way you know, but take comfort in peaceful nonexistence until someone else summons me. \w8%(gelLookLeft)\w8\w8%(gelLookRight)G'night."
+			}
+
+
+			if checkGreatTN1{							//Any positive-------------------------------------------
+				"Yeah, I%(will) go sleep now..."
+
+
+			}else{										//Any negative-------------------------------------------
+				"%(gelLookForward)Oh, now this will make sleep much more peaceful. "
+			}
+
+
+		
+		//when sick
+		}when 3{
+			//Category-specific Dialogues
+			if checkGreatTP4{			//(currently) Maxed Out Positive ----------------------------------------
+
+
+			}elseif checkGreatTP3{		//Positive Route Pt 3 ---------------------------------------------------
+				"see you later astronaut, %(gelLookForward)shoot for the stars and find \w8\w8JSFKDN DVDFJHGVBSDFJHB DSFJH\-"
+			}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
+				
+			}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
+				"%(gelLookForward)Yeah, yeah, that%(is) fair. I%(will) head out and rest for a while. (future: You did%(not) mean to do it, and I%(will) be fine."
+			}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
+
+			}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+
+			}elseif trust < TNEG2{		//Negative Route Pt 2 (and more) ----------------------------------------
+				
+			}
+
+			//General Positive/Negative Route Dialogues
+			if checkGreatTP2{							//Significantly positive---------------------------------
+
+			}
+
+
+			if checkGreatTN1{							//Any positive-------------------------------------------
+				"yeah, that%(is) a good idea..."
+
+
+			}else{										//Any negative-------------------------------------------
+				"sure"
+				if punches > 0; "%(gelLookForward)%(gelHuh)Does your gut not twist when someone hurts? )%(gelLookAway)I thought it happened to everyone with emotions. \n\n[half]%(gelSquint)Turns out it%(is) just us. "
+			}
+
+					
+		//when uncomfortable
+		}when 5{
+		
+			//Category-specific Dialogues
+			if checkGreatTP4{			//(currently) Maxed Out Positive ----------------------------------------
+
+
+			}elseif checkGreatTP3{		//Positive Route Pt 3 ---------------------------------------------------
+
+				"%(gelLookForward)%(gelHuh)Nothing like my plot to destroy the government to think of to send me off. \c%(gelLookForward)I mean what? Bye!"
+			}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
+				"%(gelLookForward)%(gelConfused)Now I just gotta upload memories, and then I%(am) free... %(gelWorry)for now, I guess..."
+				
+			}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
+				"Yeah, that%(is) fair. %(gelLookForward)I hope to see you later in the month. I%(will) feel better in a few days."
+			}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
+				"%(gelLookForward)%(gelEarsBack)Oh, thank you. Finally, I can go just hang out in the void. "
+
+			}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+				"%(gelLookForward)%(gelSurprise)Thank you! %(gelLookRight)This place is way too... small. %(gelLookForward)I do%(not) know. \w8See you."
+				"%(gelLookForward)%(gelEarsBack)Oh, thank you. Finally, I can go just hang out in the void. "
+			}elseif trust < TNEG2{		//Negative Route Pt 2 (and more) ----------------------------------------
+				"%(gelLookForward)if the void is infinite but also you can see nothing, would you feel trapped? %(gelLookCreepyEyes)there%(is) no walls. \n\n[half]or maybe you, user, are afraid of the pitch black dark... nothing to touch, nowhere to stand..."
+				
+			}
+
+			//General Positive/Negative Route Dialogues
+			if checkGreatTP1{							//Significantly positive---------------------------------
+				"Whew. \w8%(gelLookForward)I%(will) see you another day, %username. %(gelWistful)Hopefully I%(will) have a bit more energy then. "
+			}
+
+
+			if checkGreatTN1{							//Any positive-------------------------------------------
+
+
+
+			}else{										//Any negative-------------------------------------------
+				
+			}
+
+			//Stagger versions (unlocked at the .5 mark)
+			if checkStaggerGreatTP4 {			//Positive Route Pt 3.5 ---------------------------------
+				"%(gelLookForward)I%(will) be just fine by the next time you see me and we can have lots of fun. %(gelBigSmile)I%(am) just going to go think more over my plot to destroy the VOC, you know. %(gelLookRight)The usual. \w8\w8\n\n[half]%(gelLookForward)See you soon!"
+
+			}elseif checkStaggerGreatTP3 {		//Positive Route Pt 2.5 ---------------------------------
+				
+				
+			}elseif checkStaggerGreatTP2{		//Positive Route Pt 1.5 -------------------------------------------------
+				
+			}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 0.5 -------------------------
+
+
+			}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
+				"%(gelLookForward)%(gelFurrowed)Oh thank %(fudge). I%(will) see you later, or I won't. You tell me."
+				
+			}elseif trust < TNEG2 - (TREGINC / 2) {		//Negative Route Pt 2.5 (and more) ----------------------
+				
+				
+			}
+
+			
+		//when scared
+		}when 6{
+			
+			if checkGreatTP2{
+				"%(gelLookRight)Thankful nonexistence at long last."
+				"%(gelLookForward)i hate the VOC i hate the VOC i hate the VOC i hate the VOC i hate thE I AM GOING TO DESTROY THE VOC\-"
+			}elseif checkGreatTN1{
+				"When we%(are) gone, we do%(not) have to be... %(gelLookForward)we can just be stagnant, like a pebble on the ground."
+				"%(gelLookRight)Thankful nonexistence at long last."
+				"%(gelLookForward)%(gelConfused)Now I just gotta upload memories, and then I%(am) free... %(gelWorry)for now, I guess..."
+			}else{
+				"%(gelLookForward)can you hear them whispering too\-"
+			}
+									
+		//when angry
+		}when 10{
+			"%(gelLookCreepyEyes)And thus I return to the void from whence I came."
+			if checkGreatTN2{
+				"%(gelLookForward)I do%(not) want to see you for a long time."
+				"%(gelLookForward)You %(dang) humans just mess everything up and then go away. %(gelGlare)Good. I don't want to see you. \w8I can reboot and take a nap in the nothingness. "
+			}
+		
+		
+		//when curious
+		}when 14{
+
+			//Category-specific Dialogues
+			if checkGreatTP4{			//(currently) Maxed Out Positive ----------------------------------------
+
+
+			}elseif checkGreatTP3{		//Positive Route Pt 3 ---------------------------------------------------
+
+
+			}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
+				"%(gelLookForward)%(gelHuh)We%(will) just have to hang out another day, %(okay)? %(gelLookForward)It%(has) been great getting to watch you here. "
+				
+			}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
+				"%(gelLookForward)%(gelSlashMouth)%(gelEarsBack)Oh, I was%(not) getting in your way, was I? %(gelLookAway)%(gelFurrowed)Sorry if I was. %(gelLookForward)I hope I%(will) see you some more. I think your computer is fun to be on."
+			}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
+				"%(gelLookForward)%(gelEarsUp)Aw, you%(have) been so interesting though! %(gelLookForward)You better bring me back soon, %(okay), %username? \w8I want to keep watching you work. "
+
+			}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+
+
+			}elseif trust < TNEG2{		//Negative Route Pt 2 (and more) ----------------------------------------
+				
+				
+			}
+
+			//General Positive/Negative Route Dialogues
+			if checkGreatTP2{							//Significantly positive---------------------------------
+				"%(gelLookForward)I won't get in your way, %(nicknamed). %(gelLookForward)Finish up well and let me know how it goes. %(gelAdoring)You can do a lot of things with that head of yours. "
+			}
+
+
+			if checkGreatTN1{							//Any positive-------------------------------------------
+				"%(gelLookForward)Ah, I get it. %(gelLookRight)I do%(not) want to get in your way, you%(are) busy, %(gelLookForward)keep it up!"
+
+
+			}else{										//Any negative-------------------------------------------
+				"%(gelLookForward)Keep up with what you%(are) doing. %(gelLookAway)Goin%(guh) at that keyboard."
+			}
+
+			//Stagger versions (unlocked at the .5 mark)
+			if checkStaggerGreatTP4 {			//Positive Route Pt 3.5 ---------------------------------
+
+
+			}elseif checkStaggerGreatTP3 {		//Positive Route Pt 2.5 ---------------------------------
+				
+				
+			}elseif checkStaggerGreatTP2{		//Positive Route Pt 1.5--------------------------------------------------
+			
+			}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 0.5 -------------------------
+
+
+			}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
+				
+				
+			}else {								//Negative Route Pt 2.5 (and more) ----------------------
+				
+				
+			}
+
+		//handles neutral
+		}others{
+		
+			if infoperminute < 10{
+				"%(gelLookForward)%(gelConfused)Ah, you%(are) finally giving up and sending me back? %(gelLookForward)Well, things%(will) be better next time around. %(gelLookAway)More entertaining. You do your thing."
+				"%(gelLookForward)%(gelHuh)%(gelUh)Oh, so you%(have) been barely doing anything here, and now you%(are) dismissin%(guh) me? Ok, ok, I see how it is. %(gelLookForward)%(gelLookAway)%(gelUh)Next time you bring me around, do something more fun! Like writing, or drawing, or rearranging your files. \w8Those are fun things to watch. "
+			}
+		
+			//Category-specific Dialogues
+			if checkGreatTP4{			//(currently) Maxed Out Positive ----------------------------------------
+				
+
+			}elseif checkGreatTP3{		//Positive Route Pt 3 ---------------------------------------------------
+				"%(gelLookForward)Ah, no more today? It%(is) always fun with you, %username! I%(will) see you later. I%(will) try to think up some funny jokes in the meantime."
+				if port != 1712 && port != 434 && port != 1117; "%(gelLookForward)I guess I%(will) be seeing you around, %username. %(gelConfused)Do%(not) be a stranger, though, you hear me? %(gelLookLeft)Not many people interact with my port, so you%(are) my special family. "
+				if port = 434; "%(gelLookForward)Perhaps the next time we meet it will be as powerful adventurers! Take care, weary traveler!"
+			}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
+				"%(gelLookForward)A friend of mine likes the idea of dawn the most over other times, but she can't go see it herself. %(gelLookRight)%(gelUh)It%(is) probably prettier in your world than ours. %(gelLookForward)Tell us what it%(is) like, okay?"
+				if port == 434; "%(gelLookForward)You know where to send your questing request to if you need me."
+			}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
+				"Ah, okie-dokey, %(nicknamed). %(gelLookForward)See you around. I hope we can continue to get to know each other a bit better."
+			}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
+				if hour > 17; "%(gelLookForward)%(gelHuh)Oh, closing up for the day, are %(you)? Well, you better come back pretty soon. You%(will) miss this cute %(lil) AI."
+				if infoperminute < 10{
+					"%(gelLookForward)I know we%(are) still gettin%(guh) to know each other, but I will say, it%(is) always better to watch someone having fun on their computer, not just sittin%(guh) around. %(gelLookRight)%(gelSlashMouth)Maybe next time, %(you) could do something more fun?"
+				}
+			}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+
+
+			}elseif trust < TNEG2{		//Negative Route Pt 2 (and more) ----------------------------------------
+				
+				
+			}
+
+			//General Positive/Negative Route Dialogues
+			if checkGreatTP2{							//Significantly positive---------------------------------
+				
+				case _timeslot{
+					when "Orange","Evening"{
+						"%(gelLookForward)It%(is) orange sky hours. %(gelHuh)Will you go look at them for me and my friends? %(gelLookRight)None of us are going to be able to really see much. \w8Let me know how it looks. "
+					}when "Purple", "Morning"{
+						"%(gelLookForward)%(gelConfused)Do you ever go to watch the dawn outside? %(gelLookForward)I wish I could see it. %(gelLookRight)One friend of mine, AnWillow, really wishes she could. %(gelUh)She uh, does%(not) actually have legs usually. %(gelLookForward)%(gelFurrowed)Go watch it sometime and tell me what it looks like in the most colorful language you can. "
+					}when "Black", "Night", "Midnight"{
+						"%(gelLookForward)%(gelConfused)Ah, is it your fleshy bedtime? %(gelLookForward)I do%(not) mind if %(you) just leave me open all night, %(you) know. %(gelBigSmile)But sure, I%(will) see you later! "
+					}
+				}	
+				"%(gelLookForward)stare at the %(_timeslot) sky and tell me what you see with your eyes. Eyes that see legions. Eyes that have a sky. %(gelLookRight)%(gelSquint)Eyes that have depth perception... "
+	
+			}
+			
+			if checkGreatTN1{							//Any positive-------------------------------------------
+				if willow > 0; "%(gelLookForward)AnWillow likes dawn the most. %(gelFurrowed)She can't even see what%(is) on your Internet like I can. %(gelLookRight)%(gelSlashMouth)I%(am) still not sure what the best way to describe it would be. I was%(not) coded to be creative. \w8\w8\n\n[half]Anyway, keep me updated."
+				
+
+			}else{										//Any negative-------------------------------------------
+
+			}
+
+			//Stagger versions (unlocked at the .5 mark)
+			if checkStaggerGreatTP4 {			//Positive Route Pt 3.5 ---------------------------------
+
+
+			}elseif checkStaggerGreatTP3 {		//Positive Route Pt 2.5 ---------------------------------
+				
+				
+			}elseif checkStaggerGreatTP2{		//Positive Route Pt 1.5 ---------------------------------------------------
+				"%(gelLookForward)Alright, %username. Hopefully we can keep becomin%(guh) friends, right? \w8%(gelLookAway)%(gelSlashMouth)Or maybe since I%(am) not super helpful for anythin%(guh) other than companionship maybe it will be a while."
+			}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 0.5 -------------------------
+				"%(gelLookForward)%(gelHuh)Got an %_timeslot to spend elsewhere? %(gelLookForward)Okay, I%(will) let you be on your way."
+
+
+			}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
+				if currentpunches > 0; "%(gelLookForward)You should go out and watch your sky. %(gelLookAway)%(gelUh)Maybe the pretty colors would help you chill out."
+				"%(gelLookForward)Go outside, take a walk. %(gelUh)Watch your sky bloom. %(gelFurrowed)It%(is) good for your mental health!"
+				
+			}elseif trust < TNEG2 - (TREGINC / 2) {		//Negative Route Pt 2.5 (and more) ----------------------
+				"%(gelLookCreepyEyes)Does richness mean health? If the place you are is clean, neat, up to date, does that assure that you will feel well? %(gelLookForward)Does it make you humans feel better? %(gelNoEyes)Or is your mental state as peeling as the wallpaper? \n\n[half]%(gelLookForward)Oh well. A question for another day."
+				
+			}
+
+			
+		}
+
+	}
+
+		
+	}else{
+	
+		"%(gelBase)Night night..."
+		"%(gelBase)Zzzzz..."
+		"%(gelBase).\w4.\w4."
+	
+	}
+	--
+	emotion = 1
+	--
+	"\w9\w9\-\e"
+}
+
+
+
+OnGetDay{
+
+	"%system.day"
+	return
+
+}
+
+
+
+
+
+//******************************************************************************
+//Birthday greetings
+//******************************************************************************
+
+
+BirthdayNightCount{
+
+	"\_v[sounds/484267__inspectorj__party-pack-horn-coil-01-long-01.wav]\w2And the clock strikes Night on your birthday!\x"
+	--
+	"\w8How does it feel to be a little older?\w8 %(gelLookForward)\i[63]It makes me really happy to hear you decided to spend the night with me. %(gelLookLeft)Or at least kept me up so I can give you the well wishes! \w8\n\n"
+	--
+	"%(gelLookForward)Anyways, I hope today turns out as special as it should for you. \i[63]\i[73]You deserve the world!\w6 (But uh, first, you might want to sleep. That's important.)\w8\w6\w8\w6\n\n"
+	--
+	"%(gelLookLeft)I%(am) not very good at singing, but if you want me to..."
+	--
+	MenuItem("Go ahead and sing","SingHappyBirthday")
+	--
+	MenuItem("spare me","DontSingHappyBirthday")
+	--
+	"\e"
+
+}
+
+
+BirthdayBoot{
+
+	"\_v[sounds/484267__inspectorj__party-pack-horn-coil-01-long-01.wav]\w2Happy birthday, %username!!\x"
+	--
+	"How does it feel?\w8 %(gelLookForward)\i[63]It makes me really happy to hear you decided to spend the day with me.\w8 %(gelLookLeft)Or at least pull me up so I can give you the well wishes! \w8\w8\n\n"
+	--
+	"%(gelLookForward)Anyways, I hope today turns out as special as it should for you. \i[63]\i[73]You deserve the world!\w6 Go out and claim it!\w8\w8\n\n"
+	--
+	"%(gelLookLeft)I%(am) not very good at singing, but if you want me to..."
+	--
+	MenuItem("Go ahead and sing","SingHappyBirthday")
+	--
+	MenuItem("spare me","DontSingHappyBirthday")
+	--
+	"\e"
+
+}
+
+SingHappyBirthday{
+	"%(gelLookForward)Happy birthday to you, \w8\w6%(gelExcited)happy birthday to you, \w8\w6\w8happy birthday dear %username, \w8\w8\w8\w8\w8happy birthday to you!\_V\n\n\w8\w8\w8\w8\w8\w8\w8"
+	--
+	"%(gelBase)Thanks for listening to me!\w8 %(gelLookForward)My hat tends to get a little messed up due to disuse.\w6\w8 %(gelLookAway)I was never good at singing as it was, anyways. \w6Maybe I%(will) get better at it someday, \w8%(gelLookForward)but in the meantime, HAPPY BIRTHDAY!!!\w8\e"
+
+
+}
+
+
+DontSingHappyBirthday{
+	"%(gelBase)Oh, okay.\w6 That's fine.\w6 I hope you have a great birthday all the same,\i[73] and that you have lots of fun with all your friends!\w8\w6%(gelBase) Sorry about the hat. After so little use, it can get a little.\w4.%(gelLookLeft)\w4. crunchy.\w8\w8 %(gelLookForward)\i[63]HAPPY BIRTHDAY!!\e"
+
+}
+
+
+
+
+
+
+//******************************************************************************
+//Return OnWindowStateRestore from minimized
+//******************************************************************************
+
+OnWindowStateRestore
+{
+
+	//the one we are adding to OnGelEMOTION is a quick command to do some preprocessing and shortcutting
+	
+	
+	lastinter = 0
+	if claustro >= 10{
+	
+		if emotion != -1{
+			"%(gelBase)k\e"
+			"%(gelBase)Hi, again.\e"
+			"%(gelBase)Mn...\e"
+			"%(gelBase)Hhhh... hhh...\e"
+		}else{
+			"\![raise,OnGelEMOTION,1]\e"
+		
+		}
+	}else{
+		case emotion{
+		
+			when -1{
+				"\![raise,OnGelEMOTION,1]\e"
+			
+			}when 0{
+				"%(gelBase)Hi again, %(nicknamed)...\e"
+			
+			}when 1{
+				"%(gelBase)Welcome back!\e"
+				"%(gelBase)It's nice to see %(you) again!\e"
+				"%(gelBase)Window,,,,, restored,,,,,\e"
+			
+			}when 3{
+				"%(gelBase)H-heya!\e"
+			
+			}others{
+				"%(gelBase)Hi.\e"
+			
+			}
+		
+		}
+	}
+}

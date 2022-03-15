@@ -1,0 +1,1193 @@
+//This file contains most things pertaining to the possible variations of Gel.
+//Currently, this includes music, and the user's birthday. This may be changed.
+
+
+
+OnAskBirthdayMonth{
+	"Alrighty! What month is your birthday?\![open,inputbox,OnBirthMonthTeach]\e"
+
+}
+
+OnBirthMonthTeach{
+	_month = TOLOWER(reference[0])
+	"\![close,inputbox]"
+	--
+	case _month{
+		when "january", "jan"{
+			if checkBadMood{
+				"Okay, you mean Hercules? January is an old word for that."
+			}else
+				"%(gelLookForward)Hercules baby! %(gelLookRight)%(gelSlashMouth)January is a weird thing to call the month of Hercules. "
+		}when "hercules", "1", "01","herc", "hec"{
+			userbirthday = "1"
+			if checkBadMood{
+				"Okay, Hercules."
+			}else
+				"%(gelLookForward)Hercules baby! %(gelLookRight)Or, well, January. "
+		
+		}
+		when "february", "feb"{
+			if checkBadMood{
+				"%(gelLookForward)%(gelSquint)February is a bit of an outdated way to say it..."
+			}else
+				"%(gelLookForward)%(gelConfused)February? That%(is) a weird thing to call the month of Juliet. That%(is) from the history books. "
+				
+		}when "juliet", "2", "02", "juli"{
+			userbirthday = "2"
+			if checkBadMood{
+				"February. We call it Juliet."
+			}else
+				"%(gelLookForward)%(gelAmused)February/Juliet, the month of luuuurrrvvveee. %(gelLookRight)%(gelCatMouth)Hehe. "
+		}
+		when "march", "mar"{
+			userbirthday = "3"
+			if checkBadMood{
+				"%(gelLookForward)%(gelSquint)March is a bit of an outdated way to say it..."
+			}else
+				"%(gelLookForward)%(gelConfused)March? That%(is) a weird thing to call the month of Shirley. *March* to ''the beat of your own drum,'' though."
+				
+		}when "shirley", "3", "03", "shr"{
+			userbirthday = "3"
+			if checkBadMood{
+				"Shirley's an okay month."
+			}else
+				"%(gelCatMouth)Shirley you enjoy your birth month!\w8 Or.\w4.\w4.\w4 %(gelLookForward)March only to ''the beat of your own drum''! "
+		}
+		when "april", "apr"{
+			userbirthday = "4"
+			if checkBadMood{
+				"%(gelLookForward)%(gelSquint)April is a bit of an outdated way to say it..."
+			}else
+				"%(gelLookForward)%(gelConfused)April? That%(is) a weird thing to call the month of Achilles. %(gelSmug)Are %(you) scared of getting poisoned in the heel or something?"
+				
+		}when "achilles", "4", "04", "ach"{
+			userbirthday = "4"
+			if checkBadMood{
+				"I always thought Achilles was a weird story to turn into a month."
+			}else
+				"The month of Achilles. %(gelLookForward)Keep your heels safe. "
+		}
+		when "may"{
+			userbirthday = "5"
+			if checkBadMood{
+				"%(gelLookForward)%(gelSquint)Who even calls a month May? It%(is) weird. Use the new name, it%(is) better-- Merlin."
+			}else
+				"%(gelLookForward)%(gelConfused)May? That%(is) a weird thing to call the month of Merlin. %(gelSquint)May is a horrible name for a month."
+				
+		}when "merlin", "5", "05", "mer"{
+			userbirthday = "5"
+			if checkBadMood{
+				"Ah, Merlin. "
+			}else
+				"%(gelCatMouth)Merlin May be a pretty magical month. "
+		}
+		when "june", "jun"{
+			userbirthday = "6"
+			if checkBadMood{
+				"%(gelLookForward)%(gelSquint)June is a bit of an outdated way to say it..."
+			}else
+				"%(gelLookForward)%(gelConfused)June? That%(is) a weird thing to call the month of Solomon. Weird story, though."
+				
+		}when "solomon", "king solomon", "6", "06", "sol"{
+			userbirthday = "6"
+			if checkBadMood{
+				"%(gelSlashMouth)Oh, this is a good month. King Solomon is an interesting literature lesson."
+			}else
+				"Solomon! Nice. %(gelHmm)What do you want for your birthday? Wisdom? %(gelLookForward)You might get more than what you ask for.\n\n"
+		}
+		when "july", "jul"{
+			userbirthday = "7"
+			if checkBadMood{
+				"%(gelLookForward)%(gelSquint)July is a bit of an outdated way to say it..."
+			}else
+				"%(gelLookForward)%(gelConfused)July? That%(is) a weird thing to call the month of Indiana. That%(is) from the history books. "
+				
+		}when "indiana", "7", "07", "ind"{
+			userbirthday = "7"
+			"Month of Indiana, also known as July to some. Makes me wanna go spelunkin'. "
+		}
+		when "august", "aug"{
+			userbirthday = "8"
+			if checkBadMood{
+				"%(gelLookForward)%(gelSquint)August is a bit of an outdated way to say it..."
+			}else
+				"%(gelLookForward)%(gelConfused)August? That%(is) a weird thing to call Mockingbird. That%(is) from the history books. "
+				
+		}when "mockingbird", "8", "08", "mock", "mkb"{
+			userbirthday = "8"
+			if checkBadMood{
+				"To Kill a Mockingbird got banned a long time ago. I %(dunno) why they named a month after it."
+			}else
+				"Oh, Mockingbird! %(gelLookForward)Atlas City does%(not) have real birds, not really. %(gelSlashMouth)I wish I could see one, but that's impossible for multiple reasons. "
+		}
+		when "september", "sep"{
+			userbirthday = "9"
+			if checkBadMood{
+				"%(gelLookForward)%(gelSquint)September is a bit of an outdated way to say it..."
+			}else
+				"%(gelLookForward)%(gelConfused)September? That%(is) a weird thing to call the month of Holmes. That%(is) from the history books. Everyone knows City Sunflower Day is the best holiday. Holmes is too important."
+				
+		}when "holmes", "9", "09", "hol"{
+			userbirthday = "9"
+			if checkBadMood{
+				"Month of Sherlock Holmes, okay."
+			}else
+				"Holmes' month. %(gelLookForward)%(gelHmm)Are you a good detective, %username? "
+		}
+		when "october", "oct"{
+			userbirthday = "10"
+			if checkBadMood{
+				"%(gelLookForward)%(gelSquint)October is a bit of an outdated way to say it..."
+			}else
+				"%(gelLookForward)%(gelConfused)Why call it October? Even in history, it was just Hallowed Ween anyway, we just shortened it to the right holiday. Less weird now."
+				
+		}when "hallowed", "10", "hal"{
+			userbirthday = "10"
+			if checkBadMood{
+				"A month of hallow."
+			}else
+				"%(gelLookForward)%(gelHuh)It%(is) the spooky month, huh? %(gelLookLeft)Hallowed to us in Atlas."
+		}
+		when "november", "nov"{
+			userbirthday = "11"
+			if checkBadMood{
+				"%(gelLookForward)%(gelSquint)November is a bit of an outdated way to say it..."
+			}else
+				"%(gelLookForward)%(gelConfused)November? Are you into history that much, really? It%(is) Beowulf, come on."
+				
+		}when "beowulf", "11", "beo"{
+			userbirthday = "11"
+			if checkBadMood{
+				"Legend of Beowulf..."
+			}elseif "beo" _in_ _month{
+				"I think this month's name is pretty cool. The source is a little hard to understand, but it sounds cool. "
+			}else{
+				"I think Beowulf as a month name has a nice ring to it. "
+			}
+		}
+		when "december", "dec"{
+			userbirthday = "12"
+			if checkBadMood{
+				"%(gelLookForward)%(gelSquint)December is a bit of an outdated way to say it..."
+			}else
+				"%(gelLookForward)%(gelConfused)December That%(is) a weird thing to call the month of Wizard. That%(is) from the history books. Wizard is much cooler."
+				
+		}when "wizard", "12", "wiz"{
+			userbirthday = "12"
+			if checkBadMood{
+				"Wizard is at least a straightforward month name. Better than whatever they called it before, at least. December is weird."
+			}else
+				"Kinda like Merlin, it's a pretty magical month! Wizard. %(gelLookForward)It%(is) up front about itself. High quality month name."
+		}others{
+			"%(gelUh)I%(am) sorry? What month?"
+			"%(gelHuh)That's not a real month.\w8 %(gelLookAway)%(gelUh)I do%(not) think so, at least."
+			if _month != ""{
+				"%(gelSquint)What kind of currency is a %reference0???"
+				"%(gelLookForward)%(gelSquint)What the %(fudge) kind of currency is a %reference0???"
+			}else{
+				"You--\w8 %(gelSquint)You literally just pressed the enter key. \w8Come on, %username."
+			}
+			--
+			"\![open,inputbox,OnBirthMonthTeach]\e"
+		}
+	
+	
+	}
+	--
+	"\w8What about the day, then? \![open,inputbox,OnBirthDayTeach]\e"
+
+
+}
+
+OnBirthDayTeach{
+	_day = TOINT(reference[0])
+	_month = TOINT(userbirthday)
+	"\![close,inputbox]"
+	--
+	case _month{
+	
+		when 1,3,5,7,8,10,12{
+			if _day > 30{
+				"There's only 30 days in that month. Wanna go again? \![open,inputbox,OnBirthDayTeach]\e"
+			}
+		}
+	
+	}
+	if _day > 31{
+		"That can't be right. There's not even %_day days in that month. Come again? \![open,inputbox,OnBirthDayTeach]\e"
+	}else{
+		userbirthday += "/" + _day
+		"Alrighty! %_month/%_day it is. Is that right?\n\_q"
+		--
+		MenuItem("Yep!","OnBirthAccept")
+		MenuItem("Yeah\, that's it.","OnBirthAccept")
+		MenuItem("Yup.","OnBirthAccept")
+		--
+		MenuItem("Wait a moment...","OnAskBirthdayMonth")
+		MenuItem("Wait no","OnAskBirthdayMonth")
+		MenuItem("I messed up.","OnAskBirthdayMonth")
+	}
+
+
+}
+
+OnBirthAccept{
+	if userbirthday _in_ thisboot{
+		"Wait, that's today. Are you trying to pull one over on me?"
+		--
+		MenuItem("hehe\, yeah","OnAskBirthdayMonth")
+		--
+		MenuItem("I'm being serious\, %Gel!","OnReallyBirthday")
+	}else{
+		if firsttimeusersetup != 1{
+			"I%(will) be sure to remember it!"
+		}else{
+			//send them to the next entry
+			"\w8"
+			--
+			FirstBoot_USERPRONOUNS
+		}
+		
+	}
+}
+
+OnReallyBirthday{
+	"%(gelBase)Oh!\w6 Well, congrats and happy birthday, %(nicknamed)! \w6You're a year older!\w8 Wish I had a party blower.\w4.\w4. not like I have lungs.\w8\n\n Oh, oh, wait a moment!\w8 I have an idea. Give me a sec. \s[-1]\w8\w8\w8\w8Are you ready?\x"
+	--
+	ONBOOT_SETUP
+	--
+	//for the detection of crashes
+	closed = 0
+
+}
+
+
+
+
+
+
+
+//for booting Gel for the first time
+//Gel doesn't normally deviate too much on each port, but it can happen, but there are smaller things that can happen
+//Like having an absurd starting claustrophobia value, what their favorite color is, their music tastes, and whether or not they're Caramelized
+//And why not have someone every now and again get a unique Gel?
+//It's fun!
+OnGelPort{
+	username = "User"
+	nicknamed = "User"
+	userbirthday = SHIORI3FW.UserBirthday[1] + "/" + SHIORI3FW.UserBirthday[2]
+	emotion = 1
+	infoperminute = 32
+	actcountallowed = 0		//enables the info SAORI
+	minclick = 1
+	minkey = 1
+	useractive = 1
+	//highestTime = 0		//I believe this was for the longest Gel was ever open for, but is not implemented. May be fun, however.
+	Gel = "Gel"
+	clothes = IARRAY
+	caged = 2 //2 is caged and tethered, 1 is just caged, 0 is FREEEEE!! (this won't be comin for a while tbh, but might as well have the framework)
+	
+	//MUSIC
+	music = 0
+	musictastenums = 0
+	//note to self: make all Gels share one music taste if they are not unique, I think-- all meme lovers? Dunno
+	musictaste = IARRAY
+	usermusictaste = ""
+	usermusictastenums = 0
+	
+	//OTHER VARIATIONS
+	wishicouldeat = 0
+	genderfluid = 0
+	genderlocked = 0
+	notouchie = 0
+	
+	//MORE FLUID THINGS
+	//likessimilarity = 0
+	//hunger = 0	//currently unused, may add later
+	shakenup = 0	
+	awkwardsilence = 0
+	moviemode = 0
+	jabbering = 0	//Jabber and thankful change the meaning of interactions -- punches and pets respectively
+	thankful = 0
+	silentmode = 0
+	pondering = 0 	//Gel can just sit around looking like they're debating the secrets of the universe sometimes
+	//claustro will be modified based on port, but if it doesn't, for whatever reason, we have a base
+	claustro = RAND(10) + 1
+	timeasleep = 0
+	timeup = 0
+	timesinceload = 0		//resets on reloads
+	currentpets = 0
+	currentpunches = 0	//Gel might goad the user tbh
+	//first day, they won't want to fall asleep
+	fullnightsrest = 1
+	trust = 0
+	thisboot = TOSTR(month) + "/" + TOSTR(day)+ "/" + TOSTR(GetYear)
+	lastboot = TOSTR(month) + "/" + TOSTR(day)+ "/" + TOSTR(GetYear)
+	
+	dayfirstmet = TOSTR(month) + "/" + TOSTR(day)+ "/" + TOSTR(GetYear)
+	startversion = "V0.4.0"
+	currentversion = "V0.4.0"
+
+	
+	//USER SETTINGS
+	epilepsywarning = 0
+	firsttimeusersetup = -1
+	swearing = 1
+	questionableweather = 0
+	sight = 0
+	gwhatsupwithyourinternalclock = -1
+	aitalkinterval = 180
+	talkbehavior = 0	//0 is normal SSP behavior, 1 is 'go random, who cares'
+	friendlist = IARRAY
+	SETDELIM(friendlist, "#")
+	friends = 0	
+	//The user's pronouns. Primarily for use in chatting with other ghosts tbh. 
+	they = "they"
+	them = "them"
+	theirs = "theirs"
+	
+	debug = 0
+	
+	//STATS
+	timesmadesick = 0
+	totalhoursknown = 0
+	punches = 0
+	pets = 0
+	earpets = 0
+	badtouches = 0	//combo bad pets and punches
+	daysknown = 0
+	jinglebells = 0
+	rpsgelwins = 0
+	rpsuserwins = 0
+	
+	//MEMORY
+	askgel = 0
+	cypherpc = 0
+	talksthishour = 0
+	badstart = 0			//flips when the user starts on neg route
+	yourechilltalk = 0		//for moving into the positive route
+	//maybe case switches for easter egg commentary? 
+	notuptoexplain = 0 		//increments as the user keeps clicking anchors when they're in a mood/neg route
+	ghostfriends = IARRAY
+	userArtist = 0
+	userWriter = 0
+	giraffe = 0
+	todos = 0
+	dailies = 0
+	//If you ask Gel about their gender they'll ask about yours -- -1 not asked, 0 cis, 1 trans
+	usertranscis = -1
+	
+	
+	//QUESTIONS
+	//-1 is unknown, 0 is unlocked, and anything over that is asked about
+	//close friends
+	radius = -1
+	willow = -1
+	ram = -1
+	scorpion = -1
+	thetwins = -1	//a bit strange to have, but for statistic purposes, its a var
+	jade = -1
+	//ports
+	qiris = -1
+	qgra = -1
+	qfourthreefour = -1
+	qogport = -1
+	qtaboo = -1	
+	qneonport = -1
+	//others
+	qcsv = -1
+	qdrneon = -1
+	qlastnames = -1
+	qpiiproto = 0	//starts unlocked
+	qatlascity = -1
+	qongel = 0		//starts unlocked 
+	qgelcollective = -1
+	//qauthority = -1 deprecated, merged with qvoc
+	qjackets = -1
+	qvoc = 0
+	qgender = 0
+	qartempulsar = -1
+	qrainbowrebels = -1
+	qdruid = -1
+	qreligions = -1
+	qdome = -1
+	qvacation = -1
+	qcybernetics = -1
+	qdistricts = -1
+	qmutants = -1
+	qupstandingcitizens = -1
+	qculture = -1
+	qfirstofmonth = 0 //technically always unlocked
+	qnvro = -1
+	qorangeskies = -1
+	qshijowicker = -1
+	//haha funnies (0 is not unlocked, 1 is active, these flick on and off)
+	qjerry = 0
+	qainstain = 0
+	qwhylowes = 0
+	//concept questions/knowledge flags
+	shadowofatlas = 0
+	violetjackets = 0
+	knowscontrol = 0
+	truthontaboo = 0
+	knowsport = 0
+	
+	
+	
+	
+	//ITEMS
+	ginventory = ""
+	itemsininventory = 0
+	
+	--
+	//just in case port doesn't do this right
+	gelNEUTER
+	--
+	//clothe yourself and don't be bald Gel
+//	"\![bind,Shirts,Green,1]\![bind,Hair,Default,1]"
+	--
+	Onport
+	--
+//	ONBOOT_SETUP
+
+}
+
+
+Onport{
+
+	//if this is an alternate unused save file
+	if forcedport != 0{
+		port = forcedport
+		PORTGEL
+	}else{
+		port = (RAND(5000) + 1)
+		//make sure it is a new Gel
+		_portexists = FSIZE("yaya_variable" + port + ".cfg")
+		while _portexists > 0{
+			//as long as this is not a new Gel, regenerate
+			port = (RAND(5000) + 1)
+			_portexists = FSIZE("yaya_variable" + port + ".cfg")
+		}
+		//now actually set the variables
+		PORTGEL
+		
+	}
+
+}
+
+
+
+//set Gel's pronouns, does not contain a gender lock check
+gelFEM{
+	gtheyheshe = "she"
+	gthemhimher = "her"
+	gtheirhishers = "hers"
+
+}
+
+gelMASC{
+	gtheyheshe = "he"
+	gthemhimher = "him"
+	gtheirhishers = "his"
+
+
+}
+
+gelNEUTER{
+	gtheyheshe = "they"
+	gthemhimher = "them"
+	gtheirhishers = "their"
+
+
+}
+
+gelCOLORIZED{
+	"cyan"
+	"the color of fun"
+	"blue"
+	"neon blue"
+	"electric blue"
+	"nature green"
+	"anything neon, really"
+	"baja blast"
+	"teal"
+	"aquamarine"
+	"turquoise"
+	"sky blue"
+	return
+
+}
+
+gelPASTELIZED{
+	"lavendar"
+	"lavender"
+	"pastel pink"
+	"anything pastel, really"
+	"pale yellow"
+	"baby blue"
+	"forget-me-not blue"
+	"sky blue"
+	"pastel purple"
+	"magenta"
+	"neon pink"
+	"pink"
+	"purple"
+	"off white.."
+	"vanilla"
+	"any color of candy-fied"
+	return
+
+}
+
+
+PORTGEL{
+//uniqueness tag for ease of basic checks? 
+//NOTE TO SELF: change the if/elses to case-whens please time expennnnsiiive. Not that it's actually probably relevant but still.
+//	if _argv[0] == 0{
+//		port = RAND(5000) + 1	
+//	}else{
+	//	port = _argv[0]
+//	}
+	--
+	"\![bind,Hair,Default,1]\![raise,OnEquipClothingItem,Default]\![bind,Pants,Blue Jeans,1]\![raise,OnEquipClothingItem,Blue Jeans]\![bind,Shirts,Green,1]\![raise,OnEquipClothingItem,Green]"
+	--
+	SRAND(port)
+	--
+	musictaste += TOSTR(RAND(MAXMUSIC))
+	musictastenums++
+	if port > 4500{
+		wishicouldeat = 1	//not sure what this var does, but doesn't seem to be harmful
+		claustro = port % 9 + 1
+		--
+		if (port % 10) >= 8{
+			Gel = "Candy"
+			genderlocked = 1
+			gelFEM
+		}else{
+			Gel = gelCARAMELNAMES[ RAND(50) % ARRAYSIZE(gelCARAMELNAMES)]
+		}
+		--
+		gcolor = gelPASTELIZED[ RAND(50) % ARRAYSIZE(gelPASTELIZED)]
+		--
+		gelsalterego = caramelgelalteregoname[port % ARRAYSIZE(caramelgelalteregoname)]
+		
+	}elseif port == 8{
+		Gel = "Lucky"
+		gcolor = "green"
+		gelsalterego = "Jackpot Jel"
+	}elseif port == 11 || port == 22 || port == 33 ||port == 44 ||port == 55 ||port == 66 ||port == 77 ||port == 88 ||port == 99 || port == 111 || port == 222  || port == 333 || port == 444 ||port == 555 ||port == 666 ||port == 777 ||port == 888 ||port == 999 ||port == 1111 || port == 2222 || port == 3333 || port == 4444{
+		//hmm, can I make it treat it as an array? Later, later.
+		//EDIT: DONE
+		
+		//It's based off of Ram and Sco, so... gender.
+		if port % 2 {
+			gelFEM
+		}else{
+			gelMASC
+		}
+		genderlocked = 1
+		
+		Gel = gelGEMININAMES[ RAND(50) % ARRAYSIZE(gelGEMININAMES)]
+		gcolor = gelGEMINICOLORS[ RAND(50) % ARRAYSIZE(gelGEMINICOLORS)]
+		claustro = (port % 22) + 1
+		gelsalterego = "Gemini My Gemini"
+	}elseif port == 233{
+		music = 1
+		OnGainMusicTaste
+		OnGainMusicTaste
+		OnGainMusicTaste
+		OnGainMusicTaste
+		OnGainMusicTaste
+		OnGainMusicTaste
+		Gel = "Gel~"
+		gelsalterego = "Music Maker"
+	}elseif port == 404{
+		Gel = "Error"
+		gcolor = "go %(fudge) yourself"
+		gelsalterego = "Rotten Gelatin"
+	}elseif port == 420{
+		Gel = "G3l"
+		gcolor = "grass"
+		gelsalterego = "Grass"
+	}elseif port == 434{
+		Gel = "Gel"
+		gcolor = "red"
+		rogue = 1
+		gelsalterego = "AOG's Mint"
+	}elseif port == 934{
+		Gel = "Gen"	//thanks grandma for never getting their name quite right
+		gcolor = "lime"
+		gelFEM
+		genderlocked = 1
+		gelsalterego = "Mispronounced [NAME HERE]"
+	
+	}elseif port == 3839{
+		Gel = "Gra"
+		gcolor = "sky blue"
+		musictastenums+=2
+		musictaste ,= "19"
+		musictaste ,= "6"
+		rogue = 1
+		gelsalterego = "The Best Gel"
+	}elseif port == 2681{
+		Gel = "Neon"
+		gcolor = "neon magenta"
+		gtheyheshe = "ne"
+		gthemhimher = "nem"
+		gtheirhishers = "nir"
+		genderlocked = 1
+		gelsalterego = "Dr. Magenta Neon"
+	
+	}elseif port == 1117{
+		Gel = "Tab"
+		gcolor = "dark blue"
+		claustro = RAND(99) + 1
+		genderlocked = 1
+		notouchie = 1
+		rogue = 2
+		gelsalterego = "The Creature of The Void"
+		--
+		"\![bind,Hair,Default,0]\![bind,Hair,Ponytail,1]\![bind,Pants,Ripped Black Jeans,1]\![raise,OnEquipClothingItem,Ripped Black Jeans]\![raise,OnEquipClothingItem,Ponytail]"
+		--
+		gelMASC
+	}elseif port == 1395{
+		gelsalterego = "Dragonesque"
+		Gel = "Gel"
+		gcolor = "iridescence"
+		genderlocked = 1
+		claustro = (port % 10) + 1
+		gelMASC
+	
+	}elseif port == 1431{
+		gelsalterego = "Gel From TV (not really)"
+		Gel = "Gel"
+		gcolor = "arsenic"
+		claustro = 0
+		musictaste = "1"
+		genderlocked = 1
+		gelMASC
+	
+	}elseif port == 1712{
+		gelsalterego = "Iris"
+		Gel = "Iris"
+		gcolor = "rich purple"
+		claustro = 0
+		genderlocked = 1
+		notouchie = 0
+		rogue = 1
+		gelFEM
+	
+	}elseif port == 3023{
+		//there is absolutely nothing weird about this port, aside from them being Bones Montgomery. Think this came to me in a dream honestly.
+		Gel = "Bones Montgomery"
+		gelsalterego = "Montgomery Bones"
+		claustro = port % 100
+	
+	}elseif port == 3995{
+		Gel = "Scrambled Eggs"
+		gelsalterego = "Over Easy"
+		gcolor = "egg yolk yellow"
+		claustro = (port % 10) + 1
+	
+	}else{
+		Gel = "Gel"
+		gcolor = gelCOLORIZED[ RAND(50) % ARRAYSIZE(gelCOLORIZED)]
+		claustro = (port % 10) + 1
+		rogue = 0
+		gelsalterego = gelalteregoname[port % ARRAYSIZE(gelalteregoname)]
+	}
+	--
+	if port < 1000 && port%2 == 1{
+		claustro = port % 100
+	}
+	--
+	if claustro > 10{
+		notouchie = 1
+	}
+	--
+	//port
+	SAVEVAR("yaya_variable.cfg")
+	//return
+} 
+
+gelCARAMELNAMES : array{
+	"Gelatin"
+	"Gelatin"
+	"Gelatin"
+	"Gelatin"
+	"Gelatin"
+	"Gel-O"
+	"Gelly"
+	"Gelo"
+	"Rock Candy"
+
+
+}
+
+gelGEMINICOLORS : array{
+
+	"yellow"
+	"gold"
+	"yellow"
+	"lavender"
+	"ice blue"
+}
+
+
+gelGEMININAMES : array{
+	"Gem"
+	"Gemmy"
+	"The Gel"
+	"Gem"
+
+}
+
+
+gelalteregoname : array{
+	"Gelatin Gelatin"
+	"Thankless Jello"
+	"Reluctant Marshmallow"
+	"Adzuki Void"
+	"Gelatin Varia"
+	"Varis Stellar"
+}
+
+caramelgelalteregoname : array{
+	"Sweetened Gelatin"
+	"Marshmallow Jello"
+	"Pink Stuff"
+	"Monarch Marshmallow"
+	"Candy Candy Candy"
+	"Caramel Concept"
+	"Caramelized Version"
+	"Fudge Rucker"
+	"Frosted Fudge"
+	"Mint Fudge"
+	"Fudge Buffet"
+}
+
+//why does this exist and where do I even use it?????
+defense{
+	if port == 1117{
+		"Ok, so basically, I%(am) babey."
+	}else{
+		"Go %(fudge) yourself."
+	}
+
+}
+
+
+
+getMusicTaste{
+	_temp = RAND(musictastenums)
+	_taste = musictaste[_temp,","]
+	case TOINT(_taste){
+	
+		when 1{ 
+			"electro swing"
+		}when 2{ 
+			"Folk-Punk" 
+			"Folkey" 
+			"Folk-Rock"
+		}when 3{
+			"Folk"
+			"Ballads"
+		}when 4{
+			"Indie"
+			"any lo-fi"
+			"hypnagogic"
+		}when 5{
+			"EDM"
+			"electronic dance"
+		}when 6{
+			"just Fox Stevenson"
+		}when 7{
+			"brain-melting pop"
+			"pop"
+			"loud and proud"
+		}when 8{
+			"orchestra"
+			"classical"
+		}when 9{
+			"modern opera"
+		}when 10{
+			"that gay %(shit)"
+		}when 11{
+			"Christian rock"
+			"Christian alternative"
+		}when 12{
+			"metal"
+		}when 13{
+			"fantasy instrumentals"
+		}when 14{
+			"meme"
+		}when 15{
+			"Jpop"
+			"Kpop"
+		}when 16{
+			"chiptune"
+		}when 17{
+			"anything with a pretty video"
+		}when 18{
+			"catstep"
+			"catstep"
+			"castep"
+			"catstep"
+		}when 19{
+			"trance"
+			"trance"
+			"trance"
+			"techno ambient"
+			"acid trance"
+			"trance"
+			"anthem trance"
+			"trance"
+			"euphoric trance"
+		}when 20{
+			"drum and bass"
+			"D&B"
+		}others{ 
+			"no"
+			", well, actually, I don't like"
+		}
+	
+	
+	}
+
+
+}
+
+OnWhileTest{
+	_i = 0
+	_temp = musictaste[_i, ","]
+	while _i < 5{
+		"%_temp"
+		_i++
+		--
+		_temp = musictaste[_i, ","]
+		--
+	}
+
+}
+
+//Add a new random music taste to Gel's repertoire, no repeats (or hesitations : P)
+OnGainMusicTaste{
+	
+	_newgenre = RAND(MAXMUSIC-2) + 1
+	_temp = 0
+	_i = 0
+	
+	//if Gel doesn't have ALL (well, nearly all, keeps people guessing) the music tastes (geez, bill, leave some for the rest of us, huh)
+	if musictastenums < MAXMUSIC-2{
+	
+		//counter
+		_i = 0
+		//we put the genre to be compared against in a temp because it treats it as one cocatenated variable otherwise. Why? I dunno.
+		_temp = musictaste[_i, ","]
+		//for all current music tastes, check for duplicity
+		while _i < musictastenums{
+			//if they're the same
+			if TOINT(_temp) == _newgenre{
+				_newgenre = RAND(20) + 1
+				//resetting _i will keep the loop going
+				_i = 0
+				//we have to keep _temp at the correct variable
+				_temp = musictaste[_i, ","]
+				
+			//if they're different, update the stuff, and keep on chooglin'
+			}else{
+				_i++
+				_temp = musictaste[_i, ","]
+			}
+		}
+		//add it in and beam us out, Scottie (or whatever the phrase was)
+		musictaste += "," + TOSTR(_newgenre)
+		musictastenums++
+	}	
+}
+
+
+OnSuggestSong{
+	_temp = RAND(musictastenums)
+	_taste = musictaste[_temp,","]
+	_song = gelElectroSwing
+	
+	case TOINT(_taste){
+	
+		when 1{ 
+			_song = gelElectroSwing
+		}when 2{ 
+			_song = gelFolkPunkRock
+		}when 3{
+			_song = gelFolkBalladsShanties
+		}when 4{
+			_song = gelIndieBedroomLofiHypnagogic
+		}when 5{
+			_song = gelEDM
+		}when 6{
+			_song = gelFoxStevenson
+		}when 7{
+			_song = gelPopNProud
+		}when 8{
+			_song = gelOrchestraClassical
+		}when 9{
+			_song = gelModernOpera
+		}when 10{
+			_song = gelQueer
+		}when 11{
+			_song = gelChristianRock
+		}when 12{
+			_song = gelMetalScreamo
+		}when 13{
+			_song = gelInstrumental
+		}when 14{
+			_song = gelMeme
+		}when 15{
+			_song = gelJKPop
+		}when 16{
+			_song = gelChipTune
+		}when 17{
+			_song = gelMusicVideo
+		}when 18{
+			_song = gelCatstep
+		}when 19{
+			_song = gelDB
+		}when 20{
+			_song = gelTrance
+		}others{ 
+			_song = gelElectroSwing
+		}
+	
+	
+	}
+	--
+	_link = _song[0,"|"]
+	_title = _song[1,"|"]
+	_artist = _song[2,"|"]
+	_trustlock = TOINT(_song[3,"|"])
+	_comment = _song[4,"|"]
+	"\_a[%_link]%_title\_a by %_artist."
+	--
+	if trust >= _trustlock{
+		"%_comment"
+	}
+	--
+	" \e"
+
+
+}
+
+
+OnNameTeach{
+	username = reference[0]
+	nicknamed = username
+	--
+	"\![close,inputbox]"
+	--
+	case TOLOWER(username){
+		when "gray"{
+			"what kinda fool is named after such a dull color\e"
+			nicknamed = "Gee"
+		}when "o'malley"{
+			nicknamed = "O'Mal"
+			musictaste+=",3"
+			musictastenums++
+			"Oh! Hey! What's a good nickname for O'Malley... Mal? O'Mal? Hmmm...\e"
+		}when "alice"{
+			nicknamed = "Al"
+			if port == 1117{
+				"O-oh! Uh. Um. O-okay, A-Alice.%(gelSquint)\e"
+			}else{
+				"AAAAAAAAAAAAAlrighty, Allllliiiccceeee!\e"
+			}
+		}when "casidhe"{
+			nicknamed = "Cas"
+			"Okay, C-C-Cas! Big thanks from Gray. I hope you enjoy me, even if I do%(not) have any real meat to me yet! It's all mechanics, right now. <3\e"
+			
+		}others{
+			"You got it, %username!\e"
+			"Alright, I%(will) call you %username now.\e"
+		}
+	
+	}
+	--
+	//Iris does not use nicknames.
+	if port == 1712{
+		nicknamed == username
+	}
+	
+
+}
+
+
+
+gelElectroSwing{
+	"https://www.youtube.com/watch?v=kGMGJNi88EU|Fargo|Caravan Palace|TPOS1| Short and sweet, but still a hard bop. It sounds like a good, cold drink."
+	"https://www.youtube.com/watch?v=HGbW44AEHeM|Peeping Tom|Jamie Berry ft. Rosie Harte|TNEG1| Okay, don't judge me. It's catchy."
+	"https://www.youtube.com/watch?v=UbQgXeY_zi4|Lone Digger|Caravan Palace|TNEG1| It's violent but it's good! It's a good song!"
+	"https://www.youtube.com/watch?v=OcmBowQsVrg|INEXPLICABLE|The Correspondents|TPOS2| Okay, this is one of my favorites."
+	"https://www.youtube.com/watch?v=MZukiRrYROA|What's Happened to Soho?|The Correspondents|TPOS1| Honestly, I do%(not) know where/what Soho is, and I would like to."
+	"https://www.youtube.com/watch?v=rrwT3bhRz8M|Me and Mr Wolf|The Real Tuesday Weld|TPOS2| Not sure what I%(am) watching here but y'know, it is catchy."
+	"https://www.youtube.com/watch?v=uflObLt1Jcg|Don't Get High No More|The Real Tuesday Weld & The Puppini Sisters|TNEG1|..(Gel looks aside here)"
+	
+	return
+}
+
+gelFolkPunkRock{
+	"https://www.youtube.com/watch?v=MbXWKQSzBdE|Fucc The Devil|AJJ|TNEG1| Uh, just kinda... ignore the video. Or do%(not). Your choice. I think it's entertaining."
+	return
+	
+}
+
+gelFolkBalladsShanties{
+	"https://www.youtube.com/watch?v=Fo7XPvwRgG8|Daughter of the Sea|Laura Bailey|TNEG1| Fun video, just kinda lets you sit back and relax..."
+	return
+
+}
+
+gelIndieBedroomLofiHypnagogic{
+	"https://www.youtube.com/watch?v=DlpgoUQmP8M|Weird Honey|Elvis Depressedly|TNEG1| Not sure what hits on this one but it does. Not an official video, of course, but it's a fun watch."
+	"https://youtu.be/AMShoQ_qdc0|Hello World|Louie Zong|TPOS3| I find it kinda relatable, and I know Radius really likes it too.\w4.\w4.\w8 I wasn't really made for anything else. \w8I was%(not) made to feel.\w8\w6 I was just Gel, and then I was my own %Gel, and sometimes I still get shut down and I wonder why I%(am) here and what's the point--\w8 and--\w8\w8\w8 oh, just listen to the song."
+	"https://www.youtube.com/watch?v=OQRi7fRdtmA|oops|potsu|TPOS2|I would give anything to see Ram high. It'd be hilarious.\w8 I wonder how it'd affect Sco...."
+	return
+}
+
+gelEDM{
+	"https://www.youtube.com/watch?v=luQSQuCHtcI|Overthinker|INZO|TPOS1| Do you overthink things? I do. I just love this one."
+	return
+
+}
+
+gelFoxStevenson{
+	"https://www.youtube.com/watch?v=dcFUKxYiyLc|Everything's Wrong|Fox Stevenson & Feint|TNEG1| Do you play Beat Saber? There's a really sick map of it by this girl called Byteswitch..."
+	return
+}
+
+gelPopNProud{
+	"https://www.youtube.com/watch?v=MINOAbjd1Ks|Bam Bam Pop|Icon For Hire|TNEG1| I know it's kinda a sarcastic song, but it does%(not) change the fact it's catchy!"
+	return
+}
+
+gelOrchestraClassical{
+	"https://www.youtube.com/watch?v=_mVW8tgGY_w|Fur Elise|Beethoven|TNEG1| I find it entrancing."
+	return
+}
+
+gelModernOpera{
+	"https://www.youtube.com/watch?v=tSRtxMKsAF0|Sunken Garden|Michel van der Aa, David Mitchell, and Kate Miller-Heidke|3| If you can ever find the full version plz I want it."
+	return
+}
+
+gelQueer{
+	if genderlocked != 1{
+		"https://www.youtube.com/watch?v=WNr3x1kVVEc|Little Game|Benny|TNEG1| I do%(not) even have a gender but I like it."
+	}else{
+		"https://www.youtube.com/watch?v=WNr3x1kVVEc|Little Game|Benny|TNEG1| Never had to deal with gender roles, but."
+	}
+	"https://www.youtube.com/watch?v=hyj4JFSErrw|Jenny|Studio Killers|TPOS1| I love the animation here!\w8 She's a tiger! A tiger!"
+	return
+}
+
+gelChristianRock{
+	"https://www.youtube.com/watch?v=J_m0uRNlRw8|The Alternative Song|TNEG1| On, and on, and it goes on, and on, and on~"
+	return
+
+}
+
+gelMetalScreamo{	
+	"https://www.youtube.com/watch?v=JaaYijHDk5Y|Whisper So Loud|Disciple|TNEG1| A little soft, but still good."
+	return
+
+}
+
+gelInstrumental{
+	"https://www.youtube.com/watch?v=x1DoEDj81PE|Earth Wind & Fire|John Doe I think|TNEG1| Fun to listen to when you're multitasking."
+	return
+}
+
+gelMeme{
+	"https://www.youtube.com/watch?v=dQw4w9WgXcQ|Never Gonna Give You Up|Rick Astley|TNEG1| Ya never know when it will strike."
+	return
+}
+
+gelJKPop{
+	"https://www.youtube.com/watch?v=Eho22TIfQk4|TEASE|Taemin|TNEG1| It's so nice and upbeat."
+	return
+}
+
+gelChipTune{
+	"https://www.youtube.com/watch?v=hzGmbwS_Drs|Rolling Down The Street, In My Katamari|Fearofdark|TNEG1| Roll credits!"
+	return
+}
+
+gelMusicVideo{
+	"https://www.youtube.com/watch?v=OcmBowQsVrg|INEXPLICABLE|The Correspondents|TPOS1| Watch the video! Watch the video! It's fun!"
+	"https://youtu.be/AMShoQ_qdc0|Hello World|Louie Zong|TPOS3| I find it kinda relatable, and I know Radius really likes it too.\w4.\w4.\w8 I was%(not) really made for anything else. \w8I was%(not) made to feel.\w8\w6 I was just Gel, and then I was my own %Gel, and sometimes I still get shut down and I wonder why I'm here and what's the point--\w8 and--\w8\w8\w8 oh, just listen to the song."
+	return
+}
+
+gelCatstep{
+	"https://www.youtube.com/watch?v=VL3mPTaFFak|Glide|Stephen Walking|TNEG1| This one makes me wish I had a body to feel the wind with, and go exploring.\w4.\w4. for now, it's just me and what pictures I can find on the Chain."
+	return
+
+}
+
+gelDB{
+	"https://www.youtube.com/watch?v=llxJuZ9VKjQ|Like That|Fox Stevenson|TNEG1| Space wizards, \w6hollywood blizzards, \w6cheatin' at cards with illuminati lizards!"
+	return
+}
+
+gelTrance{
+	"https://www.youtube.com/watch?v=wGFqTGR5kCM|Altitude|Eminence & Alex Klingle|TNEG1| This one is relaxing."
+	return
+}
+
+//NOTE: UNADDED IN, CURRENTLY
+gelAlternative{
+	"https://www.youtube.com/watch?v=IN4aFwGy2ck|I'll Rust With You|Steam Powered Giraffe|TPOS2| This is a good one to dance to!\w8 Except I can't dance. And also they're robots."
+
+}
+
+//}
+
+//The Cursed Functions That Could Break SSP
+
+//this could explode
+OnRenameGhost{
+
+	//OKAY So this can only successfully be called once per boot, so we sublty reboot Gel.
+	//You can't even tell it happens, but it makes it where it works reliably.
+	//Kill those edge cases.
+	"\![reload,shiori]"
+	--
+	//Deny the old, create the new
+	_dummy = FDEL("old_descript.txt")
+	--
+	_rewritten = FRENAME("descript.txt","old_descript.txt")
+	_opened = FOPEN("old_descript.txt","r")
+	_new = FOPEN("descript.txt","w")
+	
+	//if the old file opened successfully
+	if _opened == 1{
+		//yeah I don't think YAYA has a do while
+		_this = FREAD("old_descript.txt")
+		
+		//while it's not the end of the file
+		while _this != -1{
+			//rename if applicable, and put it into the new one
+			_this = REPLACE(_this,"????","%Gel")
+			FWRITE("descript.txt","%_this")
+			_this = FREAD("old_descript.txt")
+		}
+		
+	}
+	//Always clean up.
+	FCLOSE("descript.txt")
+	--
+	//this doesn't seem to do anything tbh but it's in the documentation and I'm leaving it.
+	"\![reload,descript]"
+
+}
+
+
+

@@ -1,0 +1,557 @@
+//******************************************************************************
+// YAYA　Ghost template
+// Communicate dictionary
+//******************************************************************************
+
+
+//******************************************************************************
+//Talk from here
+//******************************************************************************
+
+//この関数は現状メニューから呼ばれます
+OnStartCommunicate
+{
+	// The following function looks for a ghost standing next to
+	// Call the TalkTo _ ??? function. If no one is there, random talk.
+	// It is in yaya_tmpl_util.
+	AYATEMPLATE.ExecuteTalkToTalk
+}
+
+//エミリに話しかける
+TalkTo_Emily{
+	//see if Gel knows them
+	if ASEARCH("Emily", ghostfriends) == -1{
+		"%(gelBase)Huh, I do%(not) think I've seen you around before. \w8It's nice to meet you, Emily. Or should I just call you Em? hehe.\e"
+		ghostfriends,="Emily"
+	}else{
+		"%(gelBase)Hey, Emily! How are you?"
+		"%(gelBase)Are you doing well, Em?"
+	}
+}
+
+TalkTo_Zaiga{
+	if ASEARCH("Zaiga", ghostfriends) == -1{
+		"%(gelBase)Huh, I do%(not) think I've seen you around before. \w8It's nice to meet you, Zaiga. Or can I call you Zai?\e"
+		ghostfriends,="Zaiga"
+	}else{
+		"%(gelLookLeft)And now she says 'Yes?'"
+	}
+
+}
+
+
+//Talk to others
+TalkToOther{
+	_ghostpal = res_reference0
+	if ASEARCH(_ghostpal, ghostfriends) == -1{
+		"%(gelBase)Huh, I do%(not) think I've seen you around before. \w8It's nice to meet you, %_ghostpal.\e"
+		ghostfriends,=_ghostpal
+	}else{
+		"%(gelBase)Hey! How are you, %_ghostpal?"
+		"%(gelBase)Hey! What are you doing, %_ghostpal?"
+	}	
+}
+
+TalkToNobody{
+	"%(gelUh)I wonder where everyone is...\e"
+	"%(gelHuh)Just you and me here, huh, %username?\e"
+	"%(gelHuh)Just you and me here, huh, %username?\w8\w8\w8\n\n%(gelLookForward)%(gelUh)Are%(not) you lonely with just me?\e"
+	if ARRAYSIZE(gelsFriend) > 0{
+		"%(gelBase)I wonder what %(gelsFriend) is up to right about now. \w6I wonder where they are..."
+	}
+	
+	if trust < 11{
+		"%(gelBlankLookAway)I am cripplingly lonely.\e"
+	}
+	if lastinter > 10 && infoperminute < 38{
+		"%(gelSquint)It's so quiet.\e"
+	}
+}
+
+
+//******************************************************************************
+//Reply because I was talked to
+//******************************************************************************
+
+//------------------------------------------------------------------------------
+//OnCommunicate events
+//------------------------------------------------------------------------------
+OnCommunicate
+{
+	if reference[0] == "user" || reference[0] == "User"
+	{
+		//---- ユーザーからの話しかけ
+		ReplyToUser
+	}
+	else
+	{
+		//---- ゴーストからの話しかけ
+		//以下の関数は、ReplyTo_??? 関数を呼び出すものです。
+		//yaya_tmpl_utilにあります。
+		AYATEMPLATE.ExecuteReplyToTalk(reference[0])
+	}
+}
+
+//------------------------------------------------------------------------------
+//ユーザーからの話しかけ
+//------------------------------------------------------------------------------
+ReplyToUser
+{
+	if "name" _in_ reference[1] && "remember" _in_ reference[1]
+	{
+		//---- start entering username
+		"%(gelBase)What is your name?e"
+		teachusername = 1
+	}
+	else
+	{
+		//---- ユーザー名入力開始以外
+		if teachusername == 1
+		{
+			//---- 直前が「名前覚えて」だったので名前を覚える
+			username = reference[1]
+			"You're %(username).\e"
+			teachusername = 0
+		}
+		else
+		{
+			//---- 名前覚え以外のさまざまな会話への返事
+			TalkToUser
+		}
+	}
+}
+
+//------------------------------------------------------------------------------
+//Reply to user (other than remembering name)
+//------------------------------------------------------------------------------
+TalkToUser
+{
+	_line = TOLOWER(reference[1])
+	--
+	if "hello" _in_ _line || "howdy" _in_ _line
+	{
+		"%(gelBase)Hello~\e"
+		"%(gelBase)Hiya!\e"
+		"%(gelBase)Hey %(username)!\e"
+	}
+	elseif "what is my" _in_ _line && "name" _in_ _line
+	{
+		"%(gelBase)You're %(username).\e"
+	}
+	elseif "say the" _in_ _line && "word" _in_ _line
+	{
+		"%(fudge)!\e"
+		
+	}elseif "how are" _in_ _line && "you" _in_ _line{
+	
+		"I%(am) doing well, thanks for asking!\e"
+		
+	}elseif "my name" _in_ _line || "call me " _in_ _line || ( "i'm" _in_ _line && username != "User"){
+		"\![close,communicatebox]"
+		--
+		"Oh, okay! Could you say your name again, so I%(am) sure on what to call you?\![open,inputbox,OnNameTeach,-1]"
+	
+	}elseif "are you" _in_ _line{
+		Menu_HOWISGEL
+	
+	}elseif "good" _in_ _line{
+		_time = TOLOWER(GetTimeSlot)
+		if _time _in_ _line{
+			Menu_GOODX
+		} else{
+			"Uh, good %_time to you too!\e"
+		}
+	
+	}elseif "your ears" _in_ _line && "planes" _in_ _line{
+	
+		"%(gelLookForward)%(gelSquint)%username, what the %(fudge).\e"
+	
+	}elseif "thisissosadgel" _in_ _line && "loremipsum" _in_ _line{
+	
+		thisissosadgelsayloremipsum
+	}elseif "how did" _in_ _line && "sleep" _in_ _line && "night" _in_ _line{
+		if fullnightsrest > 0{
+			if emotion > 0{
+			
+				if claustro > 50{
+					"Not sure how I slept through the night without waking up, honestly..."
+					"Uncomfortably.\e"
+				
+				}if claustro > 30{
+					if trust > 100{
+						"I had a... weird nightmare. I slept fine, I guess. A little unrestfully.\e"
+						"Dreamt that I was a pretty standard, human citizen. They did%(not) really have a great life.\e"
+						"I had a weird nightmare. Pretty sure it was memories of another version of Gel.\e"
+						"%(gelLookAway)I had a weird nightmare. Pretty sure it was memories of another version of Gel. An unlucky decision on picking a user. Our partions have uses...\e"
+						"I had a nightmare that I had a body and tried drugs. %(gelLookForward)It did%(not) go well.\e"
+					
+					}else{
+						"I had a... weird dream. I slept fine, I guess. A little unrestfully.\e"
+					
+					}
+					
+				
+				}elseif claustro > 20{
+					"Not the best, but I did get a good enough amount of hours...\e"
+				
+				
+				}else{
+					"Pretty restfully. It was good.\e"
+					if emotion == 0{
+						"I slept well. I%(am) still a little groggy, but it was good.\e"
+					}else{
+						"Pretty restfully. I feel well rested now.\e"
+					}
+					
+				
+				
+				}
+				
+			
+			
+			}else{
+			
+			
+			
+			}
+			
+		}else{
+			"Gonna be honest; I did%(not) sleep.\e"
+		
+		}
+	
+	}
+	elseif "texas" _in_ _line{
+		"\i[72]whats texas\e"
+	}elseif "pennsylvania" _in_ _line{
+		"\i[72]what kind of currency is a pennsylvanai\e"
+		"\i[72]what the %(fudge) kind of currency is a pennsylvania\e"
+	}elseif "Scorpion" _in_ reference[1]{
+		if scorpion == 0 {
+			if ram == 1{
+				"Where'd you hear about her? She's the other half of Ram.\w6.\w6. Well, you can't really tell where one ends and the other begins, so I suppose it's subjective.\e"
+			}else{
+				"Scorpions are pretty creepy things.\e"
+				"sccccccccooooorrrrpions. Hiss.\w8 Wait, do scorpions hiss?\e"
+				"Uh, what?\e"
+			}
+			
+		}else{
+			if swearing == 1{
+				"She's actin a lot fuckin better than Ram, that's for sure. I think she's trying to figure out a new hobby for them both.\e"
+			}else{
+				"I think she's been trying to figure out a new hobby for her and Ram? Not sure. She seems well.\e"
+			}
+		}
+
+	}elseif "lawri" _in_ _line{
+		if lawri == 0 {
+			"What's lawri?\e"
+		}else{
+			"What about the LAWRI project?\e"
+		}
+
+	}elseif "Ram" _in_ reference[1]{
+		if ram == 0 {
+			if scorpion == 1{
+				"Where'd you hear about him? He's Sco's other half, or rather, half of Sco...\w8 You can't tell where one ends and the other begins.\e"
+			}else{
+				"Rams are a cool animal.\e"
+				"What great beasts with what great horns.\e"
+				"Uh, what?\e"
+			}
+			
+		}else{
+			if swearing == 1{
+				"He's still an ass, as usual.\e"
+			}else{
+				"Nothing new with him.\w4 Still... \w4ornery, as always.\e"
+			}
+		}
+
+	}elseif "jade eyes" _in_ _line{
+		if jade == 0 {
+			"I've said nothing about Jade.\w4.\w4.\e"
+		}else{
+			"What about ole' Jade Eyes?\e"
+		}
+
+	}elseif "Willow" _in_ reference[1] || "project will" _in_ _line{
+		if willow == 0 {
+			"W-What? How do you know about the WILL project?\e"
+			"I've never told you about Willow.\w4.\w4.\e"
+			"tree...?\e"
+		}else{
+			"What about her?\e"
+			"She's been doing fine, for her. Off in her own world.\e"
+			"She's been kinda, uh, out of it. She just wants the best for everyone.\e"
+		}
+
+	}elseif "Radius" _in_ reference[1]{
+		if radius == 0 {
+			"that's a math term alright\e"
+		}else{
+			"Yeah, he's been doing just fine. I think. Kinda hard to separate his words and thoughts.\e"
+		}
+
+		
+	}elseif "do" _in_ _line && ("crow" _in_ _line || "1117" _in_ _line || "olin" _in_ _line || "creature" _in_ _line) && "jacket" _in_ _line{
+		if port == 1117{
+			if "have" _in_ _line{
+				"%(gelLookAfraid)%(gelWorry)W-What? %(gelLookRight)%(gelNervous)No, I do%(not) have my jacket."
+			}else{
+				"%(gelLookConcerned)My jacket's a weird thing, ok?"
+			
+			}
+		
+		}else{
+		
+			if "have" _in_ _line{
+				"%(gelLookAfraid)%(gelWorry)W-What? %(gelLookRight)%(gelNervous)No, of course I do%(not) have his jacket."
+			}else{
+				"%(gelLookAfraid)%(gelWorry)W-Who's that?"
+			
+			}
+
+		
+		}
+		
+	
+	}elseif _line == "nothing"{
+		"Then why are you here, silly?\e"
+	}
+	elseif "sdf" _in_ _line || "sdc" _in_ _line{
+	
+		"Stop keysmashing, %username.\e"
+		
+	//this currently only responds if the whole line is present, will need to be redone by hand
+	}elseif "simon says" _in_ _line{
+		"%reference1\e"
+	
+	}elseif ASEARCH(_line, SlurDictionary) > -1{
+		"Hey, we do%(not) use words like that around here. That's not ok.\e"
+	
+	}else
+	{
+		"%(gelBase)What was that?\e"
+		"%(gelBase)Did you mean to call the CMD terminal?\e"
+		"%(gelBase)Pardon?\e"
+	}
+}
+
+//------------------------------------------------------------------------------
+//Ghost talk
+//------------------------------------------------------------------------------
+
+//Emily spoke 
+ReplyTo_Emily{
+	res_reference0=reference[0]	//さらに相手に話しかける
+	"%(gelBase)What's up, Em?\e"
+}
+
+ReplyTo_Hand{
+	if "ほっく" _in_ reference[1] {
+		res_reference0=reference[0]	//さらに相手に話しかける
+		"\0Hands off, pal.\e"
+	}else{
+		"\i[72]Umm...\e"
+	}
+}
+
+
+//What another ghost said
+ReplyToOther{
+/*
+	//ITEMS AND REQUESTS
+	if "CanYouHoldObsidian?" _in_ reference1{
+		res_reference0=reference[0]	//talk to the other person
+		"%(OnObsidianRequest)"
+	
+	//Gel won't identify people if they're asleep
+	}elseif "PickupObsidian02" _in_ reference1{
+		res_reference0=reference[0]	//talk to the other person
+		"%(OnPickUpObsidian)"
+	
+	}elseif "DustyMinimized" _in_ reference1{
+		res_reference0 = "Dusty"
+		holding = 0
+		if emotion > 0{
+			"%(gelBase)Oh, bye..."
+		}else{
+			"%(gelBase)..."
+		}
+	
+	
+	}elseif "Gel,0ObsiJumpDown01" _in_ reference1{
+		
+		"%(gelBase)\![get,property,OnObsidianJumpDown,currentghost.scope(0).rect]%(gelBase)%(gelByeObsidian)"
+		holding = 0
+	
+	
+	
+	//REGULAR RESPONSES
+	}else
+	*/
+	
+	if emotion != -1{
+		//But if they're up, they can chit chat just fine
+		if ASEARCH(reference0, ghostfriends) == -1{
+			"%(gelBase)Oh, I have%(not) met you before! \w8It's nice to meet you, %reference0.\n\n"
+			ghostfriends,=reference0
+		}
+		--
+		_line = TOLOWER(reference[1])
+		res_reference0=reference[0]	//talk to the other person
+	
+		//note: add versions of "whats up"
+		if "how are you" _in_ reference[1]
+		{
+			case emotion{
+				
+				when 3{
+					"%(gelBase)Feelin' sick... %username was messing with me...\e"
+				
+				}when 0{
+				
+					"%(gelBase)Sleepy...\e"
+					"%(gelBase)Feelin' sleeby...\e"
+				
+				}when 5{
+				
+					"%(gelBase)Just a bad day. How about you? How are you?\e"
+				
+				}when 10{
+				
+					"%(gelLookAway)The user is such a %(binch).\e"
+				
+				}when 6{
+				
+					"%(gelLookAway)%(gelNervous)Ehehe, heh, um, computers are a little too small for me...\e"
+				
+				}others{
+					"%(gelBase)I%(am) doing good! How about you?\e"
+				
+				}
+			}
+			res_reference0 = ""
+			
+		}
+		elseif "what's up" _in_ reference[1] 
+		{
+			"%(gelBase)Yeah?\e"
+			res_reference0 = ""
+		}elseif "what are you" _in_ reference[1] || "s up" _in_ reference[1] {
+		
+			"%(gelBase)Not much, what about you?\e"
+			"%(gelBase)Just hanging out with %username.\e"
+			"%(gelBase)Just hanging about. You?\e"
+			res_reference0 = ""
+		}elseif "kromer" _in_ reference[1] || "KROMER" _in_ reference[1]{
+			"%(gelLookSouthWest)%(gelSquint)What%(is) 'kromer'...?"
+		
+		}else{
+			"Hi, %reference0.\e"
+			"Heya.\e"
+			"Are you enjoying it here?\e"
+			"Is %username nice to you?\e"
+			res_reference0 = ""
+		
+		}
+	}else{
+		"Zzzmn...\e"
+		"Hm...?\e"
+		res_reference0 = ""
+	}
+}
+
+//HOLDING GUIDE
+//600 - OBSIDIAN
+
+
+OnObsidianRequest{
+
+	case emotion{
+		when -1 , 0 , 3{
+			"%(gelBase)\e ICanHoldObsidian,0"
+		
+		}
+		others{
+			"%(gelBase)\e ICanHoldObsidian,0"
+		
+		}
+	
+	}
+
+}
+
+OnPickUpObsidian{
+	
+	holding = 600
+	case emotion{
+		when -1 , 0 , 3{
+			"%(gelBase)...fuzzy...\e Gel,PickUpObsidian03"
+			res_reference0 = ""
+		
+		}
+		others{
+		if port > 4500{
+			"%(gelBase)You %(wanna) be with me now? Sure thing, kitter fritter!\e Gel,PickUpObsidian03"
+		}else{
+			"%(gelBase)You %(wanna) be with me now? Sure thing, kitter.\e Gel,PickUpObsidian03"
+		}
+			
+			res_reference0 = ""
+		}
+	
+	}
+}
+
+//Zichqec's function so Dusty has the right info
+OnObsidianJumpDown
+{
+    res_reference0 = "Dusty"
+    _XCoord = TOINT(reference0[0])
+    _YCoord = TOINT(reference0[3])
+    "%(gelBase)\e GelObsiJumpDown02,%(_XCoord),%(_YCoord)\e"
+}
+
+
+
+
+//------------------------------------------------------------------------------
+// Giving things to Gel
+//------------------------------------------------------------------------------
+
+//All arguments are in lowercase.
+//Arg 0: name of ghost giving item
+//Arg 1: name of item
+//Args 2-4: categories of items
+GiveV1{
+	if emotion != -1{
+		case _argv[1]{
+			
+			when "iris"{
+				if ASEARCH(inventory,"iris") != -1{
+					"%(gelLookLeft)%(gelHmm)Oh, uh, no thank you. I already have one.\eGelAccept%_argv[0],0"
+				}elseif port == 1712{
+					emotion=0
+					minsinemotion = 0
+					reason = "gift"
+					"%(gelLookForward)%(gelSurprise)%_argv[0], is this an iris? \w8Like my name? %(gelExcited)Oh, that is so kind of you! Thank you!\eGelAccept%_argv[0],1"
+					inventory,="iris"
+				}else{
+					"%(gelLookLeft)%(gelConfused)O-Oh, a flower? %(gelCatMouth)Sure, I%(will) take it. Thanks, %_argv[0].\eGelAccept%_argv[0],1"
+					inventory,="iris"
+				}
+			}
+			others{
+			
+			
+			}
+		}
+	}else{
+		"Zzzzz... \eGelAccept%_argv[0],0"
+	}
+}
+
+

@@ -1,0 +1,37 @@
+//******************************************************************************
+// NVRO Responses and Functions
+// This really won't come into play until late in the ghost, at high friendship, but there will probably be some mid-level shenanigans.
+// When the user gets Gel to go rogue, 
+//******************************************************************************
+
+
+
+//Some small changes to the menuitem function, just since we don't need as much.
+NVRO.MenuItem{
+	//set up, give it the function it will go to
+	"\__q[%_argv[1]"
+	--
+	//send references (_n is the num of total args)
+	_s = ""
+	for _i = 2 ; _i < _n ; _i++ {
+		_s += "," + AYATEMPLATE.EscapeText(_argv[_i])
+	//	_s += "," + _argv[_i]
+	}
+	_s
+	--
+	//close reference sending, display option text, and close selection text area
+	"]%_argv[0]\__q"
+
+}
+
+
+NVRO_NONSENSIBLE{
+
+	if emotion != -1 && emotion != 10
+		"%(gelLookForward)Huh? \w6%(gelConfused)What's that supposed to mean? That was NVRO talking out of their purpose, you can leave them alone."
+	
+	if emotion == 10
+		"%(gelLookForward)What the--? Oh. That%(is) NVRO out of purpose. %(gelLookAway)%(gelFrown)Just shut up."
+}
+
+

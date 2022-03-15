@@ -1,0 +1,2135 @@
+charset,Shift_JIS
+
+descript
+{
+version,1
+}
+
+//Order does not really matter.
+//Rather, 0 is on the bottom, then 1, and so on.
+
+
+
+surface1000
+{
+	
+	//torso
+	animation290.interval,runonce
+	animation290.pattern0,overlay,01029000,0,0,0
+	
+	//head
+	animation291.interval,runonce
+	animation291.pattern0,overlay,01029100,0,0,0
+	
+	//bangs
+	animation292.interval,runonce
+	animation292.pattern0,overlay,01029200,0,0,0
+	
+	//green t shirt
+	animation500.interval,bind
+	animation500.pattern1,overlay,01050000,0,0,0
+	
+	//seriko t shirt
+//	animation501.interval,bind
+//	animation501.pattern0,overlay,01050100,0,0,0
+	
+	//baja t shirt 
+	animation502.interval,bind
+	animation502.pattern2,overlay,01050200,0,0,0
+	
+	//peach t shirt 
+	animation503.interval,bind
+	animation503.pattern2,overlay,01050300,0,0,0
+	
+	//VOC t shirt 
+	animation504.interval,bind
+	animation504.pattern2,overlay,01050400,0,0,0
+	
+	//denied t shirt 
+	animation505.interval,bind
+	animation505.pattern2,overlay,01050500,0,0,0
+	
+	//-----------------------------------------------------------------------------------
+	
+	//the arms - lax
+	animation700.interval,never
+	animation700.pattern0,overlay,01070000,0,0,0
+	animation700.pattern1,parallelstop,17020,701,702,703
+	animation700.collision20,110,335,135,362,LeftHand
+	animation700.collision22,125,325,175,365,RightHand
+	
+	//the arms - hand on chest
+	animation702.interval,never
+	animation702.pattern0,overlay,01070200,0,0,0
+	animation702.pattern1,parallelstop,17000,701,700,703
+	animation702.collision20,115,335,135,362,LeftHand
+	animation702.collision22,125,325,175,365,RightHand
+	
+	//the arms - questioning hand
+	animation704.interval,never
+	animation704.pattern0,overlay,01070400,0,0,0
+	animation704.collision20,115,335,135,362,LeftHand
+	animation704.collision22,175,225,215,285,RightHand
+	
+	//the arms - gesture gel's right
+	animation706.interval,never
+	animation706.pattern0,overlay,01070600,0,0,0
+	animation706.collision20,115,335,135,362,LeftHand
+	animation706.collision22,125,325,175,365,RightHand
+	
+	//the arms - smug
+	animation708.interval,never
+	animation708.pattern0,overlay,01070800,0,0,0
+	animation708.collision20,115,335,135,362,LeftHand
+	animation708.collision22,170,290,210,345,RightHand
+	
+	//the arms - hand on chin
+	animation710.interval,never
+	animation710.pattern0,overlay,01071000,0,0,0
+	animation710.collision20,115,335,135,362,LeftHand
+	animation710.collision22,170,290,210,345,RightHand
+	
+	//the arms - hands on knees
+	animation712.interval,never
+	animation712.pattern0,overlay,01071200,0,0,0
+	animation712.collision20,115,335,135,362,LeftHand
+	animation712.collision22,170,290,210,345,RightHand
+	
+	//the arms - The Council Has Decided
+	animation714.interval,never
+	animation714.pattern0,overlay,01071400,0,0,0
+	animation714.collision20,115,335,135,362,LeftHand
+	animation714.collision22,125,315,175,355,RightHand
+	
+	//the arms - gesture gel's left
+	animation716.interval,never
+	animation716.pattern0,overlay,01071600,0,0,0
+	animation716.collision20,115,335,135,362,LeftHand
+	animation716.collision22,200,245,245,285,RightHand
+	
+	//the arms - high five
+	animation718.interval,never
+	animation718.pattern0,overlay,01071800,0,0,0
+	animation718.collision20,115,335,135,362,LeftHand
+	animation718.collision22,175,225,215,285,RightHand
+	
+	//the arms - hugging self
+	animation720.interval,never
+	animation720.pattern0,overlay,01072000,0,0,0
+	animation720.collision22,105,300,160,335,RightHand
+	
+	//the arms - rock
+	animation722.interval,never
+	animation722.pattern0,overlay,01072200,0,0,0
+	animation722.collision20,115,335,135,362,LeftHand
+	animation722.collision22,125,315,175,355,RightHand
+	
+	//arms in lap controller, which delegates, then calls sleeves (17000)
+	animation701.interval,never
+	animation701.pattern0,start,700
+	animation701.pattern1,overlay,17000,0,0,0	
+	
+	//hand on chest controller
+	animation703.interval,never
+	animation703.pattern0,start,702
+	animation703.pattern1,overlay,17020,0,0,0	
+	
+	//question hand controller
+	animation705.interval,never
+	animation705.pattern0,start,704
+	animation705.pattern1,overlay,17040,0,0,0	
+	
+	//gesture left controller
+	animation707.interval,never
+	animation707.pattern0,start,706
+	animation707.pattern1,overlay,17060,0,0,0	
+	
+	//smug hand controller
+	animation709.interval,never
+	animation709.pattern0,start,708
+	animation709.pattern1,overlay,17080,0,0,0	
+	
+	//fist to chin controller
+	animation711.interval,never
+	animation711.pattern0,start,710
+	animation711.pattern1,overlay,17100,0,0,0	
+	
+	//hands on knees controller
+	animation713.interval,never
+	animation713.pattern0,start,712
+	animation713.pattern1,overlay,17120,0,0,0	
+	
+	//council decision controller
+	animation715.interval,never
+	animation715.pattern0,start,714
+	animation715.pattern1,overlay,17140,0,0,0	
+	
+	//gesture right controller
+	animation717.interval,never
+	animation717.pattern0,start,716
+	animation717.pattern1,overlay,17160,0,0,0	
+	
+	//high five controller
+	animation719.interval,never
+	animation719.pattern0,start,718
+	animation719.pattern1,overlay,17180,0,0,0	
+	
+	//hug self controller
+	animation721.interval,never
+	animation721.pattern0,start,720
+	animation721.pattern1,overlay,17200,0,0,0	
+	
+	//play rock controller
+	animation723.interval,never
+	animation723.pattern0,start,722
+	animation723.pattern1,overlay,17220,0,0,0	
+	
+	
+	
+	//Santa hat!
+	animation1212.interval,bind
+	animation1212.pattern0,overlay,01121200,0,0,0
+	animation1212.collision1212,175,200,200,220,JingleBell
+	
+	//sparkle effect for hats
+	animation1213.interval,never
+	animation1213.pattern0,overlay,01121201,0,0,0
+	animation1213.pattern1,overlay,01121202,100,0,0
+	animation1213.pattern2,overlay,01121201,150,0,0
+	animation1213.pattern3,overlay,01121202,200,0,
+	animation1213.pattern4,overlay,01121201,140,0,0
+	animation1213.pattern5,overlay,01121202,100,0,0
+	animation1213.pattern6,overlay,01121201,120,0,0
+	animation1213.pattern7,overlay,01121202,180,0,0
+	animation1213.pattern8,overlay,-1,150,0,0
+	
+	//paper bag emote
+	animation1250.interval,bind
+	animation1250.pattern0,overlay,01125000,0,0,0
+//	animation1212.collision1212,175,200,200,220,JingleBell
+	
+
+	
+}
+
+//Lax lap arms for sitting up straight
+surface17000
+{
+	
+	1interval,never
+	element0,overlayfast,null.png,0,0
+	
+	//DUMMY
+	animation1.interval,bind
+	animation1.pattern2,overlay,81800000,0,0,0
+	
+	//green t shirt sleeves
+	animation800.interval,bind
+	animation800.pattern2,overlay,81800000,0,0,0
+	
+	//seriko is strange t shirt sleeves
+//	animation801.interval,bind
+//	animation801.pattern2,overlay,81800010,0,0,0
+	
+	//baja t shirt sleeves
+	animation802.interval,bind
+	animation802.pattern2,overlay,81800020,0,0,0
+	
+	//peach t shirt sleeves
+	animation803.interval,bind
+	animation803.pattern2,overlay,81800030,0,0,0
+	
+	//VOC t shirt sleeves
+	animation804.interval,bind
+	animation804.pattern2,overlay,81800040,0,0,0
+	
+	//denied t shirt sleeves
+	animation805.interval,bind
+	animation805.pattern2,overlay,81800050,0,0,0
+	
+}
+
+
+//alert hand over chest
+surface17020
+{
+	
+	1interval,never
+	element0,overlayfast,null.png,0,0
+	
+	//DUMMY
+	animation1.interval,bind
+	animation1.pattern2,overlay,81802000,0,0,0
+	
+	//green t shirt sleeves
+	animation800.interval,bind
+	animation800.pattern2,overlay,81802000,0,0,0
+	
+	//seriko is strange t shirt sleeves
+//	animation801.interval,bind
+//	animation801.pattern2,overlay,81802010,0,0,0
+	
+	//baja t shirt sleeves
+	animation802.interval,bind
+	animation802.pattern2,overlay,81802020,0,0,0
+	
+	//peach t shirt sleeves
+	animation803.interval,bind
+	animation803.pattern2,overlay,81802030,0,0,0
+	
+	//VOC t shirt sleeves
+	animation804.interval,bind
+	animation804.pattern2,overlay,81802040,0,0,0
+	
+	//denied t shirt sleeves
+	animation805.interval,bind
+	animation805.pattern2,overlay,81802050,0,0,0
+	
+}
+
+
+//alert questioning
+surface17040
+{
+	
+	1interval,never
+	element0,overlayfast,null.png,0,0
+	
+	//DUMMY
+	animation1.interval,bind
+	animation1.pattern2,overlay,81804000,0,0,0
+	
+	//green t shirt sleeves
+	animation800.interval,bind
+	animation800.pattern2,overlay,81804000,0,0,0
+	
+	//seriko is strange t shirt sleeves
+//	animation801.interval,bind
+//	animation801.pattern2,overlay,81804010,0,0,0
+	
+	//baja t shirt sleeves
+	animation802.interval,bind
+	animation802.pattern2,overlay,81804020,0,0,0
+	
+	//peach t shirt sleeves
+	animation803.interval,bind
+	animation803.pattern2,overlay,81804030,0,0,0
+	
+	//VOC t shirt sleeves
+	animation804.interval,bind
+	animation804.pattern2,overlay,81804040,0,0,0
+	
+	//denied t shirt sleeves
+	animation805.interval,bind
+	animation805.pattern2,overlay,81804050,0,0,0
+	
+}
+
+
+//alert gesture your left, Gel's right
+surface17060
+{
+	
+	1interval,never
+	element0,overlayfast,null.png,0,0
+	
+	//DUMMY
+	animation1.interval,bind
+	animation1.pattern2,overlay,81806000,0,0,0
+	
+	//green t shirt sleeves
+	animation800.interval,bind
+	animation800.pattern2,overlay,81806000,0,0,0
+	
+	//seriko is strange t shirt sleeves
+//	animation801.interval,bind
+//	animation801.pattern2,overlay,81806010,0,0,0
+	
+	//baja t shirt sleeves
+	animation802.interval,bind
+	animation802.pattern2,overlay,81806020,0,0,0
+	
+	//peach t shirt sleeves
+	animation803.interval,bind
+	animation803.pattern2,overlay,81806030,0,0,0
+	
+	//VOC t shirt sleeves
+	animation804.interval,bind
+	animation804.pattern2,overlay,81806040,0,0,0
+	
+	//denied t shirt sleeves
+	animation805.interval,bind
+	animation805.pattern2,overlay,81806050,0,0,0
+	
+}
+
+
+//alert smug
+surface17080
+{
+	
+	1interval,never
+	element0,overlayfast,null.png,0,0
+	
+	//DUMMY
+	animation1.interval,bind
+	animation1.pattern2,overlay,81808000,0,0,0
+	
+	//green t shirt sleeves
+	animation800.interval,bind
+	animation800.pattern2,overlay,81808000,0,0,0
+	
+	//seriko is strange t shirt sleeves
+//	animation801.interval,bind
+//	animation801.pattern2,overlay,81808010,0,0,0
+	
+	//baja t shirt sleeves
+	animation802.interval,bind
+	animation802.pattern2,overlay,81808020,0,0,0
+	
+	//peach t shirt sleeves
+	animation803.interval,bind
+	animation803.pattern2,overlay,81808030,0,0,0
+	
+	//VOC t shirt sleeves
+	animation804.interval,bind
+	animation804.pattern2,overlay,81808040,0,0,0
+	
+	//denied t shirt sleeves
+	animation805.interval,bind
+	animation805.pattern2,overlay,81808050,0,0,0
+	
+}
+
+
+//alert questioning
+surface17100
+{
+	
+	1interval,never
+	element0,overlayfast,null.png,0,0
+	
+	//DUMMY
+	animation1.interval,bind
+	animation1.pattern2,overlay,81810000,0,0,0
+	
+	//green t shirt sleeves
+	animation800.interval,bind
+	animation800.pattern2,overlay,81810000,0,0,0
+	
+	//seriko is strange t shirt sleeves
+//	animation801.interval,bind
+//	animation801.pattern2,overlay,81810010,0,0,0
+	
+	//baja t shirt sleeves
+	animation802.interval,bind
+	animation802.pattern2,overlay,81810020,0,0,0
+	
+	//peach t shirt sleeves
+	animation803.interval,bind
+	animation803.pattern2,overlay,81810030,0,0,0
+	
+	//VOC t shirt sleeves
+	animation804.interval,bind
+	animation804.pattern2,overlay,81810040,0,0,0
+	
+	//denied t shirt sleeves
+	animation805.interval,bind
+	animation805.pattern2,overlay,81810050,0,0,0
+	
+}
+
+
+//alert hands on knees
+surface17120
+{
+	
+	1interval,never
+	element0,overlayfast,null.png,0,0
+	
+	//DUMMY
+	animation1.interval,bind
+	animation1.pattern2,overlay,81812000,0,0,0
+	
+	//green t shirt sleeves
+	animation800.interval,bind
+	animation800.pattern2,overlay,81812000,0,0,0
+	
+	//seriko is strange t shirt sleeves
+//	animation801.interval,bind
+//	animation801.pattern2,overlay,81812010,0,0,0
+	
+	//baja t shirt sleeves
+	animation802.interval,bind
+	animation802.pattern2,overlay,81812020,0,0,0
+	
+	//peach t shirt sleeves
+	animation803.interval,bind
+	animation803.pattern2,overlay,81812030,0,0,0
+	
+	//VOC t shirt sleeves
+	animation804.interval,bind
+	animation804.pattern2,overlay,81812040,0,0,0
+	
+	//denied t shirt sleeves
+	animation805.interval,bind
+	animation805.pattern2,overlay,81812050,0,0,0
+	
+}
+
+
+//alert council
+surface17140
+{
+	
+	1interval,never
+	element0,overlayfast,null.png,0,0
+	
+	//DUMMY
+	animation1.interval,bind
+	animation1.pattern2,overlay,81814000,0,0,0
+	
+	//green t shirt sleeves
+	animation800.interval,bind
+	animation800.pattern2,overlay,81814000,0,0,0
+	
+	//seriko is strange t shirt sleeves
+//	animation801.interval,bind
+//	animation801.pattern2,overlay,81814010,0,0,0
+	
+	//baja t shirt sleeves
+	animation802.interval,bind
+	animation802.pattern2,overlay,81814020,0,0,0
+	
+	//peach t shirt sleeves
+	animation803.interval,bind
+	animation803.pattern2,overlay,81814030,0,0,0
+	
+	//VOC t shirt sleeves
+	animation804.interval,bind
+	animation804.pattern2,overlay,81814040,0,0,0
+	
+	//denied t shirt sleeves
+	animation805.interval,bind
+	animation805.pattern2,overlay,81814050,0,0,0
+	
+}
+
+
+//alert hand high five
+surface17160
+{
+	
+	1interval,never
+	element0,overlayfast,null.png,0,0
+	
+	//DUMMY
+	animation1.interval,bind
+	animation1.pattern2,overlay,81816000,0,0,0
+	
+	//green t shirt sleeves
+	animation800.interval,bind
+	animation800.pattern2,overlay,81816000,0,0,0
+	
+	//seriko is strange t shirt sleeves
+//	animation801.interval,bind
+//	animation801.pattern2,overlay,81816010,0,0,0
+	
+	//baja t shirt sleeves
+	animation802.interval,bind
+	animation802.pattern2,overlay,81816020,0,0,0
+	
+	//peach t shirt sleeves
+	animation803.interval,bind
+	animation803.pattern2,overlay,81816030,0,0,0
+	
+	//VOC t shirt sleeves
+	animation804.interval,bind
+	animation804.pattern2,overlay,81816040,0,0,0
+	
+	//denied t shirt sleeves
+	animation805.interval,bind
+	animation805.pattern2,overlay,81816050,0,0,0
+	
+}
+
+//alert hand look at hand questioningly
+surface17180
+{
+	
+	1interval,never
+	element0,overlayfast,null.png,0,0
+	
+	//DUMMY
+	animation1.interval,bind
+	animation1.pattern2,overlay,81816000,0,0,0
+	
+	//green t shirt sleeves
+	animation800.interval,bind
+	animation800.pattern2,overlay,81816000,0,0,0
+	
+	//seriko is strange t shirt sleeves
+//	animation801.interval,bind
+//	animation801.pattern2,overlay,81816010,0,0,0
+	
+	//baja t shirt sleeves
+	animation802.interval,bind
+	animation802.pattern2,overlay,81816020,0,0,0
+	
+	//peach t shirt sleeves
+	animation803.interval,bind
+	animation803.pattern2,overlay,81816030,0,0,0
+	
+	//VOC t shirt sleeves
+	animation804.interval,bind
+	animation804.pattern2,overlay,81816040,0,0,0
+	
+	//denied t shirt sleeves
+	animation805.interval,bind
+	animation805.pattern2,overlay,81816050,0,0,0
+	
+}
+
+//alert hug self
+surface17200
+{
+	
+	1interval,never
+	element0,overlayfast,null.png,0,0
+	
+	//DUMMY
+	animation1.interval,bind
+	animation1.pattern2,overlay,81820000,0,0,0
+	
+	//green t shirt sleeves
+	animation800.interval,bind
+	animation800.pattern2,overlay,81820000,0,0,0
+	
+	//seriko is strange t shirt sleeves
+//	animation801.interval,bind
+//	animation801.pattern2,overlay,81820010,0,0,0
+	
+	//baja t shirt sleeves
+	animation802.interval,bind
+	animation802.pattern2,overlay,81820020,0,0,0
+	
+	//peach t shirt sleeves
+	animation803.interval,bind
+	animation803.pattern2,overlay,81820030,0,0,0
+	
+	//VOC t shirt sleeves
+	animation804.interval,bind
+	animation804.pattern2,overlay,81820040,0,0,0
+	
+	//denied t shirt sleeves
+	animation805.interval,bind
+	animation805.pattern2,overlay,81820050,0,0,0
+	
+}
+
+
+//alert play rock
+surface17220
+{
+	
+	1interval,never
+	element0,overlayfast,null.png,0,0
+	
+	//DUMMY
+	animation1.interval,bind
+	animation1.pattern2,overlay,81822000,0,0,0
+	
+	//green t shirt sleeves
+	animation800.interval,bind
+	animation800.pattern2,overlay,81822000,0,0,0
+	
+	//seriko is strange t shirt sleeves
+//	animation801.interval,bind
+//	animation801.pattern2,overlay,81822010,0,0,0
+	
+	//baja t shirt sleeves
+	animation802.interval,bind
+	animation802.pattern2,overlay,81822020,0,0,0
+	
+	//peach t shirt sleeves
+	animation803.interval,bind
+	animation803.pattern2,overlay,81822030,0,0,0
+	
+	//VOC t shirt sleeves
+	animation804.interval,bind
+	animation804.pattern2,overlay,81822040,0,0,0
+	
+	//denied t shirt sleeves
+	animation805.interval,bind
+	animation805.pattern2,overlay,81822050,0,0,0
+	
+}
+
+
+
+
+
+//Alt neutral: comfortable
+//currently the same as 1000
+surface1100
+{
+	
+	//torso
+	animation290.interval,runonce
+	animation290.pattern0,overlay,01029000,0,0,0
+	
+	//head
+	animation291.interval,runonce
+	animation291.pattern0,overlay,01029100,0,0,0
+	
+	//bangs
+	animation292.interval,runonce
+	animation292.pattern0,overlay,01029200,0,0,0
+	
+	//green t shirt
+	animation500.interval,bind
+	animation500.pattern1,overlay,01050000,0,0,0
+	
+	//blue t shirt
+//	animation501.interval,bind
+//	animation501.pattern0,overlay,01050100,0,0,0
+	
+	//the arms
+	animation700.interval,never
+	animation700.pattern0,overlay,01070000,0,0,0
+	animation700.collision700,115,335,135,362,LeftHand
+	
+	//arms in lap controller, which delegates, then calls sleeves (17000)
+	animation701.interval,never
+	animation701.pattern0,start,700
+	animation701.pattern1,overlay,17000,0,0,0	
+	
+	
+}
+
+//gel go ZZZZZZZZZZ
+surface3000
+{
+
+	
+	//green t shirt
+	animation500.interval,bind + runonce
+	animation500.pattern1,overlay,03050000,0,0,0
+	animation500.pattern2,overlay,03050001,750,0,0
+	animation500.pattern3,overlay,03050002,200,0,0
+	animation500.pattern4,overlay,03050001,1500,0,0
+	animation500.pattern5,overlay,03050000,200,0,0
+	animation500.pattern7,start,500
+	
+	//seriko t shirt
+//	animation501.interval,bind
+//	animation501.pattern0,overlay,01050100,0,0,0
+	
+	//the arms
+	animation700.interval,never
+	animation700.pattern1,overlay,03070000,0,0,0
+	animation700.pattern2,overlay,03070001,750,0,0
+	animation700.pattern3,overlay,03070002,200,0,0
+	animation700.pattern4,overlay,03070001,1500,0,0
+	animation700.pattern5,overlay,03070000,200,0,0
+	animation700.pattern7,start,700
+	animation700.collision700,95,330,120,350,LeftHand
+
+	//arms in lap controller, which delegates, then calls sleeves (17000)
+	animation701.interval,never
+	animation701.pattern1,start,700		
+	animation701.pattern2,overlay,37000,0,0,0	
+	animation701.pattern3,overlay,37001,750,0,0
+	animation701.pattern4,overlay,37002,200,0,0
+	animation701.pattern5,overlay,37001,1500,0,0
+	animation701.pattern6,overlay,37000,200,0,0
+	animation701.pattern8,start,701
+
+	//party hat
+	1000interval,bind + always
+	animation1000.pattern0,overlay,66666,0,0,35
+	animation1000.pattern5,overlay,66666,750,0,38
+	animation1000.pattern6,overlay,66666,100,0,40
+	animation1000.pattern7,overlay,66666,100,0,42
+	animation1000.pattern10,overlay,66666,1500,0,40
+	animation1000.pattern11,overlay,66666,100,0,38
+	animation1000.pattern13,overlay,66666,100,0,35
+	animation1000.pattern14,start,1000
+
+
+	
+}
+
+//Lax lap arms for sleepin
+surface37000
+{
+	
+	1interval,never
+	element0,overlayfast,null.png,0,0
+
+	//DUMMY
+	animation1.interval,bind
+	animation1.pattern2,overlay,01080000,0,0,0
+
+	//green t shirt sleeves
+	animation800.interval,bind
+	animation800.pattern0,overlay,03080000,0,0,0
+	
+	//seriko t shirt sleeves
+//	animation801.interval,bind
+//	animation801.pattern0,overlay,01080100,0,0,0
+	
+}
+
+//Lax lap arms for sleepin, down a little
+surface37001
+{
+	
+	element0,overlay,null.png,0,0
+
+	//DUMMY
+	animation1.interval,bind
+	animation1.pattern2,overlay,01080000,0,0,0
+
+	//green t shirt sleeves
+	animation800.interval,bind
+	animation800.pattern0,overlay,03080001,0,0,0
+	
+	
+	//seriko t shirt sleeves
+//	animation801.interval,bind
+//	animation801.pattern0,overlay,01080100,0,0,0
+	
+}
+
+//Lax lap arms for sleepin, down fully
+surface37002
+{
+	
+	element0,overlay,null.png,0,0
+
+	//DUMMY
+	animation1.interval,bind
+	animation1.pattern2,overlay,01080000,0,0,0
+
+	//green t shirt sleeves
+	animation800.interval,bind
+	animation800.pattern0,overlay,03080002,0,0,0
+	
+	//seriko t shirt sleeves
+//	animation801.interval,bind
+//	animation801.pattern0,overlay,01080100,0,0,0
+	
+}
+
+
+//Lax lap arms for slouchin
+surface27000
+{
+	
+	1interval,never
+	element0,overlayfast,null.png,0,0
+
+	//DUMMY
+	animation1.interval,bind
+	animation1.pattern2,overlay,01080000,0,0,0
+
+	//green t shirt sleeves
+	animation800.interval,bind
+	animation800.pattern0,overlay,02080000,0,0,0
+	
+	//seriko t shirt sleeves
+//	animation801.interval,bind
+//	animation801.pattern0,overlay,01080100,0,0,0
+	
+}
+
+//Tired Gel
+surface2000
+{
+	
+	//torso
+	animation290.interval,runonce
+	animation290.pattern0,overlay,03009000,0,0,0
+	
+	//head
+	animation291.interval,runonce
+	animation291.pattern0,overlay,01029100,0,-1,10
+	
+	//bangs
+	animation292.interval,runonce
+	animation292.pattern0,overlay,01029200,0,-1,10
+	
+	//blink controller
+	animation440.interval,sometimes
+	animation440.pattern0,alternativestart,(441,442)
+	//animation440.pattern1,overlay,-1,0,0,0
+	
+	//default blink
+	animation441.interval,never
+	animation441.pattern0,overlay,01040001,10,-1,10
+	animation441.pattern1,overlay,01040002,35,-1,10
+	animation441.pattern2,overlay,01040003,40,-1,10
+	animation441.pattern3,overlay,01040002,70,-1,10
+	animation441.pattern4,overlay,01040001,40,-1,10
+	animation441.pattern5,overlay,-1,0,0,0
+	
+	//slower blink
+	animation442.interval,never
+	animation442.pattern0,overlay,01040001,20,-1,10
+	animation442.pattern1,overlay,01040002,45,-1,10
+	animation442.pattern2,overlay,01040003,50,-1,10
+	animation442.pattern3,overlay,01040002,90,-1,10
+	animation442.pattern4,overlay,01040001,50,-1,10
+	animation442.pattern5,overlay,-1,0,0,0
+	
+	//Talk controller
+	animation490.interval,talk
+	animation490.pattern0,alternativestart,(491,492,493)
+	
+	//BIG SNOOZE
+	animation491.interval,never
+	animation491.pattern0,overlay,01045900,40,-1,10
+	animation491.pattern1,overlay,01049005,70,-1,10
+	animation491.pattern2,overlay,01049003,120,-1,10
+	animation491.pattern3,overlay,01049001,70,-1,10
+	animation491.pattern4,overlay,01049003,100,-1,10
+	animation491.pattern5,overlay,01045100,70,-1,10
+	animation491.pattern6,overlay,-1,40,0,0
+	
+	//LIL SNOOZE
+	animation492.interval,never
+	animation492.pattern0,overlay,01049001,70,-1,10
+	animation492.pattern1,overlay,01049003,80,-1,10
+	animation492.pattern2,overlay,01049000,130,-1,10
+	animation492.pattern3,overlay,01049003,80,-1,10
+	animation492.pattern4,overlay,01045100,80,-1,10
+	animation492.pattern5,overlay,-1,0,0,0
+	
+	//MUMBLRBNENRBE....
+	animation493.interval,never
+	animation493.pattern0,overlay,01049004,30,-1,10
+	animation493.pattern1,overlay,01049005,70,-1,10
+	animation493.pattern2,overlay,01049003,120,-1,10
+	animation493.pattern3,overlay,01049001,160,-1,10
+	animation493.pattern4,overlay,01049003,90,-1,10
+	animation493.pattern5,overlay,-1,40,0,0
+
+	//green t shirt
+//	animation500.interval,bind
+//	animation500.pattern1,overlay,01050000,0,0,0
+	
+	//seriko t shirt
+//	animation501.interval,bind
+//	animation501.pattern0,overlay,01050100,0,0,0
+	
+	//baja t shirt 
+	animation502.interval,bind
+	animation502.pattern2,overlay,01050200,0,0,0
+	
+	//peach t shirt 
+	animation503.interval,bind
+	animation503.pattern2,overlay,01050300,0,0,0
+	
+	//VOC t shirt 
+	animation504.interval,bind
+	animation504.pattern2,overlay,01050400,0,0,0
+	
+	//denied t shirt 
+	animation505.interval,bind
+	animation505.pattern2,overlay,01050500,0,0,0
+	
+	
+	
+	//green t shirt
+	animation500.interval,bind + runonce
+	animation500.pattern1,overlay,02050000,0,0,0
+	
+	//seriko t shirt
+	animation501.interval,
+	animation501.pattern0,overlay,01050100,0,0,0
+	
+	//the arms
+	animation700.interval,runonce
+	animation700.pattern1,overlay,03072000,0,0,0
+//	animation700.pattern7,start,700
+//	animation700.collision700,75,260,105,295,LeftHand
+	//the above does not work, but I'm not sure why, yet.
+	//It does not throw any warning or error at all.
+	
+	//arms in lap controller, which delegates, then calls sleeves (17000)
+	animation701.interval,never
+	animation701.pattern1,overlay,27000,0,0,0	
+	animation701.pattern2,start,700	
+
+	//party hat
+	1000interval,bind
+	animation1000.pattern0,overlay,66666,0,0,11
+	
+		
+	//paper bag emote
+	animation1250.interval,bind
+	animation1250.pattern0,overlay,01125000,0,-3,10
+
+	
+	
+}
+
+
+
+
+
+//Add effects for sitting up Gel
+//This covers hair, ears, eyes, and mouth
+surface.append1000-1999
+{
+	
+	collision0,95,170,170,200,Head
+	collision1,100,200,165,250,Face
+	collision2,75,200,100,230,Ear
+	collision3,165,200,195,230,Ear
+	collision4,115,270,155,300,Chest
+	
+	
+	//back hair (default)
+	animation250.interval,bind + runonce
+	animation250.pattern0,overlay,01025000,0,0,0
+	
+	//back hair (shitty ponytail)
+	animation251.interval,bind + runonce
+	animation251.pattern0,overlay,01025100,0,0,0
+	
+	//regular lax ears
+	animation270.interval,never
+	animation270.pattern0,overlay,01027000,0,0,0	
+	
+	//ears pointed up
+	animation271.interval,never
+	animation271.pattern0,overlay,01027100,0,0,0		
+	
+	//ears more flat
+	animation272.interval,never
+	animation272.pattern0,overlay,01027200,0,0,0	
+	
+	//ears down
+	animation273.interval,never
+	animation273.pattern0,overlay,01027300,0,0,0		
+	
+	//default jeans
+	animation300.interval,bind
+	animation300.pattern0,overlay,01030000,0,0,0
+	
+	//purple pants
+	animation301.interval,bind
+	animation301.pattern0,overlay,01030100,0,0,0
+	
+	//black ripped
+	animation302.interval,bind
+	animation302.pattern0,overlay,01030200,0,0,0
+	
+	//eye base
+	animation350.interval,runonce
+	animation350.pattern0,overlay,01040000,0,0,0
+	
+	//pupils looking forward
+	animation351.interval,never
+	animation351.pattern0,overlay,01035000,0,0,0
+	
+	//pupils looking north
+	animation352.interval,never
+	animation352.pattern0,overlay,01035000,0,0,0
+	animation352.pattern1,overlay,01035000,10,0,-2
+	animation352.pattern2,overlay,01035000,10,0,-5
+	
+	//pupils looking northeast
+	animation353.interval,never
+	animation353.pattern0,overlay,01035000,0,0,0
+	animation353.pattern1,overlay,01035000,10,2,-2
+	animation353.pattern2,overlay,01035000,10,5,-5
+	
+	//pupils looking east
+	animation354.interval,never
+	animation354.pattern0,overlay,01035000,0,0,0
+	animation354.pattern1,overlay,01035000,10,2,0
+	animation354.pattern2,overlay,01035000,10,5,0
+	
+	//pupils looking southeast
+	animation355.interval,never
+	animation355.pattern0,overlay,01035000,0,0,0
+	animation355.pattern1,overlay,01035000,10,2,2
+	animation355.pattern2,overlay,01035000,10,4,5
+	
+	//pupils looking south
+	animation356.interval,never
+	animation356.pattern0,overlay,01035000,0,0,0
+	animation356.pattern1,overlay,01035000,10,0,2
+	animation356.pattern2,overlay,01035000,10,0,5
+	
+	//pupils looking southwest
+	animation357.interval,never
+	animation357.pattern0,overlay,01035000,0,0,0
+	animation357.pattern1,overlay,01035000,10,-2,2
+	animation357.pattern2,overlay,01035000,10,-5,5
+	
+	//pupils looking west
+	animation358.interval,never
+	animation358.pattern0,overlay,01035000,0,0,0
+	animation358.pattern1,overlay,01035000,10,-2,0
+	animation358.pattern2,overlay,01035000,10,-5,0
+	
+	//pupils looking northwest
+	animation359.interval,never
+	animation359.pattern0,overlay,01035000,0,0,0
+	animation359.pattern1,overlay,01035000,10,-2,-2
+	animation359.pattern2,overlay,01035000,10,-4,-4
+	
+	//SCARED VERSIONS
+	//pupils looking forward
+	animation361.interval,never
+	animation361.pattern0,overlay,01036000,0,0,0
+	
+	//pupils looking north
+	animation362.interval,never
+	animation362.pattern0,overlay,01036000,0,0,0
+	animation362.pattern1,overlay,01036000,10,0,-2
+	animation362.pattern2,overlay,01036000,10,0,-5
+	
+	//pupils looking northeast
+	animation363.interval,never
+	animation363.pattern0,overlay,01036000,0,0,0
+	animation363.pattern1,overlay,01036000,10,2,-2
+	animation363.pattern2,overlay,01036000,10,5,-5
+	
+	//pupils looking east
+	animation364.interval,never
+	animation364.pattern0,overlay,01036000,0,0,0
+	animation364.pattern1,overlay,01036000,10,2,0
+	animation364.pattern2,overlay,01036000,10,5,0
+	
+	//pupils looking southeast
+	animation365.interval,never
+	animation365.pattern0,overlay,01036000,0,0,0
+	animation365.pattern1,overlay,01036000,10,2,2
+	animation365.pattern2,overlay,01036000,10,4,5
+	
+	//pupils looking south
+	animation366.interval,never
+	animation366.pattern0,overlay,01036000,0,0,0
+	animation366.pattern1,overlay,01036000,10,0,2
+	animation366.pattern2,overlay,01036000,10,0,5
+	
+	//pupils looking southwest
+	animation367.interval,never
+	animation367.pattern0,overlay,01036000,0,0,0
+	animation367.pattern1,overlay,01036000,10,-2,2
+	animation367.pattern2,overlay,01036000,10,-4,4
+	
+	//pupils looking west
+	animation368.interval,never
+	animation368.pattern0,overlay,01036000,0,0,0
+	animation368.pattern1,overlay,01036000,10,-2,0
+	animation368.pattern2,overlay,01036000,10,-5,0
+	
+	//pupils looking northwest
+	animation369.interval,never
+	animation369.pattern0,overlay,01036000,0,0,0
+	animation369.pattern1,overlay,01036000,10,-2,-2
+	animation369.pattern2,overlay,01036000,10,-4,-4
+	
+	//Flash binary eyes
+	//driver -- so we don't keep canceling out other eyes bc that's unnecessary
+	animation390.interval,never
+	animation390.pattern0,start,391	
+	animation390.pattern1,parallelstop,(352,353,353,354,355,356,357,358,359,361,362,363,363,364,365,366,367,368,369,351)
+	
+	animation391.interval,never
+	animation391.pattern0,overlay,01039000,0,0,0
+	animation391.pattern1,overlay,01039001,200,0,0
+	animation391.pattern2,overlay,01039000,200,0,0
+	animation391.pattern3,start,391
+	
+	//eye roll normal
+	animation392.interval,never
+	animation392.pattern0,overlay,01035000,0,-3,0
+	animation392.pattern1,parallelstop,(352,353,353,354,355,356,357,358,359,361,362,363,363,364,365,366,367,368,369,351)
+	animation392.pattern2,overlay,01035000,60,-7,-1
+	animation392.pattern3,overlay,01035000,60,-4,-3
+	animation392.pattern4,overlay,01035000,60,-3,-5
+	animation392.pattern5,overlay,01035000,60,-1,-7
+	animation392.pattern6,overlay,01035000,60,0,-8
+	animation392.pattern7,overlay,01035000,60,1,-7
+	animation392.pattern8,overlay,01035000,60,3,-4
+	animation392.pattern9,overlay,01035000,60,4,-1
+	animation392.pattern10,overlay,01035000,60,5,0
+	
+	//eye roll pinpricks
+	animation393.interval,never
+	animation393.pattern0,overlay,01036000,0,-3,0
+	animation393.pattern1,parallelstop,(352,353,353,354,355,356,357,358,359,361,362,363,363,364,365,366,367,368,369,351)
+	animation393.pattern2,overlay,01036000,60,-7,-1
+	animation393.pattern3,overlay,01036000,60,-4,-3
+	animation393.pattern4,overlay,01036000,60,-3,-5
+	animation393.pattern5,overlay,01036000,60,-1,-7
+	animation393.pattern6,overlay,01036000,60,0,-8
+	animation393.pattern7,overlay,01036000,60,1,-7
+	animation393.pattern8,overlay,01036000,60,3,-4
+	animation393.pattern9,overlay,01036000,60,4,-1
+	animation393.pattern10,overlay,01036000,60,5,0
+	
+	
+		
+	//mild squint
+	animation408.interval,never
+	animation408.pattern0,overlay,01040800,0,0,0
+	
+	//right eyebrow down
+	animation413.interval,never
+	animation413.pattern0,overlay,01041300,0,0,0
+	
+	//left eyebrow down
+	animation414.interval,never
+	animation414.pattern0,overlay,01041400,0,0,0
+
+	//flat eyebrows down
+	animation415.interval,never
+	animation415.pattern0,overlay,01041500,0,0,0
+	
+	//angery eyebrows
+	animation423.interval,never
+	animation423.pattern0,overlay,01042300,0,0,0
+	
+	//right lower lid curved
+	animation424.interval,never
+	animation424.pattern0,overlay,01042400,0,0,0
+	
+	//left lower lid curved
+	animation425.interval,never
+	animation425.pattern0,overlay,01042500,0,0,0
+	
+	//lower lids up flat
+	animation426.interval,never
+	animation426.pattern0,overlay,01042600,0,0,0
+
+	
+	//blink controller
+	animation440.interval,rarely
+	animation440.pattern0,alternativestart,(441,442,443)
+	
+	//default blink
+	animation441.interval,never
+	animation441.pattern0,overlay,01040001,10,0,0
+	animation441.pattern1,overlay,01040002,35,0,0
+	animation441.pattern2,overlay,01040003,40,0,0
+	animation441.pattern3,overlay,01040002,70,0,0
+	animation441.pattern4,overlay,01040001,40,0,0
+	animation441.pattern5,overlay,-1,0,0,0
+	
+	//slower blink
+	animation442.interval,never
+	animation442.pattern0,overlay,01040001,20,0,0
+	animation442.pattern1,overlay,01040002,45,0,0
+	animation442.pattern2,overlay,01040003,50,0,0
+	animation442.pattern3,overlay,01040002,90,0,0
+	animation442.pattern4,overlay,01040001,50,0,0
+	animation442.pattern5,overlay,-1,0,0,0
+	
+	//fast blink
+	animation443.interval,never
+	animation443.pattern0,overlay,01040001,10,0,0
+	animation443.pattern1,overlay,01040002,15,0,0
+	animation443.pattern2,overlay,01040003,25,0,0
+	animation443.pattern3,overlay,01040002,50,0,0
+	animation443.pattern4,overlay,01040001,20,0,0
+	animation443.pattern5,overlay,-1,0,0,0
+	
+	//jaw lowered
+	animation450.interval,never
+	animation450.pattern0,overlay,01045000,0,0,0
+	
+	//default smile
+	animation451.interval,never
+	animation451.pattern0,overlay,01045100,0,0,0	
+	
+	//mouth wiggly
+	animation452.interval,never
+	animation452.pattern0,parallelstop,(451,453,454,455,456,457,458,459,460,461,462,463)
+	animation452.pattern9,overlay,01045200,0,0,0
+		
+	//mouth :/
+	animation453.interval,never
+	animation453.pattern0,parallelstop,(451,452,454,455,456,457,458,459,460,461,462,463)
+	animation453.pattern9,overlay,01045300,0,0,0
+	
+	//mouth :/ but flatter
+	animation454.interval,never
+	animation454.pattern0,parallelstop,(451,452,453,455,456,457,458,459,460,461,462,463)
+	animation454.pattern9,overlay,01045400,0,0,0
+	
+	//mouth -U-
+	animation455.interval,never
+	animation455.pattern0,parallelstop,(451,452,453,454,456,457,458,459,460,461,462,463)
+	animation455.pattern9,overlay,01045500,0,0,0
+	
+	//mouth breathing face
+	animation456.interval,never
+	animation456.pattern0,parallelstop,(451,452,453,454,455,457,458,459,460,461,462,463)
+	animation456.pattern9,overlay,01045600,0,0,0
+	
+	//mouth :T
+	animation457.interval,never
+	animation457.pattern0,parallelstop,(451,452,453,454,455,456,458,459,460,461,462,463)
+	animation457.pattern9,overlay,01045700,0,0,0
+	
+	//mouth .v.
+	animation458.interval,never
+	animation458.pattern0,parallelstop,(451,452,453,454,455,456,457,459,460,461,462,463)
+	animation458.pattern9,overlay,01045800,0,0,0
+	
+	//mouth :o
+	animation459.interval,never
+	animation459.pattern0,parallelstop,(451,452,453,454,455,456,457,458,460,461,462,463)
+	animation459.pattern9,overlay,01045900,0,0,0
+	
+	//mouth :p
+	animation460.interval,never
+	animation460.pattern0,parallelstop,(451,452,453,454,455,456,457,458,459,461,462,463)
+	animation460.pattern9,overlay,01046000,0,0,0
+	
+	//mouth :'<
+	animation461.interval,never
+	animation461.pattern0,parallelstop,(451,452,453,454,455,456,457,458,459)
+	animation461.pattern9,overlay,01046100,0,0,0
+	
+	//mouth :(
+	animation462.interval,never
+	animation462.pattern0,parallelstop,(451,452,453,454,455,456,457,458,459,463)
+	animation462.pattern10,overlay,01046200,0,0,0
+	
+	//mouth :(
+	animation463.interval,never
+	animation463.pattern0,parallelstop,(451,452,453,454,455,456,457,458,459)
+	animation463.pattern9,overlay,01046300,0,0,0
+	
+	//Talk controller
+	animation490.interval,talk
+	animation490.pattern0,alternativestart,(491,492,493,494,495,496,497)
+	
+	//WATER(M)
+	animation491.interval,never
+	animation491.pattern0,overlay,01045900,40,0,0
+	animation491.pattern1,overlay,01049005,70,0,0
+	animation491.pattern2,overlay,01049003,120,0,0
+	animation491.pattern3,overlay,01049001,70,0,0
+	animation491.pattern4,overlay,01049003,100,0,0
+	animation491.pattern5,overlay,01045100,70,0,0
+	animation491.pattern6,overlay,-1,40,0,0
+	
+	//MELON
+	animation492.interval,never
+	animation492.pattern0,overlay,01049001,70,0,0
+	animation492.pattern1,overlay,01049003,80,0,0
+	animation492.pattern2,overlay,01049000,130,0,0
+	animation492.pattern3,overlay,01049003,80,0,0
+	animation492.pattern4,overlay,01045100,80,0,0
+	animation492.pattern5,overlay,-1,0,0,0
+	
+	//CANTA
+	animation493.interval,never
+	animation493.pattern0,overlay,01049004,30,0,0
+	animation493.pattern1,overlay,01049005,70,0,0
+	animation493.pattern2,overlay,01049003,120,0,0
+	animation493.pattern3,overlay,01049001,160,0,0
+	animation493.pattern4,overlay,01049003,90,0,0
+	animation493.pattern5,overlay,-1,40,0,0
+	
+	//LOUPE
+	animation494.interval,never
+	animation494.pattern0,overlay,01049003,60,0,0
+	animation494.pattern1,overlay,01049000,80,0,0
+	animation494.pattern2,overlay,01045300,130,0,0
+	animation494.pattern3,overlay,01049001,80,0,0
+	animation494.pattern4,overlay,-1,40,0,0
+	
+	//STRAW
+	animation495.interval,never
+	animation495.pattern0,overlay,01049004,60,0,0
+	animation495.pattern1,overlay,01049003,80,0,0
+	animation495.pattern2,overlay,01049005,100,0,0
+	animation495.pattern3,overlay,01049001,150,0,0
+	animation495.pattern4,overlay,-1,40,0,0
+	
+	//BERRY
+	animation496.interval,never
+	animation496.pattern0,overlay,01045300,60,0,0
+	animation496.pattern1,overlay,01049001,80,0,0
+	animation496.pattern2,overlay,01049003,130,0,0
+	animation496.pattern3,overlay,01049001,80,0,0
+	animation496.pattern4,overlay,-1,40,0,0
+	
+	//OF (bc I have a v frame and should use it somewhere my dudes)
+	animation497.interval,never
+	animation497.pattern0,overlay,01049000,70,0,0
+	animation497.pattern1,overlay,01049002,120,0,0
+	animation497.pattern2,overlay,01045100,90,0,0
+	animation497.pattern3,overlay,-1,40,0,0
+	
+	animation600.interval,never
+	animation600.pattern0,overlay,01060000,0,0,0
+	
+	//tired eyes
+	animation900.interval,never
+	animation900.pattern0,overlay,01090000,0,0,0
+	
+	//sickly green  blush
+	animation901.interval,never
+	animation901.pattern0,overlay,01090100,0,0,0
+	
+	//bruise
+	animation902.interval,never
+	animation902.pattern0,overlay,01090200,0,0,0
+	
+	//black eye
+	animation903.interval,never
+	animation903.pattern0,overlay,01090300,0,0,0
+	
+	//cut
+	animation904.interval,never
+	animation904.pattern0,overlay,01090400,0,0,0
+	
+	//choked
+	animation905.interval,never
+	animation905.pattern0,overlay,01090500,0,0,0
+	
+	//cracked
+	animation906.interval,never
+	animation906.pattern0,overlay,01090600,0,0,0
+	
+	//blush
+	animation950.interval,never
+	animation950.pattern0,overlay,01095000,0,0,0
+	
+	
+	//party hat
+	animation1000.interval,bind
+	animation1000.pattern0,overlay,66666,0,0,0
+	
+}
+
+
+//Add effects for sleeping Gel (NOTE: SLEEPING AS IN ANIMATED BREATHING)
+//This covers hair, ears, eyes, and mouth
+surface.append3000-3099
+{
+	
+	//back hair (default)
+	animation250.interval,bind + always
+	animation250.pattern1,overlay,03025000,0,0,0
+	animation250.pattern5,overlay,03025000,750,0,3
+	animation250.pattern6,overlay,03025000,100,0,5
+	animation250.pattern7,overlay,03025000,100,0,7
+	animation250.pattern10,overlay,03025000,1500,0,5
+	animation250.pattern11,overlay,03025000,100,0,3
+	animation250.pattern13,overlay,03025000,100,0,0
+	animation250.pattern14,start,250
+	
+	//back hair (default)
+	animation251.interval,bind + always
+	animation251.pattern1,overlay,01025100,0,2,34
+	animation251.pattern5,overlay,01025100,750,2,35
+	animation251.pattern6,overlay,01025100,100,2,37
+	animation251.pattern7,overlay,01025100,100,2,39
+	animation251.pattern10,overlay,01025100,1500,2,37
+	animation251.pattern11,overlay,01025100,100,2,35
+	animation251.pattern13,overlay,01025100,100,2,34
+	animation251.pattern14,start,251
+	
+	//regular lax ears
+	animation270.interval,never
+	animation270.pattern3,overlay,03027000,0,0,0
+	
+	//ears pointed up
+	animation271.interval,never
+	animation271.pattern3,overlay,03027100,0,0,0
+	
+	//ears more flat
+	animation272.interval,never
+	animation272.pattern3,overlay,03027200,0,0,0
+	
+	//ears down
+	animation273.interval,never
+	animation273.pattern3,overlay,03027300,0,0,1
+	animation273.pattern5,overlay,03027300,750,0,3
+	animation273.pattern6,overlay,03027300,100,0,5
+	animation273.pattern7,overlay,03027300,100,0,7
+	animation273.pattern10,overlay,03027300,1500,0,5
+	animation273.pattern11,overlay,03027300,100,0,3
+	animation273.pattern13,overlay,03027300,100,0,1
+	animation273.pattern14,start,273
+	
+	
+	
+		
+	//torso
+	animation290.interval,always
+	animation290.pattern0,overlay,03029000,0,0,0
+	animation290.pattern2,overlay,03029001,750,0,0
+	animation290.pattern3,overlay,03029002,200,0,0
+	animation290.pattern4,overlay,03029001,1500,0,0
+	animation290.pattern5,overlay,03029000,200,0,0
+	//animation290.pattern6,overlay,03029000,500,0,0
+	
+	//head
+	animation291.interval,always
+	animation291.pattern0,overlay,03029100,0,0,1
+	animation291.pattern4,overlay,03029100,750,0,3
+	animation291.pattern6,overlay,03029100,100,0,5
+	animation291.pattern7,overlay,03029100,100,0,7
+	animation291.pattern10,overlay,03029100,1500,0,5
+	animation291.pattern11,overlay,03029100,100,0,3
+	animation291.pattern13,overlay,03029100,100,0,1
+	animation291.pattern14,start,291
+	
+	
+	
+	//default jeans
+	animation300.interval,bind
+	animation300.pattern0,overlay,03030000,0,0,0
+	
+	//purple pants
+	animation301.interval,bind
+	animation301.pattern0,overlay,03030100,0,0,0
+	
+	//black ripped
+	animation302.interval,bind
+	animation302.pattern0,overlay,03030200,0,0,0
+	
+	//jaw lowered
+	animation450.interval,never
+	animation450.pattern0,overlay,01045000,0,0,0
+	
+	//some of these could use overlayfast...
+	
+	//default smile
+	animation451.interval,never
+	animation451.pattern0,overlay,03045100,0,0,1
+	animation451.pattern5,overlay,03045100,750,0,3
+	animation451.pattern6,overlay,03045100,100,0,5
+	animation451.pattern7,overlay,03045100,100,0,7
+	animation451.pattern10,overlay,03045100,1500,0,5
+	animation451.pattern11,overlay,03045100,100,0,3
+	animation451.pattern13,overlay,03045100,100,0,1
+	animation451.pattern14,start,451
+	
+	//mouth wiggly
+	animation452.interval,never
+	animation452.pattern0,parallelstop,(451,453,454,455,456,457,458,459,460)
+	animation452.pattern9,overlay,01045200,0,0,0
+		
+	//mouth :/
+	animation453.interval,never
+	animation453.pattern0,parallelstop,(451,452,454,455,456,457,458,459,460)
+	animation453.pattern9,overlay,01045300,0,0,0
+	
+	//mouth :/ but flatter
+	animation454.interval,never
+	animation454.pattern0,parallelstop,(451,452,453,455,456,457,458,459,460)
+	animation454.pattern9,overlay,01045400,0,0,0
+	
+	//mouth -U-
+	animation455.interval,never
+	animation455.pattern0,parallelstop,(451,452,453,454,456,457,458,459,460)
+	animation455.pattern9,overlay,01045500,0,0,0
+	
+	//mouth breathing face
+	animation456.interval,never
+	animation456.pattern0,parallelstop,(451,452,453,454,455,457,458,459,460)
+	animation456.pattern9,overlay,01045600,0,0,0
+	
+	//mouth :T
+	animation457.interval,never
+	animation457.pattern0,parallelstop,(451,452,453,454,455,456,458,459,460)
+	animation457.pattern9,overlay,01045700,0,0,0
+	
+	//mouth .v.
+	animation458.interval,never
+	animation458.pattern0,parallelstop,(451,452,453,454,455,456,457,459,460)
+	animation458.pattern9,overlay,01045800,0,0,0
+	
+	//mouth :o
+	animation459.interval,never
+	animation459.pattern0,parallelstop,(451,452,453,454,455,456,457,458,460)
+	animation459.pattern9,overlay,01045900,0,0,0
+	
+	//mouth :p
+	animation460.interval,never
+	animation460.pattern0,parallelstop,(451,452,453,454,455,456,457,458,459)
+	animation460.pattern9,overlay,01046000,0,0,0
+	
+	//mouth :'<
+	animation461.interval,never
+	animation461.pattern0,parallelstop,(451,452,453,454,455,456,457,458,459)
+	animation461.pattern9,overlay,01046100,0,0,0
+	
+	//mouth :(
+	animation462.interval,never
+	animation462.pattern0,parallelstop,(451,452,453,454,455,456,457,458,459,463)
+	animation462.pattern10,overlay,01046200,0,0,0
+	
+	//mouth :(
+	animation463.interval,never
+	animation463.pattern0,parallelstop,(451,452,453,454,455,456,457,458,459)
+	animation463.pattern9,overlay,01046300,0,0,0
+	
+	//Obsidian
+	animation600.interval,never
+	animation600.pattern0,overlay,01060000,0,0,0
+	
+//	animation700.interval,runonce
+//	animation700.pattern0,overlay,03070100,0,0,0
+//	animation700.pattern1,overlay,03070000,750,0,0
+//	animation700.pattern2,overlay,03070100,100,0,0
+//	animation700.pattern3,overlay,03070200,100,0,0
+//	animation700.pattern4,overlay,03070100,1500,0,0
+//	animation700.pattern5,overlay,03070000,100,0,0
+//	animation700.pattern6,overlay,03070000,100,0,0
+//	animation700.pattern7,start,700
+	
+	//tired eyes
+	animation900.interval,never
+	animation900.pattern0,overlay,03090000,0,0,0
+	animation900.pattern3,overlay,03090000,750,0,3
+	animation900.pattern4,overlay,03090000,100,0,5
+	animation900.pattern5,overlay,03090000,100,0,7
+	animation900.pattern8,overlay,03090000,1500,0,5
+	animation900.pattern9,overlay,03090000,100,0,3
+	animation900.pattern11,overlay,03090000,100,0,0
+	animation900.pattern14,start,900
+	
+	//sickly green  blush
+	animation901.interval,never
+	animation901.pattern0,overlay,01090100,0,0,0
+	
+	//paper bag emote
+	animation1250.interval,bind + always
+	animation1250.pattern0,overlay,03125000,0,0,0
+	animation1250.pattern0,overlay,03125000,0,0,1
+	animation1250.pattern4,overlay,03125000,750,0,3
+	animation1250.pattern6,overlay,03125000,100,0,5
+	animation1250.pattern7,overlay,03125000,100,0,7
+	animation1250.pattern8,overlay,03125000,200,0,8
+	animation1250.pattern10,overlay,03125000,1300,0,5
+	animation1250.pattern11,overlay,03125000,100,0,3
+	animation1250.pattern13,overlay,03125000,100,0,1
+}
+
+
+//Generic slouched collisions
+surface.append2000-3999
+{
+	collision0,100,200,170,230,Head
+	collision1,105,230,165,275,Face
+	collision2,75,240,105,265,Ear
+	collision3,165,240,195,265,Ear
+	collision4,115,285,155,310,Chest
+	
+	
+	
+}
+
+
+//Full slouch,but not asleep (bc asleep is animated)
+surface.append2000-2999
+{
+	
+	//back hair (default)
+	animation250.interval,bind
+	animation250.pattern0,overlay,01025000,0,-1,10
+	
+	//back hair (shitty ponytail)
+	animation251.interval,bind
+	animation251.pattern0,overlay,01025100,0,-1,10
+	
+	//regular lax ears
+	animation270.interval,never
+	animation270.pattern0,parallelstop,(271,272,273)
+	animation270.pattern3,overlay,01027000,0,-1,10
+	
+	//ears pointed up
+	animation271.interval,never
+	animation271.pattern0,parallelstop,(270,272,273)
+	animation271.pattern3,overlay,01027100,0,-1,10
+	
+	//ears more flat
+	animation272.interval,never
+	animation272.pattern0,parallelstop,(271,270,273)
+	animation272.pattern3,overlay,01027200,0,-1,10
+	
+	//ears down
+	animation273.interval,never
+	animation273.pattern0,parallelstop,(271,272,270)
+	animation273.pattern3,overlay,01027300,0,-1,10
+	
+	//default jeans
+	animation300.interval,runonce + bind
+	animation300.pattern0,overlay,03030000,0,0,0
+	
+	//purple pants
+	animation301.interval,bind
+	animation301.pattern0,overlay,03030100,0,0,0
+	
+	//black ripped
+	animation302.interval,bind
+	animation302.pattern0,overlay,03030200,0,0,0
+
+	
+	//eye base
+	animation350.interval,runonce
+	animation350.pattern0,overlay,01040000,0,-1,10
+	
+	//pupils looking forward
+	animation351.interval,never
+	animation351.pattern0,overlay,01035000,0,-1,10
+	
+	//pupils looking north
+	animation352.interval,never
+	animation352.pattern0,overlay,01035000,0,-1,10
+	animation352.pattern1,overlay,01035000,10,-1,8
+	animation352.pattern2,overlay,01035000,10,-1,5
+	
+	//pupils looking northeast
+	animation353.interval,never
+	animation353.pattern0,overlay,01035000,0,-1,10
+	animation353.pattern1,overlay,01035000,10,1,8
+	animation353.pattern2,overlay,01035000,10,4,5
+	
+	//pupils looking east
+	animation354.interval,never
+	animation354.pattern0,overlay,01035000,0,-1,10
+	animation354.pattern1,overlay,01035000,10,2,10
+	animation354.pattern2,overlay,01035000,10,5,10
+	
+	//pupils looking southeast
+	animation355.interval,never
+	animation355.pattern0,overlay,01035000,0,-1,10
+	animation355.pattern1,overlay,01035000,10,1,12
+	animation355.pattern2,overlay,01035000,10,3,15
+	
+	//pupils looking south
+	animation356.interval,never
+	animation356.pattern0,overlay,01035000,0,-1,10
+	animation356.pattern1,overlay,01035000,10,-1,12
+	animation356.pattern2,overlay,01035000,10,-1,15
+	
+	//pupils looking southwest
+	animation357.interval,never
+	animation357.pattern0,overlay,01035000,0,-1,10
+	animation357.pattern1,overlay,01035000,10,-3,12
+	animation357.pattern2,overlay,01035000,10,-6,15
+	
+	//pupils looking west
+	animation358.interval,never
+	animation358.pattern0,overlay,01035000,0,-1,10
+	animation358.pattern1,overlay,01035000,10,-3,10
+	animation358.pattern2,overlay,01035000,10,-6,10
+	
+	//pupils looking northwest
+	animation359.interval,never
+	animation359.pattern0,overlay,01035000,0,-1,10
+	animation359.pattern1,overlay,01035000,10,-3,8
+	animation359.pattern2,overlay,01035000,10,-5,6
+	
+	//SCARED VERSIONS
+	//pupils looking forward
+	animation361.interval,never
+	animation361.pattern0,overlay,01036000,0,-1,10
+	
+	//pupils looking north
+	animation362.interval,never
+	animation362.pattern0,overlay,01036000,0,-1,10
+	animation362.pattern1,overlay,01036000,10,-1,8
+	animation362.pattern2,overlay,01036000,10,-1,5
+	
+	//pupils looking northeast
+	animation363.interval,never
+	animation363.pattern0,overlay,01036000,0,-1,10
+	animation363.pattern1,overlay,01036000,10,1,8
+	animation363.pattern2,overlay,01036000,10,4,5
+	
+	//pupils looking east
+	animation364.interval,never
+	animation364.pattern0,overlay,01036000,0,-1,10
+	animation364.pattern1,overlay,01036000,10,1,10
+	animation364.pattern2,overlay,01036000,10,4,10
+	
+	//pupils looking southeast
+	animation365.interval,never
+	animation365.pattern0,overlay,01036000,0,-1,10
+	animation365.pattern1,overlay,01036000,10,1,12
+	animation365.pattern2,overlay,01036000,10,3,15
+	
+	//pupils looking south
+	animation366.interval,never
+	animation366.pattern0,overlay,01036000,0,-1,10
+	animation366.pattern1,overlay,01036000,10,-1,12
+	animation366.pattern2,overlay,01036000,10,-1,15
+	
+	//pupils looking southwest
+	animation367.interval,never
+	animation367.pattern0,overlay,01036000,0,-1,10
+	animation367.pattern1,overlay,01036000,10,-3,12
+	animation367.pattern2,overlay,01036000,10,-5,14
+	
+	//pupils looking west
+	animation368.interval,never
+	animation368.pattern0,overlay,01036000,0,-1,10
+	animation368.pattern1,overlay,01036000,10,-3,10
+	animation368.pattern2,overlay,01036000,10,-6,10
+	
+	//pupils looking northwest
+	animation369.interval,never
+	animation369.pattern0,overlay,01036000,0,-1,10
+	animation369.pattern1,overlay,01036000,10,-3,8
+	animation369.pattern2,overlay,01036000,10,-5,6
+	
+	//Flash binary eyes
+	//driver -- so we don't keep canceling out other eyes bc that's unnecessary
+	animation390.interval,never
+	animation390.pattern1,parallelstop,(352,353,353,354,355,356,357,358,359,361,362,363,363,364,365,366,367,368,369,351)
+	
+	animation391.interval,never
+	animation391.pattern0,overlay,01039000,0,-1,10
+	animation391.pattern1,overlay,01039001,200,-1,10
+	animation391.pattern2,overlay,-1,200,0,0
+	animation391.pattern3,start,391
+
+	//mild squint
+	animation408.interval,never
+	animation408.pattern0,overlay,01040800,0,-1,10
+	
+	//tired
+	animation410.interval,never
+	animation410.pattern0,overlay,01041000,0,-1,10
+	
+	//right eyebrow down
+	animation413.interval,never
+	animation413.pattern0,overlay,01041300,0,-1,10
+	
+	//left eyebrow down
+	animation414.interval,never
+	animation414.pattern0,overlay,01041400,0,-1,10
+
+	//flat eyebrows down
+	animation415.interval,never
+	animation415.pattern0,overlay,01041500,0,-1,10
+	
+	//angery eyebrows
+	animation423.interval,never
+	animation423.pattern0,overlay,01042300,0,-1,10
+	
+	//right lower lid curved
+	animation424.interval,never
+	animation424.pattern0,overlay,01042400,0,-1,10
+	
+	//left lower lid curved
+	animation425.interval,never
+	animation425.pattern0,overlay,01042500,0,-1,10
+	
+	//lower lids up flat
+	animation426.interval,never
+	animation426.pattern0,overlay,01042600,0,-1,10
+	
+	//blinking is in the base 3100
+	
+	//jaw lowered
+	animation450.interval,never
+	animation450.pattern0,overlay,01045000,0,-1,10
+	
+	//default smile
+	animation451.interval,never
+	animation451.pattern0,overlay,01045100,0,-1,10
+	
+	//mouth wiggly
+	animation452.interval,never
+	animation452.pattern0,parallelstop,(451,453,454,455,456,457,458,459,460)
+	animation452.pattern9,overlay,01045200,0,-1,10
+		
+	//mouth :/
+	animation453.interval,never
+	animation453.pattern0,parallelstop,(451,452,454,455,456,457,458,459,460)
+	animation453.pattern9,overlay,01045300,0,-1,10
+	
+	//mouth :/ but flatter
+	animation454.interval,never
+	animation454.pattern0,parallelstop,(451,452,453,455,456,457,458,459,460)
+	animation454.pattern9,overlay,01045400,0,-1,10
+	
+	//mouth -U-
+	animation455.interval,never
+	animation455.pattern0,parallelstop,(451,452,453,454,456,457,458,459,460)
+	animation455.pattern9,overlay,01045500,0,-1,10
+	
+	//mouth breathing face
+	animation456.interval,never
+	animation456.pattern0,parallelstop,(451,452,453,454,455,457,458,459,460)
+	animation456.pattern9,overlay,01045600,0,-1,10
+	
+	//mouth :T
+	animation457.interval,never
+	animation457.pattern0,parallelstop,(451,452,453,454,455,456,458,459,460)
+	animation457.pattern9,overlay,01045700,0,-1,10
+	
+	//mouth .v.
+	animation458.interval,never
+	animation458.pattern0,parallelstop,(451,452,453,454,455,456,457,459,460)
+	animation458.pattern9,overlay,01045800,0,-1,10
+	
+	//mouth :o
+	animation459.interval,never
+	animation459.pattern0,parallelstop,(451,452,453,454,455,456,457,458,460)
+	animation459.pattern9,overlay,01045900,0,-1,10
+	
+	//mouth :p
+	animation460.interval,never
+	animation460.pattern0,parallelstop,(451,452,453,454,455,456,457,458,459)
+	animation460.pattern9,overlay,01046000,0,-1,10
+	
+	//mouth :'<
+	animation461.interval,never
+	animation461.pattern0,parallelstop,(451,452,453,454,455,456,457,458,459)
+	animation461.pattern9,overlay,01046100,0,-1,10
+	
+	//mouth :(
+	animation462.interval,never
+	animation462.pattern0,parallelstop,(451,452,453,454,455,456,457,458,459,463)
+	animation462.pattern10,overlay,01046200,0,-1,10
+	
+	//mouth :(
+	animation463.interval,never
+	animation463.pattern0,parallelstop,(451,452,453,454,455,456,457,458,459)
+	animation463.pattern9,overlay,01046300,0,-1,8
+	
+	//talking now in base
+	
+	//Obsidian
+	animation600.interval,never
+	animation600.pattern0,overlay,01060000,0,0,0
+	
+	//tired eyes
+	animation900.interval,never
+	animation900.pattern0,overlay,01090000,0,-1,10
+	
+	//sickly green  blush
+	animation901.interval,never
+	animation901.pattern0,overlay,01090100,0,-1,10
+	
+	//bruise
+	animation902.interval,never
+	animation902.pattern0,overlay,01090200,0,-1,10
+	
+	//black eye
+	animation903.interval,never
+	animation903.pattern0,overlay,01090300,0,-1,10
+	
+	//cut
+	animation904.interval,never
+	animation904.pattern0,overlay,01090400,0,-1,10
+	
+	//choked
+	animation905.interval,never
+	animation905.pattern0,overlay,01090500,0,-1,10
+	
+	//cracked
+	animation906.interval,never
+	animation906.pattern0,overlay,01090600,0,-1,10
+	
+	//blush
+	animation950.interval,never
+	animation950.pattern0,overlay,01095000,0,-1,10
+	
+}
+
+
+//Glitch effects and window
+surface.append1000-9000
+{
+	//if the window doesn't exist, there won't be anything here at all, so it won't work anyways.
+	collision6,430,85,515,115,Minimize
+	collision7,515,85,555,115,Quit
+	
+	//Sunset window
+	animation1.interval,never
+	animation1.pattern0,overlay,0,0,-20,-90
+	
+	//Tether
+	animation2.interval,never
+	animation2.pattern0,overlay,1,0,0,-48
+	
+	//Just.... call All Of Them
+	animation1100.interval,never
+	animation1100.pattern0,parallelstart,(1101,1102,1103,1104,1105,1106,1107)
+	
+	//CORRUPTION COLOR MONITORS
+	animation1101.interval,never
+	animation1101.pattern0,parallelstop,(1111,1121,1131)
+	animation1101.pattern3,alternativestart,(1111,1121,1131)
+	
+	animation1102.interval,never
+	animation1102.pattern0,parallelstop,(1112,1122,1132)
+	animation1102.pattern3,alternativestart,(1112,1122,1132)
+	
+	animation1103.interval,never
+	animation1103.pattern0,parallelstop,(1113,1123,1133)
+	animation1103.pattern3,alternativestart,(1113,1123,1133)
+	
+	animation1104.interval,never
+	animation1104.pattern0,parallelstop,(1114,1124,1134)
+	animation1104.pattern3,alternativestart,(1114,1124,1134)
+	
+	animation1105.interval,never
+	animation1105.pattern0,parallelstop,(1115,1125,1135)
+	animation1105.pattern3,alternativestart,(1115,1125,1135)
+	
+	animation1106.interval,never
+	animation1106.pattern0,parallelstop,(1116,1126,1136)
+	animation1106.pattern3,alternativestart,(1116,1126,1136)
+	
+	animation1107.interval,never
+	animation1107.pattern0,parallelstop,(1117,1127,1137)
+	animation1107.pattern3,alternativestart,(1117,1127,1137)
+	
+	
+	//CORRUPTION ALTERNATIVE SET ONE
+	animation1111.interval,never
+	animation1111.pattern0,overlay,66110,100,22,20
+	animation1111.pattern1,overlay,66110,90,22,26
+	animation1111.pattern2,overlay,66110,90,22,18
+	animation1111.pattern3,start,1101
+	
+	animation1112.interval,never
+	animation1112.pattern0,overlay,66120,100,17,20
+	animation1112.pattern1,overlay,66120,90,20,22
+	animation1112.pattern2,overlay,66120,90,19,16
+	animation1112.pattern3,start,1102
+	
+	animation1113.interval,never
+	animation1113.pattern0,overlay,66130,100,21,20
+	animation1113.pattern1,overlay,66130,90,20,22
+	animation1113.pattern2,overlay,66130,90,18,26
+	animation1113.pattern3,start,1103
+	
+	animation1114.interval,never
+	animation1114.pattern0,overlay,66140,100,23,20
+	animation1114.pattern1,overlay,66140,90,20,22
+	animation1114.pattern2,overlay,66140,90,15,19
+	animation1114.pattern3,start,1104
+	
+	animation1115.interval,never
+	animation1115.pattern0,overlay,66150,100,21,20
+	animation1115.pattern1,overlay,66150,90,20,25
+	animation1115.pattern2,overlay,66150,90,19,18
+	animation1115.pattern3,start,1105
+	
+	animation1116.interval,never
+	animation1116.pattern0,overlay,66160,100,12,20
+	animation1116.pattern1,overlay,66160,90,21,22
+	animation1116.pattern2,overlay,66160,90,17,16
+	animation1116.pattern3,start,1106
+	
+	animation1117.interval,never
+	animation1117.pattern0,overlay,66170,100,23,18
+	animation1117.pattern1,overlay,66170,90,20,22
+	animation1117.pattern2,overlay,66170,90,16,20
+	animation1117.pattern3,start,1107
+	
+	//CORRUPTION ALTERNATIVE SET TWO
+	animation1121.interval,never
+	animation1121.pattern0,overlay,66110,50,12,22
+	animation1121.pattern1,overlay,66110,50,14,28
+	animation1121.pattern2,overlay,66110,50,16,17
+	animation1121.pattern3,start,1101
+	
+	animation1122.interval,never
+	animation1122.pattern0,overlay,66120,50,22,11
+	animation1122.pattern1,overlay,66120,50,20,18
+	animation1122.pattern2,overlay,66120,50,18,4
+	animation1122.pattern3,start,1102
+	
+	animation1123.interval,never
+	animation1123.pattern0,overlay,66130,50,15,20
+	animation1123.pattern1,overlay,66130,50,10,24
+	animation1123.pattern2,overlay,66130,50,3,13
+	animation1123.pattern3,start,1103
+	
+	animation1124.interval,never
+	animation1124.pattern0,overlay,66140,50,11,20
+	animation1124.pattern1,overlay,66140,50,10,22
+	animation1124.pattern2,overlay,66140,50,9,16
+	animation1124.pattern3,start,1104
+	
+	animation1125.interval,never
+	animation1125.pattern0,overlay,66150,50,21,11
+	animation1125.pattern1,overlay,66150,50,20,19
+	animation1125.pattern2,overlay,66150,50,19,4
+	animation1125.pattern3,start,1105
+	
+	animation1126.interval,never
+	animation1126.pattern0,overlay,66160,50,10,20
+	animation1126.pattern1,overlay,66160,50,11,29
+	animation1126.pattern2,overlay,66160,50,10,12
+	animation1126.pattern3,start,1106
+	
+	animation1127.interval,never
+	animation1127.pattern0,overlay,66170,50,28,20
+	animation1127.pattern1,overlay,66170,50,12,22
+	animation1127.pattern2,overlay,66170,50,21,19
+	animation1127.pattern3,start,1107
+	
+	
+	//CORRUPTION ALTERNATIVE SET THREE
+	animation1131.interval,never
+	animation1131.pattern0,overlay,66111,100,22,20
+	animation1131.pattern1,overlay,66111,90,22,26
+	animation1131.pattern2,overlay,66111,90,22,18
+	animation1131.pattern3,start,1101
+	
+	animation1132.interval,never
+	animation1132.pattern0,overlay,66121,100,17,20
+	animation1132.pattern1,overlay,66121,90,20,22
+	animation1132.pattern2,overlay,66121,90,19,16
+	animation1132.pattern3,start,1102
+	
+	animation1133.interval,never
+	animation1133.pattern0,overlay,66131,100,21,20
+	animation1133.pattern1,overlay,66131,90,17,22
+	animation1133.pattern2,overlay,66131,90,12,25
+	animation1133.pattern3,start,1103
+	
+	animation1134.interval,never
+	animation1134.pattern0,overlay,66141,100,23,20
+	animation1134.pattern1,overlay,66141,90,20,22
+	animation1134.pattern2,overlay,66141,90,15,19
+	animation1134.pattern3,start,1104
+	
+	animation1135.interval,never
+	animation1135.pattern0,overlay,66151,50,21,20
+	animation1135.pattern1,overlay,66151,50,20,25
+	animation1135.pattern2,overlay,66151,50,19,18
+	animation1135.pattern3,start,1105
+	
+	animation1136.interval,never
+	animation1136.pattern0,overlay,66161,100,12,20
+	animation1136.pattern1,overlay,66161,90,11,22
+	animation1136.pattern2,overlay,66161,90,17,16
+	animation1136.pattern3,start,1106
+	
+	animation1137.interval,never
+	animation1137.pattern0,overlay,66171,100,23,18
+	animation1137.pattern1,overlay,66171,90,20,22
+	animation1137.pattern2,overlay,66171,90,16,20
+	animation1137.pattern3,start,1107
+	
+	
+}
+
+
+

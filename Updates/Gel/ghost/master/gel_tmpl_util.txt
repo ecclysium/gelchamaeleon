@@ -1,0 +1,511 @@
+//////// YAYA Ghost Template
+///////// Menu processing dictionary
+
+//**** Note ******************************************* *************************
+// This dictionary summarizes common processing required for ghost templates.
+// Usually you don't need to play here.
+//**** Note ******************************************* *************************
+
+// ************************************************ ******************************
+// Invalid Character Auto Replacement
+// ************************************************ ******************************
+
+
+// ************************************************ ******************************
+// Start / end initialization
+// ************************************************ ******************************
+
+//For array processing
+#globaldefine	INSERTDELIM '##'
+
+OnSystemLoad.AYATEMPLATE
+{
+	AYATEMPLATE.installedplugin_name = IARRAY
+	AYATEMPLATE.installedplugin_id = IARRAY
+	AYATEMPLATE.stroke = IARRAY
+	AYATEMPLATE.strokeid = IARRAY
+	AYATEMPLATE.stroketimer = IARRAY
+	AYATEMPLATE.mikireflag = 0
+	AYATEMPLATE.LastTalk = ''
+}
+
+OnSystemUnload.AYATEMPLATE
+{
+	//ERASEVAR('AYATEMPLATE.installedplugin_name')
+	//ERASEVAR('AYATEMPLATE.installedplugin_id')
+	ERASEVAR('AYATEMPLATE.stroke')
+	ERASEVAR('AYATEMPLATE.strokeid')
+	ERASEVAR('AYATEMPLATE.stroketimer')
+	ERASEVAR('AYATEMPLATE.mikireflag')
+	ERASEVAR('AYATEMPLATE.LastTalk')
+}
+
+//******************************************************************************
+//ランダムトーク
+//******************************************************************************
+
+OnAITalk
+{
+	OnAiTalk
+}
+
+//------------------------------------------------------------------------------
+//OnAiTalkイベント
+//------------------------------------------------------------------------------
+OnAiTalk
+{
+	//---- Normal random talk, but chain talk during chain
+	if SHIORI3FW.IsChain {
+		AYATEMPLATE.LastTalk = ChainTalk
+	}
+	else {
+		AYATEMPLATE.LastTalk = RandomTalk
+	}
+	AYATEMPLATE.LastTalk
+}
+
+
+//******************************************************************************
+// Menu related
+//******************************************************************************
+
+//------------------------------------------------------------------------------
+//Event processing
+// You can write the choice ID / anchor ID as it is as the function name.
+//------------------------------------------------------------------------------
+
+OnChoiceSelect
+{
+	if ISFUNC(reference[0]) {
+		EVAL(reference[0])
+	}
+}
+
+OnAnchorSelect
+{
+	if RE_SEARCH(reference[0],'^(http|https)://') {
+		if basewarename == 'SSP' {
+			"\C"
+		}
+		--
+		"\j[%(AYATEMPLATE.EscapeText(reference[0]))]"
+	}
+	else {
+		if ISFUNC(reference[0]) {
+			EVAL(reference[0])
+		}
+	}
+}
+
+//------------------------------------------------------------------------------
+//メニュー横1行反転
+//------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
+//通常メニュー
+AYATEMPLATE.MenuItem
+{
+	_linefeed = 100
+	_n = _argc
+	if _n >= 3 {
+		if GETTYPE(_argv[_n-1]) == 1 { //整数
+			_linefeed = _argv[_n-1]
+			_n -= 1
+		}
+	}
+
+	_lftext = ''
+	while _linefeed > 0 {
+		if _linefeed >= 100 {
+			_lftext += '\n'
+		}
+		else {
+			_lftext += '\n[half]'
+		}
+		_linefeed -= 100
+	}
+	
+	_lftext
+	--
+	'\![*]\q['
+	--
+	AYATEMPLATE.EscapeText( SHIORI3FW.MakeJustText(_argv[0],46) )
+	--
+	_s = ''
+	for _i = 1 ; _i < _n ; _i++ {
+		_s += ',' + AYATEMPLATE.EscapeText(_argv[_i])
+	}
+	_s
+	--
+	']'
+}
+
+//This version is the same as AYATEMPLATE.MenuItem, but it has wordwrap and may function better visually
+MenuItem
+{
+	_linefeed = 100	//default linefeed, if not specified
+	_n = _argc
+	_quick = ""
+	//look at the last reference
+	if _n >= 3 {
+		if GETTYPE(_argv[_n-1]) == 1 { //if the last argument is an integer
+			_linefeed = _argv[_n-1]
+			if _linefeed == 200{
+				_quick = "\_q"			
+			}
+			_n -= 1
+		}
+	}
+
+	//handle spacing
+	_lftext = ""
+	while _linefeed > 0 {
+		if _linefeed >= 100 {
+			_lftext += "\n"
+		}
+		else {
+			_lftext += "\n[half]"
+		}
+		_linefeed -= 100
+	}
+	//display spacing (and if it has a specified line spacing, start/end a quick display)
+	_quick + _lftext
+	--
+	//set up, give it the function it will go to
+	"\![*]\__q[%_argv[1]"
+	--
+	//send references (_n is the num of total args)
+	_s = ""
+	for _i = 2 ; _i < _n ; _i++ {
+		_s += "," + AYATEMPLATE.EscapeText(_argv[_i])
+	//	_s += "," + _argv[_i]
+	}
+	_s
+	--
+	//close reference sending, display option text, and close selection text area
+	"]%_argv[0]\__q"
+}
+
+
+//------------------------------------------------------------------------------
+//エスケープ
+AYATEMPLATE.EscapeText
+{
+	_r = _argv[0]
+	if RE_SEARCH(_r,'["\[\]]') {
+		'"' + REPLACE(_r,'"','""') + '"'
+	}
+	else {
+		_r
+	}
+	//" //Contain the Visual Formatting Bug
+}
+
+//******************************************************************************
+//リンクメニュー
+//******************************************************************************
+AYATEMPLATE.LinkMenuConvert
+{
+    _text = ''
+    _data = IARRAY
+    for _i = 0 ; _i < _argc ; _i++ {
+        _data = (RE_SPLIT(_argv[_i],'[ \t]*\|[ \t]*'),'','') //ダミー
+        _text += "%(_data[0])%(CHR(1))%(_data[1])%(CHR(1))%(_data[2])%(CHR(1))%(CHR(2))"
+    }
+    _text;
+}
+
+//******************************************************************************
+//切り替えコア
+//******************************************************************************
+
+AYATEMPLATE.ExecuteChangeCallTalk
+{
+	//store needed info
+	temp = IARRAY
+	temp ,=_argv[0]
+	temp ,=reference[0]
+	temp ,=_argv[1]
+	
+	
+	
+}
+
+
+ExecuteChangeCallTalkReturn{
+	AYATEMPLATE.ExecuteGhostNameFunc(temp[0],temp[1],temp[2])
+}
+
+
+AYATEMPLATE.ExecuteChangeCallTalkOther
+{
+	AYATEMPLATE.ExecuteGhostNameFunc(_argv[0],reference[0],_argv[1])
+}
+
+
+//******************************************************************************
+//切り替え/コミュ共通コア（ゴースト名付加関数呼び出し）
+//_argv[0]	関数名ベース
+//_argv[1]	ゴースト名（自動的にシステム文字エスケープされる）
+//			ゴースト名が空の場合は_argv[2]の評価へ
+//			「関数名ベース＋ゴースト名」の関数が無い場合は「ベースOther」
+//_argv[2]	上記の関数が存在しなかった場合、呼ぶ関数名（Optional)
+//******************************************************************************
+AYATEMPLATE.ExecuteGhostNameFunc
+{
+	_ghostname = SHIORI3FW.TranslateSystemChar(_argv[1])
+
+	if _ghostname != '' {
+		_funcname = "%(_argv[0])_%(_ghostname)"
+		if ISFUNC(_funcname) {
+			_script = EVAL(_funcname)
+			if STRLEN(_script) != 0 {
+				_script
+				return
+			}
+		}
+
+		_funcname = "%(_argv[0])Other"
+			if ISFUNC(_funcname) {
+			_script = EVAL(_funcname)
+			if STRLEN(_script) != 0 {
+				_script
+				return
+			}
+		}
+	}
+
+	if _argc >= 2 {
+		_script = EVAL(_argv[2])
+		if STRLEN(_script) != 0 {
+			REPLACE(_script,"\-","")
+			return
+		}
+	}
+}
+
+//******************************************************************************
+//コミュ関係
+//******************************************************************************
+
+//こっちから話しかける
+AYATEMPLATE.ExecuteTalkToTalk
+{
+	//まず話しかける相手を決める
+	_ghostname=AYATEMPLATE.GetRandomSakuraName()
+	res_reference0=_ghostname
+	
+	DUMPVAR()
+	
+	//共通コアを使って関数呼び出し
+	AYATEMPLATE.ExecuteGhostNameFunc('TalkTo',_ghostname,'TalkToNobody')
+}
+
+//話しかけに応答する
+AYATEMPLATE.ExecuteReplyToTalk
+{
+	AYATEMPLATE.ExecuteGhostNameFunc('ReplyTo',_argv[0])
+}
+
+//話しかける相手をランダムに決定
+AYATEMPLATE.GetRandomSakuraName
+{
+	_ghostlist=IARRAY
+	//FMOが使える場合はFMOから読みます
+	if ISFUNC('SHIORI3FW.RefreshFMOTable') {
+		SHIORI3FW.RefreshFMOTable
+		_ghostlist=SHIORI3FW.SakuraNameList
+	}else{
+		_ghostlist=ghostexlist
+	}
+	if ARRAYSIZE(_ghostlist)>0 {
+		ANY(_ghostlist)
+	}else{
+		''
+	}
+}
+
+//起動中ゴーストリスト取得
+On_otherghostname
+{
+	// 現在起動中のゴーストのリストを作成する
+	ghostexlist = reference
+	ghostexcount = ARRAYSIZE(ghostexlist)
+}
+
+
+
+//******************************************************************************
+//マウスイベントコア
+//******************************************************************************
+AYATEMPLATE.MouseEventExec
+{
+	infocounter += .5
+	_fname = _argv[0] + TOSTR(reference[3]) + TOSTR(reference[4])
+	if ISFUNC(_fname) {
+		EVAL(_fname)
+		return
+	}
+	
+	_fname = _argv[0] + TOSTR(reference[3])
+	if ISFUNC(_fname) {
+		EVAL(_fname)
+		return
+	}
+}
+
+AYATEMPLATE.MouseMoveWheelFunc
+{
+	//checkErrorQueue
+	_side = TOINT(reference[3])
+	if _argv[0] {
+		_side += 10
+	}
+	
+	if AYATEMPLATE.strokeid[_side] == reference[4] {
+		if (GETTICKCOUNT - TOINT(AYATEMPLATE.stroketimer[_side])) > 1500 {
+			AYATEMPLATE.stroke[_side] = 1
+		}
+		AYATEMPLATE.stroketimer[_side] = GETTICKCOUNT
+		
+		_stroke = TOINT(AYATEMPLATE.stroke[_side])
+		_stroke += 1
+		AYATEMPLATE.stroke[_side] = _stroke
+		
+		if _stroke >= _argv[1] {
+			if 'talking' !_in_ status {
+				AYATEMPLATE.MouseEventExec(_argv[2]);
+				AYATEMPLATE.stroke[_side] = 1
+			}
+		}
+	}
+	else {
+		AYATEMPLATE.stroke[_side] = 1
+		AYATEMPLATE.stroketimer[_side] = GETTICKCOUNT
+		AYATEMPLATE.strokeid[_side] = reference[4]
+	}
+	
+}
+
+//------------------------------------------------------------------------------
+//プラグイン
+//------------------------------------------------------------------------------
+On_installedplugin : void
+{
+	_n = ARRAYSIZE(reference)
+	AYATEMPLATE.installedplugin_name = IARRAY
+	AYATEMPLATE.installedplugin_id = IARRAY
+	
+	for _i = 0 ; _i < _n ; _i++ {
+		_a = RE_SPLIT(reference[_i],'[,\x1]')
+		
+		AYATEMPLATE.installedplugin_name ,= _a[0]
+		AYATEMPLATE.installedplugin_id ,= _a[1]
+	}
+}
+
+AYATEMPLATE.IsPluginExist
+{
+	if _argc == 0 {
+		0
+		return
+	}
+	
+	if ASEARCH(_argv[0],AYATEMPLATE.installedplugin_id) >= 0 {
+		1
+		return
+	}
+	if ASEARCH(_argv[0],AYATEMPLATE.installedplugin_name) >= 0 {
+		1
+		return
+	}
+	0
+}
+
+
+OnGetEXH{
+	realexh = reference0
+}
+
+
+ABS{
+	if reference0 < 0{
+		_temp = -reference0
+		
+	}else{
+		_temp = reference0
+	}
+	_temp
+	return
+	
+	
+}
+
+
+
+//reference 0 is the number the item is in the list it expects
+//reference 1 is the string
+//it expects the string to be separated by commas, and only by commas will it be delimited
+//getITEMNUM{
+
+
+//}
+
+fewerrors{
+	for i = 0; i < 10; i++	{
+		SENDERROR("bug %i,","info")
+	}
+
+}
+
+//Set up the queue
+initerrorqueue{
+	messageQueue = IARRAY
+}
+
+//Should be called from OnSecondChange
+//Sends the earliest arriving message from the error/message Queue.
+checkErrorQueue{
+	//If there is content to be sent as a message/error
+	if ARRAYSIZE(messageQueue) != 0{
+		//get this element
+		_item = messageQueue[0]
+		//Send its contents as separate 
+		ErrorLog(_item[0,INSERTDELIM],_item[1,INSERTDELIM])
+		//Delete this element now that it has been sent
+		messageQueue[0] = IARRAY
+	
+	}
+}
+
+
+//Put the message into the queue
+SENDERROR{
+	
+	//The delimiter cannot be used inside the message
+	if INSERTDELIM _in_ _argv[0] || INSERTDELIM _in_ _argv[1]{
+		_message = "Invalid error message: message contains system delimiter"
+		_message += INSERTDELIM
+		_message += "warning"
+		messageQueue,= _message
+	}else{
+	//Otherwise, the message is valid and may be sent to the queue.
+		_message = _argv[0]
+		_message += INSERTDELIM
+		_message += _argv[1]
+		messageQueue,= _message
+	}
+
+}
+
+//Log an error 
+ErrorLog
+{
+    _level = "warning" //It defaults to warning if it doesn't recognize what you've put in, so I will too. Other options are 'critical' and 'info'
+    if _argv[1] != ""; _level = _argv[1]
+	_errordesc = _argv[0]+C_BYTE1
+    SHIORI3FW.PushAdditionalReturn('ErrorLevel',_level)
+    SHIORI3FW.PushAdditionalReturn('ErrorDescription',_argv[0])
+	
+	
+}

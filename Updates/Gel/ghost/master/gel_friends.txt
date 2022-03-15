@@ -1,0 +1,906 @@
+
+
+
+//--------------------------------------ADDING PEOPLE TO GEL'S KNOWLEDGE-----------------------------
+
+
+//Selected add friend from menu
+Info_AddFriend{
+	"\![set,choicetimeout,-1]"
+	--
+//	friendlist = IARRAY
+//	SETDELIM(friendlist, "#")
+//	friends = 0
+	thisfriend = IARRAY
+	thisfriend += "," + ","+ ","+ ","+ ","
+	if sight == 1{
+		_username = FUNCTIONEX("findwin.dll","getcaption","Chrome_WidgetWin_1")
+		if "@" _in_ _username{
+			if _username != ""{
+				_username = REPLACE(_username, " - ", "")
+				_username = REPLACE(_username, "Discord", "")
+			}
+			"Oh, is it %_username from Discord?\n\n"
+			_username = REPLACE(_username, "@", "")
+			//temp = _username
+			thisfriend[1] = _username
+			thisfriend[0] = _username
+	
+			--
+			AYATEMPLATE.MenuItem("Yes","Info_AddFriendDiscordNameConfirm")
+			--
+			AYATEMPLATE.MenuItem("No\, someone else","Info_AddFriendNotDiscord")
+		}else{
+			Info_AddFriendNotDiscord
+		}
+	
+	}else{
+		Info_AddFriendNotDiscord
+	}
+
+}
+
+
+
+
+
+
+Info_AddFriendNotDiscord{
+	thisfriend[1] = ""
+	thisfriend[0] = ""
+	if reference[0] != ""{
+		"Yeah? What's their name?\![open,inputbox,OnInfo_AddFriendName,-1]"
+	}else{
+		"Yeah? What's their name?\![open,inputbox,OnInfo_AddFriendName,-1]"
+	
+	}
+}
+
+
+Info_AddFriendDiscordNameConfirm{
+	_name = thisfriend[1]
+	"%(gelBase)"
+	--
+	"%_name-- is that all you call them?"
+	--
+	AYATEMPLATE.MenuItem("Yes","Info_AddDupeNameFriend")
+	--
+	AYATEMPLATE.MenuItem("Nah","Info_AddFriendRealName")
+
+}
+
+Info_AddFriendRealName{
+	"Okay, so %thisfriend[1]'s real name is...\![open,inputbox,OnInfo_AddFriendRealNameWithNick]"
+
+}
+
+OnInfo_AddFriendRealNameWithNick{
+	if ( reference[0] == Gel && Gel != "Candy" ) || ASEARCH(TOLOWER(reference[0]),SlurDictionary) == 1{
+		"Okay, I doubt that. Try again.\![open,inputbox,OnInfo_AddFriendRealNameWithNick]"
+	}else{
+		thisfriend[0] = reference[0]
+		"Okay, you have a friend named %thisfriend[0] who goes by %thisfriend[1].\n\n"
+		--
+		Info_AddFriend_Designation
+	}
+
+}
+
+OnInfo_AddFriendName{
+	thisfriend[0] = reference0
+	"%reference0. That's a nice name. \w8What about their nickname, or their handle?\![open,inputbox,OnInfo_AddFriendNick]"
+
+
+}
+
+
+Info_AddDupeNameFriend{
+	"%thisfriend[1] is their name and their nickname.\n\n"
+	--
+	Info_AddFriend_Designation
+
+}
+
+OnInfo_AddFriendNick{
+	"%(gelBase)"
+	--
+	thisfriend[1] = reference0
+	"And their nickname is %reference0! Nice!\n\n[half]"
+	--
+	Info_AddFriend_Designation
+
+
+}
+
+
+
+//Figure out what their relation is, and if it's family or a lover, give them a different menu
+Info_AddFriend_Designation{
+	"%(gelBase)"
+	--
+	"And what's their relation to you?"
+	"This is a friend of yours, right? \w8Or are they something else?"
+	--
+	"\b2\n\n[half]"
+	--
+	AYATEMPLATE.MenuItem("A friend","OnInfo_AddFriendDesignationSpecified", "friend")
+	--
+	AYATEMPLATE.MenuItem("A best friend","OnInfo_AddFriendDesignationSpecified", "best friend")
+	--
+	AYATEMPLATE.MenuItem("Family member","Info_AddFriendDesignation_Family")
+	--
+	AYATEMPLATE.MenuItem("Spouse","OnInfo_AddFriendDesignationSpecified", "spouse")
+	--
+	AYATEMPLATE.MenuItem("Datemate","OnInfo_AddFriendDesignationSpecified", "datemate")
+	--
+	AYATEMPLATE.MenuItem("Just an acquaintance","OnInfo_AddFriendDesignationSpecified", "acquaintance")
+	--
+	AYATEMPLATE.MenuItem("An enemy\, admittedly","OnInfo_AddFriendDesignationSpecified", "enemy")
+	--
+	AYATEMPLATE.MenuItem("Coworker","OnInfo_AddFriendDesignationSpecified", "coworker")
+	--
+	AYATEMPLATE.MenuItem("Random Servermate","OnInfo_AddFriendDesignationSpecified", "acquaintance")
+	--
+	AYATEMPLATE.MenuItem("Something else","Info_AddFriendDesignationOther")
+
+
+}
+
+Info_AddFriendDesignation_Family{
+
+	"Oh, nice, family! What kind?\n\n[half]\b2"
+	--
+	AYATEMPLATE.MenuItem("Parent","OnInfo_AddFriendDesignationSpecified", "parent")
+	--
+	AYATEMPLATE.MenuItem("Sibling","OnInfo_AddFriendDesignationSpecified", "sibling")
+	--
+	AYATEMPLATE.MenuItem("Grandparent","OnInfo_AddFriendDesignationSpecified", "grandparent")
+	--
+	AYATEMPLATE.MenuItem("Cousin","OnInfo_AddFriendDesignationSpecified", "cousin")
+	--
+	AYATEMPLATE.MenuItem("Aunt/Uncle","OnInfo_AddFriendDesignationSpecified", "unty")
+	--
+	AYATEMPLATE.MenuItem("Neice/Nephew","OnInfo_AddFriendDesignationSpecified", "nibling")
+
+
+
+}
+
+
+Info_AddFriendDesignationOther{
+	"Okay, so then who is %thisfriend[1] to you?\![open,inputbox,OnInfo_AddFriendDesignationSpecified]"
+
+
+}
+
+
+OnInfo_AddFriendDesignationSpecified{
+	thisfriend[2] = reference0
+	"%(gelBase)So %thisfriend[0]/%thisfriend[1] is your %thisfriend[2]. "
+	"%(gelBase)So %thisfriend[0]/%thisfriend[1] is a %thisfriend[2] to you. "
+	"%(gelBase)So %thisfriend[0] is your %thisfriend[2]. "
+	"%(gelBase)So %thisfriend[1] is your %thisfriend[2]. "
+	"%(gelBase)That's pretty cool! It's nice to know about them being your %thisfriend[2]. "
+	--
+	"\w8"
+	--
+	case thisfriend[2]{
+		//the relationships that Gel will care about the hobby of
+		when "friend", "best friend", "sibling", "spouse", "datemate", "coworker"{
+		--
+			"What about their hobby? Does your %thisfriend[2] %thisfriend[1] do anything interesting?\b2\n\n[half]"
+			--
+			AYATEMPLATE.MenuItem("Art","OnInfo_AddFriendHobbySpecified", "artist")
+			--
+			AYATEMPLATE.MenuItem("Writing","OnInfo_AddFriendHobbySpecified", "writer")
+			--
+			AYATEMPLATE.MenuItem("Coding","OnInfo_AddFriendHobbySpecified", "programmer")
+			--
+			AYATEMPLATE.MenuItem("Gaming","OnInfo_AddFriendHobbySpecified", "gamer")
+			--
+			AYATEMPLATE.MenuItem("Musician","OnInfo_AddFriendHobbySpecified", "musician")
+			--
+			AYATEMPLATE.MenuItem("Baking","OnInfo_AddFriendHobbySpecified", "baker")
+			--
+			AYATEMPLATE.MenuItem("Self destruction","OnInfo_AddFriendHobbySpecified", "destructive")
+			--
+			AYATEMPLATE.MenuItem("Local unofficial therapist","OnInfo_AddFriendHobbySpecified", "therapist to everyone")
+			--
+			AYATEMPLATE.MenuItem("Just a lot of YouTube tbh","OnInfo_AddFriendHobbySpecified", "youtube junkie")
+			--
+			AYATEMPLATE.MenuItem("Not really","OnInfo_AddFriendHobbySpecified", "not sure")
+		
+		}
+		//Gender isn't specified, so we need to worry about using the gender-neutral term here. 
+		//A gender-neutral X's title will be as it's recorded in thisfriend[2]
+		//I think I had a bigger reason for separating out unty earlier but I can't remember it now.
+		//So I'll just leave it like this and hope I remember later.
+		when "unty"{
+			thisfriend[3] == "not sure"
+			--
+			"So are they your aunt, uncle, or neither?"
+			--
+			"%(Info_AddFriendGender)"
+		
+		
+		}
+		//Here, we don't worry about the hobby, so we skip that option, and move on
+		others{
+			thisfriend[3] = "not sure"
+			--
+			"So what sort of pronouns do they use?"
+			--
+			"%(Info_AddFriendGender)"
+		
+		}
+	
+	
+	
+	}
+}
+
+
+OnInfo_AddFriendHobbySpecified{
+	thisfriend[3] = reference0
+	if thisfriend[3] == "artist" && "friend" _in_ thisfriend[2]{
+		"Artist friends, huh? Creativity is so interesting.\w4.\w4. Anyways, what are their pronouns?"
+		//Now, if Gel notes an art program, it contributes to them being able to pin the user as an artist
+		if userArtist == 0{
+			userArtist = 1
+		}
+	}elseif thisfriend[3] != "destructive"{
+		"%(gelBase)Cool! The more you know. What about their gender? What pronouns do they use?"
+	}else{
+		"%(gelBase)Oh, I%(am) sorry to hear that. \w6Uh, what pronouns do they use?"
+	}
+	--
+	"%(Info_AddFriendGender)"
+
+
+
+
+
+}
+
+
+Info_AddFriendGender{
+	"\n\n[half]"
+	--
+	AYATEMPLATE.MenuItem("he/him/his","OnInfo_AddFriendGenderSpecified", "he")
+	--
+	AYATEMPLATE.MenuItem("she/her/hers","OnInfo_AddFriendGenderSpecified", "she")
+	--
+	AYATEMPLATE.MenuItem("they/them/theirs","OnInfo_AddFriendGenderSpecified", "they")
+
+
+}
+
+//Bold assumption that parents, grandparents, and aunts/uncles will not know Gel. 
+OnInfo_AddFriendGenderSpecified{
+	thisfriend[4] = reference0
+	case thisfriend[2]{
+		when "parent", "grandparent", "unty"{
+			"%(gelHuh)Wow, it's cool to know about your family like that!\w8 I%(will) remember them, definitely."
+			--
+			"\![raise,OnInfo_AddFriend_KnowsGel,-1]"
+		
+		}
+		others{
+			"Cool. I%(will) be sure to keep that in mind.\xI know a lot of people, admittedly, but %thisfriend[0] sounds familiar. \w8I share memories with all versions of Gel-- do I know them?\n\n[half]"
+			--
+			AYATEMPLATE.MenuItem("Yeah\, they've mentioned you","OnInfo_AddFriend_KnowsGel","1")
+			--
+			AYATEMPLATE.MenuItem("I don't think so","OnInfo_AddFriend_KnowsGel", "0")
+		}
+	}
+}
+
+
+OnInfo_AddFriend_KnowsGel{
+	thisfriend[5] = reference0
+	case thisfriend[5]{
+		when "-1"{
+			//they just, don't know Gel
+			thisfriend[5] = 0
+			"%(Info_AddFriend_ConfirmFriend)"
+		}
+		when "0"{
+			"%(gelBase)Names can be pretty common sometimes. Okay then.\w8\w6\n\n[half]"
+			--
+			" %(Info_AddFriend_ConfirmFriend)"
+		}
+		//1 won't mention them until the next boot
+		when "1"{
+			"%(gelBase)I knew %thisfriend[0] was familiar! Okay, I got it. Thanks for telling me about them!\w8 It's cool to know you two are %thisfriend[2]s.\w8\w6\n\n[half]"
+			--
+			" %(Info_AddFriend_ConfirmFriend)"
+		
+		}
+	
+	}
+
+
+}
+
+Info_AddFriend_ConfirmFriend{
+	_pronoun = thisfriend[4]
+	_buffer = SUBSTR(_pronoun,0,1)
+	_pronoun = ERASE(_pronoun,0,1)
+	_pronoun = INSERT(_pronoun,0,TOUPPER(_buffer))
+
+	if thisfriend[0] != thisfriend[1]{
+		"%(gelBase)Okay, so you know %thisfriend[0]/%thisfriend[1], who is your %(Info_Friend_GenderedRelation)."
+	}else{
+		"%(gelBase)Okay, so you know %thisfriend[0], who is your %(Info_Friend_GenderedRelation)."
+	}
+	--
+	"\w6 "
+	--
+	if thisfriend[3] != "not sure"{
+		if _pronoun != "They"{
+			"%_pronoun's "
+		}else{
+			"%_pronoun're "
+		}
+		--
+		"a %thisfriend[3]."
+	}
+	--
+	" "
+	--
+	if thisfriend[5] == 1{
+		if _pronoun != "They"{
+			"%_pronoun's "
+		}else{
+			"%_pronoun're "
+		}
+		--
+		"also my friend."
+	}
+	--
+	" Is that all correct?\n\n[half]\b2"
+	--
+	AYATEMPLATE.MenuItem("Yeah\, that's right","Info_AddFriend_WriteFriend")
+	--
+	AYATEMPLATE.MenuItem("Wait!","Info_AddFriend")
+
+
+}
+
+Info_AddFriend_WriteFriend{
+	friends+= 1
+	friendslist += thisfriend
+	thankful = 2
+	_dummy = FOPEN("relations.txt", "a")
+	_dummy = FWRITE("relations.txt", thisfriend)
+	_dummy = FCLOSE("relations.txt")
+	--
+	"\![set,choicetimeout,150]"
+	--
+	"I%(will) be sure to remember. I like knowing about the people in your life.\e"
+
+}
+
+
+Info_LoadFriendList{
+	_dummy = FOPEN("relations.txt", "r")
+	//if the file opens successfully
+	if _dummy == 1{
+		//we're gonna rewrite this
+		friendslist = ""
+
+		//counter
+		_i = 0
+		while _i < friends{
+			//yoink the line
+			_temp = FREAD("relations.txt")
+			//hashtags are illegal characters here, because we use them as delimeters
+			_temp = REPLACE(_temp, "#", "")
+			//To have Gel "double check to make sure they know them"
+			if _temp[5] == 1{
+				_temp[5] = 2
+			}
+			//write this line to the array
+			friendslist[_i, "#"] += _temp + "#"
+			//update counter
+			_i++
+		
+		}
+	}
+	FCLOSE("relations.txt")
+}
+
+Info_UpdateFriendFile{
+	_dummy = FOPEN("relations.txt", "w")
+	if _dummy == 1{
+
+		_i = 0
+		while _i < friends{
+			FWRITE("relations.txt", friendslist[_i,"#"])
+			_i++
+		
+		}
+	}
+	FCLOSE("relations.txt")
+
+}
+
+
+Info_Friend_GenderedRelation{
+	_designation = thisfriend[2]
+	_gender = thisfriend[4]
+	if _gender != "they"{
+		case _designation{
+			//All of these cases have gender specific terms.
+			when "parent"{
+				if _gender == "she"{
+					"mom"
+					"mom"
+					"mother"
+				}else{
+					"dad"
+					"dad"
+					"father"
+				}
+			
+			}when "spouse"{
+				if _gender == "she"{
+					"wife"
+				}else{
+					"husband"
+				}
+				//Rare variation. 
+				if RAND(10) == 8{
+					"lovely"
+				}
+			
+			}when "datemate"{
+				if _gender == "she"{
+					"girlfriend"
+				}else{
+					"boyfriend"
+				}
+				//Rare variation. 
+				if RAND(10) == 8{
+					"lovely"
+				}
+			}when "sibling"{
+				if _gender == "she"{
+					"sister"
+					"sis"
+					"sister"
+				}else{
+					"brother"
+					"bro"
+					"brother"
+				}
+			
+			}
+			when "unty"{
+				if _gender == "she"{
+					"aunt"
+					"auntie"
+				}else{
+					"uncle"
+				}
+			}when "nibling"{
+				if _gender == "she"{
+					"niece"
+				}else{
+					"nephew"
+				}
+			
+			}when "grandparent"{
+				if _gender == "she"{
+					"grandma"
+					"grandmother"
+				}else{
+					"grandpa"
+					"grandfather"
+				}
+			
+			}others{
+			//If it's not a relation that's title is gendered
+				"%_designation"
+			
+			}
+		
+		}
+	
+	
+	
+	}else{
+		"%_designation"
+	}
+
+
+
+}
+
+//Just pick anyone in the relationship list at random
+//If they're there, they must be important to the user
+Info_RandomRelation{
+	_num = RAND(friends)
+	thisfriend = friendslist[_num,"#"]
+
+
+}
+
+Info_FriendNames: array{
+	_i = 0
+	while _i < friends{
+		_thisfriend = IARRAY
+		_thisfriend = friendslist[_i,"#"]
+		_thisfriend[0]
+		_i++
+		--
+	}
+	return
+
+}
+
+Info_FriendNicks: array{
+	_i = 0
+	while _i < friends{
+		_thisfriend = IARRAY
+		_thisfriend = friendslist[_i,"#"]
+		_thisfriend[1]
+		_i++
+		--
+	}
+
+}
+
+
+//------------------------------------------------------EDIT FRIEND FUNCTIONS--------------------------------------
+
+
+
+
+
+//Maybe I'll make them all editable later, but for the moment...
+Info_EditFriend{
+	thisfriend = IARRAY
+	thisfriend = friendslist[i,"#"]
+	"%(gelLookForward)What do you want to edit?\n"
+//	--
+//	AYATEMPLATE.MenuItem("Their name","Info_EditFriend_Name")
+	--
+	AYATEMPLATE.MenuItem("Their nickname/handle","Info_EditFriend_Nick")
+	--
+	AYATEMPLATE.MenuItem("Their relation to me","Info_EditFriend_Designation")
+	--
+	AYATEMPLATE.MenuItem("Their hobby","Info_EditFriend_Hobby")
+	--
+	//AYATEMPLATE.MenuItem("Their pronouns","Info_EditFriend_Pronouns")
+//	--
+	if thisfriend[5] == 0{
+		AYATEMPLATE.MenuItem("Actually\, they know you now","Info_EditFriend_Knowsgel")
+	}
+
+}
+
+
+Info_EditFriend_Nick{
+
+	"%(gelLookForward)Okay, what's their new handle?\![open,inputbox,OnInfo_EditFriend_NewNick]"
+
+
+
+
+}
+
+
+OnInfo_EditFriend_NewNick{
+	_name = reference0
+	thankful = 2
+	if _name == Gel{
+		"%(gelUh)Weird, but ok."
+		thisfriend[1] = _name
+		friendslist[i,"#"] = thisfriend
+		"%(gelLookForward)Okay, updated!"
+		--
+		Info_UpdateFriendFile
+	}elseif ASEARCH(_name,SlurDictionary) > -1{
+		"%(gelSquint)Okay, sorry, but I%(am) not comfortable with that word here. Please change it.\![open,inputbox,OnInfo_EditFriend_NewNick]"
+	
+	}elseif _name == thisfriend[1]{
+		"%(gelConfused)That was... already their nick???\![open,inputbox,OnInfo_EditFriend_NewNick]"
+	
+	}elseif ASEARCH(_name,Info_FriendNicks) > -1{
+		"%(gelConfused)You already have a friend with that nickname.\![open,inputbox,OnInfo_EditFriend_NewNick]"
+		
+	}else{
+		thisfriend[1] = _name
+		friendslist[i,"#"] = thisfriend
+		"%(gelLookForward)Okay, updated!"
+		--
+		Info_UpdateFriendFile
+		
+	}
+
+
+
+}
+
+Info_EditFriend_Designation{
+    thankful = 2
+	//Family is not an option to change............
+		"%(gelConfused)So who is %thisfriend[1] to you these days??\b2\n\n[half]"
+		--
+		AYATEMPLATE.MenuItem("A friend","OnInfo_EditFriend_DesignationSpecified", "friend")
+		--
+		AYATEMPLATE.MenuItem("A best friend","OnInfo_EditFriend_DesignationSpecified", "best friend")
+		--
+		AYATEMPLATE.MenuItem("Spouse","OnInfo_EditFriend_DesignationSpecified", "spouse")
+		--
+		AYATEMPLATE.MenuItem("Datemate","OnInfo_EditFriend_DesignationSpecified", "datemate")
+		--
+		AYATEMPLATE.MenuItem("Just an acquaintance","OnInfo_EditFriend_DesignationSpecified", "acquaintance")
+		--
+		AYATEMPLATE.MenuItem("An enemy","OnInfo_EditFriend_DesignationSpecified", "enemy")
+		--
+		AYATEMPLATE.MenuItem("Coworker","OnInfo_EditFriend_DesignationSpecified", "coworker")
+		--
+		AYATEMPLATE.MenuItem("Random Servermate","OnInfo_EditFriend_DesignationSpecified", "acquaintance")
+
+}
+
+OnInfo_EditFriend_DesignationSpecified{
+	if thisfriend[2] == "best friend"{
+		thisfriend[2] = reference0
+		friendslist[i,"#"] = thisfriend
+		case reference0{
+			when "datemate", "spouse"{
+				"%(gelBase)%(gelExcited)Oh, I%(am) so happy for you two! Congratulations! I%(will) keep that in mind."
+			}
+			when "friend"{
+				"%(gelUh)Yikes, I%(am) sorry to hear that. It sucks to drift apart-- at least it does%(not) seem like there's bad blood between you two."
+			}
+			when "acquaintance", "coworker"{
+				"%(gelLookForward)Oh %(fudge), that's a fall from grace. I%(will) keep that in mind, but I%(am) sorry to hear that."
+			}
+			when "enemy"{
+				"%(gelLookAway)%(gelSquint).\w4.\w4.That's not good to hear. I%(am) sorry."
+			}
+		
+		}
+	}else{
+	
+		thisfriend[2] = reference0
+		friendslist[i,"#"] = thisfriend
+		"Okay, I%(will) be sure to keep in mind they're your %(Info_Friend_GenderedRelation) now."
+		
+	}
+	--
+	thankful = 2
+	Info_UpdateFriendFile
+
+}
+
+
+Info_EditFriend_Hobby{
+		"So what does %thisfriend[1] do with themselves these days?\b2\n\n[half]"
+		--
+		AYATEMPLATE.MenuItem("Art","OnInfo_EditFriend_HobbySpecified", "artist")
+		--
+		AYATEMPLATE.MenuItem("Writing","OnInfo_EditFriend_HobbySpecified", "writer")
+		--
+		AYATEMPLATE.MenuItem("Coding","OnInfo_EditFriend_HobbySpecified", "programmer")
+		--
+		AYATEMPLATE.MenuItem("Gaming","OnInfo_EditFriend_HobbySpecified", "gamer")
+		--
+		AYATEMPLATE.MenuItem("Music","OnInfo_EditFriend_HobbySpecified", "musician")
+		--
+		AYATEMPLATE.MenuItem("Baking","OnInfo_EditFriend_HobbySpecified", "baker")
+		--
+		AYATEMPLATE.MenuItem("Self destruction","OnInfo_EditFriend_HobbySpecified", "destructive")
+		--
+		AYATEMPLATE.MenuItem("Unofficial therapy","OnInfo_EditFriend_HobbySpecified", "therapist to everyone")
+		--
+		AYATEMPLATE.MenuItem("Just a lot of YouTube tbh","OnInfo_EditFriend_HobbySpecified", "youtube junkie")
+		--
+		AYATEMPLATE.MenuItem("Nothing\, really","OnInfo_EditFriend_HobbySpecified", "not sure")
+
+
+}
+
+OnInfo_EditFriend_HobbySpecified{
+	thisfriend[3] = reference0
+	friendslist[i,"#"] = thisfriend
+	thankful = 2
+	"Okay, thanks for letting me know!"
+	--
+	Info_UpdateFriendFile
+
+}
+
+Info_EditFriend_Knowsgel{
+	thisfriend[5] = 1
+	thankful = 2
+	"Oh, that's pretty cool! \w8%(gelLookAway)So those are the same %thisfriend[0].\w4.\w4."
+	--
+	Info_UpdateFriendFile
+
+}
+
+
+Info_DeleteFriend{
+	"%(gelLookForward)%(gelConfused)Are you sure you want me to never bring up %thisfriend[0] again?\n"
+	"%(gelLookForward)%(gelConfused)Are you sure you want me to forget %thisfriend[0]?\n"
+	--
+	AYATEMPLATE.MenuItem("Yep","Info_DeleteFriend_Confirmed")
+	--
+	AYATEMPLATE.MenuItem("Nevermind!","Menu_ViewFriendsList")
+
+}
+
+Info_DeleteFriend_Confirmed{
+	_counter = i
+	friends--
+	//Shift them all over
+	while _counter < friends{
+		friendslist[_counter,"#"] = friendslist[_counter+1,"#"]
+		_counter++
+	}	
+	--
+	Info_UpdateFriendFile
+
+}
+
+
+
+
+
+//-----------------------------------------------------END DYNAMIC FRIEND FUNCTIONS
+
+
+
+
+//only do this if the user has a friend that knows Gel just to make sure it won't return a blank
+//Or add a list of generic names
+//Will choose a relevant NPC, a friend of the user's stated to know Gel, or a ghost Gel has communicated with.
+gelsFriend{
+	case port{
+		when 434{
+			"Shijo"
+			"Mary"
+			"Nariyaki"
+		}when 3839{
+			"Evan"
+		}when 2681{
+			"Gray"	//kek
+		}when 1117{
+			"Alice"
+			"Yona"
+		}when 1395{
+			"Vanta"
+			
+		}
+	}
+	
+	//check user's friends
+	_i = 0
+	while _i < friends{
+		thisfriend = friendslist[_i,"#"]
+		if thisfriend[5] == 2{
+			thisfriend[1]
+		}
+		_i++
+	}
+	
+	//check ghost friends
+	_i = 0
+	while _i < ARRAYSIZE(ghostfriends){
+		ghostfriends[_i]
+		_i++
+	
+	}
+
+
+}
+
+
+
+
+//----------------------------------------------------------WHAT ABOUT YOUR FRIENDS THAT ARE ALSO GEL?
+
+
+
+OnAskNewPortNum{
+	"Oh sure, I can get someone for you. Just do%(not) put anythin%(guh) in if you just want any new Gel. \![open,inputbox,OnSwitchPort,0]"
+
+}
+
+OnForceNewPortNum{
+	"\![open,inputbox,OnSwitchPort,0]"
+
+}
+
+tointtest{
+	_test = TOINT("")
+	"%_test"
+
+}
+
+OnSwitchPort{
+
+	_newport = TOINT(reference0)	//returns 0 when 0, and when it isn't valid
+	closed = 1
+	forcedport = 1			//marks that this port is always able to swap
+	
+	//the port number we are
+	_thisfile = "yaya_variable" + port + ".cfg"
+	//this is the file we want to be using
+	_targetfile = "yaya_variable" + _newport + ".cfg"
+	
+	ONCLOSE_VAR
+	//save current info in proper location
+	SAVEVAR(_thisfile)
+
+	//open a read-only file, it will return 0 if it does not exist
+	_opentarg = FOPEN(_targetfile, "r")
+	
+	
+
+	//if the target file with wanted port already exists, and it is a valid entry
+	if _newport != 0 && _opentarg > 0 {
+		
+		
+		//we already saved the old info -- doesn't matter if it fails, if it does it doesn't exist anyways
+		_dummy = FDEL("yaya_variable.cfg")
+		FCLOSE(_targetfile)
+		//change the target's name to the necessary one
+		_dummy = FRENAME(_targetfile,"yaya_variable.cfg")
+		if _dummy == 0{
+			"%(gelLookAtInternet)ERROR: could not overwrite yaya_variable.cfg, former deleted at success %_dummya"
+		}
+		RESTOREVAR("yaya_variable.cfg")
+		forcedport = 1
+		--
+		OnLoadOutfit
+		--
+		OnBoot
+	
+	//if the target file doesn't exist yet
+	}else{
+		//create a new empty file
+		_dummy = FOPEN(_targetfile,"w")
+		FCLOSE(_targetfile)
+		
+		//swap our new one in
+		_dummy = FDEL("yaya_variable.cfg")
+		_dummy = FRENAME(_targetfile,"yaya_variable.cfg")
+
+		//load up new Gel
+		forcedport = _newport
+		RESTOREVAR("yaya_variable.cfg")
+		--
+		//tell them who to be
+		forcedport = _newport
+		OnFirstBootSummoned
+		
+	}
+
+}
+
+//A bug that wipes a save has been noted. A backup system is in place for this here, if it is immediately noticed.
+OnAskLoadHourBackup{
+	if _portnumknow > 0{
+		"%(gelLookForward)%(gelConfused)Are you sure you want to load memory for %_name #%_portnum and %_user from %_date %_time?"
+	}else{
+		"%(gelLookForward)%(gelConfused)Are you sure you want to load memory for %_name and %_user from %_date %_time?"
+	}
+	
+
+}
+
+OnLoadHourBackup{
+	//since it is loaded here, it will later be rewritten into the normal file
+	RESTOREVAR("yaya_variable.cfg.bak")
+
+}
+
+
+
+

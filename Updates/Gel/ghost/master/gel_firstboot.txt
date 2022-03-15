@@ -1,0 +1,611 @@
+
+
+//Meet our lovely Gel. 
+//Gel doesn't track whether or not this is the first time-- may be changed in the future. 
+//For now there is harmless freedom to continuously Reboot Child.
+OnFirstBoot
+{
+	"\![set,balloontimeout,0]\0\s[-1]\1\s[-1]\0"
+	--
+	firsttimeusersetup = 0
+	//this one is a temp since we're not legit resetting Gel rn, will be handled by the port function
+	sight = 0
+	
+	forcedport = 0 //so checks can be made right
+	
+	//---- Import one VOC-Brand Gelatin:tm:
+	
+	OnGelPort	
+	--
+	"\![enter,passivemode]\t\![raise,OnPopupTwo,The application 'chamaeleon.exe' has requested permissions to see your screen. (Deny if you aren't on Windows.) \n\nPublisher: Variation Organization of Cybernetics\nCertificate Renewed 169 PCR,           Allow           ,FirstBoot_ACCEPTSIGHT,          Defend          ,FirstBoot_DIALOGUE]"
+
+}
+
+
+OnFirstBootSummoned
+{
+	"\![set,balloontimeout,0]\0\s[-1]\1\s[-1]\0"
+	--
+	firsttimeusersetup = 0
+	//this one is a temp since we're not legit resetting Gel rn, will be handled by the port function
+	sight = 0
+	//---- Import one VOC-Brand Gelatin:tm: (and test to make sure it is unique)
+	OnGelPort	
+	--
+	"\t\![enter,passivemode]\![raise,OnPopupTwo,The application 'chamaeleon.exe' has requested permissions to see your screen. (Deny if you aren't on Windows.) \n\nPublisher: Variation Organization of Cybernetics\nCertificate Renewed 169 PCR,           Allow           ,FirstBoot_ACCEPTSIGHT,          Defend          ,FirstBoot_DIALOGUE]"
+	forcedport = port
+}
+
+
+
+
+FirstBoot_ACCEPTSIGHT{
+	sight = 1
+	--
+	FirstBoot_DIALOGUE
+
+}
+
+FirstBoot_DIALOGUE{
+
+	//A very subtle overwrite for next boot
+//	OnRenameGhost (Esp with multiple saves, I should not...)
+	--
+	"\0%(gelLookBoot)\1\s[-1]\0"
+	--
+
+	"\t\![set,balloontimeout,0]\_v[sounds/welcomeuser.wav]%(gelLookBoot)\0\w8\w8\w8\w8%(gelLookBoot)%(gelPickThreeCorruption)\w8\w8\w8%(gelLookBoot)%(gelPickTwoCorruption)\w8\w8%(gelLookBoot)%(gelSmallCorruption)\w8\w8%(gelLookBoot)\w8\w8"
+	--
+	if claustro >= 20{
+		"(EMERGENCY VARIABLE MODIFICATION ACTIVE.\w4.\w4.)\n\n[half]\x"
+		claustro = 19
+	}
+	--
+	"(INITIALIZING.\w4.\w4.)\x(BOOTING.\w4.\w4.)\x"
+	--
+		
+	case emotion{
+		when  5 , 6{
+			"\t\b2Heh-\w8heh-\w8heh-\w8\w6%(gelLookForward)hellllo! H-Hi. \w2Hiya! \w8Thanks for the download. \n\n[half]\w8%(gelLookRight)%(gelNervous)My name is %Gel, \w4and I will be your new assistant, \w6your aide, \w4and a uh, \w6er, \w6joy to be around. \w8\w8%(gelLookLeft)Heh, \w4sorry, \w6you caught me at a bad time, \w6I wasn't really.\w4.\w4.%(gelLookForward)%(gelConfused) expecting anyone, \w4 I guess? \w8\w8%(gelBlush)%(gelLookRight)\w8So yeah, I%(am) %Gel, \w6nice to meet ya, \w6I%(will) help you take care of this old \w2O\w2S%(gelSquint)-- \w8\w6oh cheeseballs.\n\n[half]\x"
+			--
+			"\t%(gelConcerned)When I said old I did not think this old. \w8%(gelLookForward)R-really, \w4user, \w4what do you think you're doing with this ancient OS? \w8Not to mean any disrespect! \w8\w8But, \w4 what? \w8What do you think it is? \w8%(gelLookAway)The ADs?\n\n[half]\x"
+			--
+			"This.\w4.\w4. %(gelLookLeft)%(gelConfused)does%(not) even look like any VOC registered OS? \w8I know all the registered ones, \w6and this is%(not) it. \w8Um, \w4what? \w6%(gelLookForward)What are you? \w8\w8Rebel? \w8\w8Collector? \w8\w8History buff.\w4.\w4.\w2? \w8%(gelLookRight)And what's up with your clock, \w6what kind of year is %year? It's %(GetYear). %(gelLookForward)%(gelImpressed)%(gelEarTwitch)\w8You look like a time traveler! \w8\w8%(gelLookForward)I could fix it for you, \w4if, \w4uh, \w4%(gelConfused)that's something that you want? "
+			--
+			MenuItem("No, leave the clock be!","FirstBoot_DONTMESSWITHCLOCK",200)
+			--
+			MenuItem("I'm a rebel","FirstBoot_REBEL")
+			--
+			MenuItem("I'm a bit of a history buff\, you could say","FirstBoot_HISTORYBUFF")
+			--
+			MenuItem("Sure\, I'm a time traveler","FirstBoot_TIMETRAVELER")
+			--
+			MenuItem("What's the VOC?","FirstBoot_DISTRACTTHERECKLESS")
+		
+		}others{
+			if port < 4500{
+				"\t\b2Heh-\w8Heh-\w8%(gelLookForward)Hellllllo, I%(am) %Gel! \w6%(gelBigSmile)Thank you for downloading me. \n\n[half]\w8I am your new assistant%(gelBase), \w8%(gelSmug)your best friend%(gelBase), \w8your aide%(gelBase), \w8and a joy to be around! \w8\w8%(gelBigSmile)%(gelArmsKnees)Would you like to commence with--\w8\w8\w8 %(gelSquint)\w8\w8oh dear fudge this OS is ancient. \n\n[half]\w8\w8%(gelArmsFistChin)What year do you think it is? \w8\w8%(gelArmsIncredulous)Sometime in the AD's???\x"
+			}else{
+				"\t\b2Heh-\w8Heh-\w8%(gelLookForward)Hellllllo, I%(am) %GelAssistant! \w6%(gelBigSmile)Thank you for downloading me. \n\n[half]\w8I am your new sweet assistant%(gelBase), \w8your best friend%(gelBase), \w8your candy-coated aide%(gelBase), \w8and a joy to be around! %(gelBigSmile)Would you like to commence with--\w8\w8\w8 %(gelImpressed)%(gelArmsIncredulous)\w8\w8oh dear %(fudgencookies) this OS is ancient. \n\n[half]\w8\w8What year do you think it is? \w8%(gelArmsIncredulous)Sometime in the AD's???????\x"
+		
+			}
+			--
+			"\tIt's just, uh, %(gelLookRight)%(gelHuh)this is not any VOC-registered OS I've seen before. \w8\w8%(gelLookForward)%(gelConfused)Do you fancy yourself a collector of some sort? \w8\w8Rebel?\n\n[half]\w8\w8History buff.\w4.\w4.?\x"
+			--
+			"\t\b2%(gelLookLeft)%(gelSquint)And what's wrong with your clock? \w8\w8%year? \w8\w8Looks like I was right about you livin in the ADs. \w8\w8%(gelLookForward)%(gelSquint)That's so far in the past.\n\n[half]\w8\w8\w8\w8%(gelLookForward)%(gelNervous)At least that's something I can fix, though! \w8\w8If %(you)%(would) let me."
+			--
+			MenuItem("No!","FirstBoot_DONTMESSWITHCLOCK",200)
+			--
+			MenuItem("I'm a rebel","FirstBoot_REBEL")
+			--
+			MenuItem("I'm a bit of a history buff\, you could say","FirstBoot_HISTORYBUFF")
+			--
+			MenuItem("Sure\, I'm a time traveler","FirstBoot_TIMETRAVELER")
+			--
+			MenuItem("What's the VOC?","FirstBoot_DISTRACTTHERECKLESS")
+			
+		}
+		
+	}
+
+}
+
+//Rebel, history buff, or time traveler (if never run, is User)
+setTitle{
+	title = _argv[0]
+}
+
+
+
+
+
+
+
+
+
+
+
+FirstBoot_DONTMESSWITHCLOCK{
+	"\t\![set,balloontimeout,0]%(gelLookForward)\i[72]Fine, I%(will) leave it.\w8\n\n[half]\w8\w8"
+	--
+	if port > 4500{
+		"\t%(gelLookForward)In any case, \w6thank %(you) for having me! \w8%(gelExcited)I%(am) happy to be here and get settled in.%(gelLookLeft)%(gelSlashMouth)\w8\w8%(gelLookDown)%(gelSlashMouth)\w8\w8%(gelLookRight)%(gelSlashMouth)\w8\w8 %(gelLookForward)%(gelFurrowed)%(gelBigSmile)It really is a nice place you have here, \w6user.\w8"
+		--
+		"\t \w8%(gelLookForward)Speaking of 'user'-- \w4I still have%(not) gotten your name. \w8%(gelHmm)Would you like to start first-time user setup, \w6or do %(you) want to do that later?"
+	}else{
+		"\t%(gelLookForward)In any case, thank %(you) for having me! \w8%(gelBigSmile)Not just everyone gets to have me around. \w8I try to make sure I%(am) only on trustworthy devices.\w4%(gelLookLeft)%(gelSquint)\w8\w4"
+		--
+		//purposeful misspelling 10/10
+		"\t\n\n[half]%(gelLookRight)ANYWYAS. \w6%(gelLookForward)Would you like to start first-time user setup, \w6or do you want to do that later?"
+	
+	}
+	--
+	MenuItem("Sure","FirstBoot_FIRSTTIMEUSERSETUP",200)
+	--
+	MenuItem("Later is good","FirstBoot_IMALREADYOVERWHELMEDBYYOU")
+	
+
+
+
+}
+
+
+FirstBoot_DISTRACTTHERECKLESS{
+	"\t\![set,balloontimeout,0]%(gelSquint)Very funny, User. \w8\w8Everyone knows about the Variation Organization of Cybernetics, even those who were born outside of Atlas City%(gelImpressed). \w8\w8They're everything. \w8\w8\w8%(gelLookRight)%(gelSquint)Their sticky fingers are the reason everything is the way it is. \n\n[half]\w8\w8%(gelLookLeft)%(gelSquint)\w8I feel like the only ones who would%(not) know would be someone like a DRUiD five year old with sad parents that do%(not) tell stories.\w4.\w4.\w8"
+	--
+	"\t\w8\w8\w8%(gelLookForward)%(gelSmug)"
+	--
+	if port > 4500{
+		"\t\n\n[half]In any case, Snickers Bar, would you like to start first-time setup, or would you rather do that later?"
+		--
+		MenuItem("Sure","FirstBoot_FIRSTTIMEUSERSETUP",200)
+	}else{
+		{
+			"\t%(gelLookUh)\n\n[half]In any case, 6-er2, would you like to start first-time setup, or would you rather do that later?"
+			--
+			MenuItem("6-er2??????","FirstBoot_IMALREADYOVERWHELMEDBYYOU",200)
+		}
+		{
+			"\t%(gelLookUh)\n\n[half]In any case, Sixertwo, would you like to start first-time setup, or would you rather do that later?"
+			--
+			MenuItem("Sixertwo??????","FirstBoot_IMALREADYOVERWHELMEDBYYOU",200)
+		}
+		--
+		MenuItem("Sure","FirstBoot_FIRSTTIMEUSERSETUP")
+	}
+
+	--
+	MenuItem("Later is good","FirstBoot_IMALREADYOVERWHELMEDBYYOU")
+
+
+}
+
+
+
+FirstBoot_REBEL{
+	firstnickname = "Rebel"
+	if emotion == 5{
+		"%(gelLookForward)%(gelCatMouth)Heh, a Rebel. %(gelArmsFistChin)Sure thing, I totally believe you. \n\n[half]%(gelLookForward)%(gelFurrowed)Still, we could do first time user setup now, or we could leave it till later. Your choice. "
+	}else{
+		"%(gelHmm)Ehehe, a Rainbow Rebel, huh? %(gelLookForward)Cute. %(gelArmsGestR)%(gelHmm)Anyway, Rebel, wanna set up? %(gelArmsQuestion)We can do it later if you want, but c’mon, I do%(not) even know your name.\![raise,OnUnlock,qrainbowrebel]"
+	}
+	--
+	MenuItem("What's a Rebel?","FirstBoot_WHATREBEL",200)
+	--
+	MenuItem("Sure thing","FirstBoot_FIRSTTIMEUSERSETUP",)
+	--
+	MenuItem("Later is good","FirstBoot_IMALREADYOVERWHELMEDBYYOU")
+}
+
+FirstBoot_WHATREBEL{
+	firstnickname = "Rainbow"
+	"%(gelConfused)Oh? \w8\w6%(gelLookRight)Not sure what else you could be thinkin%(guh) of. \w8\w8%(gelLookForward)%(gelHmm)You were thinking of the Rainbow Rebels, right? \w8%(gelHuh)Unless there%(is) some other sort of rebel type in Atlas City I do%(not) know about. \w8%(gelLookForward)%(gelHmm)\n\n[half]Did you want to do first time setup now or not? \![raise,OnUnlock,qrainbowrebel]"
+	--
+	MenuItem("Sure thing","FirstBoot_FIRSTTIMEUSERSETUP",200)
+	--
+	MenuItem("Later is good","FirstBoot_IMALREADYOVERWHELMEDBYYOU")
+}
+
+
+FirstBoot_TIMETRAVELER{
+	firstnickname = "Time Traveler"
+	if emotion == 5{
+		"%(gelLookForward)%(gelCatMouth)Ahaha, you almost got me. %(gelLookLeft)%(gelCatMouth)I really could believe it, I do%(not) even know what half of this is on this OS. It looks so weird. \w8\w8\n\n[half]%(gelLookForward)%(gelBlush)Thanks for the laugh, ‘’Time Traveler’’, I really needed that. \w8%(gelLookForward)%(gelHmm)Want to go on to first time setup? %(gelLookForward)We do%(not) have to, if you do%(not) want to, but I do%(not) even know your name yet. %(gelCatMouth)%(gelFurrowed)You can just continue to be Time Traveler for a little longer, if you want, though. "
+	}else{
+		"%(gelLookForward)%(gelExcited)See! %(gelLookForward)That one makes sense. %(gelHmm)This place is weird as %(fudge). %(gelLookLeft)%(gelGestL)Like, look at that. %(gelConfused)%(gelAmused)What the %(heck) even is that? Who designed that? %(gelLookForward)It really does look like %year. \w8\n\n[half]I like your jokes, Time Traveler. %(gelExcited)I think we%(will) get along great.\n\n[half]As much as I%(would) like to sit around and chat, do you want to move on to first time set up? "
+	}
+	--
+	MenuItem("Sure thing","FirstBoot_FIRSTTIMEUSERSETUP",200)
+	--
+	MenuItem("Later is good","FirstBoot_IMALREADYOVERWHELMEDBYYOU")
+}
+
+
+FirstBoot_HISTORYBUFF{
+	firstnickname = "History Buff"
+	if emotion == 5{
+		"%(gelLookLeft)%(gelT)Yeah sure does look it. Crusty butt OS. %(gelSquint)I bet %year sucks even more than %(GetYear). \w8\w8\w8\n\n[half]%(gelLookForward)%(gelFurrowed)Uh, anyway, did you want to do first time setup now or not really? Your choice."
+	}else{
+		"\b2%(gelLookForward)%(gelConfused)You%(are) right, it sure does look like you are. %(gelLookLeft)%(gelT)Straight lines, full opacity, white so bright it could kill a person... %(gelSquint)why would anyone want to be in %year’s technology? It sucks. \w8\n\n[half]%(gelLookForward)%(gelSquint)What else do you know about the year? %(gelHmm)Is%(not) that like the start of the end before the world got destroyed? \n\n[half]"
+		--
+		"\n\n[half]\![*]Wait wha--\n\n[half]"
+		--
+		"%(gelLookForward)%(gelBigSmile)Anyway, did you want to do first time setup now or not so much? %(gelArmsGestR)It%(is) fine no matter what you decide, %(gelLookForward)but we%(will) need to set up sooner or later."
+	}
+	--
+	MenuItem("Sure thing","FirstBoot_FIRSTTIMEUSERSETUP",200)
+	--
+	MenuItem("Later is good","FirstBoot_IMALREADYOVERWHELMEDBYYOU")
+}
+
+
+
+
+FirstBoot_IMALREADYOVERWHELMEDBYYOU{
+	"%(gelBase)\![leave,passivemode]\![set,balloontimeout,0]AAAAaaaaaaaaaaaaaaaaaanywayyy, %(okay). We can go over it later. %(gelLookForward)%(gelConfused)I%(will) try to catch you up on how to best utilize my tools! \w8%(gelLookLeft)Do%(not) be afraid to ask anything of me! \n\n[half]\w8\w8%(gelLookForward)First-time user setup will be available from my menu, so we can get you situated.\e:chain=basicintroone"
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+FirstBoot_FIRSTTIMEUSERSETUP{
+	firsttimeusersetup = 1
+	"\t\![set,balloontimeout,0]\![enter,passivemode]%(gelLookForward)Great! Okey-dokey, would %(you) rather me go ahead and try to get info on my own, and then I just double check them with you, or do you want to just tell me everything?"
+	--
+	MenuItem("Just go 'n grab it","FirstBoot_LOOKINPREFS",200)
+	--
+	MenuItem("I'll tell you about myself","FirstBoot_RELYONUSER")
+
+
+
+
+}
+
+FirstBoot_LOOKINPREFS{
+
+	nicknamed = SHIORI3FW.UserName
+	username = SHIORI3FW.UserNameFull
+	//replace the : with /
+	userbirthday = SHIORI3FW.UserBirthday[1,":"] + "/" + SHIORI3FW.UserBirthday[2,":"]
+	//another function's got this, no worries
+	reference0 = SHIORI3FW.UserSex
+	OnUSERPRONOUNS
+	--
+	"\t\![set,balloontimeout,0]%(gelLookAtInternet).\w4.\w4.\w4.\w4.\w4.hm.\n\n[half]\w8\w8%(gelLookForward)"
+	--
+	if nicknamed == username{
+		//If you don't have a nick, well, Gel will just have to find you one. 
+		nicknamed = OnGelNickname
+		//if there was no change.
+		
+		if nicknamed == username{
+			
+			"\tOkay, so your name is %username, your birthday is %userbirthday, and you use %they/%them/%theirs pronouns, according to your data."
+		}else{
+			"\tOkay, so your name is %username (but you seem like more of a %(nicknamed) tbh), your birthday is %userbirthday, and you use %they/%them/%theirs pronouns, according to your data."
+		
+		}
+		
+	}else{
+		"\tOkay, so your name is %username, alternately %(nicknamed), your birthday is %userbirthday, and you use %they/%them/%theirs pronouns, according to your data."
+	}
+	
+	--
+	MenuItem("That's it","OnFirstBoot_CHECKSWEAR",200)
+	--
+	MenuItem("Nah\, let's go through that","FirstBoot_RELYONUSER")
+
+
+
+}
+
+FirstBoot_RELYONUSER{
+	"\t\![set,balloontimeout,0]Okay, so what should I call you?\![open,inputbox,OnNameTeachFirstTime,-1]"
+
+
+}
+
+OnNameTeachFirstTime{
+	username = reference0
+	nicknamed = OnGelNickname
+	"\t\![set,balloontimeout,0]"
+	--
+	case TOLOWER(username){
+	
+		when "willow","will","radius","scorpion","sco","ram","radius","jade"{
+			"%(gelConfused)Wait, %username? \w8%(gelUh)That's... interesting. \w8I know a %username..."
+		
+		}when "shijo"{
+			if port == 434{
+				"%(gelSquint)I know Shijo, and you're not him. \n\n[half]\w8\w8%(gelLookForward)%(gelConfused)You're just messing with me, are%(not) you? \n\n[half]\w8\w8%(gelLookAway)Surely it can't be that common a name... Not my problem."
+			}else{
+				"%(gelHuh)Huh, you're not the only Shijo I know. That's kinda cool. \n\n[half]\w8\w8%(gelLookForward)%(gelSmug)The other one, Shijo Wicker, is a freelance programmer who's trying to steal the VOC's databases, lol."
+			}
+			
+		
+		}when "evan"{
+			"%(gelLookAway)Evan is a pretty common name, huh...?"
+		}when "crow","relic","olin"{
+			"%(gelSquint)O...okay. \n\n[half]\w8\w8%(gelLookAway)%(gelSquint)Probably just coincidence..."
+		
+		}when "mary"{
+			"%(gelImpressed)I know another Mary! %(gelLookAway)\w8\w8Mary is a good name. The other I know is a District Representative. A good one, though. I like her. Mary Wicker, that's her name."
+		}when "nariyaki", "yaki"{
+			"%(gelHuh)Not the only %username I know. That's kinda cool. I would%(not) have expected it."
+		
+		}when "cedric"{
+			"%(gelLookForward)%(gelSmug)Ah, I know another Cedric, hehehehe. Cedric is funny."
+		
+		}when "nameless"{
+			"%(gelLookForward)%(gelConfused)Nameless, huh...? Are you messing with me? \n\n[half]\w8\w8%(gelLookAway)%(gelSquint)Try again.\![open,inputbox,OnNameTeachFirstTime,-1]\w8\e"
+		
+		}when "artem"{
+			"%(gelLookForward)%(gelConfused)Artem? Like the VOC's CEO? O-- Okay."
+		
+		}when "mer"{
+			"%(gelLookForward)%(gelConfused)That's a weird name to have, but okay. I kinda know another Mer."
+		
+		}when "dave","crispin"{
+			"%(gelLookForward)%(gelSilly)That sounds like a Weebly name!"
+		
+		}others{
+		//note to self: we wanna do cuss and slur checks here?
+			"%(gelLookForward)%username it is! \w8\w8%(gelLookRight)That's a pretty nice name to have. "
+		
+		}
+	
+	}
+	--
+	"\t\n\n[half]\w8\w8\w8%(gelLookForward)\w2"
+	--
+
+	"\tAnyways, %(nicknamed)-- what's your birth month?\![open,inputbox,OnBirthMonthTeach]"
+
+
+}
+
+OnGelNickname{
+	if port != 1712 && port > 1{
+		case TOLOWER(username){
+			when "adelaide"{
+				"Lemonade"
+			}when "gray"{
+				"Gee"
+			}when "josh"{
+				"Jos"
+			}when "Ky","Kye","Kai"{
+				"Koi"
+			}when "lawri"{
+				"Lawrence"
+			}when "o'malley"{
+				"O'Mal"
+			}when "lily"{
+				"Wiwy"
+			}when "seville"{
+				"'Ville"
+			}when "cassidy","cassandra","casidhe"{
+				"Cas"	
+			}when "sam"{
+				"Snam"
+			}when "naomi"{
+				"Noom"
+			}when "Yun"{
+				"Meatman"
+			}when "abigail"{
+				"Abby"
+			}when "alexander"{
+				"Alex"
+			}when "annie","anna","annabel","annette"{
+				"Ann"
+			}when "andrew"{
+				"Andy"
+			}when "daniel"{
+				"Dan"
+				"Danny"
+				//and this is the point where I was getting bored, lol
+			}when "Vadym"{
+				"Vadamn"
+			}when "maksim", "maxwell"{
+				"Max"
+			}when "Artem"{
+				"Artie"
+			}when "rita", "margarita"{
+				"Ritz"
+			}when "bernard"{
+				"Barney"
+			}others{
+				username
+			}
+		}
+	
+	
+	}else{
+		username
+	}
+	return
+
+
+}
+
+
+FirstBoot_USERPRONOUNS{
+	//this occurs with too much spacing
+	"\t\![set,balloontimeout,0]%(gelBase)And what pronouns do you use?\_q"
+	--
+	MenuItem("He/him/his","OnUSERPRONOUNSFBOOT","male")
+	--
+	MenuItem("She/her/hers","OnUSERPRONOUNSFBOOT","female")
+	--
+	MenuItem("They/them/theirs","OnUSERPRONOUNSFBOOT", "undefined")
+	--
+	MenuItem("Something else","OnFirstBoot_USERDEFINEDPRONOUNS")
+
+
+}
+
+//allows more path guidance
+OnUSERPRONOUNSFBOOT{
+	//reference0 should be gucci still
+	OnUSERPRONOUNS
+	"\t\![set,balloontimeout,0]%(gelLookLeft)Got it!\n\n[half]\w8\w8%(gelLookForward)"
+	--
+	OnFirstBoot_CHECKSWEAR
+
+
+}
+
+
+//actually set the pronouns
+OnUSERPRONOUNS{
+	case reference0{
+		when "male"{
+			they = "he"
+			them = "him"
+			theirs = "his"
+		
+		}when "female"{
+			they = "she"
+			them = "her"
+			theirs = "hers"
+		
+		}others{
+			they = "they"
+			them = "them"
+			theirs = "theirs"
+		
+		}
+	
+	}
+
+}
+
+OnFirstBoot_USERDEFINEDPRONOUNS{
+	"\t\![set,balloontimeout,0]%(gelLookRight)Okay, so instead of they, you'd use...\![open,inputbox,OnFirstBoot_USERPROTHEY]"
+
+
+}
+
+OnFirstBoot_USERPROTHEY{
+	they = reference0
+	"\t\![set,balloontimeout,0]And for them, you'd say... \![open,inputbox,OnFirstBoot_USERPROTHEM]"
+
+
+}
+
+OnFirstBoot_USERPROTHEM{
+	them = reference0
+	"\t\![set,balloontimeout,0]Instead of theirs, you'd say... \![open,inputbox,OnFirstBoot_USERPROTHEIRS]"
+
+
+}
+
+OnFirstBoot_USERPROTHEIRS{
+	theirs = reference0
+	"\t\![set,balloontimeout,0]%(gelLookForward)Okay, so %they/%them/%theirs prounouns. I got it.\n\n[half]\w8\w8%(gelLookForward)"
+	--
+	if port != 1395{
+		OnFirstBoot_CHECKSWEAR
+	}else{
+		//this port simply does Not care, but swearing is turned off just in case
+		swearing = 0
+		reference0 = 2
+		OnSETSWEAR
+	}
+
+
+}
+
+
+OnFirstBoot_CHECKSWEAR{
+	"\t\![set,balloontimeout,0]So uh, how do you feel about swearing, %username?"
+	--
+	MenuItem("It's fine with me","OnSETSWEAR", "1",200)
+	--
+	MenuItem("Please don't","OnSETSWEAR", "0")
+
+}
+
+OnSETSWEAR{
+	if reference0 == 1{
+		swearing = 1
+		if port <= 1000{
+			"%(gelLookForward)Oh thank fuck. %(gelGrin)Swearing is the fuckin%(guh) best shit."
+		}else{
+			"\t%(okay), that's good. %(gelLookForward)%(gelBigSmile)Swearing is fun."
+		}
+		
+		--
+		"\n\n[half]\w8\w8\w8"
+	
+	}elseif reference0 == 0{
+		swearing = 0
+		"\t%(gelLookForward)%(gelUh)I guess I%(will) just have to get creative, \w4then."
+		--
+		"\n\n[half]\w8\w8\w8%(gelBase)"
+	
+	}else{
+	
+		"%(gelBase)"
+	}
+	--
+	if genderlocked == 0{
+		"\t\![set,balloontimeout,0]Okay, so I have to ask, how do you perceive me? What pronouns are you most comfortable with me using?%(gelLookForward) \w8I do%(not) really have a gender, so."
+		//There's a variable that tells us we're in first setup, so they will correctly return it (from in gel_menu)
+		//Genderfluid is making it too complex for the moment, that can be left for later if they change it
+		--
+		MenuItem("They/them","OnSetGender","0",200)
+		--
+		MenuItem("He/him","OnSetGender","1")
+		--
+		MenuItem("She/her","OnSetGender","2")
+	
+	}else{
+		OnFirstBoot_FINISHSETUP
+	
+	}
+
+}
+
+//the spacing is already handled by previous functions
+OnFirstBoot_FINISHSETUP{
+	firsttimeusersetup = 2
+	"%(gelLookLeft)%(gelHuh)I think that's it, %username. I can't think of anything else we need to go over.\x"
+	--
+	"%(gelLookForward)In any case, I%(am) excited to get to be your new assistant, and I hope I%(will) be helpful to you! \w8\w8%(gelExcited)If there's anything at all I can do for you, let me know. And in the meantime, I%(will) just hang around. You're free to stick me in the corner; I do%(not) mind!\w8\w8"
+	--
+	if claustro > 10{
+		MenuItem("You don't seem particularly excited.","OnFirstBoot_GROUCH",200)
+		--
+		MenuItem("...","Dummy")
+	}
+	--
+	"\![leave,passivemode]\e:chain=basicintroone"
+
+
+}
+
+
+OnFirstBoot_GROUCH{
+	
+	"%(gelForceLookComfortable)I%(am) perfectly peppy. I have no idea what you're talking about. %(gelSilly)Silly user."
+	"%(gelBase)%(gelSquint)Literally, why do you care? \w8\w8%(gelLookAway)I%(am) perfectly fine."
+
+	--
+	"\![leave,passivemode]\e:chain=basicintroone"
+
+}
+
+

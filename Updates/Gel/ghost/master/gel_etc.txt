@@ -1,0 +1,811 @@
+//******************************************************************************
+// YAYA　ゴーストテンプレート
+// 種々のイベント辞書
+//******************************************************************************
+
+//******************************************************************************
+//シェル切り替え
+//******************************************************************************
+
+//------------------------------------------------------------------------------
+//シェルチェンジ開始
+//------------------------------------------------------------------------------
+
+OnShellChanging
+{
+	"%(gelBase)Oh. New duds.\e"
+}
+
+//------------------------------------------------------------------------------
+//シェルチェンジ完了
+//------------------------------------------------------------------------------
+OnShellChanged
+{
+	"%(gelBase)Lookin like %(reference[0])! \w8Huh. How do I look?\e"
+}
+
+
+//******************************************************************************
+//インストール関連
+//******************************************************************************
+
+//------------------------------------------------------------------------------
+//Message during installation
+//------------------------------------------------------------------------------
+OnInstallBegin
+{
+	"%(gelBase)Installing.\w6.\w6.\e"
+}
+
+//------------------------------------------------------------------------------
+//インストール完了メッセージ
+//------------------------------------------------------------------------------
+OnInstallComplete
+{
+	_ref0 = SPLIT(reference[0],' with',2)[0] //hogehoge with hemohemo
+	
+	"%(gelBase)"
+	--
+	//We don't use this currently, Gel just calls it by name.
+	/*
+	if _ref0 == "shell" {
+		"shell"
+	}
+	elseif _ref0 == "ghost" {
+		"ghost"
+	}
+	elseif _ref0 == "balloon" {
+		"balloon"
+	}
+	elseif _ref0 == "plugin" {
+		"plugin"
+	}
+	*/
+	--
+	"%(reference[1]) installation complete.\n"
+	--
+	if basewarenameex == 'SSP' {
+		_id = ''
+		if _ref0 == "shell" {
+			_id = 'shell'
+		}
+		elseif _ref0 == "ghost" {
+			_id = 'ghost'
+		}
+		elseif _ref0 == "balloon" {
+			_id = 'balloon'
+		}
+		
+		if _id != '' {
+			"%(gelLookForward)%(gelPonder)What do %(you) want me to do with it?"
+			--
+			MenuItem("Change to it","OnAYATEMPLATE.InstallChange",_id,200)
+			--
+			MenuItem("naw","Menu_CANCEL")
+		}
+	}
+}
+
+OnAYATEMPLATE.InstallChange
+{
+	"\![change,%(reference[0]),lastinstalled]"
+}
+
+//------------------------------------------------------------------------------
+//インストール失敗メッセージ
+//------------------------------------------------------------------------------
+OnInstallFailure
+{
+	"%(gelBase)I%(am) gettin' %(reference[0]) here.\e"
+}
+
+//------------------------------------------------------------------------------
+//インストール拒否（他のゴーストのためのアーカイブだった）
+//------------------------------------------------------------------------------
+OnInstallRefuse
+{
+	"%(gelBase)How about no?\e"
+}
+
+
+//******************************************************************************
+//消滅関連
+//******************************************************************************
+
+//------------------------------------------------------------------------------
+//消滅指示
+//------------------------------------------------------------------------------
+OnVanishSelecting
+{
+	"%(gelBase)\i[72]What are you doing?\e"
+}
+
+//------------------------------------------------------------------------------
+//消滅開始
+//------------------------------------------------------------------------------
+OnVanishSelected
+{
+	if trust >= TPOS1{
+		"%(gelBase)W-What? Come on, we're friends! You can't do that!\e"
+	}
+	"%(gelBase)Okay. Bye.\e"
+}
+
+//------------------------------------------------------------------------------
+//消滅中止
+//------------------------------------------------------------------------------
+OnVanishCancel
+{
+	"%(gelBase)This is%(not) funny, %username.\e"
+}
+
+//------------------------------------------------------------------------------
+//他のゴーストが消滅して自分に切り替わった
+//------------------------------------------------------------------------------
+OnVanished
+{
+	"%(gelBase)Is there a breeze in here, or is it just me?\e"
+	--
+	trust-= 3
+}
+
+
+//******************************************************************************
+//メールチェック
+//******************************************************************************
+
+//------------------------------------------------------------------------------
+//メールチェック開始
+//------------------------------------------------------------------------------
+OnBIFFBegin
+{
+	"%(gelBase)Let's see if you have any mail...\e"
+}
+
+//------------------------------------------------------------------------------
+//メールチェック成功
+//------------------------------------------------------------------------------
+OnBIFFComplete
+{
+	if reference[0] == 0
+	{
+		//---- no email
+		"%(gelBase)You do%(not) have any email, %username.\e"
+	}
+	else
+	{
+		//----emails exist
+		"%(gelBase)Oh hey! You got %(reference[0]) emails.\e"
+	}
+}
+
+//------------------------------------------------------------------------------
+//メールチェック失敗
+//------------------------------------------------------------------------------
+OnBIFFFailure
+{
+	if reference[0] == "timeout"
+	{
+		//---- タイムアウト
+		"%(gelBase)I can't get anything from the mail server. \w8It timed out.\e"
+	}
+	elseif reference[0] == "kick"
+	{
+		//---- 蹴られた
+		"%(gelBase)Uh, I got kicked.\w8Not my problem.\e"
+	}
+	elseif reference[0] == "defect"
+	{
+		//---- wrong setting
+		"%(gelBase)Uh, I think you got your settings mixed up.\e"
+	}
+	else
+	{
+		//---- cause unknown
+		"%(gelBase)I have no idea why this is%(not) working.\w8 Sorry, %username...\e"
+	}
+}
+
+
+//******************************************************************************
+//ネットワーク更新
+//******************************************************************************
+
+//------------------------------------------------------------------------------
+//ネットワーク更新開始
+//------------------------------------------------------------------------------
+OnUpdateBegin
+{
+	if !checkBadMood; "%(gelBase)Let's see what's on our server!\e"
+	"%(gelBase)Just let me sync...\e"
+}
+
+//------------------------------------------------------------------------------
+//ネットワーク更新準備完了
+//------------------------------------------------------------------------------
+OnUpdateReady
+{
+	"%(gelBase)%(TOINT(reference[0])+1) files found. Just let me grab them...\e"
+}
+
+//------------------------------------------------------------------------------
+//ネットワーク更新終了
+//------------------------------------------------------------------------------
+OnUpdateComplete
+{
+	if reference[0] == "none"
+	{
+		//---- 更新すべきファイルが無かった
+		"%(gelBase)Oh, looks like nothing new.\e"
+		"%(gelBase)Nothing major enough I need to grab it, looks like.\e"
+	}
+	else
+	{
+		//---- 実際に更新が完了した
+		"%(gelBase)Alrighty, I%(am) all synced up!\e"
+	}
+}
+
+//------------------------------------------------------------------------------
+//ネットワーク更新失敗
+//------------------------------------------------------------------------------
+OnUpdateFailure
+{
+	if reference[0] == "timeout"
+	{
+		//---- タイムアウトした
+		"%(gelBase)Uh, I%(am) out of time. Strange."
+	}
+	elseif reference[0] == "md5 miss"
+	{
+		//---- MD5値が一致しなかった
+		"%(gelBase)The MD5 value is off. Can you go let my friend Gray know? His Discord is GrayArea #5561."
+	}
+	else
+	{
+		//---- 上記以外の理由で失敗した
+		"%(gelBase)Failed due to %(reference[0])..."
+	}
+	--
+	"\e"
+}
+
+//------------------------------------------------------------------------------
+//ネットワーク更新 ダウンロード開始
+//------------------------------------------------------------------------------
+OnUpdate.OnDownloadBegin
+{
+	"%(gelBase)Downloading %(reference[0]).\e"
+}
+
+//------------------------------------------------------------------------------
+//ネットワーク更新 MD5値照合開始
+//------------------------------------------------------------------------------
+OnUpdate.OnMD5CompareBegin
+{
+	"%(gelBase)Checking the values.\e"
+	"%(gelBase)Hm, is this right?\e"
+	"%(fudge)\e"
+}
+
+//------------------------------------------------------------------------------
+//ネットワーク更新 MD5値一致
+//------------------------------------------------------------------------------
+OnUpdate.OnMD5CompareComplete
+{
+	"%(gelBase)That's fine.\e"
+	"%(gelBase)All good there.\e"
+}
+
+//------------------------------------------------------------------------------
+//ネットワーク更新 MD5値不一致
+//------------------------------------------------------------------------------
+OnUpdate.OnMD5CompareFailure
+{
+	"%(gelBase)What even is a MD5? You do%(not) think about these things unless you're here, usually.\e"
+	"%(gelBase)Something's not right. MD5...\e"
+}
+
+//******************************************************************************
+//ヘッドラインセンス
+//******************************************************************************
+
+//------------------------------------------------------------------------------
+//ヘッドラインセンス開始
+//------------------------------------------------------------------------------
+OnHeadlinesenseBegin
+{
+	"%(gelBase)%(reference[0]) headline.\e"
+}
+
+//------------------------------------------------------------------------------
+//ヘッドライン読み上げ
+//------------------------------------------------------------------------------
+OnHeadlinesense.OnFind
+{
+	//---- はじめのセリフ
+	if reference[2] == "First" || reference[2] == "First and Last"
+	{
+		//---- 最初のページ
+		"It's a headline of %(reference[0])."
+	}
+	elseif reference[2] == "Next"
+	{
+		//---- 真ん中あたりのページ
+		"%(reference[0]) continued."
+	}
+	elseif reference[2] == "Last"
+	{
+		//---- 最後のページ
+		"Last page of %(reference[0])"
+	}
+	--
+	//---- headline body
+	"\n\n%(reference[3])\n\n"
+	--
+	//---- 選択肢
+	if reference[2] == "First" || reference[2] == "Next"
+	{
+		//---- 次のページがある場合
+		MenuItem("Next page","")
+		--
+		MenuItem("To the site",reference[1])
+		--
+		MenuItem("Done","Menu_HEADLINECANCEL",150)
+	}
+	else
+	{
+		//---- 次のページがない場合
+		MenuItem("To the site",reference[1])
+		--
+		MenuItem("Done","Menu_HEADLINECANCEL",150)
+	}
+}
+
+//------------------------------------------------------------------------------
+//ヘッドライン更新が無かった
+//------------------------------------------------------------------------------
+OnHeadlinesenseComplete
+{
+	"%(gelBase)Nothing new with %(reference[0]).\e"
+}
+
+//------------------------------------------------------------------------------
+//ヘッドラインセンス失敗
+//------------------------------------------------------------------------------
+OnHeadlinesenseFailure
+{
+	//can't download, can't analyze, or something else.
+	"%(gelBase)I %reference0 this."
+	--
+	"\e"
+}
+
+
+//******************************************************************************
+//ファイル作成関連
+//******************************************************************************
+
+//------------------------------------------------------------------------------
+//updates2.dau作成開始
+//------------------------------------------------------------------------------
+OnUpdatedataCreating
+{
+	"%(gelBase)Generating update info...\e"
+}
+
+//------------------------------------------------------------------------------
+//updates2.dau作成完了
+//------------------------------------------------------------------------------
+OnUpdatedataCreated
+{
+	"%(gelBase)Here's the update!\e"
+}
+
+//------------------------------------------------------------------------------
+//NAR作成開始
+//------------------------------------------------------------------------------
+OnNarCreating
+{
+	"%(gelBase)Sure, I%(will) get that NAR ready for you\w6.\w6.\w6.\e"
+}
+
+//------------------------------------------------------------------------------
+//NAR作成完了
+//------------------------------------------------------------------------------
+OnNarCreated
+{
+	//0 is filename, 1 is path
+	if reference[0] == "Gel"{
+		"%(gelBase)Okay, my nar is at %reference[1].\e"
+	}else{
+		"%(gelBase)Alrighty, %reference[0]'s nar was created at %reference[1].\e"
+	}
+	
+}
+
+//******************************************************************************
+//時計合わせ
+//みか (http://homepage2.nifty.com/ko-ki/) の辞書を参考にしました。感謝＞こーき氏
+//******************************************************************************
+
+//------------------------------------------------------------------------------
+//時計合わせ開始
+//------------------------------------------------------------------------------
+OnSNTPBegin
+{
+	"%(gelBase)Let's see if we can fix %(you)r abysmal clock with %reference[0]...\e"
+}
+
+//------------------------------------------------------------------------------
+//時刻取得成功、比較開始
+//この関数で 2008/03/25 19:15:05 のように見やすい形に作り変えます。
+//詳しくはSTRFORM関数の説明を見てね！
+//わからなければこのままで。
+//------------------------------------------------------------------------------
+
+SNTPCompare_StrForm
+{
+	_txt = SPLIT(_argv[0],',')
+	STRFORM("$04d/$02d/$02d $02d:$02d:$02d",TOINT(_txt[0]),TOINT(_txt[1]),TOINT(_txt[2]),TOINT(_txt[3]),TOINT(_txt[4]),TOINT(_txt[5]))
+}
+
+OnSNTPCompare
+{
+	"%(gelBase)\_q/
+	Before: %(SNTPCompare_StrForm(reference[2]))\n/
+	After: %(SNTPCompare_StrForm(reference[1]))\n/
+	\_q\n"
+	--
+	if reference[3] == 0
+	{
+		"You're on time! By someone's standards.\e"
+	}
+	else
+	{
+		//\6は補正実行タグ。消しちゃだめ
+		"\6\n%(gelBase)Hehe, fixed by %(reference[3]) seconds.\e"
+	}
+}
+
+//------------------------------------------------------------------------------
+//時計合わせ失敗
+//------------------------------------------------------------------------------
+OnSNTPFailure
+{
+	"%(gelBase)what\n\n\w8\w8uh.\n\w8what even would cause a clock adjustment failure.\e"
+}
+
+
+//******************************************************************************
+//そのほか
+//******************************************************************************
+
+//------------------------------------------------------------------------------
+//change display resolution
+//------------------------------------------------------------------------------
+OnDisplayChange
+{
+	//---- Get information about display resolution and color depth in variables
+	//---- I do not know whether to use it, but keep it for the time being
+	displaybpp    = reference[0]
+	displaywidth  = reference[1]
+	displayheight = reference[2]
+}
+
+//------------------------------------------------------------------------------
+//URLドロップ
+//CROW でゴーストインストーラからゴーストをインストールを始めた時にも呼ばれます
+//------------------------------------------------------------------------------
+OnURLDropping
+{
+	"%(gelBase)I%(will) get the data from %(reference[0]).\e"
+}
+
+//------------------------------------------------------------------------------
+//起動時に MATERIA を検出
+//------------------------------------------------------------------------------
+OnEmbryoExist
+{
+	"%(gelBase)An embryo exists. No clue what that means.\e"
+}
+
+//------------------------------------------------------------------------------
+//起動時に猫どりふを検出
+//------------------------------------------------------------------------------
+OnNekodorifExist
+{
+	"%(gelBase)What the %(fudge) is a nekodori?\e"
+}
+
+//------------------------------------------------------------------------------
+//Start screen saver execution.
+//------------------------------------------------------------------------------
+OnScreenSaverStart
+{
+	"%(gelBase)Screen saver start.\w8\e"
+}
+
+//------------------------------------------------------------------------------
+//スクリーンセーバー実行終了
+//------------------------------------------------------------------------------
+OnScreenSaverEnd
+{
+	"'I see' said the blind man to the deaf dog.\e"
+}
+
+
+
+OnApplicationBoot{
+
+	"%(gelBase)reference[0] booted.\e"
+
+
+}
+
+
+OnDeviceArrival{
+
+	//ignore the Display notif, since it's generally a false alarm
+	if reference[0][0,","] != "Display"{
+		//only compare it in lowercase
+		_device = TOLOWER(reference[0][1,","])
+		temp = reference[0]
+		infocounter+=2
+		--
+		//if they're awake
+		if emotion != -1{
+			if checkGreatTP1 && (emotion == 1 || emotion == 14){
+				if !("uhd graphics" _in_ _device){
+					"Connecting something new, %(username)? A %_device?"
+					"oooh, what are you connecting?"
+					"I see a %_device..."
+					"You're gonna use a %_device?"
+				}elseif _device == "wacom tablet"{
+					if userArtist == 0{
+						userArtist == 1
+					}
+					"Oh! Oh, are you about to draw something? That's so cool!"
+					"A %_device! Epic!"
+					"Oooh, a drawing tablet... artsy times, huh?"
+				}elseif "usb mass storage" _in_ _device{
+					"Be careful when transporting data."
+					"Do%(not) forget to safely eject it when you're done!"
+					"A lot of things are safe on USBs.\w8 Like me."
+				}elseif "vive" _in_ _device{
+					"Woah, is this supposed to be VR? This is ancient..."
+					"Oh, cool, VR time."
+				
+				}
+			}else{
+				"Oh, would you look here... a %_device."
+			}
+		}else{
+			//Gel will just generally imply they see something if they're asleep
+			"zzzzz... new... smth.n..."
+			"new..."
+			"busybuzybusssyyy...."
+			"zzzz... nnnsmh..."
+		}
+		//this is just for testing
+		//--
+		//"\n%reference0\e"
+	}else{
+		useractive = 1
+	}
+}
+
+
+
+//Not entirely sure here as what is going on, but this seems to trigger when another ghost is uninstalled. 
+OnOtherGhostVanish{
+
+	//If Gel is not asleep
+	if emotion != -1{
+		
+		"%(gelLookRight)%(gelWorry)I can't believe %reference[2] died.\e"
+		"%(gelWorry)Alright man, that's kinda mean of you.\e"
+		"%(gelLookConcerned)%(gelArmsChest)I-I won't be next, right?\e"
+		trust-= 2
+	}else{
+		//The high info counter should make the "noisy" set of wake-up dialogues trigger, if other circumstances align
+		infoperminute = 61
+		"\![raise,OnGelEMOTION,1]\e"
+		//And yeah, this hurts the player's movement to the next friendship bracket
+	}
+}
+
+
+
+
+
+Menu_Garbagecan{
+	_gomicheck = FUNCTIONEX("gomi.dll", "-n")	
+	
+	//0 means there is nothing inside.
+	if _gomicheck == 0 
+	{
+		"%(gelBase)Let me see.\w8%(gelLookAtInternet)\w8.\w8.\w8\w8\w8\w8%(gelLookForward)\i[82] Oh, it seems to be clean already.\e"
+	
+	}
+	elseif _gomicheck >= 1 //If the recycle bin is full.
+	{
+		"%(gelBase)Let me see.\w8.\w8.\w8 %(gelLookForward)Oh, yeah, here's some files.\![raise,OnGarbagecanEmpty] Okay, that's taken care of!\e"
+		"%(gelBase)Let's see here.\w8.\w8.\w8 %(gelBase)Oh, yep, there they are.\![raise,OnGarbagecanEmpty] It's all cleaned up now! Or it should be processing, on your end.\e"
+		
+	
+	}
+}
+
+//The part that actually cleans it up
+OnGarbagecanEmpty
+{
+	_gomi = FUNCTIONEX("gomi.dll", "-f")
+}
+
+
+OnWindowStateMinimize{
+	if holding >= 600{
+		res_reference0 = "Dusty"
+		holding = 0
+		"\e GelObsiMinimize"
+	}
+}
+
+
+thisissosadgelsayloremipsum{
+
+	"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pharetra diam sit amet nisl suscipit adipiscing bibendum. Congue nisi vitae suscipit tellus mauris a diam maecenas sed. Pretium viverra suspendisse potenti nullam ac. Laoreet sit amet cursus sit amet dictum sit amet justo. Odio eu feugiat pretium nibh ipsum consequat nisl vel. Congue eu consequat ac felis donec et odio pellentesque diam. Diam maecenas sed enim ut sem viverra aliquet. Lorem donec massa sapien faucibus et molestie ac feugiat. Eget nullam non nisi est sit amet facilisis magna. Cursus turpis massa tincidunt dui ut ornare lectus. Ut eu sem integer vitae justo eget magna fermentum. Donec ultrices tincidunt arcu non sodales neque sodales ut. Sem viverra aliquet eget sit amet tellus cras adipiscing enim.\n\n/
+Justo nec ultrices dui sapien eget. Fermentum iaculis eu non diam phasellus vestibulum. Faucibus turpis in eu mi bibendum neque egestas. Arcu risus quis varius quam quisque id diam. Lacus luctus accumsan tortor posuere ac. Quis viverra nibh cras pulvinar mattis nunc sed. Vitae elementum curabitur vitae nunc sed velit dignissim. Sed turpis tincidunt id aliquet risus feugiat in. Nunc faucibus a pellentesque sit amet. Eu tincidunt tortor aliquam nulla facilisi cras fermentum. Velit sed ullamcorper morbi tincidunt ornare massa. Platea dictumst quisque sagittis purus sit amet. Quam pellentesque nec nam aliquam sem et. Feugiat vivamus at augue eget. Morbi tristique senectus et netus et malesuada fames. Neque viverra justo nec ultrices dui sapien eget mi. Et malesuada fames ac turpis. Sit amet porttitor eget dolor morbi. Venenatis cras sed felis eget velit aliquet sagittis id consectetur. Nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices.\n\n/
+Placerat orci nulla pellentesque dignissim enim sit amet venenatis urna. Arcu vitae elementum curabitur vitae nunc sed velit. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Magna fringilla urna porttitor rhoncus dolor purus non. Diam maecenas sed enim ut sem viverra aliquet. Odio aenean sed adipiscing diam donec adipiscing tristique. Felis bibendum ut tristique et egestas. Ipsum dolor sit amet consectetur. Consectetur a erat nam at lectus urna duis convallis. Elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique. Dignissim convallis aenean et tortor. Aliquam vestibulum morbi blandit cursus risus at ultrices. Commodo odio aenean sed adipiscing diam donec. Duis ut diam quam nulla porttitor. Sed risus ultricies tristique nulla aliquet enim tortor at. Felis eget velit aliquet sagittis. Enim neque volutpat ac tincidunt vitae semper quis. Pellentesque habitant morbi tristique senectus et netus et malesuada.\n\n/
+Lobortis scelerisque fermentum dui faucibus. Nunc mi ipsum faucibus vitae aliquet nec ullamcorper sit. Sed vulputate mi sit amet mauris commodo quis. Vitae purus faucibus ornare suspendisse sed nisi lacus sed viverra. Viverra nibh cras pulvinar mattis. Semper eget duis at tellus at urna. Platea dictumst vestibulum rhoncus est pellentesque elit. Ac auctor augue mauris augue neque gravida in fermentum. Tellus id interdum velit laoreet id donec ultrices. Vestibulum morbi blandit cursus risus. Mattis ullamcorper velit sed ullamcorper morbi. Bibendum est ultricies integer quis auctor. Dui sapien eget mi proin sed libero enim sed faucibus. Felis imperdiet proin fermentum leo vel orci porta non. Tortor vitae purus faucibus ornare suspendisse sed nisi lacus sed. Facilisi cras fermentum odio eu feugiat pretium nibh ipsum.\n\n/
+Ac tortor vitae purus faucibus. Sit amet nisl suscipit adipiscing bibendum est ultricies integer. Purus viverra accumsan in nisl nisi. Facilisis volutpat est velit egestas dui. Urna porttitor rhoncus dolor purus non enim praesent elementum. Senectus et netus et malesuada fames ac turpis. Sit amet mattis vulputate enim nulla aliquet porttitor lacus. Urna molestie at elementum eu facilisis sed odio morbi. Eros in cursus turpis massa tincidunt. Lectus urna duis convallis convallis tellus id interdum. Dui ut ornare lectus sit amet est placerat in. Felis eget nunc lobortis mattis aliquam faucibus purus. Tellus in metus vulputate eu scelerisque felis. Volutpat commodo sed egestas egestas fringilla phasellus faucibus. Arcu odio ut sem nulla pharetra. Nunc id cursus metus aliquam eleifend mi in nulla. Cras pulvinar mattis nunc sed blandit libero volutpat sed.\e"
+
+}
+
+
+alarmsound{
+	"\_v[sounds/550278__department64__jinglingbells-wreath-04.wav]"
+}
+
+
+testweather{
+	"\![raiseplugin,Weather Station,OnWeatherStation.Weather]"
+}
+
+OnWeatherStation.Weather{
+	"%(gelPonder)It%(is) going HOW fast? Your wimd is at %reference13? What the %(fudge) is a mile????"
+
+}
+
+OnWeatherStation.Error{
+	"Uh... by the way, I%(am) seeing a '%reference0 error' in the wimd stuff if that%(is) something you want to tell someone."
+
+}
+
+
+
+
+
+
+//Hey, self. What about if we had Gel able to hold names of a file in an array and the user could ask Gel to open them up 
+
+//this doesn't seem to work
+//edit: one random update it started working again!
+OnBatteryChargingStop{
+
+	if emotion > 0{
+		"%(gelConfused)Going somewhere with your computer, %username?\e"
+		"Unplugging your computer? Where are you going?\e"
+	
+	}
+
+
+}
+
+
+/*
+OnVoiceRecognitionWord{
+
+	"%reference1"
+
+}
+*/
+
+
+shiori.OnMemoryError{
+	"ERROR: Memory Error"
+}
+
+shiori.OnMemoryLimit{
+	"ERROR: Memory Limit"
+}
+
+
+OnFileDropped{
+/*
+	if emotion != -1{
+		temp = reference[0] + ", " + reference[1]
+		if ".txt" _in_ reference0{
+			//counter
+			_i = 0
+			while !(".txt" _in_ reference[0][_i,"\"]){
+				_i++
+			}
+			--
+			_temp = reference[0][_i,"\"]
+			_item = _temp[0,"."]
+			--
+			
+			//Note to self: check file length, and only accept things that are longer than 20 characters.
+			
+			//no dupes
+			if _item _in_ ginventory{
+				"Oh, I already have one of these. I don't think I need multiple, but thanks!\e"
+			
+			//unacceptable items
+			}elseif ( _item == "alcohol" || _item == "vodka" || _item == "desolate mutie" || _item == "whiskey" || _item == "liquor" ) && port != 1117{
+				"You have to be kidding-- this is just a file named %_item.txt. What am I supposed to do with this?\e"
+				
+			//acceptable items
+			}else{
+				if "iris" _in_ _item{
+					"Oh, a flower! My environment software isn't really built for things like this, but that means it'll live forever. Thanks!\e"
+				}else{	
+					"Is this a %_item for me? Huh, thanks!\e"
+					"A %_item? For me?\e"
+				}
+				--
+				ginventory+= _item + ","
+				--
+				if itemsininventory == 0 && checkGreatTN1{
+					addtrust(1)
+				}
+				itemsininventory++
+			}
+		
+		}
+	}
+
+*/
+
+}
+
+OnPopupTest{
+	"\1\t\_q\f[height,-2]\f[color,83,65,202]reference0\n\n \n\n\n\n[175]                                \f[anchor.font.color,83,65,202]\_a[reference2]reference1\_a\f[anchor.font.color,default]\f[color,default]\f[height,+2]\0"
+	--
+	//"%(OnPopupTwo)"
+}
+
+
+//Takes five parameters: the text, the first option title, and its link, then the second option title and its link
+OnPopupTwo{
+	_centerwid = displaywidth/2
+	_centerhei = displayheight/2
+	--
+//	"\1\![set,balloonoffset,0,0]"
+	--
+//	"\t\1\![move,%_centerwid,%_centerhei,0,primaryscreen,center,center]\![set,balloonoffset,%kero.balloon.offsetx,%kero.balloon.offsety]"
+//	"\t\1\![move,--X=540,--Y=-960,--time=0,--base=screen,--base-offset=left.bottom,--move-offset=left.top]\![set,balloonalign,bottom]"
+	--
+	//"\![move,--X=%_centerwid,--Y=-%_centerhei,--time=0,--base=screen,--base-offset=left.bottom,--move-offset=left.top]"
+	
+	"\1\b[2]\t\_q\f[height,-3]\f[color,83,65,202]%reference0\n\n\n                   \f[anchor.font.color,83,65,202]\_a[%reference2]%reference1\_a                  \_a[%reference4]%reference3\_a\f[anchor.font.color,default]\f[height,+3]\f[color,default]\0"
+
+
+}
+
+
+//NOTE: these do not handle spacing, the calling function must do that.
+//Takes three parameters: the text, the first option title, and its link
+OnPopupOne{
+//	"\f[color, 0,0,0,]\t\1\_q%reference0\n\n\n                                           \q[%reference1,%reference2]\0\f[color,default]\e"
+
+	"\1\t\_q\f[color,83,65,202]%reference0\n\n\n[75]                                \f[anchor.font.color,83,65,202]\_a[%reference2]%reference1\_a\f[anchor.font.color,default]\f[color,default]\0"
+
+}
+
+
+
+
+

@@ -1,0 +1,1736 @@
+//******************************************************************************
+// Gel Surface Controllers
+// If a \s or \i appears outside of this file, it shouldn't.
+//******************************************************************************
+
+//This assures things like animations will line up.
+OnDressupChanged{
+
+	"\C%(gelBase)"
+}
+
+
+//------------------------------------------------------------------------------
+//OnSurfaceRestore events
+//------------------------------------------------------------------------------
+OnSurfaceRestore
+{
+	if pondering <= 0{
+		"%(gelBase)"
+		--
+		//if Gel is asleep, none of these will work anyways, and Gel won't be doing as much processing anyways
+		if awkwardsilence == 1{
+			"%(gelBlankLookAway)"
+		}elseif claustro >= 10{
+			"%(gelNervous)"
+		
+		}elseif RAND(9) == 8{
+			//Child questions you and your activities
+			"%(gelSquint)"
+			{
+				"%(gelUh)"
+			}
+			//they can look at the internet in different ways
+			{
+				"%(gelLookAtInternet)"
+				"%(gelLookAtInternet)%(gelArmsFistChin)"
+			}
+			"%(gelEarTwitch)"
+		}
+		
+		
+		if claustro >= 30{
+			//gelLookAfraid is broke rn, known bug
+			"%(gelLookAfraid)"
+			"%(gelWorry)"
+		
+		}
+		
+		""
+		""
+		if emotion == 14{
+			"%(gelPonder)"
+		}else{
+			""
+		}
+	}else{
+		//Gel idly ponders the secrets of the universe when you don't need them. 
+		"%(gelLookDown)%(gelConfused)%(gelFrown)%(gelPonder)"
+	
+	}
+	--
+	if checkLessEqTN2 && RAND(50) == 8{
+		//red glitch to mess with them
+		"\i[667]"
+		--
+		"\i[411]"
+		"\i[412]"
+	
+	} 
+	
+	
+	
+}
+
+
+gelWindowCheck{
+	//window and tether
+	case caged{
+	
+		when 1{
+			"\i[1]"
+		}
+		when 2{
+			"\i[1]\i[2]"
+		}
+	}
+}
+
+
+gelBase
+{
+	
+	case emotion {
+		//asleep
+		when -1{
+			"%(GELBASEASLEEP)"
+		//tired
+		}when 0{
+			"%(GELBASETIRED)"
+		
+		//sick
+		}when 3{
+			"%(GELBASESICK)"
+		
+		//bored
+		}when 4{
+			"%(GELBASEBORED)"
+		
+		//uncomf
+		}when 5{
+			"%(GELBASEUNCOMFORTABLE)"
+		
+		//scared
+		}when 6{
+			"%(GELBASESCARED)"
+		
+		//angry
+		}when 10{
+		
+			"%(GELBASEANGRY)"
+			
+		//curious
+		}when 14{
+			"%(GELBASECURIOUS)"
+		
+		}others{
+			"%(GELBASENEUTRAL)"
+			--
+			//Dissaproving
+			if trust < TNEG1-20{
+				"\i[411]"
+				"\i[410]"
+				""
+				
+			}
+		}
+	}
+	--
+	if claustro >= CLAUSTRODILATION || emotion == 6{
+	
+		"\i[361]"
+		"\i[361]"
+		"\i[361]"
+		"\i[364]"
+		"\i[368]"
+		"\i[367]"
+	}else{
+		"\i[351]"
+		"\i[351]"
+		"\i[351]"
+		"\i[354]"
+		"\i[358]"
+		"\i[359]"
+	}
+	--
+	"\i[701]" //future this will be exchanged for logic
+	
+	
+}
+
+
+
+
+
+
+//******************************************************************************
+//these are in all-caps as a warning to not use them in general: they do not control eyes
+//******************************************************************************
+
+//in case we need to add things later on
+gelForceLookAsleep{
+	"%(GELBASEASLEEP)"
+}
+
+GELBASEASLEEP{
+	"\0\s[3000]\i[273]"
+	--
+	//eyes
+	//"\i[451]"
+	--
+	//later I can automate this so I don't even have to check what Gel is holding.
+	case holding{
+		when 600{
+			"\i[600]"
+		}
+		
+	}
+	--
+	//window and tether
+	gelWindowCheck
+	--
+	if !fullnightsrest{
+		"\i[900]"
+	}
+	--
+	if punches > 40{
+		"\i[902]\i[903]\i[904]\i[906]\i[424]"
+	}elseif punches > 30{
+		"\i[902]\i[903]\i[904]\i[424]"
+	}elseif punches > 20{
+		"\i[902]\i[903]\i[424]"
+	}elseif punches > 10{
+		"\i[902]"
+	}
+	--
+	"\i[701]" //future this will be exchanged for logic
+
+}
+
+GELBASETIRED{
+	"\0\s[2000]\i[410]"
+	//"\i[900]\i[413]\i[414]" //I'll replace this with an always-slumped Gel later
+	-- //ears and eyes
+	if claustro <  CLAUSTRODISCOMFORT{
+		"\i[272]"
+	}else{
+		"\i[273]"
+	
+	}
+	--
+	"\i[451]"
+	--
+	//later I can automate this so I don't even have to check what Gel is holding.
+	case holding{
+		when 600{
+			"\i[600]"
+		}
+		
+	}
+	--
+	//window and tether
+	gelWindowCheck
+	--
+	if !fullnightsrest{
+		"\i[900]"
+	}
+	--
+	if punches > 40{
+		"\i[902]\i[903]\i[904]\i[906]\i[424]"
+	}elseif punches > 30{
+		"\i[902]\i[903]\i[904]\i[424]"
+	}elseif punches > 20{
+		"\i[902]\i[903]\i[424]"
+	}elseif punches > 10{
+		"\i[902]"
+	}
+	--
+	//upset if you're on good terms and punched them
+	if punches > 1 && checkGreatTP1{
+		"%(gelT)"
+		""
+		""
+		""
+		""
+	}elseif trust < TNEG1{
+		"%(gelFrown)"
+	}else{
+		"%(gelSlashMouth)"
+	}
+	//--
+	//"\i[701]" //future this will be exchanged for logic
+
+}
+
+GELBASENEUTRAL{
+
+	//currently covers neutral and in-development emotions
+	if checkGreatTP1{
+		"\s[1000]"
+	}else{
+		"\s[1000]"//will be 1100
+	}
+	--
+	//ears
+	if claustro <  CLAUSTRODISCOMFORT{
+		"\i[270]"
+
+	}else{
+		"\i[272]"
+
+	}
+	--
+	"\i[451]"
+	--
+	//later I can automate this so I don't even have to check what Gel is holding.
+	case holding{
+		when 600{
+			"\i[600]"
+		}
+		
+	}
+	--
+	//window and tether
+	gelWindowCheck
+	--
+	if !fullnightsrest{
+		"\i[900]"
+	}
+	--
+	if punches > 40{
+		"\i[902]\i[903]\i[904]\i[906]\i[424]"
+	}elseif punches > 30{
+		"\i[902]\i[903]\i[904]\i[424]"
+	}elseif punches > 20{
+		"\i[902]\i[903]\i[424]"
+	}elseif punches > 10{
+		"\i[902]"
+	}
+	--
+	//upset if you're on good terms and punched them
+	if punches > 1 && checkGreatTP1{
+		"%(gelSlashMouth)"
+	//people-pleasing if you're getting close to a bad term
+	}elseif punches > 1 && checkGreatTN2{
+		"%(gelBigSmile)"
+	}elseif trust < TNEG1{
+		"%(gelFrown)"
+	}
+	--
+	"\i[701]" //future this will be exchanged for logic
+}
+
+GELBASESICK{
+	"\0\s[1000]\i[452]\i[901]"
+	--
+	//ears and eyes
+	if claustro <  CLAUSTRODISCOMFORT{
+		"\i[270]"
+
+	}else{
+		"\i[272]"
+
+			
+	}
+	--
+	//later I can automate this so I don't even have to check what Gel is holding.
+	case holding{
+		when 600{
+			"\i[600]"
+		}
+		
+	}
+	--
+	//window and tether
+	gelWindowCheck
+	--
+	if !fullnightsrest{
+		"\i[900]"
+	}
+	--
+	if punches > 40{
+		"\i[902]\i[903]\i[904]\i[906]\i[424]"
+	}elseif punches > 30{
+		"\i[902]\i[903]\i[904]\i[424]"
+	}elseif punches > 20{
+		"\i[902]\i[903]\i[424]"
+	}elseif punches > 10{
+		"\i[902]"
+	}
+	--
+	"\i[701]" //future this will be exchanged for logic
+
+}
+
+GELBASEBORED{
+	//I'll figure this out and what I was planning later...
+	"\0\s[1000]"
+	"\0\s[1000]"
+	"\0\s[1000]"
+	--
+	"\i[415]"
+	--
+	"\i[451]"
+	--	
+	if claustro <  CLAUSTRODISCOMFORT{
+		"\i[270]"
+
+	}else{
+		"\i[272]"
+	}
+	--
+	//later I can automate this so I don't even have to check what Gel is holding.
+	case holding{
+		when 600{
+			"\i[600]"
+		}
+		
+	}
+	--
+	//window and tether
+	gelWindowCheck
+	--
+	if !fullnightsrest{
+		"\i[900]"
+	}
+	--
+	if punches > 40{
+		"\i[902]\i[903]\i[904]\i[906]\i[424]"
+	}elseif punches > 30{
+		"\i[902]\i[903]\i[904]\i[424]"
+	}elseif punches > 20{
+		"\i[902]\i[903]\i[424]"
+	}elseif punches > 10{
+		"\i[902]"
+	}
+	--
+	"\i[701]" //future this will be exchanged for logic
+
+}
+
+GELBASEUNCOMFORTABLE{
+	if claustro >= CLAUSTRODISCOMFORT{
+		"\0\s[1000]"
+		--
+		"%(gelEarsDown)"
+		--
+		//eyelids + mouth
+		//"\i[414]\i[415]\i[453]"
+		"\i[408]\i[453]" 
+		//82 --> 453
+	}else{
+		"\0\s[1000]"
+		--
+		"\i[272]"
+		--
+		//eyelids + mouth
+	//	"\i[424]\i[425]\i[453]"
+		"\i[408]\i[453]" 
+		//"\i[451]"
+	}
+	--
+	//later I can automate this so I don't even have to check what Gel is holding.
+	case holding{
+		when 600{
+			"\i[600]"
+		}
+		
+	}
+	--
+	//window and tether
+	gelWindowCheck
+	--
+	if !fullnightsrest{
+		"\i[900]"
+	}
+	--
+	if punches > 40{
+		"\i[902]\i[903]\i[904]\i[906]\i[424]"
+	}elseif punches > 30{
+		"\i[902]\i[903]\i[904]\i[424]"
+	}elseif punches > 20{
+		"\i[902]\i[903]\i[424]"
+	}elseif punches > 10{
+		"\i[902]"
+	}
+	--
+	"\i[701]" //future this will be exchanged for logic
+
+}
+
+
+GELBASESCARED{
+
+	"\0\s[1000]"
+	--
+	"\i[273]"
+	--
+	//eyelids + mouth
+	"\i[414]\i[413]\i[457]"
+	"\i[414]\i[413]\i[462]"
+	"\i[414]\i[413]\i[424]\i[463]"
+	--
+	//later I can automate this so I don't even have to check what Gel is holding.
+	case holding{
+		when 600{
+			"\i[600]"
+		}
+		
+	}
+	--
+	//window and tether
+	gelWindowCheck
+	--
+	if !fullnightsrest{
+		"\i[900]"
+	}
+	--
+	if punches > 40{
+		"\i[902]\i[903]\i[904]\i[906]\i[424]"
+	}elseif punches > 30{
+		"\i[902]\i[903]\i[904]\i[424]"
+	}elseif punches > 20{
+		"\i[902]\i[903]\i[424]"
+	}elseif punches > 10{
+		"\i[902]"
+	}
+	--
+	"\i[701]" //future this will be exchanged for logic
+}
+
+
+
+GELBASEANGRY{
+
+	//currently covers neutral and in-development emotions
+	if checkGreatTP1{
+		"\s[1000]"
+	}else{
+		"\s[1000]"//will be 1100
+	}
+	--
+	//ears
+	if claustro <  CLAUSTRODISCOMFORT{
+		"\i[272]"
+	}else{
+		"\i[273]"
+			
+	}
+	--
+	"\i[423]"
+	"\i[423]"
+	"\i[423]"
+	"\i[423]\i[415]"
+	--
+	"\i[462]"
+	"\i[453]"
+	--
+	//later I can automate this so I don't even have to check what Gel is holding.
+	case holding{
+		when 600{
+			"\i[600]"
+		}
+		
+	}
+	--
+	//window and tether
+	gelWindowCheck
+	--
+	if !fullnightsrest{
+		"\i[900]"
+	}
+	--
+	if punches > 40{
+		"\i[902]\i[903]\i[904]\i[906]\i[424]"
+	}elseif punches > 30{
+		"\i[902]\i[903]\i[904]\i[424]"
+	}elseif punches > 20{
+		"\i[902]\i[903]\i[424]"
+	}elseif punches > 10{
+		"\i[902]"
+	}
+	--
+	"\i[701]" //future this will be exchanged for logic
+}
+
+
+
+
+
+GELBASECURIOUS{
+	"\0\s[1000]"
+	--
+	//eyelids
+//	"\i[414]\i[425]"
+	"\i[414]"
+//	"\i[413]"
+	--
+	//ears and eyes
+	if claustro <  CLAUSTRODISCOMFORT{
+		"\i[270]"
+
+	}else{
+		"\i[272]"
+
+	}
+	--
+	//mouth
+	"\i[451]"
+	--
+	//later I can automate this so I don't even have to check what Gel is holding.
+	case holding{
+		when 600{
+			"\i[600]"
+		}
+		
+	}
+	--
+	//window and tether
+	gelWindowCheck
+	--
+	if !fullnightsrest{
+		"\i[900]"
+	}
+	--
+	if punches > 40{
+		"\i[902]\i[903]\i[904]\i[906]\i[424]"
+	}elseif punches > 30{
+		"\i[902]\i[903]\i[904]\i[424]"
+	}elseif punches > 20{
+		"\i[902]\i[903]\i[424]"
+	}elseif punches > 10{
+		"\i[902]"
+	}
+	--
+	"\i[701]" //future this will be exchanged for logic
+
+}
+
+
+
+
+
+
+
+
+
+//very basic and blank look
+gelLookBoot{
+	case caged{
+	
+		when 1{
+			"\s[1000]\i[270]\i[900]\i[701]\i[1]"
+		}
+		when 2{
+			"\s[1000]\i[270]\i[900]\i[701]\i[1]\i[2]"
+		}
+		others{
+			"\s[1000]\i[270]\i[900]\i[701]"
+		
+		}
+	}
+	--
+	// :)
+	if RAND(50) == 8{
+		"%(gelEarTwitch)"
+	}
+	--
+	"\i[451]"
+	"\i[451]"
+	"\i[456]\w1\i[451]"
+	"\i[459]\w1\i[451]"
+
+}
+
+
+//UNFINISHED (ELEPHANT)
+gelLookAsleep{
+
+	"\s[3000]"
+	--
+	gelWindowCheck
+
+}
+
+
+gelLookForward
+{
+	case emotion {
+		//asleep
+		when -1{
+			"%(GELBASEASLEEP)"
+		//tired
+		}when 0{
+			"%(GELBASETIRED)"
+		
+		//sick
+		}when 3{
+			"%(GELBASESICK)"
+		
+		//bored
+		}when 4{
+			"%(GELBASEBORED)"
+		
+		//uncomf
+		}when 5{
+			"%(GELBASEUNCOMFORTABLE)"
+		
+		//scared
+		}when 6{
+			"%(GELBASESCARED)"
+		
+		//angry
+		}when 10{
+		
+			"%(GELBASEANGRY)"
+			
+		//curious
+		}when 14{
+			"%(GELBASECURIOUS)"
+		
+		}others{
+			"%(GELBASENEUTRAL)"
+		}
+	}
+	--
+	if claustro >= CLAUSTRODILATION{
+	
+		"\i[361]"
+	}else{
+		"\i[351]"
+	}
+	--
+	"\i[701]" //future this will be exchanged for logic
+	
+
+}
+
+
+gelLookSouthEast
+{
+	case emotion {
+		//asleep
+		when -1{
+			"%(GELBASEASLEEP)"
+		//tired
+		}when 0{
+			"%(GELBASETIRED)"
+		
+		//sick
+		}when 3{
+			"%(GELBASESICK)"
+		
+		//bored
+		}when 4{
+			"%(GELBASEBORED)"
+		
+		//uncomf
+		}when 5{
+			"%(GELBASEUNCOMFORTABLE)"
+		
+		//scared
+		}when 6{
+			"%(GELBASESCARED)"
+		
+		//angry
+		}when 10{
+		
+			"%(GELBASEANGRY)"
+			
+		//curious
+		}when 14{
+			"%(GELBASECURIOUS)"
+		
+		}others{
+			"%(GELBASENEUTRAL)"
+		}
+	}
+	--
+	if claustro >= CLAUSTRODILATION{
+	
+		"\i[365]"
+	}else{
+		"\i[355]"
+	}
+	--
+	"\i[701]" //future this will be exchanged for logic
+	
+
+}
+
+
+gelLookNorthEast
+{
+	case emotion {
+		//asleep
+		when -1{
+			"%(GELBASEASLEEP)"
+		//tired
+		}when 0{
+			"%(GELBASETIRED)"
+		
+		//sick
+		}when 3{
+			"%(GELBASESICK)"
+		
+		//bored
+		}when 4{
+			"%(GELBASEBORED)"
+		
+		//uncomf
+		}when 5{
+			"%(GELBASEUNCOMFORTABLE)"
+		
+		//scared
+		}when 6{
+			"%(GELBASESCARED)"
+		
+		//angry
+		}when 10{
+		
+			"%(GELBASEANGRY)"
+			
+		//curious
+		}when 14{
+			"%(GELBASECURIOUS)"
+		
+		}others{
+			"%(GELBASENEUTRAL)"
+		}
+	}
+	--
+	if claustro >= CLAUSTRODILATION{
+	
+		"\i[363]"
+	}else{
+		"\i[353]"
+	}
+	--
+	"\i[701]" //future this will be exchanged for logic
+	
+
+}
+
+
+
+gelLookAway{
+
+	case emotion {
+		//asleep
+		when -1{
+			"%(GELBASEASLEEP)"
+		//tired
+		}when 0{
+			"%(GELBASETIRED)"
+		
+		//sick
+		}when 3{
+			"%(GELBASESICK)"
+		
+		//bored
+		}when 4{
+			"%(GELBASEBORED)"
+		
+		//uncomf
+		}when 5{
+			"%(GELBASEUNCOMFORTABLE)"
+		
+		//scared
+		}when 6{
+			"%(GELBASESCARED)"
+		
+		//angry
+		}when 10{
+		
+			"%(GELBASEANGRY)"
+			
+		//curious
+		}when 14{
+			"%(GELBASECURIOUS)"
+		
+		}others{
+			"%(GELBASENEUTRAL)"
+		}
+	}
+	--
+	if claustro >= CLAUSTRODILATION{
+	
+		"\i[362]"
+		"\i[369]"
+		"\i[363]"
+		"\i[364]"
+		"\i[368]"
+		"\i[364]"
+		"\i[368]"
+		"\i[364]"
+		"\i[368]"
+	}else{
+		"\i[352]"
+		"\i[359]"
+		"\i[353]"
+		"\i[354]"
+		"\i[358]"
+		"\i[354]"
+		"\i[358]"
+		"\i[354]"
+		"\i[358]"
+	}
+	--
+	"\i[701]" //future this will be exchanged for logic
+
+}
+
+
+
+gelLookLeft{
+	case emotion {
+		//asleep
+		when -1{
+			"%(GELBASEASLEEP)"
+		//tired
+		}when 0{
+			"%(GELBASETIRED)"
+		
+		//sick
+		}when 3{
+			"%(GELBASESICK)"
+		
+		//bored
+		}when 4{
+			"%(GELBASEBORED)"
+		
+		//uncomf
+		}when 5{
+			"%(GELBASEUNCOMFORTABLE)"
+		
+		//scared
+		}when 6{
+			"%(GELBASESCARED)"
+		
+		//angry
+		}when 10{
+		
+			"%(GELBASEANGRY)"
+			
+		//curious
+		}when 14{
+			"%(GELBASECURIOUS)"
+		
+		}others{
+			"%(GELBASENEUTRAL)"
+		}
+	}
+	--
+	if claustro >= CLAUSTRODILATION{
+	
+		"\i[368]"
+	}else{
+		"\i[358]"
+	}
+	--
+	"\i[701]" //future this will be exchanged for logic
+
+}
+
+gelLookRight{
+	case emotion {
+		//asleep
+		when -1{
+			"%(GELBASEASLEEP)"
+		//tired
+		}when 0{
+			"%(GELBASETIRED)"
+		
+		//sick
+		}when 3{
+			"%(GELBASESICK)"
+		
+		//bored
+		}when 4{
+			"%(GELBASEBORED)"
+		
+		//uncomf
+		}when 5{
+			"%(GELBASEUNCOMFORTABLE)"
+		
+		//scared
+		}when 6{
+			"%(GELBASESCARED)"
+		
+		//angry
+		}when 10{
+		
+			"%(GELBASEANGRY)"
+			
+		//curious
+		}when 14{
+			"%(GELBASECURIOUS)"
+		
+		}others{
+			"%(GELBASENEUTRAL)"
+		}
+	}
+	--
+	if claustro >= CLAUSTRODILATION{
+	
+		"\i[364]"
+	}else{
+		"\i[354]"
+	}
+	--
+	"\i[701]" //future this will be exchanged for logic
+
+}
+
+
+gelForceLookComfortable{
+	
+	//Used to be in a slouch pose,  no longer. Kept in mind for future, though.
+	if claustro > CLAUSTRODILATION{
+		"\0\s[1000]\i[367]"
+		"\0\s[1000]\i[364]"
+		"\0\s[1000]\i[361]"
+	}else{
+		"\0\s[1000]\i[357]"
+		"\0\s[1000]\i[354]"
+		"\0\s[1000]\i[351]"
+	}
+	--
+	if claustro > CLAUSTRODISCOMFORT{
+		"\i[453]\i[272]"
+		"\i[451]\i[272]"
+		"\i[462]\i[272]"
+	}else{
+		"\i[451]\i[271]"
+	
+	}
+	--
+	gelWindowCheck
+	--
+	//temp arms
+	"\i[701]"
+}
+
+
+gelSlashMouth{
+	"\i[453]"
+}
+
+
+gelUh{
+	"\i[414]\i[426]"
+	"\i[413]\i[426]"
+	--
+	"\i[453]"
+	"\i[453]"
+	"\i[462]"
+
+}
+
+gelHuh{
+	//ELEPHANT
+	"\i[462]" 
+	"\i[453]"
+	"\i[453]"
+	"\i[454]"
+
+}
+
+gelPout{
+	"\i[461]\i[413]\i[414]\i[273]\![anim,clear,270]\![anim,clear,271]\![anim,clear,272]"
+
+}
+
+gelExcited{
+	//note to future self: if excited by emotion assured perked up expression
+	"\i[425]\i[424]\i[271]\![anim,clear,270]\![anim,clear,273]\![anim,clear,272]"
+
+}
+
+gelLookUp{
+	case emotion {
+		//asleep
+		when -1{
+			"%(GELBASEASLEEP)"
+		//tired
+		}when 0{
+			"%(GELBASETIRED)"
+		
+		//sick
+		}when 3{
+			"%(GELBASESICK)"
+		
+		//bored
+		}when 4{
+			"%(GELBASEBORED)"
+		
+		//uncomf
+		}when 5{
+			"%(GELBASEUNCOMFORTABLE)"
+		
+		//scared
+		}when 6{
+			"%(GELBASESCARED)"
+		
+		//angry
+		}when 10{
+		
+			"%(GELBASEANGRY)"
+			
+		//curious
+		}when 14{
+			"%(GELBASECURIOUS)"
+		
+		}others{
+			"%(GELBASENEUTRAL)"
+		}
+	}
+	--
+	if claustro >= CLAUSTRODILATION{
+	
+		"\i[362]"
+	}else{
+		"\i[352]"
+	}
+	--
+	"\i[701]" //future this will be exchanged for logic
+
+}
+
+
+gelSquint{
+	"\i[426]\i[415]"
+	"\i[425]\i[415]\i[424]"
+	--
+	""
+	""
+	"\i[454]"
+	"\i[457]"
+
+}
+
+gelGlare{
+	"\i[426]\i[415]"
+	--
+	""
+	""
+	"\i[454]"
+	"\i[457]"
+
+}
+
+gelEyeRoll{
+	if claustro > CLAUSTRODILATION{
+		"\i[393]"
+	
+	}else{
+		"\i[392]"
+	}
+
+}
+
+gelBlankLook{
+	"%(gelLookForward)\i[415]"
+
+}
+
+gelBlankLookAway{
+
+	"%(gelLookAway)\i[415]"
+
+}
+
+gelUpset{
+	"\i[413]\i[272]\![anim,clear,270]\![anim,clear,273]\![anim,clear,271]\i[452]"
+	"\i[413]\i[272]\![anim,clear,270]\![anim,clear,273]\![anim,clear,271]\i[462]"
+	"\i[413]\i[272]\![anim,clear,270]\![anim,clear,273]\![anim,clear,271]\i[453]"
+	"\i[413]\i[272]\![anim,clear,270]\![anim,clear,273]\![anim,clear,271]\i[453]"
+
+}
+
+gelSmug{
+	"\i[426]\i[455]"
+	"\i[425]\i[424]\i[455]"
+	"\i[425]\i[455]"
+	--
+	"%(gelArmsSmug)"
+
+}
+
+gelSilly{
+	"\i[460]\i[271]\![anim,clear,270]\![anim,clear,273]\![anim,clear,272]"
+	"\i[425]\i[424]\i[460]\i[271]\![anim,clear,270]\![anim,clear,273]\![anim,clear,272]"
+
+}
+
+gelLookDown{
+	
+	case emotion {
+		//asleep
+		when -1{
+			"%(GELBASEASLEEP)"
+		//tired
+		}when 0{
+			"%(GELBASETIRED)"
+		
+		//sick
+		}when 3{
+			"%(GELBASESICK)"
+		
+		//bored
+		}when 4{
+			"%(GELBASEBORED)"
+		
+		//uncomf
+		}when 5{
+			"%(GELBASEUNCOMFORTABLE)"
+		
+		//scared
+		}when 6{
+			"%(GELBASESCARED)"
+		
+		//angry
+		}when 10{
+		
+			"%(GELBASEANGRY)"
+			
+		//curious
+		}when 14{
+			"%(GELBASECURIOUS)"
+		
+		}others{
+			"%(GELBASENEUTRAL)"
+		}
+	}
+	--
+	if claustro >= CLAUSTRODILATION{
+	
+		"\i[366]"
+	}else{
+		"\i[356]"
+	}
+	--
+	"\i[701]" //future this will be exchanged for logic
+
+}
+
+gelSad{
+	"\i[462]"
+
+}
+
+gelCry{
+	"%(gelLookLeft)\i[413]\i[414]\i[461]\i[425]\i[424]"
+	"%(gelLookRight)\i[413]\i[414]\i[461]\i[425]\i[424]"
+
+}
+
+gelLookConcerned{
+	"\i[413]\i[414]\i[425]\i[424]"
+	"%(gelLookForward)\i[413]\i[414]\i[425]\i[424]"
+	"%(gelLookForward)\i[413]\i[414]\i[462]\i[273]\![anim,clear,270]\![anim,clear,271]\![anim,clear,272]"
+	"%(gelLookForward)\i[413]\i[414]\i[426]"
+	"%(gelLookForward)\i[413]\i[414]\i[425]\i[424]\i[453]"
+
+}
+
+gelAdoring{
+	"\i[413]\i[414]\i[426]\i[271]\![anim,clear,270]\![anim,clear,273]\![anim,clear,272]"
+
+}
+
+gelWorry{
+	"\i[413]\i[414]\i[453]\i[273]\![anim,clear,270]\![anim,clear,271]\![anim,clear,272]"
+	"\i[413]\i[414]\i[462]\i[273]\![anim,clear,270]\![anim,clear,271]\![anim,clear,272]"
+
+}
+
+
+gelConfused{
+	"\i[413]"
+	"\i[424]"
+	"\i[424]\i[451]"
+	"\i[413]\i[424]\i[451]"
+	--
+	"\i[453]"
+	"\i[454]"
+	""
+	""
+	""
+	""
+
+}
+
+gelImpressed{
+	"%(gelLookForward)\i[459]\i[271]\![anim,clear,270]\![anim,clear,273]\![anim,clear,272]"
+
+}
+
+gelWistful{
+	"\i[425]\i[424]\i[271]\![anim,clear,270]\![anim,clear,273]\![anim,clear,272]"
+	"\i[425]\i[424]\i[463]\i[271]\![anim,clear,270]\![anim,clear,273]\![anim,clear,272]"
+
+}
+
+gelLookSick{
+	//ELEPHANT because it's not functioning as a proper Look function yet, but rn it can get away with that
+	"\i[901]\i[450]\i[452]"
+}
+
+gelBlush{
+	"\i[950]"
+}
+
+gelFrown{
+	"\i[453]"
+	"\i[462]"
+}
+
+gelCocky{
+	"\i[425]\i[424]\i[455]"
+
+}
+
+gelCheery{
+	"\i[424]\i[425]"
+}
+
+gelSmile{
+	//ELEPHANT: MAY NEED TO REMOVE OTHER INTERVALS HERE (yes yes you do)
+	"\i[451]"
+}
+
+gelCatMouth{
+	"\i[463]"
+}
+
+gelUncomfortable{
+
+	"\i[408]"
+}
+
+gelGrin{
+	//ELEPHANT: currently the same as BigSmile
+	"\i[455]"
+}
+
+gelBigSmile{
+	"\i[455]"
+}
+
+gelT{
+	"\i[457]"
+}
+
+//ELEPHANT: may have been supposed to contain a slouch, remember for later (make a Look function?)
+gelTired{
+
+	"\i[410]"
+}
+
+gelTiredExp{
+
+	"\i[410]"
+}
+
+gelAngry{
+	"\i[423]"
+}
+
+gelUnamused{
+	"%(gelEarsDown)\i[408]\i[415]"
+	--
+	"\i[458]"
+	"\i[457]"
+	"\i[454]"
+}
+
+gelDisappointed{
+	"%(gelEarsDown)\i[408]\i[415]\i[458]"
+}
+
+gelAmused{
+	"\i[425]\i[424]\i[271]%(gelGrin)\![anim,clear,270]\![anim,clear,273]\![anim,clear,272]"
+	"\i[425]\i[424]\i[463]\i[271]\![anim,clear,270]\![anim,clear,273]\![anim,clear,272]"
+
+}
+
+gelAwkward{
+	"%(gelEarsDown)\i[408]\i[415]\i[458]"
+	--
+	"\i[458]"
+	"\i[461]"
+}
+
+gelFurrowed{
+	"\i[414]\i[413]"
+}
+
+//ELEPHANT: I kinda want to make this a Look function to go to scared eyes
+//that mass rename needs a bit before its viable though
+gelSurprise{
+	"%(gelEarsUp)\i[459]"
+}
+
+//ELEPHANT: for when surfacing is restructured
+gelNoEyes{
+	"%(gelLookForward)"
+}
+
+gelPonder{
+	"%(gelFrown)\i[425]\i[414]"
+	--
+	//ELEPHANT: gonna add another arm set eventually
+	"%(gelArmsFistChin)"
+}
+
+//	ELEPHANT: to be redone once I restructure how the base functions work here
+gelSlouch{
+	"%(gelTiredExp)"
+}
+
+gelSickMouth{
+	"\i[452]"
+}
+
+gelBlank{
+	"\i[415]"
+}
+
+
+
+
+gelForceAlert{
+
+	"%(GELBASENEUTRAL)\i[453]"
+	if claustro > CLAUSTRODILATION{
+		"\i[361]"
+	}else{
+		"\i[351]"
+	}
+}
+
+gelLookAfraid{
+	
+	case emotion {
+		//asleep
+		when -1{
+			"%(GELBASEASLEEP)"
+		//tired
+		}when 0{
+			"%(GELBASETIRED)"
+		
+		//sick
+		}when 3{
+			"%(GELBASESICK)"
+		
+		//bored
+		}when 4{
+			"%(GELBASEBORED)"
+		
+		//uncomf
+		}when 5{
+			"%(GELBASEUNCOMFORTABLE)"
+		
+		//scared
+		}when 6{
+			"%(GELBASESCARED)"
+		
+		//angry
+		}when 10{
+		
+			"%(GELBASEANGRY)"
+			
+		//curious
+		}when 14{
+			"%(GELBASECURIOUS)"
+		
+		}others{
+			"%(GELBASENEUTRAL)"
+		}
+	}
+	--
+	"\i[361]"
+	"\i[361]"
+	"\i[361]"
+	"\i[364]"
+	"\i[368]"
+	--
+	"\i[701]" //future this will be exchanged for logic
+	
+	
+
+
+}
+
+gelLookNervous{
+	case emotion {
+		//asleep
+		when -1{
+			"%(GELBASEASLEEP)"
+		//tired
+		}when 0{
+			"%(GELBASETIRED)"
+		
+		//sick
+		}when 3{
+			"%(GELBASESICK)"
+		
+		//bored
+		}when 4{
+			"%(GELBASEBORED)"
+		
+		//uncomf
+		}when 5{
+			"%(GELBASEUNCOMFORTABLE)"
+		
+		//scared
+		}when 6{
+			"%(GELBASESCARED)"
+		
+		//angry
+		}when 10{
+		
+			"%(GELBASEANGRY)"
+			
+		//curious
+		}when 14{
+			"%(GELBASECURIOUS)"
+		
+		}others{
+			"%(GELBASENEUTRAL)"
+		}
+	}
+	--
+	if claustro >= CLAUSTRODILATION{
+	
+		"\i[362]"
+		"\i[369]"
+		"\i[363]"
+		"\i[364]"
+		"\i[368]"
+	}else{
+		"\i[352]"
+		"\i[359]"
+		"\i[353]"
+		"\i[354]"
+		"\i[358]"
+	}
+	--
+	//ears 
+	"\i[273]\![anim,clear,270]\![anim,clear,271]\![anim,clear,272]"
+	--
+	//eyelids
+	"\i[414]\i[413]"
+	--
+	"\i[701]" //future this will be exchanged for logic
+
+}
+
+
+gelNervous{
+
+	"\i[424]\i[413]"
+}
+
+
+//formerly this contained logic for the surface but nah, it wasn't necessary.
+//It will clean itself and use the prior surface base.
+gelLookAtInternet{
+	"\i[390]"
+
+}
+
+gelEarTwitch{
+
+	//"\i[272]\w2\i[270]\w1\i[271]\w1\i[270]"
+	"%(gelClearEars)\i[272]\w2\![anim,clear,272]\i[270]\w1\![anim,clear,270]\i[271]\w1\![anim,clear,271]\i[270]"
+}
+
+gelPickThreeCorruption{
+	"\i[1102]"
+	"\i[1103]"
+	"\i[1104]"
+	"\i[1105]"
+	"\i[1106]"
+	"\i[1107]"
+	"\i[1101]"
+	--
+	"\i[1102]"
+	"\i[1103]"
+	"\i[1104]"
+	"\i[1105]"
+	"\i[1106]"
+	"\i[1107]"
+	"\i[1101]"
+	--
+	"\i[1102]"
+	"\i[1103]"
+	"\i[1104]"
+	"\i[1105]"
+	"\i[1106]"
+	"\i[1107]"
+	"\i[1101]"
+
+}
+
+gelPickTwoCorruption{
+	"\i[1102]"
+	"\i[1103]"
+	"\i[1104]"
+	"\i[1105]"
+	"\i[1106]"
+	"\i[1107]"
+	"\i[1101]"
+	--
+	"\i[1102]"
+	"\i[1103]"
+	"\i[1104]"
+	"\i[1105]"
+	"\i[1106]"
+	"\i[1107]"
+	"\i[1101]"
+
+}
+
+gelSmallCorruption{
+	"\i[1102]"
+	"\i[1103]"
+	"\i[1104]"
+	"\i[1105]"
+	"\i[1106]"
+	"\i[1107]"
+	"\i[1101]"
+
+}
+
+//I'll add this in later
+gelByeObsidian{
+	"\i[604]"
+
+}
+
+gelEarsBack{
+	"\![anim,clear,270]\![anim,clear,271]\![anim,clear,272]\i[273]"
+}
+
+gelEarsDown{
+	"\![anim,clear,270]\![anim,clear,271]\![anim,clear,273]\i[272]"
+}
+
+gelEarsUp{
+	"\![anim,clear,270]\![anim,clear,272]\![anim,clear,273]\i[271]"
+}
+
+
+gelClearEars{
+
+	"\![anim,clear,270]\![anim,clear,271]\![anim,clear,272]\![anim,clear,273]"
+
+}
+
+
+gelFlinch{
+	//shoulders up, arms protective
+	"%(gelConcerned)"
+
+}
+
+
+
+
+gelArmsLax{
+
+	"%(gelClearArms)\i[701]"
+}
+
+gelArmsChest{
+
+	"%(gelClearArms)\i[703]"
+}
+
+
+gelArmsQuestion{
+
+	"%(gelClearArms)\i[705]"
+}
+
+
+gelArmsGestL{
+
+	"%(gelClearArms)\i[707]"
+}
+
+
+gelArmsGestR{
+
+	"%(gelClearArms)\i[717]"
+}
+
+
+gelArmsSmug{
+
+	"%(gelClearArms)\i[709]"
+}
+
+
+gelArmsFistChin{
+
+	"%(gelClearArms)\i[711]"
+}
+
+
+gelArmsKnees{
+
+	"%(gelClearArms)\i[713]"
+}
+
+
+gelArmsCouncil{
+
+	"%(gelClearArms)\i[715]"
+}
+
+
+gelArmsHighFive{
+
+	"%(gelClearArms)\i[719]"
+}
+
+
+gelArmsHugSelf{
+
+	"%(gelClearArms)\i[721]"
+}
+
+
+gelArmsPlayRock{
+
+	"%(gelClearArms)\i[723]"
+}
+
+
+
+gelClearArms{
+	"\![anim,clear,700]\![anim,clear,701]\![anim,clear,702]\![anim,clear,703]\![anim,clear,704]\![anim,clear,705]\![anim,clear,706]\![anim,clear,707]\![anim,clear,708]\![anim,clear,709]\![anim,clear,710]\![anim,clear,711]\![anim,clear,712]\![anim,clear,713]\![anim,clear,714]\![anim,clear,715]\![anim,clear,716]\![anim,clear,717]\![anim,clear,718]\![anim,clear,719]\![anim,clear,720]\![anim,clear,721]\![anim,clear,722]\![anim,clear,723]\![anim,clear,724]\![anim,clear,725]\![anim,clear,726]\![anim,clear,727]"
+}
+
+
+
+
+
+ gelHit{
+ 
+	"%(gelLookForward)%(gelUpset)%(gelArmsChest)"
+ 
+ }
+
+
+
+
+
+
+
+
+
+

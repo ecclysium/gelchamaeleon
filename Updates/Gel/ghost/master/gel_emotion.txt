@@ -1,0 +1,441 @@
+
+//------------------------------------------------------------------------------
+//When the user becomes idle, called from OnMinuteChange after 10 minutes pass, but we double check it here
+//------------------------------------------------------------------------------
+OnUserIdle{
+	minidle = reference[0]
+	--
+//	"Idle called-- out for %_minidle minutes."
+	--	
+	//10 minutes is considered the idle time, may change 
+	if minidle >=10{
+		useractive = 0
+	}
+	--
+	//If you've been gone over 30 minutes, Gel will start to become tired
+	//Fully falling asleep can be incurred in other ways, so we'll let that processing knock Gel out completely
+	if emotion > 0 && _minidle >= 20{
+		emotion = 0		
+		minsinemotion = 0
+	}
+	--
+}
+
+//note to self: maybe try doing the emotion update surfaces as embeds or /c commands to see if that will help random cutoffs
+
+
+//ON "REASON" VAR
+//------------------------------------------------------------------------------
+//This variable is mostly for testing and references, though now I am allowing it to be used in checks, despite my distaste
+//for doing any string comparison at all. I will change this in a future update if I feel I need to, and then have a cheatsheet to reference.
+//Which, honestly, is already what I do with most other things. The only difference is that it was a test variable and then I thought that I could
+//use it in dialogue, somehow. 
+//Anyways.
+//Expected "reason" results:
+//no (self explanatory)
+//claustrophobia (high claustro value)
+//touch (the user was repeatedly doing something that made Gel feel something)
+//unsettled (small things/a mix of reasons)
+//shaken (the user moved Gel a lot)
+//life (things relating to Willow, the twins, Radius, Jade Eyes, Neon, occasionally 1117 vs the world, etc)
+
+//Obvious reasons are not stated, such as things relating to infoperminute, and being tired.
+
+
+//driver
+OnGelEMOTION{
+
+	//If the activity counter SAORI is active, we need to handle this in a different way
+	if actcountallowed{
+		OnGelEMOTIONBase
+	}else{
+		OnGelEMOTIONBase
+	}
+}
+
+
+
+OnGelEMOTIONBase{
+
+
+
+	//reference0 being the case code, and 1 meaning 'wake Gel up'
+	//WHEN ASLEEP, USER AWAKENS VIA PUNCH OR OPTION TO 'WAKE GEL UP'
+	//******************************************************************************
+	if reference[0] == 1 || (emotion == -1 && shakenup > 8){
+		timeswokenses++
+		_sleptfor = OnMakeWoke
+		//if the user has just woken them a few times or none thus far
+		if trust < TNEG1{
+			"%(gelBase)"
+			--
+			"...mornin.\e"
+			"Urgh, you again.\e"
+			"%username...\e"
+		
+		}elseif timeswokenses < 3{
+			"Hnn?\w8\w6%(gelBase) Oh, good morning, %(nicknamed)... how are %(you)?"
+			"Mnn... %(gelBase)what is it?"
+			"Five more minutes\w8%(gelBase).\w8.\w8. \w8oh."
+			"%(gelBase)%(okay).\w8.\w8."
+			if port == 434{
+				"I do%(not) want to stop playing…"
+				"After this raid is over…"
+				"I have%(not) even checked my farm yet…"
+			}
+			if checkGreatTP2{
+				"Oh, is it you? %(gelLookForward)It%(is) the cool user…"
+			}
+			--
+			"\w8\w8\e"
+			
+		//else, if the user is awakening them excessively
+		}else{
+			"%(gelBase)Just let me sleep.\w6.\w6."
+			"%(gelBase)Yeah, yeah, I%(am) up.\w6.\w6."
+			"%(gelBase)What do %(you) want.\w6.\w6.\w6?"
+			"%(gelBase)Do something interesting, or let me sleep %username.\w6.\w6."
+			"%(gelBase)%username.\w6.\w6."
+			--
+			"\w8\w8\e"
+		
+		}
+	}else{
+	
+		case emotion{
+		
+		//WHEN ASLEEP
+		//******************************************************************************
+		when -1{
+			
+			//if it's been 9 hours sleepin
+			//Since this is executed each minute, the RAND will make waking up feel more random as we wait for a low enough result to let it run
+			//With each half hour, Gel is slightly more likely to wake up
+			if timeasleep >= (18 + RAND(20)) && useractive == 1{
+				_sleptfor = OnMakeWoke
+				
+				"%(gelBase)YaaaaaaaaAAAWWWWNNNNnnnnnn...\n\nGood mornin'...\e"
+				"%(gelBase)Long sleep...\e"
+				"%(gelBase)That was a good sleep...\e"
+				"%(gelBase)A full %_sleptfor hours...\e"
+			}elseif infoperminute >= 70 && useractive == 1{
+				OnMakeWoke
+				"%(gelBase)What's with all the racket, %username.\w4.\w4.?\e"
+				"%(gelBase)Whuzzup?\w8 You're bein' loud.\e"
+			
+			//If Gel's fully rested, they'll just nod off now and again
+			}elseif fullnightsrest == 1 && timeasleep > 1 && timeasleep < 120 && useractive == 1{
+				OnMakeWoke
+				"%(gelBase)Mmnf.\e"
+				"%(gelBase)Snrk.\e"
+				"%(gelBase)Oh, I fell asleep again.\w4.\w4.\e"
+			}
+		
+		//WHEN TIRED
+		//******************************************************************************
+		}when 0{
+			
+			//note to self: Gel waking up will need more buildup
+			//become neutral, prioritized
+			if (minsinemotion >= 6 && lastinter < 60 && infoperminute > 30) || (fullnightsrest == 1 && minsinemotion >= 3){
+				emotion = 1
+				minsinemotion = 0
+				//maybe Gel shouldn't be neutral
+				OnGelEMOTION
+			}else{
+				//fall asleep
+				if minsinemotion >=15 && infoperminute < 30{
+					OnMakeSleep
+					minsinemotion=0
+				}
+				
+			}
+		
+		//WHEN NEUTRAL
+		//******************************************************************************
+		}when 1{
+			
+			
+			//become uncomfortable
+			if claustro > CLAUSTRODISCOMFORT{
+				emotion = 5
+				reason = "claustrophobia"
+				minsinemotion=0
+			
+			}elseif trust < TNEG1 && (lastinter < 10 || shakenup > 1){
+				//uncomf becomes the neutral of negative route
+				emotion = 5
+				reason = "unsettled"
+				minsinemotion=0
+			
+			//become bored
+			}elseif infoperminute <= 10 && RAND(10) == 8 && lastinter > 30{
+				emotion = 4
+				minsinemotion=0
+				
+			//Become curious
+			}elseif infoperminute > 48 && lastinter > 10 && shakenup < 3{
+				emotion = 14
+				minsinemotion=0
+			}
+			
+		
+		//WHEN SICK
+		//******************************************************************************
+		}when 3{
+		
+		
+			//become neutral
+			if infoperminute < 30 && shakenup < 2{
+				emotion = 1
+				minsinemotion=0
+			
+			}
+			
+		//WHEN BORED
+		//******************************************************************************
+		}when 4{
+		
+			
+			//become neutral
+			if infoperminute > 50 && lastinter < 15{
+				emotion = 1
+				minsinemotion=0
+			}elseif infoperminute < 2 && lastinter >= 50{
+				emotion = 0
+				minsinemotion=0
+			
+			
+			//become uncomf
+			}elseif claustro > CLAUSTRODISCOMFORT{
+				minsinemotion=0
+				emotion = 5
+				reason = "claustrophobia"
+			}
+			
+		//WHEN UNCOMFORTABLE
+		//******************************************************************************
+		}when 5{
+		
+			if claustro > CLAUSTRODILATION && shakenup > 4 {
+				emotion = 6
+				reason = "unsettled"
+				minsinemotion = 0
+			
+			}elseif (claustro < 20 || reason == "no") && minsinemotion > 2{
+				minsinemotion=0
+				reason = "no"
+				emotion = 1
+			
+			}elseif reason == "shaken" && shakenup < 3{
+				minsinemotion=0
+				emotion = 1
+				reason = "no"
+			//Gel still deserves a sleep cycle, no matter how claustro they are. Even if it's hard to achieve. 
+			//If they don't trust you, they sleep when you're away.
+			}elseif trust < TPOS1 && useractive == 0 && infoperminute < 2 && RAND(10) == 0{
+				minsinemotion=0
+				OnMakeSleep
+			
+			//if they do trust you, they sleep when you're around.
+			}elseif fullnightsrest == 0 && useractive == 1 && infoperminute < 10 && RAND(10) == 0{
+				minsinemotion=0
+				OnMakeSleep
+			
+			}elseif infoperminute >= 50 && trust > TNEG1{
+				minsinemotion=0
+				reason = "no"
+				emotion = 14
+			}
+		
+		//WHEN SCARED
+		//******************************************************************************
+		}when 6{
+		
+			if minsinemotion > 10 && claustro < CLAUSTRODISCOMFORT{
+				emotion = 5
+				//The reason stays the same as it was from scared.
+				minsinemotion = 0
+			}elseif minsinemotion > 20 && shakenup == 0 && infoperminute < 20{
+				emotion = 1
+				reason = "none"
+				minsinemotion = 0
+			
+			}
+		
+		
+		
+		//WHEN ANGRY
+		//******************************************************************************
+		}when 10{
+		
+			//Mostly, Gel just needs space to cool down and return to normal.
+			if lastinter > 15 && minsinemotion > 10 && infoperminute < 25{
+				emotion = 5
+				//reason stays the same.
+				minsinemotion = 0
+			}		
+		
+		//WHEN CURIOUS
+		//******************************************************************************
+		}when 14{
+		
+			if infoperminute < 35 || shakenup > 6 {
+				emotion = 1
+				awkwardsilence = 0
+				minsinemotion=0
+				
+			}elseif infoperminute >= 59{
+				emotion = 1
+				awkwardsilence = 0
+				minsinemotion=0
+			}
+		
+		//If this happens, it's a bug, but we'll just redirect
+		}others{
+			emotion = 1
+			minsinemotion = 0
+		
+		} //one's the whens, the other is part of case, these brackets are fine, I promise.
+		}
+		
+		--
+		//joke function of making Gel pass out when a lullaby or something labeled such is playing
+		//currently broke
+		/*
+		if sight == 1 && port > 1{
+			//just use the universal temp
+			temp = "Lullaby"
+		//	"\![raise,OnCheckForSong,Lullaby]"
+			--
+			
+			if temp == 1{
+			
+				if emotion == 0{
+					OnMakeSleep
+				
+				}elseif emotion != -1{
+					emotion = 0
+					minsinemotion = 0
+				}
+			}
+		
+		}
+		*/
+	//	--
+	//	"\C%(gelBase)"
+		
+	
+	}
+	
+}
+
+//Emotion handling for the activitycounter method of tracking
+OnGelEMOTIONAct{
+
+
+}
+
+
+//Emotion-changing needs to be centralized to this file, so we make this a function.
+OnMakeUncomfortable{
+	emotion = 5
+	reason = reference0
+	minsinemotion = 0
+
+}
+
+OnMakeScared{
+	emotion = 6
+	reason = reference0
+	minsinemotion = 0
+
+}
+
+OnMakeAngry{
+	emotion = 10
+	reason = reference0
+	minsinemotion = 0
+
+}
+
+//Needs bonus logic, and to be centralized.
+OnMakeWoke{
+
+	//Gel needs 6.5 hours of rest to be well-rested
+	if timeasleep >= 13{
+		fullnightsrest = 1
+		addtrust(3)
+		askgel = 5
+
+	}
+	//return full hours asleep
+	timeasleep / 2
+	
+	minsinemotion=0
+	
+	emotion = 0
+	timeasleep = 0			
+	
+}
+
+
+
+//Statistics tracking on top of some general checks.
+OnMakeNauseous{
+	if claustro > 18 && RAND(2) == 0{
+		emotion = 5
+	}else{
+		emotion = 3
+	}
+	
+	minsinemotion=0
+	timesmadesick+=1
+	askgel = 4                                                                    
+	reason = "shaken"
+
+}
+
+OnMakeSleep{
+	emotion = -1
+	minsinemotion=0
+	sleepstarthour = hour + "," + day
+	timeasleep = 0
+	//timeasleep will be calculated in half hours
+
+}
+
+
+
+OnGelNAUSEA{
+
+	shakenup+=1
+	--
+	//a tired Gel is a more easily naseuous Gel
+	if emotion == 0{
+		shakenup+=1
+	}
+	--
+	//if Gel is sick, return true (anything above 0), and if should be sick, make a note of it since some things only need happen once
+	if shakenup > 12 || emotion == 3{
+		if emotion == 3{
+			1
+			return
+		
+		}else{
+			OnMakeNauseous
+			--
+			2
+			return
+		
+		}
+	}else{
+		0
+		return
+	
+	}
+
+}
+
+
+

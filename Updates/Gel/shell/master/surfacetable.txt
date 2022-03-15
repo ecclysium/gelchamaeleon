@@ -1,0 +1,330 @@
+charset,Shift_JIS
+version,1
+option,DisableNoDefineSurfaces
+
+//Notes to self:
+//Seems to be the part that keeps them from being surfaces in surfaces.txt, or at least, showing up in the surface test window
+group,__disabled
+{
+	//don't,,,, don't question how long these surface numbers are, it makes organization so much easier.
+	//in the order of (TTIIIIPP): [TORSO/LEG TYPE][INTERVAL NUMBER][PART NUMBER]
+	00000,__parts//nothing
+	
+	0000000,__parts //window base
+	0000001,__parts //tether
+	
+	66666,__parts //crunchy party hat
+	
+	
+	//Parts of binding surfaces
+	17000,__parts
+	37000,__parts
+	37001,__parts
+	37002,__parts
+	
+	
+	
+	
+	
+	//NEUTRAL (TENSE) 1000
+	01025000,__parts				//back hair default
+	01025100,__parts				//back hair ponytail
+	
+	01027000,__parts				//normal ears
+	01027100,__parts				//normal ears
+	01027200,__parts				//normal ears
+	01027300,__parts				//normal ears
+	
+	01029000,__parts				//torso
+	01029100,__parts				//head
+	01029200,__parts				//bangs
+	01040000,__parts				//eye base
+	
+	01070000,__parts				// lax arms
+	01070200,__parts				// hand on chest
+	01070400,__parts				// questionable hand
+	01070600,__parts				// gesture user left
+	01070800,__parts			    // smug 
+	01071000,__parts				// hand on chin
+	01071200,__parts				// hands on knees
+	01071400,__parts				// The Council Has Decided
+	01071600,__parts		  		// gesture user right
+	01071800,__parts				// high five!
+	01072000,__parts				// hugging self
+	01072200,__parts				// rock
+	
+	//Holding
+	01060000,__parts				//Obsidian body
+	
+	01035000,__parts				//pupils/irises
+	01036000,__parts				//scared pupils/irises
+	01039000,__parts				//ye
+	01039001,__parts				//no (ysee it's a binary joke lel)
+	
+	01045000,__parts				//jaw lowered
+	01045100,__parts				//mouth smile
+	01045200,__parts				//mouth wiggly
+	01045300,__parts				//mouth :/
+	01045400,__parts				//mouth :/ but flatter
+	01045500,__parts				//mouth -U-
+	01045600,__parts				//mouth breathing face
+	01045700,__parts				//mouth :T
+	01045800,__parts				//mouth .v.
+	01045900,__parts				//mouth :o
+	01046000,__parts				//mouth :p
+	01046100,__parts				//mouth :'<
+	01046200,__parts				//mouth :(
+	01046300,__parts				//mouth :3 (subtle)
+	
+	//talk frames
+	01049000,__parts				//O/U
+	01049001,__parts				//E
+	01049002,__parts				//F/V
+	01049003,__parts				//L/T/R/N
+	01049004,__parts				//hard stops
+	01049005,__parts				//A
+	
+	
+	01040001,__parts				//blink frame 1
+	01040002,__parts				//blink frame 2
+	01040003,__parts				//blink frame 3
+	
+	01040800,__parts				//mild squint, awkward	
+	01041300,__parts				//right brow down
+	01041400,__parts				//left brow down
+	01041500,__parts				//flat brows
+	01042300,__parts				//angery
+	01042400,__parts				//right lower curved
+	01042500,__parts				//left lower curved
+	01042600,__parts				//lower lids both flat
+	
+	01030000,__parts 				//blue jeans
+	01030100,__parts 				//purple pants
+	01030200,__parts 				//ripped black jeans
+	
+	//GREEN SHIRT
+	01050000,__parts				//green shirt torso
+	
+	81800000,__parts				// green shirt lax sleeves
+	81802000,__parts				// hand on chest
+	81804000,__parts				// questionable hand
+	81806000,__parts				// gesture user left
+	81808000,__parts			    // smug 
+	81810000,__parts				// hand on chin
+	81812000,__parts				// hands on knees
+	81814000,__parts				// The Council Has Decided
+	81816000,__parts		  		// gesture user right
+	81818000,__parts				// high five!
+	81820000,__parts				// hugging self
+	81822000,__parts				// rock
+	
+//	01050100,__parts				//seriko shirt torso
+//	81800010,__parts				//seriko shirt lax sleeves
+	
+	01050200,__parts				//baja shirt torso
+	81800020,__parts				//baja shirt lax sleeves
+	
+	01050300,__parts				//peach shirt torso
+	81800030,__parts				//peach shirt lax sleeves
+	
+	01050400,__parts				//voc shirt torso
+	81800040,__parts				//voc shirt lax sleeves
+	
+	01050500,__parts				//denied shirt torso
+	81800050,__parts				//denied shirt lax sleeves
+	
+	01090000,__parts				//tired bags
+	01090100,__parts				//sickly green in the face
+	01090200,__parts				//small bruise
+	01090300,__parts				//black eye
+	01090400,__parts				//cut
+	01090500,__parts				//choked
+	01090600,__parts				//cheek cracked
+	01095000,__parts				//blush
+	
+	
+	
+	
+	
+	
+	
+	
+	//FULLY SLOUCHED OVER TO SLEEP 3000
+	03025000,__parts				//back hair default
+	03025100,__parts				//back hair ponytail
+	
+	03027000,__parts				//normal ears
+	03027100,__parts				//normal ears
+	03027200,__parts				//normal ears
+	03027300,__parts				//normal ears
+	
+	03029000,__parts				//torso 0
+	03029001,__parts				//torso 1
+	03029002,__parts				//torso 2
+	03029100,__parts				//head
+	03029200,__parts				//bangs
+	03040000,__parts				//eye base
+	03070000,__parts				//lax arms 0
+	03070001,__parts				//lax arms 1
+	03070002,__parts				//lax arms 2
+	03050000,__parts				//pupils
+	
+	03030000,__parts				//blue jeans
+	03030100,__parts				//purgle jeans
+	03030200,__parts				//black jeans
+	
+	//Holding
+	03060000,__parts				//Obsidian body
+	
+	03035000,__parts				//pupils/irises
+	03036000,__parts				//scared pupils/irises
+	03039000,__parts				//ye
+	03039001,__parts				//no (ysee it's a binary joke lel)
+	
+	03045000,__parts				//jaw lowered
+	03045100,__parts				//mouth smile
+	03045200,__parts				//mouth wiggly
+	03045300,__parts				//mouth :/
+	03045400,__parts				//mouth :/ but flatter
+	03045500,__parts				//mouth -U-
+	03045600,__parts				//mouth breathing face
+	03045700,__parts				//mouth :T
+	03045800,__parts				//mouth .v.
+	03045900,__parts				//mouth :o
+	03046000,__parts				//mouth :p
+	03046100,__parts				//mouth :'<
+	03046200,__parts				//mouth :(
+	03046300,__parts				//mouth :3 (subtle)
+	
+	//talk frames
+	03049000,__parts				//O/U
+	03049001,__parts				//E
+	03049002,__parts				//F/V
+	03049003,__parts				//L/T/R/N
+	03049004,__parts				//hard stops
+	03049005,__parts				//A
+	
+	
+	03040001,__parts				//blink frame 1
+	03040002,__parts				//blink frame 2
+	03040003,__parts				//blink frame 3
+	
+	03041000,__parts				//right brow down
+	03041100,__parts				//left brow down
+	03041200,__parts				//flat brows
+	03041300,__parts				//angery
+	03041400,__parts				//right lower curved
+	03041500,__parts				//left lower curved
+	03041600,__parts				//lower lids both flat
+	
+	03050000,__parts				//green shirt torso
+	03080000,__parts				//green shirt lax sleeves
+	03050001,__parts				//green shirt torso
+	03080001,__parts				//green shirt lax sleeves
+	03050002,__parts				//green shirt torso
+	03080002,__parts				//green shirt lax sleeves
+	
+//	03050100,__parts				//seriko shirt torso
+//	03080100,__parts				//seriko shirt lax sleeves
+	
+	03090000,__parts				//tired bags
+	03090100,__parts				//sickly green in the face
+	03090200,__parts				//small bruise
+	03090300,__parts				//black eye
+	03090400,__parts				//cut
+	03090500,__parts				//choked
+	03090600,__parts				//cheek cracked
+	03095000,__parts				//blushie //.//.//
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//ENERGETIC 2000
+	
+	//ASLEEP 3000
+	
+	//TIRED 3100
+	
+	//NAUSEOUS/DAZED 3200
+	
+	//EXISTIENTIAL CRISIS 3300
+	
+	//UNCOMFY 4000
+	
+	//IMPRESSED
+	
+	//TERRIFIED
+	
+	//HYPERVENTILATING
+	
+	//ANGRY
+	
+	//SMUG
+	
+	
+	//note: ones like bored, scared, concerned, 
+	
+	
+	
+	
+	//the assorted static, see design doc for color cues
+	66110,__parts
+	66120,__parts
+	66130,__parts
+	66140,__parts
+	66150,__parts
+	66160,__parts
+	66170,__parts
+	66111,__parts
+	66121,__parts
+	66131,__parts
+	66141,__parts
+	66151,__parts
+	66161,__parts
+	66171,__parts
+	
+	
+	
+	
+}
+
+group, Windows
+{
+	scope,1
+	
+	30,sunset
+
+
+}
+
+group,Gel
+{
+	scope,1
+	
+	1000,neutral
+	1100,trust neutral
+	3000,sleeping
+	3100,tired
+	3200,sick
+	4000,uncomfortable
+	14000,leaning in
+
+}
+
+group,Orb
+{
+	scope,0
+	
+	10,A
+	11,B
+}

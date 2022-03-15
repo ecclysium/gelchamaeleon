@@ -1,0 +1,64 @@
+charset,Shift_JIS
+
+name,Gel
+type,ghost
+
+sakura.name,Gel
+kero.name,none
+
+balloon,Varia Sunset 165
+
+sstp.allowunspecifiedsend,1
+
+icon,icon.ico
+
+shiori,yaya.dll
+
+//sakura.menu,hidden
+
+sakura.bindgroup500.name,Shirts,Green
+sakura.bindgroup800.name,Shirts,Green Sleeves
+sakura.bindgroup500.addid,800
+
+sakura.bindgroup501.name,Shirts,Seriko Is Strange
+sakura.bindgroup801.name,Shirts,Dark Green Sleeves
+sakura.bindgroup501.addid,801
+
+sakura.bindgroup502.name,Shirts,Baja Blasted
+sakura.bindgroup802.name,Shirts,Baja Sleeves
+sakura.bindgroup502.addid,802
+
+sakura.bindgroup503.name,Shirts,Peach
+sakura.bindgroup803.name,Shirts,PeachSleeves
+sakura.bindgroup503.addid,803
+
+sakura.bindgroup504.name,Shirts,VOC Certified
+sakura.bindgroup804.name,Shirts,VOC Sleeves
+sakura.bindgroup504.addid,804
+
+sakura.bindgroup505.name,Shirts,Denied
+sakura.bindgroup805.name,Shirts,Denied Sleeves
+sakura.bindgroup505.addid,805
+
+//sakura.bindgroup23.name,Shirts,Be Informed
+
+sakura.bindgroup300.name,Pants,Blue Jeans
+sakura.bindgroup301.name,Pants,Purple Pants
+sakura.bindgroup302.name,Pants,Ripped Black Jeans
+
+sakura.bindgroup250.name,Hair,Default
+sakura.bindgroup251.name,Hair,Ponytail
+sakura.bindgroup1250.name,Hats,Paper Bag
+//sakura.bindgroup102.name,Hats,Iris
+sakura.bindgroup1000.name,Hats,We Like To Party
+sakura.bindgroup1212.name,Hats,Santa Hat
+
+
+sakura.bindoption.group,Shirts,mustselect
+sakura.bindoption.group,Shirts,mustselect
+sakura.bindoption.group,Hair,mustselect
+
+sakura.bindgroup250.default,1
+//sakura.bindgroup800.default,1
+
+msglang, english

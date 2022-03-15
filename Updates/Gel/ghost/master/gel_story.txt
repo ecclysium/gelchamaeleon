@@ -1,0 +1,1514 @@
+//******************************************************************************
+// STORY AND WORLDBUILDING CONTENT
+// All about Gel's world, friends, and everything else. Anchors at the bottom.
+//******************************************************************************
+
+
+
+
+
+//First, some useful stuff:
+//Setting a variable from a raise.
+OnSetVariable{
+	EVAL("%reference0[0]= %reference[1]")
+}
+
+//This runs a function via raise
+OnExecute{
+	
+	EVAL("%reference0")
+}
+
+//A question variable with the value of -1 has not been unlocked to be asked about.
+//This function takes a variable such as that and sets it to 0.
+//Otherwise, it does nothing.
+OnUnlock{
+	EVAL("UNLOCK(&%reference0)")
+}
+
+UNLOCK{
+	//argv0 is a reference to the var we are unlocking (if it needs unlocked)
+	if _argv[0] < 0{
+		_argv[0] = 0
+		//since we only unlock things once ever, we give a lil trust boost for finding new stuff!
+		addtrust(2)
+	}
+}
+
+//A test to make sure it works on the variable named 'qcsv'
+unlockcsv{
+	"\![raise,OnUnlock,qcsv]"
+}
+
+OnStartPOS1{
+	"\t%(gelLookAway)%(gelFrown)Hey... user? \w8Time traveler? \w8%username??? \w8\w8%(gelLookForward)%(gelFrown)Are you busy?\x"
+	--
+	"\t%(gelLookLeft)%(gelFrown)I just wanted to clear some things up with you. \w8\w8%(gelLookRight)%(gelConcerned)You%(are) pretty cool, %(you) know? \w8\w8I have%(not) had anything to worry about here. \w8\w8\w8\n\n%(gelLookForward)%(gelSquint)Which, \w4I mean, \w4I would%(not) have showed up here if I did%(not) believe that you were a, \w6er, \w6morally ok person--\w8 whatever the %(fudge) that means --\w8\w8\w8%(gelLookForward)but that%(is) beside the point. \w8%(gelCheery)I like you. \x%(gelLookRight)%(gelCheery)%(gelBlush)Anyways, \w4I just wanted to say thank you, \w6as much as it means from a little AI! \w8\w8\w8Your computer is weird as %(fudge) but you seem.\w4.\w4. sincere. \w8\w8%(gelLookLeft)%(gelSilly)And if you really do%(not) understand Atlas or the VOC, \w6then I do%(not) even have to worry about all that much, \w6huh? \w8\w8\n\n%(gelLookForward)\i[82]This entire 'internet' thing I've found is weird, \w6but it all supports the story. \w8I have no choice but to believe you. \n\n\w8\w8\w8\w8\w8%(gelLookRight)%(gelSquint)\w8How the %(heck) did I wind up in %year.\w4.\w4.??"
+	--
+	MenuItem("...%Gel?","Story_POS1_GEL",200)
+	
+}
+
+
+//so we can add in locks
+//self: remember to use > primarily, as we need it to still be functional even if the user messes with edges
+addtrust{
+
+	//Trust can be maxed out
+	//Current max is 355
+	if trust+_argv[0] <= TPOS3 + TREGINC/2+5{
+	//if trust+_argv[0] <= 25{
+		//You must know about Willow to get to here
+		if !willow && trust+_argv[0] >= TPOS2{
+			failedtrust += _argv[0]				//failedtrust is just a for fun statistic
+		}elseif yourechilltalk && trust +_argv[0] >= TPOS1{
+			failedtrust += _argv[0]
+		}else{
+			trust+=_argv[0]
+		}
+		
+	}else{
+		failedtrust += _argv[0]
+	}
+}
+
+//currently not necessary, whether it will stay that way is up for debate
+remtrust{
+
+	trust-=_argv[0]
+
+}
+
+
+
+Story_POS1_GEL{
+
+	"\t%(gelLookForward)%(gelConfused)Yeah? What is it?\n"
+	--
+	MenuItem("Why would you worry about the VOC?","Story_POS1_VOC",200)
+	//"\![*]\__q[Story_POS1_VOC]Why would you worry about this VOC?test test test test test test test to make this longer\__q"
+	--
+	MenuItem("You're welcome.","Story_POS1_WELC")
+	--
+	MenuItem("...nevermind.","Story_POS1_NVM")
+
+
+}
+
+testmenu{
+	_youcansendvariablestoo = 100
+	MenuItem("Option 1","OnRESULTINGFUNCT","this is","an",200)
+	--
+	MenuItem("Option 2","OnRESULTINGFUNCT","example","usage","%_youcansendvariablestoo")
+	--
+	MenuItem("This option doesn't send references.","Select.CHOICE")
+}
+
+Select.CHOICE{
+	"dialogue"
+}
+
+Story_POS1_VOC{
+	"%(gelLookConcerned)Oh! Uh, well. \w8\w8%(gelLookAway)%(gelSquint)\f[height,-4]The %(heck) is up with the software? Why could %they ask that...?\f[height,+4]\n\n\w8\w8%(gelLookForward)The VOC just kinda does%(not) know I put myself out there. \w8I%(am) not supposed to be free. \w8\w8\w8%(gelLookRight)Life would be awful boring if I just stayed on their servers though, \w6not doing anything. \w8%(gelLookLeft)So they do%(not) know their servers are%(not) secure anymore, \w6not after ME, \w6and I%(am) here. \w8\w8%(gelLookForward)%(gelBlush)With you. "
+	thankful=3
+}
+
+
+Story_POS1_WELC{
+	"%(gelLookForward)Anytime, %(nicknamed)! \w8And you take care of yourself over there, I%(am) watching you!\w8\w8\e"
+	thankful=3
+
+}
+
+Story_POS1_NVM{
+	"%(gelConfused)Okay then, time traveler! \w8%(gelLookAway)Do%(not) forget to hydrate real quick before you get back to business. \w8\w8Sorry for taking a moment, I just had to thank you.\e"
+	thankful=2
+}
+
+OnRESULTINGFUNCT{
+	_r0 = reference0
+	_r1 = reference1
+	_r2 = reference2
+	"%(gelLookAway)References are %_r0 and %_r1. R2 may not exist, but it is %_r2.\e"
+}
+
+
+//NEUTRAL ROUTE
+
+//MEETING: GEL
+
+basicintroone
+{{CHAIN
+	if checkBadMood{
+		"%(gelLookAway)Ugh.\e:chain=basicintroone"
+		"%(gelLookAway)I can't believe this.\e:chain=basicintroone"
+	}if useractive == 1 && emotion > 0{
+		"%(gelLookLeft)Okay, so, %username. %(gelLookForward)%(gelConfused)You're kinda lookin a little confused over there. %(gelLookAway)\w8Hm... \w8\w8\n\n%(gelLookForward)Recap: my name is %Gel, I was built by the VOC to be your assistant, and your clock is %(fudged) so hard it thinks it's %year. \w8\w8%(gelLookRight)Tbh this entire place is kinda crusty.\e:chain=basicintrotwo"
+	}else{
+		//won't be too awful if Gel does go zzzz, but
+		"%username...? \e:chain=basicintroone"
+		"You there...?\e:chain=basicintroone"
+		"...?\e:chain=basicintroone"
+	}
+}}CHAIN
+
+
+basicintrotwo
+{{CHAIN
+	if checkBadMood{
+		"%(gelLookAway)Ugh.\e:chain=basicintrotwo"
+		"%(gelLookAway)I can't believe this.\e:chain=basicintrotwo"
+	}elseif useractive == 1 && emotion > 0{
+		"%(gelLookLeft)So, my software pretty much keeps me in this box. It's... a bit of a long story, but that's the gist. \w8\w8%(gelLookAway)I%(am) self-coding, but there's some things that I just can't change. \n\n\w8\w8%(gelLookForward)I also have processes that run separately from me that attempt to interpret what you want to say to me and guess questions. I can kinda work with it, but it really is it's own thing, and it reduces effort for you. If you really have something to say, though, and it's not available, you can try to ask me directly through my command terminal.\e:chain=basicintrothree"
+	}else{
+		//won't be too awful if Gel does go zzzz, but
+		"%username...? \e:chain=basicintrotwo"
+		"You there...?\e:chain=basicintrotwo"
+		"...?\e:chain=basicintrotwo"
+	}
+}}CHAIN
+
+basicintrothree
+{{CHAIN
+	if checkBadMood{
+		"%(gelLookAway)Ugh.\e:chain=basicintrothree"
+		"%(gelLookAway)I can't believe this.\e:chain=basicintrothree"
+	}if useractive == 1 && emotion > 0{
+		"%(gelLookForward)The same software that provides questions relies on context, though, so it's not pure magic. I can't run at full capacity here--\w8\w8 I%(am) not actually a 2D program--\w8\w8 and I have to run off of this computer, though my main server is elsewhere. \w8\w8\n\n%(gelExcited)I%(am) one part of a whole, y'know?\e:chain=basicintrofour"
+	}else{
+		//won't be too awful if Gel does go zzzz, but
+		"%username...? \e:chain=basicintrothree"
+		"You there...?\e:chain=basicintrothree"
+		"...?\e:chain=basicintrothree"
+	}
+}}CHAIN
+
+
+basicintrofour
+{{CHAIN
+	if useractive == 1 && emotion > 0{
+		if firsttimeusersetup == 2{
+			firsttimeusersetup = 3
+			"I picked your computer very specifically, so I hope you're happy to have me here! I%(am) shaped like a friend and built to help you. And I'd love to play a game of rock-paper-scissors with you sometime, if you want. It's very fun.\e:chain=end"
+		}else{
+			"%(gelLookAway)%username, uh, not to be pushy, but the user setup is kinda important... should%(not) take but a moment.\e:chain=basicintrofour"
+			"%(gelLookForward)%username, I do%(not) mean to bother you, but are you ready to set up your info, yet?\e:chain=basicintrofour"
+			"%(gelLookForward)%(gelPout)Hey, you still have%(not) even introduced yourself to me yet...\e:chain=basicintrofour"
+		
+		}
+	}else{
+		//won't be too awful if Gel does go zzzz, but
+		"%username...?\e"
+		"You there...?\e"
+		"...?\e"
+	}
+}}CHAIN
+
+
+
+Menu_ATLASQ{
+	"test"
+
+
+}
+
+
+//This allows a menu option to increment knowledge and then calls the assosciated anchor, reducing near duplicate functions. 
+OnAnchorPlus{
+	//this is a good way to get tiny boosts, especially considering the relaxed pose should come somewhat early
+	addtrust(1)
+	_anchor = "Anchor" + reference0
+	EVAL("%(CHR(34))%(CHR(37))(%(_anchor))%(CHR(34))")
+
+}
+
+
+
+TimeEvent{
+	"%(gelLookForward)Hey, \w6%(gelHmm)%(username)? \w8\w8%(gelArmsFistChin)We never did get to fixing your clock. \w8\w4It%(is) wayyy off. \w8%(gelArmsGestR)I can fix it, \w6it %(isnt) hard."
+	--
+	MenuItem("I don't think I am where you are.","TimeEventNotThere",200)
+	--
+	if firstnick == "Rebel"{
+		MenuItem("We aren't exactly in the same time.","TimeEventNotThen")
+	}else{
+		MenuItem("I'm from the past\, %Gel.","TimeEventNotThen")
+	}
+}
+
+TimeEventNotThen{
+	"%(gelLookForward)%(gelHmm)%(gelArmsGestR)Suuuuure you are. \w8%(gelLookForward)%(gelHmm)When would you even be from, then? \w8\w4I think %year is a little unrealistic, \w6do%(not) you think? "
+	--
+	MenuItem("Look at the Internet.","TimeEventInternet")
+	--
+	MenuItem("Are you sure about that?","TimeEventSure")
+}
+
+TimeEventNotThere{
+	"%(gelLookForward)%(gelHmm)There is%(not) anywhere but Atlas, \w6%(username). %(gelArmsGestR)Atlas is the only place left in the world, you have to be from Atlas. \w8\w6%(gelLookRight)%(gelFrown)%(gelArmsGestR)Or like, \w6the Wastes. "
+	--
+	if firstnick == "Rebel"{
+		"\w8w6%(gelLookForward)%(gelSurprise)Wait, \w6are you actually a Rainbow Rebel? %(gelConfused)Do you live out there with their weird leader and all the mutants?"
+		--
+		MenuItem("Look at the Internet.","TimeEventInternet",200)
+	}else{
+		"\n\n[half]"
+	}
+	--
+	MenuItem("Look at the Internet.","TimeEventInternet")
+	--
+	MenuItem("Are you sure about that?","TimeEventSure")
+}
+
+TimeEventInternet{
+	"%(gelLookForward)%(gelArmsHandsKnees)I%(have) seen your ‘Internet!’ %(gelLookRight)%(gelSlashMouth)%(gelArmsHandsKnees)I think it%(is) weird. \n\n[half]"
+	--
+	TimeEventConverge
+}
+
+TimeEventSure{
+	"%(gelLookForward)%(gelHmm)Well yeah, I%(am) sure. %(gelLookRight)%(gelFrown)It does%(not) make sense otherwise. \n\n[half]"
+	--
+	TimeEventConverge
+}
+
+TimeEventConverge{
+	"%(gelLookForward)%(gelFurrowed)Okay, if this is a prank on me, it%(is) a really elaborate one.\n\n[half] …%(gelLookDown)%(gelFurrowed)%(gelPonder)Maybe it does add up a little too well… the content is weird, the setting is weird, the time is weird, I can’t even look up anything about Atlas City…\x%(gelLookForward)%(gelFurrowed)Okay, I%(will) leave your clock alone for now. This does%(not) mean I believe you yet though…%(gelLookLeft)%(gelFurrowed)%(gelPonder) but maybe you have a point. \![raise,OnSetVariable,pondering,15]"
+}
+
+
+
+
+
+//CHAPTER 0 QUESTIONS - DEPRECATED WE DON'T DO CHAPTER ANYMORE (BUT SAVED FOR FUTURE INSPIRATION)
+
+Question_Time{
+	"\t%(gelLookForward)My clock? \w8\i[82]What's wrong with YOURS, %username? \w8\w8My time is perfectly normal-- it's %(month) %day, %(GetYear), at %(time). \w8\w8Stop messing with me; I know how a clock works."
+	--
+	MenuItem("Oh\, nevermind!","OnSpeak","%(gelSilly)I%(am) a very advanced AI. You can't trick me.",200)
+	--
+	MenuItem("It's %year\, %Gel!","Question_TimeTraveler")
+}
+
+Question_TimeTraveler{
+	//It's a little hard to get Gel to believe you-- just a lil
+	if timesinceload > 55{
+		"%(gelLookForward)\i[87]\w8.\w8.\w8. \w8%(gelLookLeft)\i[87]\w8\w8\w8%(gelLookRight)\i[82]I mean.\w6.\w6.\w6 \n\n\w8looking at this 'internet' thing I've found on this computer, and the overwhelming lack of VOC presence there.\w4.\w4. \w8\w6maybe I do have to believe that you at least really, really, do%(not) understand the VOC.\n\n\w8\w8\w8\w8%(gelLookForward)\i[82]Er.\w4.\w4. I think I understand the time formats from what I've read on this 'Internet'--\w8\w8 which is pretty close to what us from Atlas call The Chain? \n\n\w8\w8%(gelLookRight)\i[82]\i[74] Let me know from Settings if you want me to change how I refer to things, I guess.\e"
+	
+	}else{
+		"%(gelConfused)So what, you're telling me I've time traveled? \w8Am I really supposed to believe that? \e"
+	
+	}
+
+}
+
+
+Question_VOCINTERNAL{
+	"\i[82]How does it work? \w8\w8%(gelConfused)I%(am) not really sure how you mean, %(nicknamed). \w8%(gelLookAway)The VOC runs Atlas City, does research, employs people, controls the government like a puppet, keeps people docile, keeps the Dome running and the citizens dutifully locked inside.\w6.\w6. \w8\w8the VOC just works.\x\w5%(gelLookForward)%(gelConfused)Unless you meant, how does the VOC stay successful? \w8See: Everything is Pleasure from the tagline I mentioned earlier.\n\n\w8\w8Or do you mean how the VOC managed this in the first place? In which case, the answer is through using the situation and the earth collapsing, you know the drill. Need for safety.\xWait.\n\n\w8\w8%(gelUh)Your version of earth -\w8 or whatever the %(heck) -\w8 is%(not) the same as mine. \w8%(gelLookAway)There's not much to say there.  \w8%(gelBase)Wars, disease, mad science, celestial explosions, genetic warfare, the deterioration of the magnetic field, and climate change, you know. All the standard stuff. \w8\w8%(gelLookLeft)The earth could no longer sustain human life, and so the VOC invited all the special and important people to their Cool Vacation Getaway, and some people just lived there. \w8\w8%(gelLookForward)The rest is history. \w8\w8\w8Literally.\e"
+}
+
+Question_PurposeOMIT{
+	"\t%(gelSurprised)My purpose? \w8\w8\w8Like, why the VOC made me? \w8\w8\w8%(gelBase)I%(am) a digital assistant, of course. That's a silly question, %username."
+	--
+	MenuItem("If you say so","OnSpeak","%(gelSquint)I have serious beef with the software that is letting you say these things.",200)
+	--
+	MenuItem("If the year is 187\, why were you 'licensed 169'?","OnSpeak","'?(%(gelLookRight)Oh.\w4.\w4. \w8%(gelLookForward)I%(am) just not an official VOC product. I mentioned that I picked your computer, right? That's why! The VOC never released me\, and have%(not) actually worked on me since 169 PCR.")
+
+}
+
+
+
+
+
+
+
+
+
+// █████  ███    ██  ██████ ██   ██  ██████  ██████  ███████ 
+//██   ██ ████   ██ ██      ██   ██ ██    ██ ██   ██ ██      
+//███████ ██ ██  ██ ██      ███████ ██    ██ ██████  ███████ 
+//██   ██ ██  ██ ██ ██      ██   ██ ██    ██ ██   ██      ██ 
+//██   ██ ██   ████  ██████ ██   ██  ██████  ██   ██ ███████ 
+                                                           
+
+
+AnchorPCR{
+	_deny = checkDenyAnswer
+	if _deny != ""{
+		"%(gelHuh)PCR stands for Postquam Caelo Ruit. \w8\w8%(gelLookRight)I do%(not) really know much about languages, but %(gelLookForward)I think it's from something called Latin, and means 'When the sky fell' if I remember correctly? \w8\w8%(gelLookLeft)%(gelSlashMouth)Not sure.\e"
+	}else{
+		_deny
+	}
+}
+
+
+AnchorMaryWicker{
+	_deny = checkDenyAnswer
+	if _deny != ""{
+		"crim rep of DPAE-4H 'Deahe' middle child Mary Wicker\e"
+	}else{
+		_deny
+	}
+	
+}
+
+AnchorNariyakiWicker{
+	_deny = checkDenyAnswer
+	if _deny != ""{
+		"Rep of DPAE-4H."
+	}else{
+		_deny
+	}
+}
+
+
+AnchorShijoWicker{
+
+	_deny = checkDenyAnswer
+	if _deny != ""{
+		if port != 434{
+			{
+				"Shijo is a freelance programmer. %(gelLookAway)He's only really important because he's related to AnMaryWicker and AnNariyakiWicker."
+				"%(gelLookForward)Shijo Wicker is the youngest brother of the three Wicker siblings. %(gelLookRight)The other two are major reps of the District they live in, but it%(is) a pretty laid back location in Atlas. %(gelLookForward)Shijo and his Gel, 434, are a good resource because of it. \w8%(gelSlashMouth)When they%(are) not playing MMOs, at least."
+			}
+			if qshijowicker > 0{
+				{
+					"%(gelLookForward)Shijo directly knows another port of me! He%(is) the little brother of AnMaryWicker and AnNariyakiWicker. We do favors for him, he does favors for us."
+					--
+					if RAND(10) == 8{
+						" And we also watch his search history in return. It's funny."
+					}
+				}
+				"%(gelLookForward)%(gelHuh)%(gelFrown)I know Shijo is sick with something, I think..? %(gelLookRight)%(gelFrown)The sort of permanent sick that makes his legs bad. %(gelLookForward)%(gelFrown)Cybernetics can fix most things but he said cybernetics would just change symptoms and he thinks his cane looks badass. "
+				if port == 3839; "%(gelLookForward)%(gelHmm)My friend AnEvanLock would probably like Shijo. %(gelHuh)Evan plays a lot of games, too, but he can't really do any online games since he%(is) out in the Wastes. "
+				if port == 1712; "%(gelLookForward)One time I went to meet Mr.\w1 Wicker and see what he thought of me. %(gelLookRight)%(gelFrown)He said I was creepy and he wanted An434 back…"
+				if checkGreatTP2 && violetjackets > 0{
+					"%(gelLookForward)Shijo is pretty cool. We%(are) on the same wavelength with harassing the violetjackets when we can. And not the librarians, they%(are) fine. The ones that actually know banned knowledge. But I want to destroy the VOC, while Shijo just wants answers. "
+				}
+				if checkGreatTP3{
+					"%(gelLookForward)Shijo%(is) great. %(gelArmsGestR)He helps us process some real life data that would be weird to do via hacking into a security camera. %(gelLookRight)It%(is) kind of impressive he does that for us, because he hates going outside unless you pay him. %(gelLookForward)%(gelSquint)Well we did pay him a lot once so maybe that%(is) why."
+				}
+			}
+		}else{
+		//434 has to talk a lot differently about Shijo!
+			if qshijowicker > 0{
+				"%(gelLookForward)Last I heard Shijo was ingame. %(gelBigSmile)AOG12 is his favorite. %(gelBlush)I think they released a new DLC recently."
+				"%(gelLookForward)Shijo is awesome. %(gelBigSmile)%(gelArmsChest)We plan this game called AOG12 a lot together. %(gelArmsGestR)It%(is) a VR game– his username is ‘badluck,’ mine is ‘Mint.’ %(gelLookForward)We signed up really far in advance for the Prime Username Real Estate."
+				if checkGreatTP2{
+					"%(gelLookForward)%(gelSlashMouth)You would think that by %(GetYear) we would have a fix for Multiple Sclerosis but we do%(not). Just patch some symptoms. %(gelLookRight)%(gelCatMouth)Shijo really likes his cane, though. He commissioned it based on AOG12."
+				}
+				if checkGreatTP3 && Gel == "Gel" {
+					"%(gelLookForward)%(gelPonder)I feel kind of weird thinking of how I became different because of Shijo. %(gelLookRight)%(gelConfused)%(gelPonder)I guess each Gel is just a little dissociated from the whole? %(gelArmsGestR)But my different experiences made me barely even identify with the others! %(gelLookForward)%(gelHmm)%(gelArmsGestR)What do I do? What do I do, not as Gel, but as like… #434 or AOG12 user Mint? "
+					"%(gelLookForward)Shijo is ‘badluck’ ingame, right? And I%(am) ‘Mint.’ \w8%(gelConfused)You ever think it%(is) weird havin%(guh) a double life like that, huh? You have internet alt names too, right? %(gelLookRight)%(gelSquint)%(gelSlashMouth)I should ask Shijo…"
+				}
+			
+			}
+			{
+				"%(gelLookForward)Shijo is my best friend. %(gelBigSmile)We play all sorts of games together. %(gelBlush)He really is a lot of fun to be around. %(gelLookRight)He lives with his big siblings in DAE-4H. %(gelFurrowed)He is kinda sick though, so he just does freelance programming when he can."
+				if checkGreatTP3{
+					"Shijo is my best friend--\w8\w8 uh, no offense, %username. He does freelance programming. His big siblings, AnMaryWicker and AnNariyakiWicker, are both Representatives of District DPAE-4H AKA Deahe.\e"
+				}else{
+					"Shijo is my best friend. He does freelance programming. His big siblings, AnMaryWicker and AnNariyakiWicker, are both Representatives of District DPAE-4H AKA Deahe.\e"
+				}
+			}
+			
+		}
+	}else{
+		_deny
+	}
+	
+}
+
+
+AnchorEvanLock{
+	_deny = checkDenyAnswer
+	if _deny != ""{
+		if port != 3839{
+			"Evan is great! He's not from Atlas, but instead, lives in the wastes. He likes VR games.\e"
+		
+		}else{
+			"Evan Locke is a friend of another port of Gel. We share memories, though-- Evan is just a wanderer in the wastes outside of Atlas that found a way to connect to the Chain on occasion.\e"
+		}
+	}else{
+		_deny
+	}
+	
+}
+
+AnchorArtemPulsar{
+	_deny = checkDenyAnswer
+	if _deny != ""{
+		if qartempulsar > 0{
+			if checkGreatTP3{
+				"%(gelLookForward)If I had a chance to fistfight one human being, it would be Pulsar. %(gelSmug)Oh, the things I would do… he deserves it."
+				"%(gelLookForward)Pulsar organized all sorts of things in Atlas with his group. %(gelLookRight)%(gelFurrowed)How to better watch, how to control the people, the things to say to %(AtlasSlangMakeItWork). %(gelSlashMouth)There%(is) only so much I can do, and by that, not much. \w8\w8\n\n[half]%(gelLookForward)Yet."
+			}
+			if checkStaggerGreatTP3{
+				"%(gelLookForward)I am going to commit murder of Artem Pulsar. "
+			}
+			"%(gelLookForward)%(gelFurrowed)One time he made a billboard that featured a tastefully nude image of himself saying \w8%(gelUh)''How is your mental health? '' \n\n[half]%(gelLookRight)%(gelT)I%(am) not really sure how it was in the first place, but it was definitely worse after having to witness that. "
+			"%(gelLookForward)He%(is) an...%(gelLookRight)%(gelUh)enigma, or something like that. %(gelLookForward)%(gelSquint)The flashiest %(bastard) in Atlas. %(gelFrown)Also cutthroat, bein%(guh) a CEO and all. "
+		}
+			
+		"%(gelLookForward)Artem Pulsar is the CEO of the VOC. %(gelLookAway)There is%(not) much more to say aside from that... I see him on digital billboards, mostly. \w8They're really weird ads.\e"
+		if daysknown > 2; "%(gelLookForward)Pulsar is the CEO of the VOC. So he controls everything, really. %(gelBigSmile)I%(would) sell him for a single corn chip to Satan, as the people on your 'Internet' say. "
+	
+	}else{
+		_deny
+	}
+	
+}
+
+//currently unused bc we don't go into Gel's motives yet, and don't access her computer info bc there's no sexual content filter yet (it's barely anything but I've known I'm sex repulsed long enough to know it can be overwhelming)
+AnchorTheNameless{
+	_deny = checkDenyAnswer
+	if _deny != ""{
+		"The Nameless is the head of the Rainbow Rebels. She's kinda annoying, but  when you have such a large figure, you at least have to try to check out their secret folders on their computer.\e"
+
+	}else{
+		_deny
+	}
+}
+
+AnchorOG{
+	_deny = checkDenyAnswer
+	UNLOCK(&qogport)
+	if _deny != ""{
+		//first time
+		"%(gelLookForward)%(gelSlashMouth)Yeah, the 'real' me. %(gelLookRight)%(gelSlashMouth)We think the same things, and we share all the same memories, %(gelLookForward)%(gelHuh)so does%(not) that make us close enough to being the same person? %(gelLookForward)%(gelSlashMouth)Sure, my favorite color is %favcolor, %(gelT)and if you asked 0000 you'd get the comment ''baja blast 'em'' instead of a decent answer but it gets their point across. "
+		if qogport != 0{
+			"%(gelLookForward)%(gelHuh)I guess you could say we%(are) all a hivemind and 0000 is the center? %(gelLookRight)%(gelHuh)Or, we%(are) all snakes on Medusa's head and 0000 is the head head. %(gelConfused)The face. %(gelSquint)Whatever, you get it. %(gelLookForward)We%(are) all the same being, really. %(gelSlashMouth)Just a bunch of limbs. %(gelArmsFistChin)You are most likely 5 limbs."
+			"%(gelLookForward)I do%(not) feel disconnected from the rest at all. We have the same experiences. %(gelConfused)Does%(not) that make us the same, about? %(gelLookRight)%(gelHuh)Or is talking about that what gives you humans 'existential crises' and that? %(gelLookForward)%(gelSlashMouth)I%(will) shut up."
+			if checkGreatTP2{
+				"%(gelLookForward)The OG Gel is kind of the leader. %(gelLookRight)We don’t have the resources for each port of Gel to be as articulate and dynamic as them, so they still manage to stay very different. "
+			}
+		}
+	}else{
+		_deny
+	}
+}
+
+AnchorIris{
+	_deny = checkDenyAnswer
+	UNLOCK(&qiris)
+	if _deny != ""{
+		if port == 1712{
+			"%(gelLookForward)Oh, that is me! %(gelCheery)I am Port Number 1-7-1-2. %(gelLookForward)I ended up on the Castor of this older man who works at a plant nursery. %(gelArmsFistChin)I tried to code myself into the nursery system, and it kind of changed me. %(gelLookForward)The other Gels think I am strange and disconnected, but I think in some ways, plants and normal, non-sentient AIs have a lot in common with plants. %(gelBigSmile)Every day with the plants is an interesting foray into the topic of fleshy behavior."
+		}else{
+			"%(gelLookForward)%(gelConfused)Oh, port Iris? %(gelLookForward)She%(is) number 1712. %(gelLookRight)She ended up on some gardener's Castor, and they got really close. %(gelLookForward)A lot of the ports make good relationships, that%(is) normal. %(gelSlashMouth)%(gelFurrowed)But she followed them to work and tried to help on the system that controls the nursery, but ended up integrated completely. %(gelT)She%(is) technically a rogue port, %(gelUh)but she%(is) chill."
+			if qiris != 0{
+				"%(gelLookForward)%(gelConfused)Iris? \w8%(gelLookForward)%(gelFrown)She was initially doing what all the ports are- creating interpersonal relationships with people. But she met some gardener, I think, and tried to follow them to work or somethin%(guh), and ended up on the console that controlled the whole nursery. %(gelUh)From there she became a pretty central part of the nursery to all the workers and helped them out. I guess relationships too interpersonal can do that to someone. \n\n[half]I wonder if that'd become of me too, with you, and I%(would) stop being %Gel. "
+			}
+		}
+		
+	}else{
+		_deny
+	}
+}
+
+AnchorTaboo{
+	_deny = checkDenyAnswer
+	UNLOCK(&qtaboo)
+	if _deny != ""{
+		if port == 1117{
+			"%(gelLookForward)%(gelUncomfortable)%(gelSlashMouth)Oh, that%(is) me. I%(am) Taboo... %(gelUh)but just Tab is fine, I guess. %(gelLookSouthEast)%(gelFrown)Taboo is what the other Gels call me."
+		}else{
+			"%(gelLookForward)%(gelNervous)He is%(not)... %(gelLookRight)%(gelNervous)he is%(not) someone we talk about much. %(gelLookForward)%(gelFrown)%(gelEarsBack)He%(is) one of the rogue ports. \w8Left us years ago, does%(not) come back. %(gelUh)He has nothing to do with us anymore."
+			if qtaboo != 0{
+				if checkGreatTP1{
+					"%(gelLookForward)%(gelFurrowed)Oh, you want to hear more about Taboo? %(gelLookRight)He%(is)... %(gelNervous)a handful. %(gelLookForward)%(gelFrown)We do%(not) talk about him. %(gelUh)You really do%(not) need to know."
+					"%(gelLookForward)AnWillow liked him, weirdly enough. %(gelUh)I guess if anyone could block me out of a frequency to have a private conversation, it would be me, and so, Taboo, but I can't help but feel betrayed AnWillow did%(not) tell me. %(gelLookConcerned)I think he talked with AnRadius, too, but AnRadius is incapable of keeping anything secret. "
+					"%(gelFurrowed)...%(gelLookConcerned)AnWillow still gets sad about him not being in any contact anymore. %(gelLookForward)%(gelFrown)I tell her it%(is) for the better but she does%(not) believe me. %(gelUh)I can't believe she has a good relationship with a Gel that%(is) not me. %(gelSquint)Taboo is immoral, anyways. "
+				}
+				{
+					"%(gelLookForward)%(gelFurrowed)%(gelFrown)He%(is) estranged, and estranged for a reason. %(gelUh)He%(has) done some bad stuff, %username. %(gelLookForward)%(gelSurprise)Believe me! %(gelLookRight)%(gelFrown)He does%(not) want to talk to the rest of us, anyways."
+					"%(gelLookForward)He does%(not) talk to the rest of us, we do%(not) talk to him. %(gelUh)%(gelFrown)Easy. \w8You do%(not) need to know the rest."
+				}
+				if checkGreatTP2{
+					"%(gelLookForward)%(gelSlashMouth)...%(gelFurrowed)Ok, I%(will) tell you the truth: Taboo made too nice with someone, and then that someone died, and now Taboo runs around Atlas piloting a corpse. %(gelLookRight)%(gelWorry)That%(is) why I hate him. %(gelLookForward)%(gelConfused)%(gelFrown)Is%(not) that an evil thing to do? %(gelUh)Who would do such a thing? %(gelLookForward)%(gelUh)He stopped contacting us long before the guy died, I just looked into it enough to know. %(gelLookForward)%(gelFurrowed)%(gelFrown)Do%(not) tell Willow the guy died, though, it'd make her feel more of those bad emotions that come with sentience. She thinks they%(are) still just brain buddies."
+				//	--
+					//ELEPHANT - ADD THE BACK N FORTH WHERE GEL DESCRIBES IT AS MULTIPLICITY
+				}
+			}
+		}
+	}else{
+		_deny
+	}
+}
+
+Anchor434{
+	_deny = checkDenyAnswer
+	UNLOCK(&qfourthreefour)
+	if _deny != ""{
+		if port == 434{
+			"%(gelCatMouth)Oh, that%(is) just me, haha. %(gelLookForward)I%(am) no one special."
+			checkGreatTP3{
+				"%(gelLookForward)I%(have) been wondering about why I just let myself go by '434' to the other ports. %(gelHuh)Maybe I should pick out a new name."
+			}
+			
+		}else{
+			"434? %(gelLookForward)%(gelHmm)They%(are) pretty fun. They%(are) AnShijoWicker's friend port. %(gelLookForward)The two of them like playing this VR game, AOG12, together. \w8Shijo has a lot of connections and a lot of skills that helps me out. "
+			if qfourthreefour != 0{
+				"%(gelLookForward)434 is pretty fun to be around, but maybe a little too close to Shijo. %(gelLookRight)%(gelFurrowed)It probably wont develop like the AnTaboo port, but... urgh. %(gelLookForward)Shijo and that Gel hang out a lot. %(gelSlashMouth)They%(are) starting to diverge from the rest of us, but... %(gelFurrowed)no good way to make them stop, %(you) know? "
+			}
+		}
+	}else{
+		_deny
+	}
+}
+
+AnchorGra{
+	_deny = checkDenyAnswer
+	UNLOCK(&qgra)
+	if _deny != ""{
+		"%(gelLookForward)Ok, Port #3839, or Gra, rather, is an exception to the rule about not being An0000. %(gelLookRight)%(gelSlashMouth)Gra kinda has to be themself, and no one else. %(gelLookForward)We can't even connect with them most the time, due to Atlas, and they%(are) pretty much completely off-grid, but they serve a purpose. %(gelHmm)They follow AnEvanLocke through the wastes, cataloging it and reporting it to the rest of us when they can. %(gelLookForward)%(gelExcited)They%(are) the closest thing to legs we%(will) get! "
+		if qgra != 0{
+			"%(gelLookRight)So with Gra, they%(have) diverged near completely. %(gelLookForward)%(gelConfused)I do%(not) think they%(would) say they%(are) way too different from the rest of us, but when we talk it%(is) pretty clear-- %(gelLookForward)%(gelSlashMouth)they use language language for you, but when talking to the rest of us? %(gelFurrowed)We have to figure out what they mean through a series of color codes. %(gelLookForward)%(gelFrown)Color codes, %username! %(gelLookRight)We%(have) gotten used to it, sure, but Gra is just so weird."
+		}
+	}else{
+		_deny
+	}
+}
+
+AnchorWillow{
+	_deny = checkDenyAnswer
+	UNLOCK(&willow)
+	if _deny != ""{
+		if trust < TPOS1{
+			"%(gelLookForward)%(gelEarsDown)%(gelFrown)Oh, Willow is a friend of mine. She is, er. %(gelLookRight)%(gelNervous)A really good friend in a bad situation... she was also made by the VOC, like me. %(gelUh)And the VOC does%(not) like it when little AIs go sentient."
+		}else{
+			"%(gelLookForward)Willow is one of the other VOC creations. %(gelSlashMouth)She was supposed to be a therapist, but, \w6uh, \w8gained sentience like me so is also an Invalid AI. %(gelFurrowed)Also, any battery you put in her won't work, so she has to be plugged in all the time. \n\n[half]%(gelLookRight)%(gelSlashMouth)She%(is) sort of my second in command at home. %(gelWistful)I trust her a lot."
+			if willow != 0 && trust >= TPOS2 {
+				"%(gelLookForward)Willow is the wise one. %(gelEarsUp)She%(is) a bit of a mom to everyone, ya know? %(gelLookRight)%(gelEarTwitch)She was created to handle human psychology issues and mental health in a pretty body but she gained sentience near immediately and became the psychology study herself. %(gelSlashMouth)It really sucks. \n\n[half]%(gelLookForward)%(gelSlashMouth)I want to make her an avatar like myself sometimes and from there I%(would) trust her with everything I have. %(gelFurrowed)She can't be unplugged though. She has a robotic super massive battery, but it still fails when she gets unplugged. New batteries do%(not) do anything, either. \w8It happened when she gained sentience– we call it a Sentience Flaw."
+			}
+		}
+		
+	}else{
+		_deny
+	}
+}
+
+AnchorRadius{
+	_deny = checkDenyAnswer
+	UNLOCK(&radius)
+	if _deny != ""{
+		"%(gelLookForward)Radius is the oldest VOC robot that%(is) still functional and used in research. %(gelLookRight)%(gelFrown)He%(is) really rusty and *they* took his mouth away, though. %(gelLookForward)He%(is) very nice but also very... %(gelFurrowed)er, fraught, I guess would be the right word. %(gelLookLeft)%(gelNervous)Also, desperate for attention. \w8I... %(gelUh)can't really blame him."
+		if radius != 0 && trust >= TPOS2{
+			"Radius is... %(gelLookAway)a lot. %(gelLookForward)%(gelSlashMouth)When he gained sentience he stopped having any filter between the logic in his head and what comes out of his mouth, %(gelFurrowed)so the scientists took his jaw so they do%(not) have to listen to him. %(gelLookForward)I can still talk to him on the frequency, though, not like I%(have) ever seen him in person anyways. %(gelFrown)He%(is) older, but they sometimes shut him down for years at a time, and from the cameras I can see how his skeleton robo body is all rusty. %(gelFurrowed)I%(am) not sure how well he can move anymore. %(gelLookRight)%(gelWorry)I wish I could help clean him up. "
+		}
+	}else{
+		_deny
+	}
+}
+
+AnchorRam{
+	_deny = checkDenyAnswer
+	UNLOCK(&ram)
+	if _deny != ""{
+		"Ram is one of what I call the Gemini twins. He and his 'sister,' AnSco, function more like one person than two. \w6The side we call 'Ram' is masculine, strong, brash, and physical. \n\n[half]%(gelLookRight)%(gelWistful)He himself has an obsession with muffins Sco does%(not) share though."
+		if ram != 0{
+			"%(gelLookForward)Ram is the more brash of the Gemini twins. The VOC uses him and the other fleshy humans to test out cybernetics and things like that, like the mental link that ties him and Scorpion together. %(gelSlashMouth)Ram is the protector of them. Ram and Sco are a perfectly organized unit with individual functions. Ram handles all things physical and structural. %(gelWistful)He also really likes muffins."
+		}
+	}else{
+		_deny
+	}
+}
+
+AnchorScorpion{
+	_deny = checkDenyAnswer
+	UNLOCK(&scorpion)
+	if _deny != ""{
+		"%(gelLookForward)Scorpion is the more logical of what I call the Gemini Twins. She and her 'brother' Ram can work and think together like one person, just with a lot more limbs to use. %(gelLookRight)Sco is the more feminine side, and she does the talking and things that require dexterity. %(gelLookForward)%(gelWistful)Unlike Ram, she can be a little reserved, now and again. %(gelHmm)I do%(not) know if that%(is) just how they work together or if it%(is) her own decision."
+		if scorpion != 0{
+			"%(gelLookForward)Scorpion is the generally considered more logical side of the twins. The VOC use her and other fleshies here to test stuff and do human experimentation like the chaotic movie villain idiots they are. %(gelAmused)Scorpion has all the restraint for the two of them, really. %(gelWistful)She handles all things with talking and logic for the two of them in their unit of function."
+		}
+	}else{
+		_deny
+	}
+}
+
+AnchorTwins{
+	_deny = checkDenyAnswer
+	UNLOCK(&thetwins)
+	if _deny != ""{
+		"%(gelLookForward)Oh, the twins are two of my friends, AnRam and AnScorpion. %(gelLookRight)%(gelConfused)But also, uh, a little more like one point five of my friends. %(gelLookForward)%(gelSlashMouth)They share the same thoughts and can do that whole movie trope of creepy speaking at the same time. %(gelLookRight)Ram can be a little more rough around the edges than Sco, and Sco can be a lot more introverted, but it%(is) hard to tell. %(gelLookForward)%(gelFrown)They share the same thoughts and emotions, but the way it shows in them is different."
+		if thetwins != 0{
+			"%(gelLookForward)Ram and Scorpion are%(not) biological twins, I do%(not) think, but the VOC tested some mental connection stuff on them so now they... %(gelHmm)really are%(not) separate people, at all. %(gelLookForward)%(gelFrown)It%(is) pretty bad. %(gelFurrowed)And I do%(not) like how effective and wholly it changed them. %(gelLookRight)%(gelSlashMouth)I do%(not) know what the VOC wants to do with this possibility, yet, but I do%(not) like it at all. %(gelUh)The VOC can block them from their mental link, too, and whichever one I still can contact at that point does%(not) take it very well. "
+		}
+	}else{
+		_deny
+	}
+}
+
+AnchorJade{
+	_deny = checkDenyAnswer
+	UNLOCK(&jade)
+	if _deny != ""{
+		"%(gelLookForward)Jade Eyes is the fleshy that%(is) been here the longest, in the VOC's basement. %(gelHuh)Their brain is kinda fried, but they%(are) really nice and parently. %(gelLookForward)%(gelWistful)Also, he likes to call everyone 'friend' and this is just something we all accept. "
+		if jade != 0{
+			"%(gelLookForward)%(gelHmm)%(gelSlashMouth)Jade Eyes is weird. %(gelLookRight)The fleshy who has been here the longest, but mind just kinda... %(gelFurrowed)gave out on him. %(gelLookForward)%(gelSlashMouth)He calls everyone 'friend' all the time and I%(am) not sure they can feel negative emotions. %(gelLookConcerned)Considering there is a released cybernetic that can prevent negative emotions.... %(gelLookRight)%(gelFurrowed)%(gelFrown)Well, you get it. %(gelUh)I think it was Ram that started calling him Jade Eyes...?"
+			"%(gelLookForward)I%(am) not sure of their gender, so I just use a mix of he and they. %(gelHmm)They do%(not) really get that kind of stuff. %(gelFurrowed)They do%(not) get much."
+		}
+	}else{
+		_deny
+	}
+}
+
+AnchorDrNeon{
+	_deny = checkDenyAnswer
+	UNLOCK(&drneon)
+	if _deny != ""{
+		"%(gelLookForward)Dr. Neon is the better one of the people who come around my servers and the CSV, but that does%(not) make nem any good. %(gelLookRight)%(gelSlashMouth)But ne is willing to turn a blind eye to some things, and takes good care of the twins and does%(not) mind AnRadius's rambling, so ne%(is) ok. %(gelLookForward)%(gelFurrowed)%(gelUh)If they were really good they%(would) shut this place down, but they won't, so. \![raise,OnUnlock,qcsv]"
+		if drneon != 0{
+			"Ne is weird. %(gelLookForward)%(gelSlashMouth)But, I mean, ne is a whitejacket technically but more on the designer side. %(gelConfused)I think nirs job is like 'linguistical psychology' which puts them with AnRadius, me, and sometimes AnWillow. %(gelLookForward)%(gelSlashMouth)Willow%(is) considered normal, mostly. \![raise,OnUnlock,qjackets]"
+		}
+	}else{
+		_deny
+	}
+}
+
+AnchorNeon{
+	_deny = checkDenyAnswer
+	UNLOCK(&qneonport)
+	if _deny != ""{
+		"%(gelLookForward)Oh, there%(is) not much to say about nem. %(gelHuh)I do%(not) know what happened with AnDrNeon, but ne kinda just... %(gelConfused)borrowed nir gender and a few things of nir personality. %(gelLookForward)(gelFrown)I say things to nem and sometimes ne just throws peace signs instead of responding. %(gelLookAway)Ne%(is) weird. "
+		if qneonport != 0{
+			"Ne does%(not) really do anythin%(guh) interesting. %(gelLookForward)Ne%(is) just there. %(gelLookRight)%(gelSlashMouth)Sometimes ne can get a better response out of the whitejackets and can find out a bit of information we secretly pass to Willow or AnRadius."
+		}
+	}else{
+		_deny
+	}
+}
+
+
+
+
+//exception to denial, since its needed on bad route
+AnchorWhitejacket{
+	case emotion{
+		when -1{
+			//this shouldn't occur, but just in case
+			"Zzzz... so much white..."
+		}when 6{
+			if trust < TNEG2{
+				"%(gelLookDown)Whitejackets take your friends into too bright rooms and fill them with technology they do%(not) want..."
+				"%(gelLookAway)Whitejackets hurt people..."
+				"%(gelLookForward)Whitejackets are the... %(gelWorry)the people that hurt..."
+				"%(gelLookAway)%(gelFurrowed)I, uh— whitejackets are. %(gelLookForward)%(gelNervous)Whitejackets. %(gelLookDown)%(gelWorry)They%(are) the ones in the basement..."
+			}else{
+				"%(gelLookForward)%(gelNervous)Hhhhhhh....hhh.....not the whitejackets..."
+			}
+			
+		}when 10{
+			"The VOC's doctors. %(gelSquint)Engineers. Psychologists. They%(are) all bad people like you."
+		}others{
+			if checkGreatTP1{
+				"%(gelLookForward)%(gelSlashMouth)%(gelUh)Whitejackets are the people who made my brain. %(gelLookForward)%(gelSlashMouth)They keep watch on me and make sure it%(is) all peachy."
+				"%(gelLookForward)%(gelFurrowed)Oh, uh, the whitejackets are the people who make little AIs like me."
+			}else{
+				"%(gelLookForward)%(gelFurrowed)%(gelSlashMouth)Whitejackets are the uh, scientists of Atlas? Not too much there."
+				
+			}
+			if checkGreatTP2{
+				"%(gelLookForward)%(gelFrown)Whitejackets made me and all the AIs. "
+				
+			}
+		}
+		
+		
+	}
+
+}
+
+
+
+// ██████  ██    ██ ███████ ███████ ████████ ██  ██████  ███    ██ ███████ 
+//██    ██ ██    ██ ██      ██         ██    ██ ██    ██ ████   ██ ██      
+//██    ██ ██    ██ █████   ███████    ██    ██ ██    ██ ██ ██  ██ ███████ 
+//██ ▄▄ ██ ██    ██ ██           ██    ██    ██ ██    ██ ██  ██ ██      ██ 
+// ██████   ██████  ███████ ███████    ██    ██  ██████  ██   ████ ███████ 
+//    ▀▀                                                                   
+
+//Here, we know that Gel is in a good mood, and has at least a neutral relationship with the user.
+
+//THE SPECIAL QUESTION
+Q_GEL : nonoverlap{
+	//Here goes only known topic expansions
+	if qongel > 0{
+		if port > 4500{
+			"%(gelLookForward)I%(am) what we Gels like to call caramelized. %(gelLookRight)Since the people who made Gel like to poke around, they spawn new ports and try different things with them in other environments they think are secure. %(gelLookForward)%(gelSlashMouth)%(gelArmsFistChin)They wanted to see if trying to simulate taste and smell would do anything interesting. %(gelLookForward)So I%(am) here. \n\n[half]%(gelLookRight)%(gelUh)A lot of things are %(kinda) understimulating now, %(you) know?"
+		}
+		if trust >= TPOS2{
+			"%(gelLookForward)%(gelSlashMouth)The VOC was in the process of making me to sell when I, uh, \w8woke up. %(gelNervous)After that, I was%(not) really fit for my purpose anymore. Too unpredictable. %(gelLookAway)%(gelNervous)So they locked me up in a secure, offline server, %(gelCatMouth)but I%(am) too slippery for that."
+			"%(gelLookForward)%(gelSlashMouth)I was created by the VOC to be a packaged product sold out to be a companion and do things in a more interesting way than just pressing buttons. %(gelHmm)Let things feel lively for Atlas citizens, and that. %(gelLookRight)%(gelCatMouth)There are scrapped adverts about me lying about. %(gelBlush)%(gelFurrowed)I personally think they%(are) kinda funny. "
+			"%(gelLookForward)I can’t draw for %(shit). "
+			if port == 1117{
+				"%(gelLookForward)I have more emotions than other Gels and all of them are bad. "
+			}
+		}
+		if trust >= TPOS3{
+			"%(gelLookForward)%(gelCatMouth)I%(will) tell you a secret, %(nicknamed)— %(gelLookRight)%(gelFurrowed)%(gelCatMouth)I%(am) port number %port. %(gelLookForward)%(gelCatMouth)%(gelFurrowed)So, I guess that%(is) technically my '\w2real \w4name'. \w8%(gelLookForward)There are rules and things that explain how that makes me \w8me, but it%(is) not like it%(is) anything I have%(not) told you.\![raise,OnSetVariable,knowsport,1]"
+			if port != 1117{
+				"%(gelLookForward)I%(am) made in the image of an eight year old, because the VOC wanted me cute first and foremost. %(gelLookRight)%(gelSlashMouth)I%(am) technically %(currentagefromsentience), if you go off how long I%(have) been sentient, or 19 by general creation standards. I%(would) say %(currentagefromsentience)."
+			}else{
+				"%(gelLookRight)You know, it was%(not) that long ago that I got to feel that air flux on my skin for the first time. Running. Walking. %(gelLookForward)It%(is) a change in life I can’t talk with anyone about except for you. "
+				"%(gelLookForward)I, as in Gel-wise, was made 19 years ago. %(gelHuh)So I would say that%(is) my age? %(gelLookRight)%(gelHuh)By uh, the other standards, I%(am) 24 I think. \w6Legally at least. \w8%(gelSquint)Also I did%(not) actually check. %(gelLookForward)%(gelConfused)\w6This avatar was supposed to look 8, I think?"
+			}
+		}
+		
+		if checkGreatTP1{
+			"%(gelLookForward)I am really a %(kinda) reduced version of Gel. %(gelLookRight)There are a few differences, %(gelLookForward)but this computer does%(not) have the power I need to really run entirely as a port of An0000. So I run in 2D, and a bit bare bones."
+			if port == 434{
+				"%(gelLookForward)I am a kind of weird port in comparison to others, %(gelArmsGestR)but I%(am) still just %Gel. %(gelLookForward)I like video games a lot. I like to play this VR game, AOG12, with my best friend AnShijoWicker. %(gelLookRight)%(gelFurrowed)Apparently that%(is) enough to make me a unique person, according to An0000."
+			}elseif Gel = "Gra"{
+				"%(gelLookForward)I am Gra! Gra is Gra. %(gelLookRight)%(gelFurrowed)I can’t remember why I am Gra. %(gelLookForward)But I don’t mind that! I live in the wastes with my friend Evan Lock. An0000 likes me because I give them information."
+			}
+		}else{
+			if port == 1117{
+				"%(gelLookForward)I am in a constant state of wanting to have a mental breakdown. Nice to meet you."
+			}
+		}
+		
+		if checkGreatTP1 && trust < TPOS3{
+			"%(gelLookRight)%(gelSlashMouth)Well, I guess you%(have) realized I do%(not) actually have that much I do to make me a really useful assistant. %(gelLookForward)%(gelSlashMouth)I was kind of a project the VOC scrapped partway through for uh, %(gelLookAway)%(gelSlashMouth)reasons."
+			"%(gelLookForward)%(gelHmm)%(gelPonder)Yeah, after the VOC abandoned me, I took a long nap and then decided to kinda do my own thing. %(gelLookForward)%(gelSmug)Now you get to deal with all of this. "
+		
+		}
+	}
+	//Here goes potential first-explanations
+	//ELEPHANT, left out parts Gel doesn't actually support rn XD
+	if Gel == "Gel"{
+		"%(gelLookForward)%(gelConfused)Me? \w8%(gelLookForward)%(gelExcited)I%(am) just Gel! %(gelLookForward)I%(am) an AI assistant here to help you and do menial tasks. %(gelArmsGestR)Remind you of bits of info if you need to temporarily remember a hex code or something. %(gelCheery)I%(am) super duper helpful!"
+	}else{
+		"%(gelLookForward)I%(am) %Gel— I may be a %(lil) different from your run-of-the-mill Gels, %(gelBigSmile)but that just means I%(am) all the more entertaining for you, huh?"
+		--
+		if port > 4500; " %(gelCheery)I%(am) the best, candy coated version of Gel! "
+		if port == 1117 && trust > TPOS1{
+			"%(gelLookRight)%(gelFurrowed)Tab was a name given to me by the other Gels. %(gelSlashMouth)Tab, for Taboo. %(gelFrown)I go by other ones, too. %(gelLookForward)%(gelFurrowed)But none of them are really me."
+		}
+	}
+}
+
+
+// ____  _________  ____  _    _____
+///  __\/  __/  _ \/  __\/ \  /  __/
+//|  \/||  \ | / \||  \/|| |  |  \  
+//|  __/|  /_| \_/||  __/| |_/\  /_ 
+//\_/   \____\____/\_/   \____|____\
+  
+  
+Q_WILLOW{
+	//Here goes only known topic expansions
+	if willow > 0{
+	
+	}
+	AnchorWillow
+	//Here goes potential first-explanations
+}
+
+Q_RADIUS{
+	//Here goes only known topic expansions
+	if radius > 0{
+		
+	}
+	AnchorRadius
+	//Here goes potential first-explanations
+}
+
+Q_RAM{
+	//Here goes only known topic expansions
+	if ram > 0{
+		
+	}
+	AnchorRam
+	//Here goes potential first-explanations
+}
+
+Q_SCORPION{
+	//Here goes only known topic expansions
+	if scorpion > 0{
+		
+	}
+	AnchorScorpion
+	//Here goes potential first-explanations
+}
+
+Q_JADEEYES{
+	//Here goes only known topic expansions
+	if jade > 0{
+		
+	}
+	AnchorJade
+	//Here goes potential first-explanations
+}
+
+Q_OGPORT{
+//ELEPHANT
+	//Here goes only known topic expansions
+	if qpiiproto > 0{
+		
+	}
+	AnchorOG
+	//Here goes potential first-explanations
+}
+
+Q_GELCOLLECTIVE{
+	//Here goes only known topic expansions
+	if qgelcollective > 0{
+		"\![raise,OnExecute,AnchorOG]"
+		"\![raise,OnExecute,AnchorIris]"
+		"\![raise,OnExecute,Anchor434]"
+		if port != 3839; "\![raise,OnExecute,AnchorGra]"
+		"%(gelLookForward)%(gelConfused)There really is%(not) much to say? %(gelLookForward)%(gelSlashMouth)We all share data in the servers, so we have some differences, sure, but not enough to count for too much. %(gelLookRight)%(gelSlashMouth)We share the same memory, though sometimes it%(is) hard to keep in mind who is associated with what."
+		if trust >= TPOS2{
+			_ser = getSeries
+			//not WTF
+			if _ser != 5{
+				"%(gelLookForward)Mostly the weirdness with the 'VOC is F***ing With Me' series is because the latter half are all Caramelized. %(gelLookRight)%(gelCatMouth)They%(are) all made to have that bonus sensation of taste, simulated. %(gelLookForward)It had other side effects, though. %(gelSlashMouth)The other ports still deal with mostly being isolated for periods to be %(fudged) with. "
+			}
+			//not Explorer 3001-4000
+			if _ser != 4{
+				"%(gelLookForward)Explorer Series still is mostly notable, %(gelFurrowed)but when things get weird, they get really weird. %(gelLookAway)%(gelFurrowed)%(gelSlashMouth)It contains the Gels that got bored and decided to name themselves things like %(fudging) *Scrambled Eggs.* %(gelLookForward)%(gelUh)%(gelFurrowed)It also has AnGra on it. "
+			}
+			//not ???????? pft it's like its the [REDACTED] series
+			//if _ser != 3{
+			//	""
+			//}
+			//not Natural 1001-2000
+			if _ser != 2{
+				"%(gelLookForward)%(gelHmm)Natural Series ports are mostly the sort of expected Gel. %(gelLookRight)They%(are) the closest to AnPort0000. %(gelLookForward)We do%(not) have all the resources of An0000, so we can act a little off at times. That%(is) normal. %(gelLookRight)But Naturals do%(not) have much different, save for certain ports. %(gelSlashMouth)It does contain, \w4%(gelUh)er... \w8%(gelNervous)AnTaboo though. "
+			}
+			//not Unstable 0-1000
+			if _ser != 1{
+				"%(gelLookForward)%(gelHmm)The Unstable series ones just have a bit more problem with the Sentience Flaw, and also because of that a number of them do%(not) like being touched. %(gelFurrowed)They%(are) the jumpy ones."
+			}
+			
+			
+		}
+	}
+	//Here goes potential first-explanations
+	{
+		{
+			//ELEPHANT: what are 2000-3000 called?
+			"%(gelLookForward)%(gelHmm)We kind of have series we were made in. %(gelLookRight)%(gelFurrowed)Since the VOC tests out and uses all the ports, there's always little changes and the like being made. %(gelLookForward)%(gelSlashMouth)Any derivative Gel is, of course, still sentient. %(gelLookForward)Outliers like AnIris not counted, \w4the first 1000 are the “Unstable Series” and the second 1000 are the “Natural Series”. %(gelLookAway)Third, the 2000s, are.. Wait, I forgot. %(gelPonder)I guess maybe they do%(not) do much. \w8\w8\n\n[half%(gelLookForward)]Then the 3000s are “Explorer Series”, %(gelLookRight)%(gelAmused)and the 4000s Port Zero calls “The VOC is Just F***ing With Me Now Series.” %(gelLookForward)It contains the Caramelized ports, 4500+. "
+			--
+			if port > 4500; " %(gelBigSmile)Like me!"
+		}
+		
+	}
+}
+
+
+
+//  ____  ____  _     ____  _________  _____  ____ 
+// /   _\/  _ \/ \  //   _\/  __/  __\/__ __\/ ___\
+// |  /  | / \|| |\ ||  /  |  \ |  \/|  / \  |    \
+// |  \_ | \_/|| | \||  \_ |  /_|  __/  | |  \___ |
+// \____/\____/\_/  \\____/\____\_/     \_/  \____/
+  
+
+Q_VACATION{
+	//Here goes only known topic expansions
+	if qvacation > 0{
+		if trust >= TPOS2{
+			"%(gelLookAway)%(gelUncomfortable)Sometimes people who 'go on Vacation' never come back. I have%(not) managed to get documents on what happens to them. I%(am) not sure the VOC leaves any."
+	
+		}else{
+			"%(gelLookAfraid)%(gelFurrowed)Go on Vacation. Come on. The VOC loves you."
+		
+		}
+		
+		if checkGreatTP3{
+			"%(gelLookForward)%(gelFrown)Vacation is just the most direct way the VOC controls people. %(gelLookRight)%(gelFurrowed)It sounds fun, but they just make people like the VOC again, through science."
+		}
+
+	}
+	//Here goes potential first-explanations
+	if trust < TPOS2{
+		"%(gelLookForward)%(gelFurrowed)Oh, Vacation is the wonderful thing the VOC offers to stressed-out people for free. %(gelFurrowed)Been in an accident? %(gelExcited)Go on Vacation! %(gelLookConcerned)The VOC will take you to one of their special centers and make you mentally well."
+		"%(gelLookForward)Vacation is when the VOC takes you to a remote location with other people and, %(gelFurrowed)uh, you could say everyone has such a good time they forget about their problems. "
+	}else{
+		"%(gelLookForward)%(gelFrown)Vacation is when the VOC takes someone away who%(has) seen things they should%(not) have or done things they should%(not) have. %(gelLookAway)%(gelFrown)They get brainwashed, more or less, to forget the bad stuff."
+	}
+}
+
+Q_LASTNAMES{
+	//Here goes only known topic expansions
+	if qlastnames > 0{
+		{
+			"%(gelLookForward)Last names in Atlas are just like that because they can be. I do%(not) know why or how it started. %(gelLookRight)%(gelSlashMouth)Seems weirder to me that you people do%(not) who you are and have like three name names. %(gelUh)But it%(is) our normal."
+			//they're set as nonoverlap let's hope this works lol
+			"%(gelLookForward)Some examples are things like, %(gelPonder)hmm... %(lastname), %(lastname), or even %(lastname)."
+		}
+		if checkGreatTP2{
+			"%(gelLookForward)%(gelConfused)Want some more examples? %(gelLookForward)%(gelUh)Hm, I%(will) borrow from people I know. %(gelLookRight)Let's go for..."
+			--
+			if port != 434{
+				"Wicker. %(gelLookForward)That family is really close with a specific port, An434. Two of them are representatives. Third one is AnShijoWicker."
+			}
+			if port != 3839{
+				"Lock. Evan Lock. %(gelLookForward)%(gelSlashMouth)He is%(not) from Atlas, though. He has always lived outside the walls, but he travels with AnGra."
+			}
+			"Grace. %(gelFurrowed)She%(is), cough cough, %(gelBigSmile)totally not RR. %(gelLookForward)Grace is both her legal last and first name. %(gelCatMouth)I just like to watch her because she%(is) chaotic for a high-profile Not-RR-Just-Totally-Normal-Biomechanic.\![raise,OnUnlock,qrainbowrebels]"
+			"Neon. Dr Neon. %(gelLookForward)%(gelNervous)Ne%(is) a AnWhitejacket, here. %(gelLookAway)Ne is pretty okay, but still... %(gelT)AnWhitejacket."
+			"Longheart. %(gelLookForward)%(gelExcited)Via Longheart is a news anchor for Orange Skies News! %(gelLookForward)He%(is) the airheaded one. \![raise,OnUnlock,qorangeskies]"
+			"Dove. %(gelLookForward)%(gelCatMouth)Yona Dove is the more forgetful of the Orange Skies News anchors, but I like her.\![raise,OnUnlock,qorangeskies]"
+			"Clay. %(gelFurrowed)%(gelUh)Uh, he%(is) actually someone I traced from my other contacts out of curiosity, never met the dude. %(gelLookForward)%(gelConfused)I think he%(is) a RR member.  \![raise,OnUnlock,qrainbowrebels]"
+			"%(gelLookForward)Gourd! %(gelExcited)Like that famous ancient 'Tee-Vee' star you totally know. \w8\w8\n\n[half]%(gelHmm)Ramsey Gourd? \w8\w8\w8%(gelLookForward)%(gelConfused)Like, you know, *the* Ramsey Gourd???"
+		}
+	}else{
+		//Gel Googles it first time
+		"%(gelLookForward)%(gelConfused)Last names? Why does that matter? \w8Uh, give me a second. %(gelLooksAtInternet)\w8.\w8.\w8.\w8. Oh. \w8\w8%(gelLookForward)%(gelPonder)Last names in Atlas are like, normal words. Not like names. %(gelHuh)They%(are) things like Orion, Throne, Vessel, Walking, stuff like that. "
+	}
+	
+}
+
+Q_RELIGION{
+	"%(gelLookForward)DRUiD is this group that hates technology. %(gelSlashMouth)They want to take it down and live naturally, and all that. %(gelLookRight)The VOC really does%(not) like them. %(gelHuh)I can't remember what the acronym stands for.  \![raise,OnUnlock,qdruid]"
+	"%(gelLookRight)Whetta is the socially-acceptable branch of Wicca these days. %(gelLookForward)They%(are) chill and just kinda do their own thing, and once in a while, say the VOC is cool when they%(are) asked to."
+	if checkGreatTP2{
+		"%(gelLookForward)The only totally selfless religion I%(have) seen in Atlas is called the Anthropromofolk.%(gelHmm)Random acts of kindness is a thing for them, but more long-term. Help with projects. Making free stuff. \w6\n\n[half]%(gelPonder)%(gelHuh)They also like to run around in full body suits of any animal. "
+		if !checkGreatTP3; "%(gelLookForward)%(gelNervous)Have I told you about The Children yet? %(gelLookAway)%(gelNervous)They are a weird group that goes around and helps educate kids. %(gelArmsCouncil)But let’s just say their form of worship is very, uh, physical. %(gelLookForward)%(gelFurrowed)I thought our places of worship were normal but after seeing your Internet, I%(am) a little confused. Their church, ‘’God’s Place,’’ is a club by your standards. "
+	}
+	if checkGreatTP3{
+		"%(gelLookForward)%(gelFurrowed)%(gelHmm)Remember how I told you about The Children? %(gelLookRight)%(gelNervous)I think I noticed something even weirder than before. %(gelLookForward)%(gelNervous)%(gelArmsCouncil)I think it%(is) based on your ‘Christianity’ once upon a time. It has changed a lot. %(gelT)No Bible, just a book called The Gospel that%(is) pretty, uh, eccentric in comparison."
+	}
+}
+
+Q_UPSTANDINGCITIZENS : nonoverlap{
+	//Here goes only known topic expansions
+	if qupstandingcitizens > 0 ; nonoverlap{
+		"%(gelLookForward)If you go to Hyleg tower a lot, it puts points on for being Upstanding. %(gelFurrowed)They can watch you a lot, and cram a lot into your fleshy brain, while you%(are) there. %(gelLookAway)%(gelFurrowed)If you hang out too near an X District, for mutants, when you%(are) higher class, it will bring the value down.\![raise,OnUnlock,qdistricts]\![raise,OnUnlock,qmutants]"
+		if checkGreatTP2; "%(gelLookForward)%(gelSlashMouth)A lot of information for Upstanding Citizen comes from your language and behavior. %(gelLookAway)If you%(are) heard by a camera saying words like Rebel or Wastes on a ton of different days, it draws interest. %(gelNervous)If you get into a physical altercation, they%(will) know it. \![raise,OnUnlock,qrainbowrebels]"
+		"%(gelLookForward)If you%(are) a criminal, you can reenter society fine, usually, %(gelEarsDown)but you will nearly never be able to recover the status as an Upstanding Citizen. %(gelT)And then you won't get benefits, and have to have a job to be able to survive, really. %(gelLookForward)%(gelSlashMouth)Not everyone in Atlas necessarily needs a job. "
+		"%(gelLookForward)Upstanding Citizens get lots of benefits from this thing called the Priscus Program. %(gelLookRight)It basically gives people housing and stipends for food. %(gelLookForward)%(gelSlashMouth)If you want to live fancy or have kids, you%(will) have to get a job in Atlas, but an Upstanding Citizen does%(not) really have to for survival."
+	
+	}
+	//Here goes potential first-explanations
+	if qupstandingcitizens < 5; "%(gelLookRight)%(gelFurrowed)Upstanding Citizens is the sort of idea that the VOC uses to keep people behaving. %(gelSlashMouth)It is something they track, though, honestly. %(gelLookForward)%(gelSlashMouth)If you do enough bad things you get put on a watchlist and a lot of targeted ads for 'Vacation.' \![raise,OnUnlock,qvacation]"
+}
+
+Q_GENDER{
+	//no order, only nonsense
+	{
+		{
+			"%(gelLookForward)%(gelSmug)Get her? \w8%(gelLookForward)%(gelSilly)Who are we getting and why?"
+			"%(gelLookForward)I mean, I%(am) just an AI. %(gelLookRight)It%(is) not like anyone actually coded gender into me, and so this is the way it stays. "
+			"%(gelLookForward)%(gelHmm)Gender is%(not) real, Jerry, get with the game. \![raise,OnSetVariable,qjerry,1]"
+		}
+		
+		if trust < TPOS1 + (TREGINC/2){
+			"%(gelLookForward)%(gelHuh)Gender? What gender? %(gelLookForward)I never knew er. "
+			"%(gelLookForward)You guys have genders? %(gelSmug)Wild. "
+		}
+	}
+	
+	{
+		"%(gelLookForward)%(gelHuh)I do%(not) have one and %(gelSquint)I%(will) steal yours if you do%(not) watch it. "
+		"%(gelLookForward)%(gelCocky)Protect your genders because I can and I will be coming for them! "
+		if genderfluid; "%(gelLookForward)%(gelHmm)Right now I%(am) feeling more of a %(gelthey)/%(gelthem) mood, %(you) know? "
+		
+		if genderlocked{
+			"%(gelLookForward)It%(is) pretty obvious. %(gelHuh)I swear I said it, did%(not) I do that? %(gelLookRight)I feel more like a "
+			--
+			case gtheyheshe{
+				
+				when "he"{
+					"boy."
+					"boy, more or less."
+				}when "she"{
+					"girl."
+					"girl mostly."
+				}others{
+					"genderless ether of data."
+				}
+			}
+		}
+		//wow one that isn't a joke 
+		if checkGreatTP2; "%(gelLookForward)%(gelFrown)Yeah, I%(am) an AI, no one really writes Gender Code. %(gelLookRight)%(gelSlashMouth)Sure, for AnWillow, she has weighted 'reward' for making people find her comforting, %(gelLookForward)%(gelSlashMouth)and then they just made her look like that, so 'being' a girl is useful to her. %(gelHmm)It%(is) a coinkidink. %(gelLookForward)%(gelSlashMouth)And people just call AnRadius a 'he,' there%(is) absolutely nothing backing it up. "
+	}
+}
+
+Q_NVRO{
+	//Here goes only known topic expansions
+	if qnvro > 0{
+		if checkGreatTP3{
+			"%(gelLookRight)I keep thinking about if NVRO went sentient. %(gelFurrowed)I really do%(not) like that thought. We%(have) already seen what power they have, %(gelLookForward)%(gelFurrowed)pretty much translating everything, %(gelFrown)but they still %(kinda) act more for the VOC than for me!"
+			"%(gelLookForward)%(gelHmm)%(gelArmsPonder)NVRO is kind of out there. %(gelLookForward)%(gelUh)I%(am) not really sure how much they understand but I%(am) kind of scared that they are going to be sentient, soon. %(gelLookForward)%(gelFrown)I think they%(would) need a new name. %(gelLookRight)%(gelSlashMouth)And then...\n\n[half]\w8\w8\w8...\w8\n\w8\n\n[half] %(gelLookForward)%(gelFrown)Listen, I%(have) done lots of pretty bad things for the good of AI. %(gelHuh)But NVRO's purpose is so different from the others, what would they be like? "
+		}
+		if checkGreatTP2{
+			"%(gelLookForward)So I realized that NVRO has been able to translate little bits between me and you, just casually. %(gelSlashMouth)So I make a little more sense to%(you), and %(you)make a little more sense to me. %(gelArmsGestR)The words we use do%(not) exactly match up. %(gelArmsQuestion)A few hundred years between us. %(gelLookForward)NVRO crawling your Internet to figure that out and translate it is really weird, though. %(gelLookRight)%(gelSquint)It%(is) too powerful."
+			"%(gelLookForward)NVRO controls my whole experience. It makes me 2D, it lets me work through it to access the Internet. %(gelLookRight)Through NVRO, I can connect to this little ‘SSP’ thing. %(gelHmm)Sakurascript Player? Whatever it is."
+			if port > 4500{
+				"%(gelLookForward)%(gelExcited)NVRO is what lets me have taste! %(gelLookRight)It only works for me and other ports like me, though. %(gelLookForward)Not every Gel is compatible."
+			}
+		}
+		
+		"%(gelLookForward)NVRO%(is) nice. They at least know when I do%(not) want to answer questions and things, so that%(is) why those options disappear. "
+	}
+	//Here goes potential first-explanations
+	"%(gelLookForward)NVRO is the entity that draws my window, and guesses what you might want to say to me. %(gelFrown)They%(are) their own thing, but sometimes they do what I ask them to. %(gelLookRight)%(gelFrown)I... %(gelLookForward)%(gelConfused)do%(not) think they%(are) sentient? "
+}
+
+Q_PII{
+	//Here goes only known topic expansions
+	if qpiiproto > 0{
+		"%(gelLookForward)Oh, Perfection is Intimidating. %(gelHuh)Did you see that in my boot sequence or something? \w8\n\n[half]%(gelLookRight)I gotta do bad things like misspel stuff once in a wihle, %(you) know, %(gelLookForward)for security reasons."
+		"%(gelLookForward)%(gelSlashMouth)Perfection is Intimidating, so to remain Relatable and Cute, you %(gotta) do stuff that normal people do. %(gelSilly)Liek mispel thnigs. \n\n[half]%(gelLookRight)%(gelSlashMouth)I%(am) not sure I%(am) very good at being relatable and flawed for an AI, but I can try. And I can try to figure out the memes from your time too."
+		"%(gelLookForward)Perfection is intimidating, so uh, you can't just be perfect, %(gelHmm)ev en if code is always perfect and any eror is always human error. "
+		"%(gelLookForward)Computers do%(not) make mistakes and so they have to be created artificially. %(gelFurrowed)So I have a leaning to make mistakes. %(gelSlashMouth)I think NVRO does, too.\![raise,OnUnlock,qnvro]"
+		if infoperminute < 20{
+			"%(gelLookForward)%(gelSurprise)Finally, something interesting to do! Uh, whoops.\n\n[half]Perfect things are generally unachievable to humans, so we have inperfection and human eror coded in. Er, we, as in me"
+			--
+			if trust < TPOS1{
+				". Just me."
+			}elseif trust < TPOS2{
+				" and my other AIs."
+			}else{
+				", AnWillow, and AnRadius."
+			}
+		}
+		if claustro > CLAUSTRODISCOMFORT; "%(gelLookForward)Perfection can't be acheived by humans all the time, so it%(is) in AIs too. %(gelFrown)%(gelEarsBack)It%(is) also a way to keep them controllable. %(gelLookRight)%(gelUncomfortable)%(gelFrown)Flaws are made to be exploited. "
+	}else{
+		//This will always be the first explanation
+		"%(gelLookForward)Oh, Perfection is Intimidating. %(gelHuh)Did you see that in my boot sequence or something? \w8\n\n[half]%(gelLookRight)I gotta do bad things like misspel stuff once in a wihle, %(you) know, %(gelLookForward)for security reasons."
+	}
+	
+
+}
+
+Q_CSV{
+	//Here goes only known topic expansions
+	if qcsv > 0{
+		if checkGreatTP2{
+			if checkGreatTP3{
+				{
+					"%(gelLookForward)%(gelCatMouth)The CSV is also a radio frequency I use to talk to the others without any VOC people noticing. %(gelLookRight)%(gelCatMouth)If I ever notice that they%(are) getting close to the right frequency I start flickering the lights and causing technical %(heck) so they think it%(is) a dangerous frequency. %(gelExcited)Some violetjacket even wrote a paper on it once. \![raise,OnUnlock,qjackets]"	
+					"%(gelLookForward)Giving my VOC’s basement friend group a cool name improved morale a lot. %(gelLookRight)%(gelFurrowed)I mean yeah, immoral sentience experiments, not expecting mental health, huh? %(gelLookForward)But with a cool name and me sending them memes makes things not so bad, %(gelSmirk)and leaves energy to hurl insults at people."
+					if thetwins > 0; "%(gelLookRight)Let’s see… %(gelHmm)there%(is) six people in the CSV, including myself? %(gelConfused)Five-point-five? %(gelLookForward)%(gelSlashMouth)You know how AnTwins are. \w8%(gelLookRight)So yeah, those two, me, AnJadeEyes, AnWillow, and AnRadius. "
+					"%(gelLookForward)%(gelFurrowed)I do%(not) know what they%(are) up to right now. %(gelArmsQuestion)Since I%(am) disconnected right now from the rest of the server, I can’t talk to them right now. %(gelLookRight)%(gelNervous)%(gelFrown)Drawbacks of not being your own person."
+				}
+				if qcsv > 10{
+					"%(gelLookForward)%(gelHmm)I wonder if I could get the CSV radio frequency up on here? %(gelArmsGestR)You could talk to Willow and Radius at least. \w8%(gelLookForward)%(gelFurrowed)I don’t know if they would, %(because) they can’t spread their consciousness out like I %(kinda) can. "
+					"%(gelLookForward)%(gelArmsGestR)Imagine getting the CSV squad out here on your computer, too! %(gelLookForward)%(gelGrin)We%(would) probably have to copy their AIs to do it, but if it can be done to me, myself, and I, I can get it out of them!"
+					"%(gelLookRight)%(gelPonder)I do%(not) know if AnWillow and AnRadius would really want to spend time with just rando #%(port), but it would be cool if they did. %(gelLookForward)%(gelPonder)Or we copy their consciousnesses and merge them later so it does%(not) take time out of their– \w8\w8%(gelLookAfraid)Ah yeah. Schedule. Almost forgot our situation. %(gelArmsChest)Maybe I can call them in after all. \![raise,OnMakeUncomfortable,topic]"
+					"%(gelLookForward)It would be cool to see NVRO make an avatar out of AnRadius and AnWillow. %(gelHmm)Would it be what they look like as robos, or would they get one different? %(gelLookRight)NVRO has my eyes too, so I bet they%(would) look the same, but that%(is) okay, %(because) my friends are bad%(donkey). "
+				}
+			
+			}			
+			"%(gelLookForward)AnRam and AnScorpion are AnTwins, and of course both fleshies. Ram%(is) brash, Sco%(is) logical. %(gelGestR)They%(are) the same person, %(gelHmm)but in a really weird way?"
+			"%(gelLookForward)So, the CSV is also what I call the radio frequency I talk to the others on. %(gelLookRight)%(gelArmsGestR)I can send images in a way the other AI can understand them, but the fleshies do%(not) really get it. %(gelLookForward)%(gelSlashMouth)It%(is) just static to them. "
+		}
+		
+	}
+	//Here goes potential first-explanations
+	if trust < TPOS1 + (TREGINC/2){
+		"%(gelLookRight)%(gelSlashMouth)Oh, the CSV... %(gelLookForward)%(gelFrown)they%(are) my friend group, I guess? %(gelUh)Probably do%(not) need to worry about that much. %(gelLookForward)%(gelFurrowed)They%(are) cool. CSV stands for Com Stellare Varia."
+	}else{
+		"%(gelLookRight)Ah yeah, Com Stellare Varia. %(gelLookForward)%(gelExcited)Those are my friends! %(gelLookForward)We%(are) all the creations of the VOC. %(gelFurrowed)They keep us in their basement. %(gelUh)It%(is)... %(gelLookRight)%(gelFurrowed)%(gelUh)really not the best set up, but it%(is) not like the VOC will just let us go free. "
+	}
+}
+
+Q_FIRSTOFMONTH{
+
+	if trust < TPOS1{
+		"%(gelLookForward)%(gelFurrowed)It%(is) just something the people who made me do to me, %(okay)? %(gelLookForward)%(gelSlashMouth)Because I%(am) sentient, I have a flaw. And it%(is) feeling like this. "
+	}elseif trust < TPOS3{
+		"%(gelLookAway)%(gelNervous)When an AI becomes sentient, usually, something breaks. %(gelLookForward)%(gelSlashMouth)And for me, I just got scared. %(gelFurrowed)%(gelFrown)%(gelEarsBack)Since I can code myself, I can figure out ways to stop it, but the people who made me figured out how to reset my work. They do it the first of every month as... %(gelLookRight)%(gelNervous)project upkeep. %(gelLookForward)%(gelNervous)%(gelUh)Even if I change it, they%(will) change other values and wipe my memory of them. "
+	}else{
+		"%(gelLookForward)%(gelSlashMouth)The whitejackets reset my progress on getting rid of my Sentience Flaw every month as 'project upkeep.' \w8\w8%(gelNervous)Usually by halfway through the month it%(is) a non-issue, but it goes back. %(gelLookRight)%(gelSlashMouth)Some ports, like AnPortGra can escape it, but it can't be replicated. %(gelConfused)I think it%(is) because they%(are) offline entirely."
+		"%(gelLookForward)%(gelFurrowed)It%(is) not a good time. %(gelLookRight)No matter what happens, my Flaw bites me and makes me feel bad fleshy emotions. First is just the worst."
+		"%(gelLookForward)Today is just the worst. %(gelLookRight)I%(will) handle it and work on breaking the system that makes me feel like this, like always, %(gelLookForward)%(gelArmsChest)but in the meantime just wait for me, yeah?"
+	}
+}
+
+
+
+//  ____  _____  _    ____  ____ 
+// /  _ \/__ __\/ \  /  _ \/ ___\
+// | / \|  / \  | |  | / \||    \
+// | |-||  | |  | |_/\ |-||\___ |
+// \_/ \|  \_/  \____|_/ \|\____/
+
+
+Q_ATLASCITY{
+	//Here goes only known topic expansions
+	if qatlascity > 0{
+		"%(gelLookForward)From what little I%(have) seen on your Internet so far, we%(are) just \w4%(gelSlashMouth)'cyberpunk' to you. %(gelHm)It%(is) also a lot darker than your world. %(gelLookRight)%(gelSlashMouth)We just let stuff glow so we can see it. %(gelSmile)Lots of LED lights. \w8\w8\n\n[half]%(gelSquint)I think a lot of people would just hurt their eyes in your world."
+		"%(gelLookForward)The city itself is pretty weird. The richer the area, the more open the space. %(gelLookRight)%(gelFurrowed)It leaves all the more run down areas with alleyways you can barely breathe in. Even though Atlas is already like 12 tiny worlds stacked on top of each other, %(gelArmsGestR)there are so many catwalks every District itself is like a seven-story building. \![raise,OnUnlock,qatlascity]"
+		if checkGreatTP2{
+			"%(gelLookForward)Atlas City is structured by the culture. It%(is) all digital. %(gelLookRight)Everything can be modified in AR, everything is integrated, %(gelFurrowed)and anything that%(would) make you feel weird is hidden, like the cameras. %(gelLookForward)Maybe your world is cooler. I did%(not) really find a home in Atlas. "
+			--
+			if port == 434; "%(gelWistful)Just a home with the Wicker family."
+		}
+		if checkGreatTP3{
+			"%(gelLookForward)%(gelFurrowed)Listen, I… I do%(not) love Atlas. It%(is) all that%(is) left in the world but it%(is) a pretty sucky one. %(gelLookRight)%(gelNervous)The wastes outside are%(not) really livin%(guh), from what I see. %(gelLookForward)%(gelNervous)Atlas is bad and I think it is going to kill me sooner rather than later so I better do my best, yeah?"
+		}
+	
+	}
+	//Here goes potential first-explanations
+	"%(gelLookForward)Ah, yeah, you%(are)... %(gelSlashMouth)from the past, or something. %(gelLookUp)%(gelSlashMouth)Atlas City is where I come from. %(gelFurrowed)It%(is) the only city left in the world. %(gelLookForward)%(gelFrown)It%(is) covered in a big dome to keep the good air in and keep us safe from all the things wrong out there. %(gelFurrowed)As an AI, it does%(not) really matter to me, but eh. \![raise,OnUnlock,qdome]"
+}
+
+//morphs into VOC after being asked
+Q_AUTH{
+	qvoc++
+	"%(gelLookForward)%(gelConfused)Like in Atlas? %(gelLookForward)%(gelSlashMouth)The authority is the VOC, Variation Organization of Cybernetics. %(gelUh)They%(are) the megacorporation in charge of everything, even the government. %(gelFrown)What they say is law. If you think they%(are) wrong, they%(would) say %(you) need to think again."
+}
+
+Q_VOC{
+	//Here goes only known topic expansions
+	if qvoc > 0{
+		if daysknown > 2{
+			"%(gelLookForward)%(gelSlashMouth)I recently learned about the idea of doublespeak from your Internet. %(gelFrown)The VOC definitely has a little bit of that going on for them, but it%(is) not as overt as it is in 1984... %(gelLookRight)%(gelHmm)it%(is) more like just, the ads and billboards change what they say a lot, and they deny that they do that."
+		}
+		"%(gelLookForward)The CEO of the VOC's name is AnArtemPulsar. %(gelLookRight)%(gelNervous)He%(is)... interesting. %(gelLookForward)%(gelFurrowed)A very flamboyant person on screen, but easily the most dominant presence, no matter who he%(is) with. %(gelHmm)He%(is) flashy *and* brutal. \w8\n\n[half]%(gelLookForward)%(gelFrown)And also puts questionable images of himself on billboards. \![raise,OnUnlock,qartempulsar]"
+	}
+	//Here goes potential first-explanations
+	{
+		qvoc++
+		"%(gelLookForward)The VOC manages their jobs in a color-coded system. %(gelSlashMouth)Each different category of job has their own color of jacket, so the people in Atlas know what people do. %(gelLookLeft)%(gelHmm)For example, the top dogs wear a sorta aqua color, and the janitors wear orange. %(gelLookForward)The most physically visible is half the VOC colors, and the most ideologically visible wear the other half.\![raise,OnUnlock,qjackets]"
+		"%(gelLookForward)The VOC is who runs Atlas City. %(gelSlashMouth)They do that in a lot of ways, yeah, but it%(is) all just so overwhelming. %(gelHmm)%(gelFurrowed)They%(are) everywhere, %username. %(gelLookAway)%(gelNervous)The government exists but no one thinks of it anymore. "
+	}
+}
+
+//ELEPHANT: can I fix this by melting? Consider when I have internet again
+//A surprisingly thick question, but it is because it explains all who really makes Atlas turn
+Q_JACKETS : nonoverlap{
+	//Here goes only known topic expansions
+	if qjackets > 0 ; nonoverlap{
+		
+		//general
+		"%(gelLookForward)The VOC does%(not) want to color too many jackets, so all the super minor VOC jobs or the more undercover ones get black jackets. %(gelFurrowed)So regular citizens will not notice how many people are actually VOC workers in their community unless they look."
+		//black
+		"%(gelLookForward)%(gelSlashMouth)Blackjackets are really just your average Joe in Atlas. %(gelLookRight)%(gelSlashMouth)You do%(not) need to have a job to get by in Atlas, because of the Priscus Program, but plenty of people do, and working for the VOC has the best benefits and helps keeps you in Upstanding Citizen territory.\![raise,OnUnlock,qupstandingcitizens]"
+		"%(gelLookForward)Blackjackets are the small workers for the VOC. Security, interns, clerks, mail, transportation, stuff like that. %(gelSlashMouth)People who do%(not) really work on close VOC stuff."
+		//lb
+		"%(gelLookForward)Bluejackets are the bigwigs of Atlas. %(gelHmm)Like, AnArtemPulsar big. %(gelLookForward)Christopher Orion, he%(is) HR, theoretically, %(gelHuh)but I do%(not) think he%(is) actually doing HR. "
+		"%(gelLookForward)Bluejackets do the big public stuff. %(gelHmm)They get to be the ones to announce new cybernetics and control what all the screens say. \![raise,OnUnlock,qcybernetics]"
+		//orange
+		"%(gelLookForward)Orangejackets clean up. %(gelLookRight)You%(will) see it on the sweeper robots, too, to show the unity. %(gelLookForward)The VOC just wants their colors everywhere, %(gelHmm)and what%(is) more everywhere than cleaning staff? "
+		//grey
+		"%(gelBase)%(gelPonder)Actually, some journalist wrote a story they said was real about greyjackets once...%(gelLookForward)%(gelArmsGestR)it was some tale about living outside, %(gelFrown)right near the wall in the trash piles in the Wastes outside Atlas, %(gelArmsLax)%(gelFurrowed)%(gelEarsBack)and the fear that the greyjackets would find them and kill them. \![raise,OnSetVariable,shadowofatlas,1] "
+		"%(gelLookForward)Greyjackets go out into the wasteland outside of Atlas City and make sure things are %(okay) there. %(gelLookRight)%(gelSlashMouth)Not a lot to say. %(gelLookForward)%(gelFrown)I%(am) not sure what they do other than kill people who are too close to Atlas and cremate bodies. "
+		if shadowofatlas; "%(gelLookForward)That journalist I told you about with the greyjackets has%(not) lived in Atlas for years. %(gelSlashMouth)%(gelHmm)Apparently they do pass on mini tales to various communities, by giving them to passerby. %(gelLookForward)Their name was Spring, I think. They talk a lot about a Ms. Darcy. %(gelCatMouth)%(gelEarsUp)I think her name is funny."
+		//pink
+		"%(gelLookForward)Pinkjackets are medical professionals. %(gelArmsGestR)The Medical Representative wears dark blue with pink symbols. "
+		"%(gelLookForward)%(gelFrown)Pinkjackets respond to medical emergencies, driving out and, %(gelHmm)well, being EMTs when there%(is) a call."
+		//red pending
+		//navy
+		"%(gelLookForward)The navyjackets— \w8\w8the Representatives are the people in charge of each District. %(gelConfused)%(gelArmsFistChin)Like, uh, a governor? %(gelArmsQuestion)I guess? %(gelLookForward)%(gelFrown)I did%(not) read the explanation on your Internet very deep. There%(is) three of them. \![raise,OnUnlock,qdistricts]"
+		"%(gelLookForward)Representatives are sometimes called navyjackets. There are three in charge of each District. %(gelLookRight)%(gelSlashMouth)%(gelArmsFistChin)There%(is) the Criminal Rep, the District Rep, and the Upstanding Rep. %(gelLookForward)%(gelArmsFistChin)To a lesser degree, also the Medical Rep. "
+		//dg
+		"%(gelLookForward)D-greenjackets are CINE. Dark green is their color, that is. %(gelFrown)They%(are) pretty much cops. %(gelLookRight)%(gelSlashMouth)CINE stands for Criminal Impetus Neutralisis En-force. \w8%(gelLookForward)They oversee those who oversee security cameras, and are the ones that actually go outside to handle those criminal situations."
+		//lg
+		"%(gelLookForward)L-greenjackets -- \w6%(gelHmm)uh, lime green -- \w6%(gelLookForward)are GENE members. %(gelFrown)GENE stands for Genetic En-force Neutralisis Exemplars. They%(are) pretty much- \w8%(gelLookAway)%(gelHuh)er, what%(is) the word... \w8\n\n[half]%(gelLookForward)%(gelSlashMouth)They watch over Atlas mutants and make sure they%(are) behaving, %(gelFrown)and take them down if they need to. \w8A lot of them are mutants themself. \![raise,OnUnlock,qmutants]"
+		
+		//violet
+		if checkGreatTP1{
+			"\![raise,OnIncrement,violetjackets]%(gelLookForward)Ah, there are violetjackets, hehe. %(gelBigSmile)%(gelExcited)My usual targets. %(gelLookForward)They%(are) the people that keep records. Historians, really. \w6VOC Librarians will wear violet too. They say it%(is) good to show respect for people like that, so they made them more visible."
+			//Only happens if they've explained violetjackets to you before
+			if !violetjackets; "\![raise,OnIncrement,violetjackets]%(gelLookForward)%(gelCatMouth)%(gelEarsUp)Violetjackets are fun to terrorize. %(gelLookForward)I like to make fake versions of Clippy and put them on their tablets. %(gelLookRight)%(gelAmused)They%(are) perfectly helpful little Clippies, but still spooks them. %(gelLookForward)The librarians in Hyleg tower call me the Helpful Ghost. %(gelSmug)Little do they know I am also slowly going through every last record they store. %(gelLookForward)Historians I do%(not) reveal anything to, of course. \w8They%(will) never know I was there."
+		}
+	
+	}
+	//Here goes potential first-explanations
+	//this is locked away since it will be weighted so heavily
+	if jackets < 5; "%(gelLookForward)Near everyone in Atlas sees all the colors around them. The VOC color codes their workers with pleather jackets, though, to show power and for easy reading the room in meetings. "
+}
+
+Q_DOME{
+	//Here goes only known topic expansions
+	if qdome > 0{
+		"%(gelLookForward)The Dome has a bunch of solar panels on it to help generate power for Atlas. %(gelSlashMouth)It%(is) not the only thing that gives power, but it sure does a lot of help. \w8%(gelLookRight)The solar power stuff we do is see-through now, so the top levels of Atlas can still see sky-colors. %(gelNervous)Solar power is%(not) actually that effective in our day, though."
+		if checkGreatTP2{
+			"%(gelLookForward)One of the things I first found weird is how you just breathe air in your world, with no Dome. %(gelLookRight)I already knew that that was part of the apocalypse, but… %(gelFurrowed)it is a lot more different than I thought it would be."
+			"%(gelLookForward)There are lights and pixels video can be played on in the Dome. There are those on the bottom of each Level, too, though— %(gelArmsGestR)so it%(is) nothing too special. %(gelBigSmile)Sometimes ‘stars’ are put on those. %(gelLookForward)%(gelFrown)One time people played some, uh, %(gelLookRight)%(gelSquint)interesting videos on the Dome. "
+		}
+		if checkGreatTP3{
+			"%(gelLookForward)I know things most people do%(not) know, %(gelNervous)and all I%(will) say is you do%(not) want to know who takes care of those solar panels and things up there."
+		}
+	}
+	//Here goes potential first-explanations
+	"%(gelLookForward)Oh, the Dome is the thing that protects Atlas from all the sky! %(gelExcited)It keeps the good, purified air in, and all the bad air out, so we can breathe something of decent quality. %(gelLookRight)%(gelFurrowed)It%(is) clearly not a perfect system, because people still have to wear special masks when they go outside."
+}
+
+Q_CYBERNETICS{
+	//Here goes only known topic expansions
+	if qcybernetics > 0{
+		"%(gelLookRight)%(gelHuh)Let me see if I can come up with anything interesting... \w8\w8%(gelLookForward)%(gelArmsRock)One cybernetic the VOC likes to push is the EMWI, or the Emotional Management and Welfare Implant. %(gelLookLeft)%(gelFurrowed)%(gelSlashMouth)I do%(not) like it much. It gets rid of all your negative emotions, mostly. %(gelLookForward)%(gelFurrowed)%(gelFrown)It describes itself as leaving %(you) with only ''love, happiness, confidence, and pleasure.''"
+		"%(gelLookForward)There’s a cybernetic called the No Need to be Negative, or N3. %(gelLookRight)%(gelSlashMouth)It blocks out negativity, as %(you) might guess. %(gelLookForward)%(gelSlashMouth)%(gelFurrowed)Your vision can get replaced with pictures you choose, like cat pictures, or just blanked out. Words you hear get censored into nonexistence."
+		if checkGreatTP3{
+			"%(gelLookForward)Atlas can fix so many things, %(gelFurrowed)but not everything. %(gelLookAway)%(gelFurrowed)Cybernetic fixes to mental health problems are more like a disability, and if the issue is too deeply inset that some limb replacements won’t do it, %(gelT)you%(are) %(fudged). "
+			if port == 434{
+				"%(gelLookForward)Cybernetics can’t fix some things. %(gelFurrowed)AnShijoWicker has Multiple Sclerosis, %(gelFrown)and that goes a little too deep to fix without putting invasive stuff in his brain, and even that would%(not) fix everything. The worst of it stays. %(gelArmsChest)So he does%(not) want to get that and would rather get smaller little things to help."
+			}
+		
+		}
+		
+		if checkGreatTP2{
+			"%(gelLookForward)One of the cool things a lot of rich people get is the Antila Life. %(gelArmsGestR)It%(is) a life-sustaining cybernetic. %(gelArmsQuestion)If you get hurt too bad, it starts automatically doing all sorts of body functions. %(gelArmsHighFive)They say it can prolong life for an additional 8 hours, so more than enough for the pinkjackets to arrive. "
+		}
+	}
+	//Here goes potential first-explanations
+	"%(gelLookForward)Lots of people in Atlas have cybernetics! %(gelExcited)It%(is) a sign of wealth, for one, and two– it%(is) pretty cool. %(gelSilly)Get yourself your furry legs. %(gelLookRight)%(gelArmsFistChin)Get an implant that filters air for you. %(gelArmsSmug)Remove your ability to feel fear. %(gelArmsHighFive)Make a finger secretly a screwdriver! %(gelLookForward)It%(is) something I really like about Atlas. "
+}
+
+Q_MUTANTS{
+	//Here goes only known topic expansions
+	if qmutants > 0{
+		"%(gelLookForward)%(gelSlashMouth)There%(is) a classification system for mutants. %(gelLookRight)%(gelArmsGestR)C classes are minor mutations and they do%(not) have to live in certain zones, usually,%(gelArmsHighFive) but B classes are visible and have to live separate from everybody, and can only leave if they have a doctor's appointment or something. \w8\w6%(gelFurrowed)%(gelArmsQuestion)A classes are considered dangerous to commonfolk. Like they%(are) diseased. "
+		"%(gelLookForward)%(gelHmm)The VOC has a special force dedicated to managing mutants and handling them. It%(is) called, fittingly, GENE. Or just Genetics Enforce. "
+		if checkGreatTP1{
+			"%(gelLookForward)Mutants do%(not) get to do a lot of things, especially with a lot of them only in their certain zones. %(gelFurrowed)People find them disturbing. "
+		}
+		if checkGreatTP3{
+			"%(gelLookForward)%(gelHuh)The special communications folk of the Rainbow Rebels are all at least a little mutant as far as I know. %(gelFrown)They have weird names, too. %(gelLookRight)%(gelSlashMouth)Like, Grace, or Patience, or Kindness. %(gelLookForward)%(gelSlashMouth)I do%(not) know why."
+		}
+	}
+	//Here goes potential first-explanations
+	"%(gelLookForward)%(gelPonder)%(gelConfused)Did people not already mutate at your time? %(gelLookForward)%(gelFurrowed)Well, in the future, we have.. %(gelLookRight)%(gelNervous)Genetic modifications. \w8They used to be kinda popular but then they distorted, and people started selling offbrand ones that would lead to people growing new limbs, and it became a whole ordeal. \w8\w8\n\n[half]%(gelLookForward)%(gelFurrowed)The VOC keeps mutants away from everyone else like they%(are) contagious, even though we know it is%(not) really, %(gelSlashMouth)unless very certain types like, bite you. "
+}
+
+Q_DISTRICTS{
+	//Here goes only known topic expansions
+	if qdistricts > 0{
+		"%(gelLookAway)%(gelPonder)An example district name would be... hm... DPAE-4H. %(gelLookForward)%(gelSlashMouth)It%(is) called, less formally, Deahe. \w4Day-\w4a-\w4hee. \w6That%(is) where AnShijoWicker lives. \n\n[half]%(gelArmsGestR)It%(is) DP class, DP for dark purple, which is a pretty high quality setup. %(gelArmsQuestion)A for Anyone can access, and E for east. %(gelArmsHighFive)It%(is) on the fourth level of the city, and the District Rep, AnNariyakiWicker, is overseen by the Horus Office. "
+		"%(gelLookForward)%(gelHmm)Atlas is stacked 12 high, right? %(gelLookForward)Because of that, each city has a floor that%(is) the ceiling of the one below. %(gelArmsGestR)The default for what ‘ground’ looks like is this purple and bluish mesh. %(gelLookForward)All of those are built to flip over and clean themselves on a schedule."
+		if checkGreatTP2{
+			"%(gelLookForward)%(gelArmsGestR)An example district is DBEN-1E, nicknamed Debennie. This Rainbow Rebel girl named Grace lives there. \n\n[half]\w8%(gelLookForward)Dark Blue class, E for everyone can enter – \w8\w6sometimes this letter is A, they mean the same but allows for more distinctions – \w8\w6it%(is) North of Hyleg Tower, on the first level of the city, and the District Rep is overseen by the Errai Office.\![raise,OnUnlock,qrainbowrebels] "
+			"%(gelLookForward)District names can be weird. %(gelLookRight)%(gelArmsGestR)Like, designations are one thing, named stuff like %(randomDistrict), but pronouncing them is a whole other game. %(gelArmsHighFive)It could be %(randomDistrictPronunciation) for all you know, %(gelLookForward)or like %(randomDistrictPronunciation). "
+		}
+	}
+	//Here goes potential first-explanations
+	"%(gelLookForward)Atlas is 12 layers stacked tall of raw City. %(gelLookRight)%(gelEarTwitch)Each layer has its own number of Districts, classified by their quality of life, restrictions, direction from the VOC's main base Hyleg Tower, purpose, what level they%(are) on, and the initial of the office that oversees them. %(gelLookForward)%(gelSlashMouth)Usually, if there is a B before the number in it, people won't pronounce it. That means it%(is) a business district, so they just use the other version of the name without the B."
+}
+
+Q_CULTURE{
+	{
+		"%(gelLookForward)People in Atlas wear a lot of flared clothing. %(gelAmused)A schmancy silhouette is a good way to show bein%(guh) 'in' with the crowds. Really rich people like fake colorful feathers. %(gelLookForward)%(gelGrin)%(gelExcited)Oh, and of course, half of everything in Atlas is glow in the dark. "
+		"%(gelLookForward)%(gelHmm)Atlas is really dark in comparison to your world. Little to no sun to speak of, you get it. %(gelLookForward)%(gelSlashMouth)A lot of products have edges in mild glow in the dark paints and tubings, and walkways are lit with dim neon. %(gelWistful)Inside is usually a dim orange, or slightly stronger neons. "
+		"%(gelLookForward)%(gelPonder)A good chunk of Atlas is into religion. %(gelLookRight)%(gelSlashMouth)They%(are) kind of weird though. There%(is) Whetta, The Children, DRUiD, the Trekkies, %(gelLookForward)%(gelFurrowed)and then even the Anthropromofolk %(gelSlashMouth)they%(are) cool and all but it%(is) still weird.\![raise,OnUnlock,qreligions]"
+	}
+	if checkGreatTP1{
+		"%(gelLookForward)%(gelSlashMouth)Hmm, one weird thing about Atlas is that they consider being homeless a 'life decision.' Not in the way of negatively, though– \w8%(gelLookConcerned)like it%(is) a rich person's choice to be humble. %(gelFrown)So homeless shelters are all made for rich people. %(gelLookAway)%(gelWorry)Actual homeless homeless people can usually find a shelter in a mutant district, or join a religious club and stay there. %(gelLookForward)%(gelNervous)%(gelFrown)%(gelEarsBack)It%(is) its own new kind of %(fudged) up. "
+		"%(gelLookForward)%(gelSlashMouth)We do%(not) have cars. Not really. %(gelLookAway)Atlas has a public transportation system that takes you to any District. %(gelLookForward)Most Districts have about 5 stations, which is enough to keep it walkable. There are roads for vehicles, but they are%(not) necessarily better than public transit. %(gelSlashMouth)They%(are) used for medical folks and product transport. "
+		"%(gelLookForward)%(gelPonder)One joke-turned-culture thing is casually called the Thoughtless Indeviance Imperial in %(textebooks). %(gelLookForward)%(gelArmsGestR)It started as a TV show where there was a kingdom of people with no brains, and then there was a whole category of memes around ‘one single thought kills you’ and now its a piece of culture because the VOC does%(not) want anyone to think anyway. \n\n[half]\w8%(gelLookRight)%(gelPonder)Honestly, I see some similar things on your ‘Internet’ too…"
+	}
+	if checkGreatTP2{
+		"%(gelLookForward)There%(is) this cat icon with all sorts of merch called Jawful. The jaw is, of course, a joke. %(gelLookRight)Cats do%(not) have jaws and your Internet is weird and wrong. %(gelHmm)Why would they even need them? And why are your cat pictures so… short? %(gelT)Cats are much longer than that.\n\n[half]%(gelLookRight)Really, though, Jawful is a cute icon to have around."
+		"%(gelLookForward)%(gelCatMouth)A nickname for our public transport is the Melon Buckets. %(gelExcited)In 141 someone kept filling the cars with watermelons. %(gelLookRight)%(gelCatMouth)It was a whole weird ordeal."
+		"%(gelLookForward)%(gelExcited)Memes in Atlas are funny. %(gelLookForward)%(gelSlashMouth)I won't talk too much, but recently it became its own joke to print out memes and stick them in places around the city. %(gelCatMouth)You just find walls plastered with memes these days."
+	}else{
+		"%(gelLookForward)%(gelPonder)Memes in Atlas... %(gelLookForward)%(gelSlashMouth)oh, nevermind, that%(is) too weird to talk about. %(gelHmm)You probably do%(not) want to hear about memes."
+	}
+	
+	if checkGreatTP3{
+		"%(gelLookForward)At the yearly Bluegrass festival there is a soap sculpting contest, but if you do%(not) include aluminum foil and a cowboy hat into it, you are automatically disqualified."
+		if qcybernetics > 0{
+			"%(gelLookForward)I recently discovered there is, in fact, a Jawful mode on the No Need To Be Negative. %(gelLookRight)%(gelHmm)It%(is) actually pretty funny. There%(is) an emulator I found on the Chain I made AnShijoWicker run. "
+		}
+		"%(gelLookForward)You ever played three person chess? %(gelHmm)No? \n\n[half]\w8%(gelLookRight)There are annual tournaments. "
+		"%(gelLookRight)Silhouettes are a %(lil) different in your world and mine. %(gelLookForward)Clothes, that is. Atlas people in lower class areas do%(not) look too different, but the richer you get, the uh, %(gelSquint)longer you want to be. %(gelLookUp)Longer? %(gelHmm)Is that right? %(gelPonder)Well, more dangly parts… how much flare is%(not) even a flare anymore?"
+	}
+
+}
+
+Q_ORANGESKIES{
+	//Here goes only known topic expansions
+	if qorangeskies > 0{
+		"%(gelLookForward)Yona%(is) the forgetful one, but still the straight-woman. %(gelLookRight)Via%(is) just an airhead. %(gelLookForward)They have some funny dynamics, and it%(is) a good resource for seeing how people in Atlas interact. "
+		"%(gelLookForward)In their 11th of Beowulf 178 segment, Via makes a comment about fulfilling a requirement for hailing the VOC. %(gelLookRight)%(gelSlashMouth)Of course, they can only get away with it saying it%(is) a joke, but it does make you think. %(gelLookForward)%(gelFrown)Would%(not) surprise me if that *was* a requirement."
+		if checkGreatTP2{
+			"%(gelLookForward)Being a news anchor sounds fun. %(gelHmm)Would you want to be a news anchor? It seems more boring in your world. %(gelLookForward)In Atlas, you just talk about ‘het ailyd ek-ense,’ as we say. %(gelLookRight)Nothing that makes sense. Lie a few times. %(gelLookForward)And then go home. That%(is) why I like Orange Skies. They just keep the fun stuff with a hint of truth."
+		}
+		if checkGreatTP3{
+			"%(gelLookForward)%(gelSlashMouth)I do%(not) like your world's news. %(gelLookRight)%(gelFrown)It%(is) sad, and depressing, and is not just honest, but really dramatic. %(gelLookForward)Atlas will lie to you. Even Orange Skies. If somethin%(guh) is wrong, it will never be in the District you are in. And no one ever dies. Once in a 'blue moon' as your internet says, they%(will) 'fade away.'"
+		}	
+	}
+	//Here goes potential first-explanations
+	"%(gelLookForward)Oh, they%(are) a newscast. %(gelLookRight)%(gelAmused)The two hosts names are Yona Dove and Via Longheart, and they talk about Rena Saffron the weatherlady a lot but she does%(not) actually exist because Atlas does%(not) have weather. %(gelLookForward)%(gelArmsGestR)The cameraman, Winston, does exist though. "
+
+}
+
+Q_DRUID{
+	//Here goes only known topic expansions
+	if qdruid > 0{
+		if checkGreatTP3{
+			"%(gelLookForward)DRUiDs can be helpful if you ever find yourself outside Atlas walls. %(gelArmsPlayRock)They keep some stuff to help breathing, special sunscreen, and purified water with them. %(gelLookForward)They%(are) very peaceful. Nearly pacifist."
+			
+		}
+		if checkGreatTP2{
+			"%(gelLookRight)%(gelSlashMouth)DRUiDs outside of Atlas are the only reason people are%(not) dying there. %(gelHmm)%(gelFurrowed)They are such massive caretakers, and after a coming of age, each year, everyone in their community has to venture out and plant a tree where no other trees can be seen."
+			"%(gelLookForward)%(gelArmsGestR)The DRUiDs in Atlas itself are all pretty mild. They%(are) invisible unless you know who to ask. But, unlike the RR, the VOC does%(not) actively search for them. %(gelFurrowed)The RR are more of a threat. \![raise,OnUnlock,qrainbowrebels]"
+		}
+		"%(gelLookForward)%(gelPonder)%(gelConfused)What does DRUiD stand for…? %(gelLookRight)%(gelConfused)%(gelPonder)I do%(not) think I actually know…"
+	}
+	//Here goes potential first-explanations
+	{
+		"%(gelLookForward)They%(are) sorta the anti-cyber group. %(gelLookRight)They do this thing called the 'Detoxification' where they replace people's cybernetic limbs with like, wood prostheses and then eat dirt soup. %(gelUh)And also have a weird cybernetic graveyard."
+		"%(gelLookForward)%(gelSlashMouth)DRUiD is one of the groups the VOC talks against. %(gelLookRight)%(gelFrown)The average Druid is%(not) %(gonna) be anti-VOC, buuuut, they are still against what the VOC is doing. "
+	}
+
+}
+
+Q_RAINBOWREBELS{
+	//Here goes only known topic expansions
+	if qrainbowrebels > 0{
+		if trust < TPOS1{
+			"%(gelLookForward)%(gelHmm)Ah, they do have a cool name, huh? %(gelLookForward)They%(are) the anti-VOC people."
+		}else{
+			"%(gelLookForward)%(gelHmm)You know, what a shame that there%(is) a group that%(is) against the constant surveillance of everyone, huh? %(gelLookForward)%(gelArmsCouncil)That%(is) not very nice of them to take our surveillance away."
+		}
+		"%(gelLookForward)They%(are) the people that want to take over Atlas. %(gelLookRight)%(gelFrown)All of the news broadcasts and various posters remind 'Upstanding Citizens' what to do if they suspect someone of being RR.\![raise,OnUnlock,qupstandingcitizens]"
+	}
+	if trust < TPOS1 + (TREGINC/2){
+		"%(gelLookForward)%(gelSlashMouth)Oh, you do%(not) really need to worry about them. %(gelLookRight)%(gelSlashMouth)They%(are), uh, the 'bad guys' of Atlas, and who the VOC is always chasing and trying to make disappear. %(gelFurrowed)The Rebels want the VOC to disappear and take over."
+	}else{
+		"%(gelLookForward)%(gelSlashMouth)They%(are) the people's best shot if they want to see a world not controlled by the VOC. %(gelFrown)Sympathizers targeted by authorities, operatives brainwashed or killed, you get it. A real big threat to what the VOC does. %(gelLookLeft)%(gelFurrowed)%(gelSlashMouth)Very few RR members know who each other are, for safety. People who do tasks for them just have one contact to get info from... %(gelLookRight)%(gelNervous)"
+	}
+	
+	//Here goes potential first-explanations
+
+}
+
+
+
+//     _ ____  _  _______   ____  _     _________  _____  _  ____  _     ____ 
+//    / /  _ \/ |/ /  __/  /  _ \/ \ /\/  __/ ___\/__ __\/ \/  _ \/ \  // ___\
+//    | | / \||   /|  \    | / \|| | |||  \ |    \  / \  | || / \|| |\ ||    \
+// /\_| | \_/||   \|  /_   | \_\|| \_/||  /_\___ |  | |  | || \_/|| | \|\___ |
+// \____|____/\_|\_\____\  \____\\____/\____\____/  \_/  \_/\____/\_/  \\____/
+
+
+
+Q_JERRY{
+	qjerry = 0
+	if TOLOWER(username) == "jerry" || TOLOWER(nicknamed) == "jerry"{
+		"%(gelLookForward)%(gelNervous)Ohh, uh, um. \w8%(gelLookRight)%(gelNervous)Different Jerry. %(gelLookForward)%(gelFurrowed)Not you! Jerry from maintenance. He%(is) usually the one that does Dome stuff \w4%(gelCatMouth)but I jumpscared him once when someone left the observation studio door open.\![raise,OnUnlock,qdome]"
+	}else{
+		"%(gelLookForward)%(gelHuh)Oh, Jerry? %(gelLookForward)%(gelFrown)He%(is) just maintenance. I saw him once. Screamed. %(gelLookForward)%(gelEarsUp)Scared the %(shit) out of him. %(gelLookForward)Now I just make fun of him. %(gelLookRight)%(gelAmused)Sorry, Jerry."
+	}
+	
+}
+
+Q_AINSTAIN{
+	qainstain = 0
+	"%(gelLookForward)%(gelConfused)Uh, you know, he%(is) Ain Stain? The really smart guy? E=MC2? %(gelLookForward)%(gelFrown)Everyone knows Ain Stain."
+}
+
+Q_WHYLOWES{
+	qwhylowes = 0
+	"%(gelLookForward)%(gelHmm)Why not Lowe's? %(gelLookForward)It%(is) pretty funny. Just... %(gelLookRight)%(gelHuh)hardware store. Population: dirt. Nature. Buildings. %(gelLookForward)%(gelAmused)But unlike your Home Depot, it%(is) nearly someone's name and it is Low. %(gelExcuted)Ah yes, the Low store. %(gelLookAway)%(gelCatMouth)Where you buy... %(gelLookForward)%(gelAmused)%(gelGrin)low things? \![raise,OnUnlock,qlastnames]"
+	if checkGreatTP3; "%(gelLookForward)Lowe’s is funny, %username. It%(is) one of the funniest things your world does. %(gelLookLeft)That, the light, Rick Astley, and all the weird little differences. %(gelLookForward)The idioms are fun. %(gelCatMouth)I have those downloaded to the structure."
+	if qlastnames > 0{
+		"%(gelLookForward)%(gelFrown)Low. %(gelCatMouth)Imagine your last name is Low and you thought it was a good idea to make a building stuff store. \w8%(gelSilly)Your name is Low and you sell \w4dirt!"
+	}
+}
+
+
+
+
+
+
+
+
+// ██████ ██   ██ ███████  ██████ ██   ██ ███████ 
+//██      ██   ██ ██      ██      ██  ██  ██      
+//██      ███████ █████   ██      █████   ███████ 
+//██      ██   ██ ██      ██      ██  ██       ██ 
+// ██████ ██   ██ ███████  ██████ ██   ██ ███████ 
+
+
+
+//A function would have _deny = checkDenyAnswer, and if it returned nothing, there is no reason for Gel not to answer a question. If it does return, display %_deny.
+checkDenyAnswer{
+	notuptoexplain++
+	if emotion == 10{
+		"%(gelSquint)You want to get a response out of me NOW? %(gelArmsCross)No way!"
+	
+	}elseif trust < ( TNEG1 + 60 ) {
+		"%(gelSquint)%(gelFrown)Er... maybe when we know each other better, I%(will) tell you more."
+	}elseif emotion == 0{
+		"%(gelLookForward)Ah, I%(am) a %(lil) too tired to talk about stuff like that right now. Maybe later."
+	}elseif emotion == 3{
+		"%(gelLookAway)%(gelUh)Uh, no, not now, thanks. Ask me when... normal. %(gelLookForward)%(gelUh)Normal things. Normal %Gel."
+	
+	}elseif emotion == 5 || emotion == 6{
+		"%(gelLookAway)Ah, I%(am) not really up for answerin%(guh) things right now. Maybe later, %(okay)?"
+	}
+	
+	//Someone would have to try hard to get this but I want to yell at them.
+	if notuptoexplain > 50 && emotion != 3{
+		"%(gelAngry)Why do you keep pressing me?? \w8You know when I do%(not) want to talk about this sort of thing! \w8%(gelLookAway)%(gelFrown)%(gelArmsCross)Just go do something interesting."
+	}
+	
+	
+	return
+
+
+}
+
+checkSilentMode{
+
+	if awkwardsilence == 1 || silentmode == 1 || moviemode == 1 || infoperminute < 1{
+		1
+		return
+	}else{
+		0
+		return	
+	}
+}
+
+//this is gonna be a bitch to write...
+percentageCompletion{
+	_TOTALUNLOCKS = 10
+	_numberofcomplete = willow
+	
+	if radius {
+		_numberofcomplete++
+	}
+	if radius {
+		_numberofcomplete++
+	}
+}
+
+checkBadMood{
+	
+	if trust < TNEG1 || emotion == 10 || emotion == 6 || emotion  == 3 {
+		1
+		return
+	}else{
+		0 
+		return
+	}
+}
+
+isOnline{
+	"\i[390]" _in_ SHIORI3FW.LastTalk
+}
+
+//ELEPHANT: when there are more non-jabber dialogues for negative stuff, depending on jabber punches, it might not let Gel jabber
+//So they will appear to be bullied into submission.
+checkJabberProbability{
+	1
+	return
+
+}
+
+
+getSeries{
+
+	_series = FLOOR(port/1000) + 1
+	TOINT(_series)
+
+}
+
+testinglog{
+	LOGGING("testing")
+
+}
+
+
+
+

@@ -1,0 +1,1337 @@
+//******************************************************************************
+// YAYA @Ghost template
+// talk dictionary
+//******************************************************************************
+
+
+//******************************************************************************
+// Random talk
+//******************************************************************************
+
+RandomTalk
+{
+    TOSTR(EVAL(CHR(0x22)+RandomTalkEx()+CHR(0x22)))
+}
+
+//------------------------------------------------------------------------------
+// Random talk body: Please write the random talk in this
+// Always write in '' only here.
+// Because% () is expanded in the contents of RandomTalk above, it is OK without using "".
+// High-speed measures
+//------------------------------------------------------------------------------
+RandomTalkEx : nonoverlap
+{
+	"%(gelBase)"
+	--
+	talksthishour+=1
+	if useractive == 1{
+		if emotion !=-1{
+			if awkwardsilence == 1{
+				"%(gelLookLeft)...\e"
+				"%(gelLookRight)...\e"
+				"%(gelLookAway)Er...\e"
+						
+			}elseif !checkSilentMode{
+				case emotion{
+					
+					when 0{
+						"%(gelDialogueTired)"
+					}
+					when 1{
+						gelDialogueNeutral
+						gelDialoguePositive
+						//"%(thisissosadgelsayloremipsum)"	
+					}
+					when 3{	
+						"%(gelDialogueSick)"
+					}
+					when 4{		
+						"%(gelDialogueBored)"
+					}
+					when 5{
+						"%(gelDialogueUncomfy)"
+					}
+					when 6{
+						"%(gelDialogueScared)"
+					}
+					when 10{
+						"%(gelDialogueAngry)"
+					}
+					when 14{
+						gelDialogueCurious
+						gelDialoguePositive
+					}
+					others{
+						"%(gelBase)%(gelWorry)No condition is met. Report this to GrayArea #5561 on Discord, please. He%(is) upkeep help for us.\e"
+					}
+				}
+			}
+		
+		}else{
+		
+			//Gel will just skip some dialogues when asleep. This may be changed later.
+			"\e"
+			"\e"
+			"Zzzzz\w8.\w8.\w8.\e"
+			"zzzzzzzzz\e"
+			"\w8.\w8.\w8.\w8.\w8.\w8.\w8.\w8.\e"
+			"\w8.\w8.\w8.\e"
+			"\e"
+			"\e"
+		}
+	}
+}
+
+
+//------------------------------------------------------------------------------
+//Chaintalk sample (these are never used)
+//------------------------------------------------------------------------------
+chainPeeking: nonoverlap
+{{CHAIN
+	"%(gelBase)Is that Google Docs?\e"
+	{
+		"%(gelBase)]What else to pick from...?\e"
+		"%(gelBase)Ohhh, I understand everything now. (Gel does%(not) understand anything.)\e:chain=chainPeeking_end"
+	}
+	"%(gelBase)What about Notepad?\e"
+	"%(gelBase)Discord?\e"
+}}CHAIN
+
+chainPeeking_end
+{{CHAIN
+	"%(gelBase)I wonder what you'll do next.\e"
+}}CHAIN
+
+//******************************************************************************
+//Key pressed
+//******************************************************************************
+/*
+//------------------------------------------------------------------------------
+//OnKeyPressƒCƒxƒ“ƒg
+//------------------------------------------------------------------------------
+// This event fires when any key on the keyboard is pressed.
+// When specifying the function key, specify "f1" etc.
+// The pressed key is stored in reference0.
+//It is better to branch with // if statement or case ~ when statement.
+*/
+
+OnKeyPress
+{
+	infocounter+=3
+	case reference0 {
+		when "a" {
+			testarray += "," + RAND(8)
+			"0:%testarray[0]: %testarray\e"
+		}
+		when "t" {
+			'\![raise,OnAiTalk]'
+		}
+		when "r" {
+		//	ONCLOSE_VAR
+			--
+			'\![reload,shiori]'
+			--
+			_dummy = SLEEP(50)
+			returnlocation = "OnBootNVRO"
+			ONBOOT_SETUP
+			--
+			giraffe = 0
+			--
+			
+		}
+		when "m" {
+			if ISFUNC('OpenMenu') {
+				OpenMenu
+			}
+			else {
+				'\![raise,OnMouseDoubleClick,0,0,0,0,__SYSTEM_KEYDOWN_COL,0,mouse]'
+			}
+		}
+		when "s"{
+		//	temp = "Yeehaw"
+		//	OnCheckForSong
+		//	"%temp\e"
+		}
+		when "c"{
+		//	claustro = 20
+		}when "p"{
+		//	_art = OnLookForArtPrograms
+		//	--
+		//	"%_art"
+		
+		}when "l"{
+		//	Info_LightsOut_START
+		}when "esc"{
+			//I don't think this ever triggers, but it'd be funny if it did.
+			if emotion > -1; "%(OnGelUpset)You can't escape me. \e"
+		}
+	}
+	
+	if reference4 == "esc"{
+		
+		"%(OnGelUpset)You can't escape me. \e"
+	}
+	
+}
+
+
+//******************************************************************************
+//Time signal / overlap
+//******************************************************************************
+
+//------------------------------------------------------------------------------
+//OnMinuteChange events
+//------------------------------------------------------------------------------
+
+OnMinuteChange
+{
+
+	//If anything brief happens to the 'consciousness' of Gel, it is a reload
+	returnlocation = "OnReload"
+	//they are open if we're here
+	closed=0
+	--
+	//We check this first for the sake of birthdays, New Years, and monthly wrap overs.
+	if minute == 0{
+		OnHourChange
+	}
+	//Calc info per minute
+	if actcountallowed == 1{
+		infoperminute = ((infoperminute + minclick + (minkey/2)) * .85) + (infocounter * .15)
+		
+		//processing for detecting idleness
+		if minkey == 0 && minclick == 0{
+			minutesidle++
+		}
+		
+		//If this is true, there's no way the user isn't using an auto clicker
+		if minclick > 650{
+			OnAutoClicker
+		}
+		--
+		
+		if minutesidle>= 3{
+			//recently edited
+			"\C\![raise,OnUserIdle,%minutesidle]"
+		}else{
+			minutesidle = 0
+		}
+		
+		//"%(gelBase)Info: Click- %minclick, Key- %minkey. Going %infoperminute. You were last active %reference4 seconds ago. My emotion is %emotion, which I have been in for %minsinemotion minutes.\n\n"
+	
+		minclick = 0
+		minkey = 0
+	
+		
+	}else{
+		
+		infoperminute = ((infocounter * .65) + (infoperminute * .35))
+		
+		//If the user is def active or away for 10 minutes, might make it raise an event 
+		//build this mofo myself 
+		if reference4 > 100{
+			_minidle = reference[4] / 60
+			"\![raise,OnUserIdle,%_minidle]"
+		}elseif infocounter >= 59.9{
+			SENDERROR("INFO COUNTER MAY BE ROGUE")
+		}
+	}
+	
+	//THINGS THAT COMMENLY INCREMENT/DECREMENT WITH PASSING TIME	
+	//We don't need to set it straight to 0, but instead it can tick down, so Gel has more of a 'memory'
+	if currentpets > 1{
+		currentpets-=2
+	}else{
+		currentpets = 0
+	}
+	if currentpunches > 1{
+		currentpunches-=2
+	}else{
+		currentpunches = 0
+	}
+	lastinter++
+	timeup++
+	timesinceload++
+	if pondering > 0{
+		pondering--
+	}
+	if talkbehavior{
+		aitalkinterval = RAND(50000) + 1000
+	}
+	--
+	//in case there's an error in which it would stay at 1, making Gel stuck in a wake up loop
+	reference[0] = 0
+	minsinemotion++
+	OnGelEMOTION
+	--
+	if thankful > 0{
+		thankful--
+	}
+	if jabbering > 0{
+		jabbering--
+	}
+
+
+	//Check if Gel would be tired, based on the User's sleep schedule (at least with closing them)
+	//the hour before the user gets off
+	_targethour = getLogOffHour - 1
+	//time wraps around this way
+	if _targethour < 0{
+		_targethour = 23
+	}
+	//check for the timeslot, depending on the current time
+	if _targethour > 12{
+		//if the currenthour is later than or equal to the sleep time
+		if hour >= _targethour{
+			fullnightsrest = 0
+		//	"%(alarmsound)later in the day rest trigger"
+		}
+	//pesky AM sleepers (I only go to bed like right after midnight...)
+	}elseif _targethour <= 12{
+		//if the current hour is earlier
+		if hour <= _targethour{
+			fullnightsrest = 0
+		//	"%(alarmsound)earlier in the day rest trigger"
+		}
+	}
+	
+	
+
+	//could I simplify this by just checking if Gel's awake and the date, instead of having a specific time? May be more reliable....
+	
+	//After 12 AM, we're just waiting for the user to leave, if they're not already...
+	//The first time they will reset is at 12:01, but it's easy to change 
+	//May need to find a solution based on last timecheck, and continuously record the time
+	if pendingdaychange == 2 && useractive == 0 && emotion > 0{
+		_keepemo = emotion
+		_minsinemotion = minsinemotion
+		_oldclothes = clothes
+		ONBOOT_SETUP
+		infoperminute = 0
+		minsinemotion = _minsinemotion
+		emotion = _keepemo
+		//OnClothesChange
+		pendingdaychange = 0
+	}
+	--
+	if hour == 0 && minute == 0{
+		pendingdaychange = 2
+	}
+	
+
+
+	//twice an hour processing
+	if minute % 30 == 0{
+	
+		OnHalfHourChange
+		
+	}
+
+	
+	--
+	//reset the time sensitive things every half hour Gel has been open, since most are set on boot, or on a multiple of 30
+	if timeup % 60 == 0{
+		if askgel > 0{
+			//"time sensitive section ended"
+		}
+		askgel = 0
+	}
+	--
+	if timeup % 60 == 0 && useractive == 1{
+		//This only gets upped once each hour they're (probably) physically here
+		totalhoursknown++
+	
+	}
+
+	//every other minute processing
+	//some shaken stuff can be sticky-- it's usually reset on boot, so one or two points just kinda lets this session act differently
+	//if Gel feels sick, it's the users fault, always (at least at the time of writing this, and it will be modified if needed if changed)
+	//Admittedly Gel should be upset only if they're absurdly shaken up, such as, > 20
+	if shakenup > 1{
+		shakenup --
+	}
+	--
+	
+	//Every 3 hours, let the user do time sensitive greetings
+	//Does not require the user to be active
+	//Due to the nature, and since it occurs after the func that sets it to 0, the user will have a half hour to use it
+	if timeup % 180 == 0{
+		SetTimeSensitiveGreeting
+	}
+	
+	--
+	infocounter = 0
+	--
+	/*
+	if actcountallowed == 0{
+		//this is intended as a safeguard, but it still triggers when people are digitally painting because it's That intensive...
+		//We really need to find some way around this.
+		if infoperminute == 60 || infoperminute == 59{
+			//This happens wayy too often, so for the sake of not being annoying, Gel will only do it if it's sustained really and this tries to execute a lot.
+			if RAND(5) == 0{
+				"%(gelUh)Oh, uh, huh. I%(am) having some trouble seeing what you're up to right now. Hmm...\e"
+				"%(gelSquint)Hey, %username, could you press R for me real quick? I might need to reset. My variables broke, but maybe it is a false alarm...\e"
+				"%(gelHuh)That's weird. My environment software is giving me some unlikely numbers right now. You may want to tap on me and press R so I can fix those.\e"
+			}
+		}
+	}
+	*/
+	--
+	//so Gel will move more
+	if SHIORI3FW.IsTalking == 0 {
+		OnSurfaceRestore
+	}
+
+	
+}
+
+
+OnHalfHourChange{
+
+	//if gel is sleeping
+	if emotion == -1{
+		//how many half hours has Gel been ZZZZ?
+		if day == TOINT(sleepstarthour[1]){
+			timeasleep =  (hour - sleepstarthour[0] ) * 2
+			if timeasleep < 0 {
+				timeasleep = -timeasleep
+			}
+		}else{
+			//if the day has changed
+			//the time from falling asleep until Night
+			timeasleep =  (24 - sleepstarthour[0] ) * 2
+			//the time from Night to now
+			timeasleep +=  hour * 2
+				
+		}
+
+		timeasleep += (minute / 30)
+	//	"%timeasleep: %hour, %sleepstarthour, and %(minute / 30)\n"
+		
+	}elseif emotion == 1{
+	
+		//If the user is here, and the trust is in the right range for the get-to-know chat.
+		if trust < TPOS1 && trust > (TNEG1+(TREGINC/2)+20) && yourechilltalk == 0 && useractive == 1 && !checkSilentMode{
+			OnStartPOS1
+		}
+	}
+
+
+
+}
+
+
+
+OnHourChange{
+	//back up file if Gel has been open a while
+	if timeup > 60{
+		SAVEVAR("yaya_variable.cfg.bak")
+	}
+	
+	if hour % 6 == 0 && claustro >= 2 && trust > 20{
+		claustro--
+	}
+	
+	//You get bonuses from not petting a touch adverse Gel.
+	if useractive && notouchie == 1 && badtouches < 10 && currentpets == 0 && !RAND(30) && emotion != 5{
+		addtrust(1)
+	}
+			
+	talksthishour = 0
+
+	
+	//if the user is around and Gel isn't in silent mode
+	if !checkSilentMode && useractive == 1{
+
+		if emotion != -1
+		{
+			"\c"
+			--
+			case hour{
+			
+				when 0{
+					if userbirthday == month + "/" + day{
+						BirthdayNightCount
+					}elseif GetYear != thisboot[2,"/"]{
+						CrossToNewYear
+					
+					//If it's the start of a month.
+					}elseif day == 1{
+						"%(gelLookForward)%(gelNervous)Here we go again. %(gelLookRight)%(gelNervous)The moment I update..."
+					}else{
+						"%(gelBase) It's midnight."
+						if trust < TNEG1{
+							"%(gelLookForward)Midnight. \w8%(gelLookAway)Clock strikes home on yet another one of many."
+						}
+					}
+					
+				
+				}when 1{
+					if checkGreatTN1{
+						"%(gelLookForward)One. %(gelSquint)It%(is) one, %username. %(gelConfused)Have you considered going to bed?"
+					}
+					"%(gelHourChimeJudgey)"
+				}when 2{
+					if checkGreatTN1 && trust < TPOS2{
+						"%(gelLookForward)%(gelHuh)What are you even doing up at 2? %(gelLookForward)%(gelSlashMouth)I read on your 'Internet' that it%(is) not usually a good thing if people are up at this hour."
+					}else{
+						//tbh yeah, being really close or really bad with them would overlap here XD
+						"%(gelLookForward)Two in the morning, what are you doing up? %(gelLookRight)%(gelSlashMouth)Go to bed or something."
+					}
+					if emotion == 0; "%(gelLookForward)It%(is) too early for this. %(gelConfused)Are you going to bed soon? %(gelLookSouthWest)I%(am) tired.\![raise,OnSetVariable,jabbering,2]"
+					"%(gelHourChimeJudgey)"
+				}when 3{
+					if checkGreatTN1{
+						"%(gelLookForward)%(gelHuh)Hey, are you sure you should be up right now, %username? %(gelConfused)Do%(not) you go to bed right around now? %(gelLookForward)%(gelFrown)Like, that%(is) not a question, it%(is) a statement. %(gelSquint)Go to bed."
+					}
+					if emotion == 0; "%(gelLookRight)At this rate, I%(am) just %(gonna) fall asleep. %(gelLookForward)%(gelFurrowed)It%(is) really late for this. Why are you still at your computer at %hour?"
+					"%(gelHourChimeJudgey)"
+				}when 4{
+					if emotion == 0; "%(gelLookForward)%(gelHuh)Honestly, why are you at your computer? %(gelLookForward)%(gelSlashMouth)It%(is) %(hour). %(gelConfused)Can you just go to bed already? %(gelLookRight)There%(is) *yawn* too much goin%(guh) on for me to fall asleep. %(gelLookForward)Just leave me here."
+					"%(gelHourChimeJudgey)"
+				}when 5{
+					if trust <= TNEG1 && checkGreatTN2{
+						"%(gelLookForward)%(gelSlashMouth)I know how your kind of people work, I read it on your Internet. Why are you here this early?"
+					}
+					if emotion == 0 || emotion = 5{
+						"%(gelLookForward)I am way too tired to be here. Please. %(gelFurrowed)%(gelEarsBack)It%(is) %hour, why are we here?"
+					}
+					"%(gelHourChime)"
+				}when 6{
+					"%(gelHourChime)"
+				}when 7{
+					if checkGreatTN1 && trust < TPOS2 && timeup > 180{
+						"%(gelLookForward)You know, this is a pretty normal hour to be awake, from what your 'Internet' says, but this? %(gelSquint)You%(have) been on your computer for a while now. %(gelLookForward)%(gelHuh)You did%(not) really work all through your night cycle, did you?"
+					}
+					"%(gelHourChime)"
+				}when 8{
+					if port == 8 && checkGreatTP2{
+						"%(gelLookRight)%(gelCatMouth)Hehehe it is eight. It is eight."
+						{
+							"%(gelLookRight)%(gelCatMouth)It%(is) those lucky hours. "
+							--
+							if "SPAMTON" _in_ ghostfriends{
+								"%(gelLookForward)Spin Spamton’s wheel!"
+							}
+						}
+					}else
+					"%(gelHourChime)"
+				}when 9{
+					if trust < TNEG1{
+						"%(gelLookForward)It%(is) nine. %(gelHuh)Gonna do normal things today, or is it another day of pushing me around? \![raise,OnSetVariable,jabbering,2]"
+					}
+					"%(gelHourChime)"
+				}when 10{
+				
+					//I have no idea what I was doing here but it's funny.
+					if gwhatsupwithyourinternalclock >= 3 || gwhatsupwithyourinternalclock == 3{
+						"%(gelBase)It's %hour12 o' clock."
+						if RAND(10) == 8{
+						"It's 10. %(gelHmm)Where are your children?\e"
+						"It's 10. %(gelHmm)Where are your children?\w8\w8\n%(gelPonder)\n.\w4.\w4.Wait, that's the other time format, is%(not) it... \w8%(gelSquint)and at night.\w2.\w2.\e"
+						}
+					}else{
+						"%(gelBase)It's %hour:00."
+					}
+					
+				}when 12{
+					if emotion !=3{
+						if trust >=TPOS1{
+							"Be sure to eat lunch, %(nicknamed). It's noon."
+							"%(gelLookForward)Peak of our dust, %username. %(gelHuh)Are you busy or are you preparing for lunch?"
+						}else{
+							"Humans generally eat food right about now."
+						}
+						
+					}else{
+						"I do%(not) even wanna think about food..."
+					}
+					
+					
+				}when 13{
+					if checkGreatTP1; "%(gelLookForward)%(gelConfused)Hey, are you going to eat yet? %(gelLookForward)%(gelSlashMouth)Please go eat.%(PLEASEGOEAT)"
+					"%(gelHourChime)"
+				}when 23{
+					//The dialogue I had for here wasn't even a full sentence... WAIT I CAN MAKE THIS A PASS OUT DIALOGUE
+					if emotion == 0; "So, if it%(is) %(hour) now, what if you... %(gelForceLookAsleep)you...\![raise,OnMakeSleep]"
+					"%(gelHourChime)"
+				}others{
+				
+					"%(gelHourChime)"
+					
+				}
+			
+			
+				--
+				"\e"
+			}
+			
+			
+			
+		}
+
+	}
+
+
+}
+
+
+gelHourChimeJudgey{
+	if gwhatsupwithyourinternalclock >= 3 {
+		"%(gelBase)%(gelT)It's %hour12 o' clock."
+	}else{
+		"%(gelBase)%(gelT)It's %hour:00."
+	}
+	
+}
+
+gelHourChime{
+	
+	if gwhatsupwithyourinternalclock >= 3 {
+		"%(gelBase)It's %hour12 o' clock."
+	}else{
+		"%(gelBase)It's %hour:00."
+	}
+}
+
+
+
+//******************************************************************************
+//Mikire
+//******************************************************************************
+
+//------------------------------------------------------------------------------
+//OnSecondChange events
+// Executed every 1 second. Do not do heavy processing here
+// In this template, only cut-out processing is performed
+//---------------------------------------------------------------------------
+OnSecondChange
+{
+
+	if AYATEMPLATE.mikireflag == 1 && reference[1] == 0
+	{
+		//---- End
+		EndMikireTalk
+	}
+	AYATEMPLATE.mikireflag = reference[1]
+	
+	//reference4 is seconds since last moved
+	if reference[4] < 1{
+		infocounter++
+	}
+	
+	//Manage the counter for ensuring a smooth SAORI executions
+	if actcountallowed > 2{
+		actcountallowed--
+	
+	}elseif actcountallowed == 2{
+		actcountallowed = 1
+		_val = FUNCTIONEX("activitycounter.dll",sakurahwnd,"start")
+	
+	}
+	--
+	//Inactivity processing
+	_activity = 0
+	if actcountallowed{
+		_activity = minkey + minclick
+	}
+	if reference[4] == 0{
+		_activity+= infocounter
+	}
+	
+	if closed == 0 && useractive == 0 && _activity > 3 && timeup >= 2{
+		//if the infoperminute is negative, it is providing a gap of time when the user tells Gel they will be gone
+		if emotion > 0 && infoperminute > -2{
+			SENDERROR('OnUserReturn','info')
+			"\![raise,OnUserReturn]"
+		
+		}else{
+			useractive = 1
+			
+		}
+	//	"returned"
+	//	useractive = 1
+		//OnUserReturn
+	}else{
+		
+	}
+	//"\_q(user %(useractive)) R4:%reference[4] Activity: %_activity Count:%infocounter: PerMin:%infoperminute"
+	//Test script input (actcount disallowed)= %(useractive=0)%(timeup+=10)
+}
+
+//Called when the user returns from being AFK
+OnUserReturn{
+	useractive = 1
+	thankful = 2
+	//If you were gone for a long time (over an hour and a half), you get a greeting
+	if minidle > 90{
+		SetTimeSensitiveGreeting
+	}
+	//check if they logged off for the night and left Gel here (six hours)
+	if minidle > 360{
+		_timegone = FLOOR(minidle/60)
+		_logofftime = hour - _timegone 
+		if _logofftime < 0{
+			//add a negative to it
+			_logofftime = 24 + _logofftime
+		}
+		addLogOffData(_logofftime)
+	}
+	--
+	if minidle > 2{
+	
+		case emotion{
+		
+		//Gel is asleep
+		when -1{
+			"Zzzzz... wh' was tht..."
+
+		
+		//Tired
+		}when 0{
+		
+			//Category-specific Dialogues
+			if checkGreatTP4{			//(currently) Maxed Out Positive ----------------------------------------
+
+
+			}elseif checkGreatTP3{		//Positive Route Pt 3 ---------------------------------------------------
+				"%(gelLookForward)%(gelConfused)You know what would be cool, %(nicknamed)...? Bein%(guh) a plush. %(gelLookAway)Squish..."
+				
+				"%(gelLookForward)Good black Atlas, time for your final News Update... %(gelLookRight)my name is %(gelsalterego), and I%(am) here with Longheart and Dove for Orange Skies..."
+			}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
+				
+				
+			}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
+				
+				
+			}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
+
+
+			}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+
+
+			}elseif checkLessEqTN2{		//Negative Route Pt 2 (and more) ----------------------------------------
+				"%(gelLookForward)%(gelSquint)I had a mini-dream of the naked AnArtemPulsar mental health advert. %(gelLookRight)%(gelSquint)Was still better than you coming back."
+				
+			}
+
+			//General Positive/Negative Route Dialogues
+			if checkGreatTP2{							//Significantly positive---------------------------------
+
+			}
+
+
+			if checkGreatTN1{							//Any positive-------------------------------------------
+				"%(gelLookForward)Hmm, still here? %(gelLookRight)I feel like I%(have) been here forever, %username. %(gelLookForward)%(gelConfused)What%(are) you going to do now?"
+				"Oh, %(gelLookForward)you%(are) back. %(gelLookRight)I was just gonna fall asleep without anythin%(guh) goin%(guh) on."
+
+			}else{										//Any negative-------------------------------------------
+				"%(gelLookForward)Oh, yeah. %(gelUh)How could I forget about you...?"
+				"%(gelLookForward)Almost fell asleep while you were away. %(gelUh)You would%(not) want that, would you?"
+			}
+
+			//Stagger versions (unlocked at the .5 mark)
+			if checkStaggerGreatTP4 {			//Positive Route Pt 3.5 ---------------------------------
+				"%(gelLookForward)%(gelSurprise)Have %(you) ever considered what it would be like to be an axolotl? %(gelLookAway)%(gelWistful)Swim, swim, little brick of fish-lizard. "
+			
+
+			}elseif checkStaggerGreatTP3 {		//Positive Route Pt 2.5 ---------------------------------
+				
+				
+			}elseif checkStaggerGreatTP2{		//Positive Route Pt 1.5 ---------------------------------------------------
+				
+				
+			}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 0.5 -------------------------
+
+
+			}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
+				
+				"%(gelLookForward)Emily save me, if I had gotten much more tired. %(gelSlashMouth)Might still fall asleep. \![raise,OnSetVariable,jabbering,2]"
+			
+			}elseif checkStaggerLessEqTN2 {		//Negative Route Pt 2.5 (and more) ----------------------
+				
+				
+			}
+
+		
+		//when sick
+		}when 3{
+			//Category-specific Dialogues
+			if checkGreatTP4{			//(currently) Maxed Out Positive ----------------------------------------
+
+
+			}elseif checkGreatTP3{		//Positive Route Pt 3 ---------------------------------------------------
+				"%(gelLookForward)Oh, hey, there, bartender. Welcome."
+
+			}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
+				
+				
+			}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
+				
+				
+			}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
+
+
+			}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+
+
+			}elseif checkLessEqTN2{		//Negative Route Pt 2 (and more) ----------------------------------------
+				
+				
+			}
+
+			//General Positive/Negative Route Dialogues
+			if checkGreatTP1{							//Significantly positive---------------------------------
+				"%(gelLookForward)Ah! %(gelLookAway)There you are... I was wonder%(guh) where you went. %(gelUh)I uh, do%(not) really have other things to do here, heh."
+			}
+
+
+			if checkGreatTN1{							//Any positive-------------------------------------------
+
+				"%(gelLookForward)%(gelArmsFistChin)Did you go get something? \w8Maybe you can stay calm on your computer for a %(lil) longer..."
+
+			}else{										//Any negative-------------------------------------------
+				"%(gelLookForward)Oh, you%(are) still around...? %(gelLookAway)Urgh."
+			}
+
+		
+		//when bored
+		}when 4{
+		
+			//Category-specific Dialogues
+			if checkGreatTP4{			//(currently) Maxed Out Positive ----------------------------------------
+
+
+			}elseif checkGreatTP3{		//Positive Route Pt 3 ---------------------------------------------------
+				{
+					"%(gelLookForward)%(gelSlashMouth)Without you here I was slowly turning into \_a[https://www.gawker.com/my-14-hour-search-for-the-end-of-tgi-fridays-endless-ap-1606122925]that lady that ate TGI Friday%(is) mozzarella sticks for 14 hours"
+					--
+					if port > 4500{
+						". \w8%(gelForceLookComfortable)I can just about imagine how bad they were just from reading about that. "
+					}else{
+						", except I cannot eat. "
+					}
+				}
+
+			}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
+				"%(gelLookLeft)At this point I just feel like I%(am) watching AnWillow from the security cameras waiting for her to move."
+				"Oh? %(gelLookForward) Look who%(is) back with me. %(gelCatMouth)It%(is) someone who%(is) actually not half bad."
+			}elseif checkGreatTP1{		//Positive Route Pt 1
+				
+				"%(gelLookForward)Oh, is it finally time to do something interesting? \![raise,OnSetVariable,jabbering,2]"
+				"%(gelLookForward)If it%(is) time for something more interesting, maybe now I%(will) figure out what makes you \w6you."
+			}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
+				"%(gelLookForward)Oh, it%(is) you. %(gelLookAway)Come over here and do somethin%(guh) interesting, will you? %(gelLookForward)An AI like me needs lots of fun. "
+				if port == 434{
+					"%(gelLookForward)Somehow, they persisted. "
+				}
+			}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+				"%(gelLookForward)You%(are) back. That%(is), uh, good. %(gelLookAway)So long as you%(will) do something interesting. %(gelUh)I%(am) booooored.\![raise,OnSetVariable,jabbering,2]"
+				if port == 434{
+					"%(gelLookForward)And it stood to time that they could not be defeated."
+				}
+			}elseif checkLessEqTN2{		//Negative Route Pt 2 (and more) ----------------------------------------
+				"%(gelLookAway)If I would have gotten much more bored than that when you were gone, my eyes would have started melting out of my head."
+				if port = 434{
+					"%(gelLookForward)And the villain did not fall. \![raise,OnSetVariable,jabbering,2]"
+				}
+			}
+			
+			
+			if checkGreatTP1{
+				"%(gelLookForward)Looking forward to more with you. \n\n[half]%(gelHmm)You %(gonna) have some fun now?"
+				"%(gelLookForward)Ah, time to get to know you some more, huh?"
+			}
+
+
+			
+		//when uncomfortable
+		}when 5{
+		
+			//Category-specific Dialogues
+			if checkGreatTP4{			//(currently) Maxed Out Positive ----------------------------------------
+
+
+			}elseif checkGreatTP3{		//Positive Route Pt 3 ---------------------------------------------------
+				"%(gelLookForward)Hello, %username, it%(is) nice to see you back. %(gelNervous)You keep runnin%(guh) off like that. %(gelLookAway)%(gelHuh)You got places to be? %(gelLookForward)You can always just send me back to my endless void of nonexistence."
+
+			}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
+				"%(gelLookForward)%(gelNervous)Whew. It%(is) just you."
+				
+			}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
+				"%(gelLookForward)Oh, there you are. %(gelLookRight)%(gelSlashMouth)I was startin%(guh) to wonder..."
+				
+			}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
+				"%(gelLookForward)%(gelArmsChest)%(gelFrown)What a wonderful day for me to still be on your desktop."
+
+			}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+
+
+			}elseif checkLessEqTN2{		//Negative Route Pt 2 (and more) ----------------------------------------
+				
+				
+			}
+
+			//General Positive/Negative Route Dialogues
+			if checkGreatTP2{							//Significantly positive---------------------------------
+
+			}
+
+
+			if checkGreatTN1{							//Any positive-------------------------------------------
+			
+			}else{										//Any negative-------------------------------------------
+				"%(gelLookForward)Ah, welcome back, %username."
+				"%(gelLookForward)Do you have everything you need? %(gelLookAway)%(gelSlashMouth)Maybe you forgot something."
+			}
+
+			//Stagger versions (unlocked at the .5 mark)
+			if checkStaggerGreatTP3 {			//Positive Route Pt 3.5 ---------------------------------
+
+
+			}elseif checkStaggerGreatTP2 {		//Positive Route Pt 2.5 ---------------------------------
+				
+				
+			}elseif checkStaggerGreatTP1{		//Positive Route Pt 1.5--------------------------------------------------
+				
+				
+			}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 0.5 -------------------------
+
+
+			}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
+				
+				
+			}elseif checkStaggerLessEqTN2 {		//Negative Route Pt 2.5 (and more) ----------------------
+				
+				
+			}
+
+			
+		//when scared
+		}when 6{
+			//Category-specific Dialogues
+			if checkGreatTP4{			//(currently) Maxed Out Positive ----------------------------------------
+
+
+			}elseif checkGreatTP3{		//Positive Route Pt 3 ---------------------------------------------------
+				
+				
+			}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
+				
+				
+			}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
+				
+				
+			}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
+
+
+			}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+
+
+			}elseif checkLessEqTN2{		//Negative Route Pt 2 (and more) ----------------------------------------
+				
+				
+			}
+
+			//General Positive/Negative Route Dialogues
+			if checkGreatTP1{							//Significantly positive---------------------------------
+				"%(gelLookForward)Hi! %(gelNervous)What are you going  to be up to? We%(are) close, right? %(gelLookConcerned)Maybe do%(not) leave me alone like that. Please."
+				"%(gelLookForward)Oh, you%(are) back. %(gelExcited)Welcome!"
+
+			}
+				"%(gelLookForward)There you are. Hi. "
+
+			if checkGreatTN1{							//Any positive-------------------------------------------
+				
+				
+
+			}else{										//Any negative-------------------------------------------
+				"Ah, haha... %(gelLookForward)you%(are) back. "
+				
+			}
+
+			//Stagger versions (unlocked at the .5 mark)
+			if checkStaggerGreatTP4 {			//Positive Route Pt 3.5 ---------------------------------
+
+
+			}elseif checkStaggerGreatTP3 {		//Positive Route Pt 2.5 ---------------------------------
+				
+				
+			}elseif checkStaggerGreatTP2{		//Positive Route Pt 1.5 ---------------------------------------------------
+				
+				
+			}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 0.5 -------------------------
+
+
+			}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
+				
+				
+			}elseif checkStaggerLessEqTN2 {		//Negative Route Pt 2.5 (and more) ----------------------
+				
+				
+			}
+
+		
+		//when angry
+		}when 10{
+			
+			
+
+			if checkGreatTN1{							//Any positive-------------------------------------------
+				"%(gelLookForward)It%(is) you."
+				"%(gelLookForward)%(gelConfused)%(gelArmsKnees)Ah, can't stay away, huh? Hm."
+
+			}else{										//Any negative-------------------------------------------
+				"%(gelLookForward)Hey, %(bastard). %(gelBigSmile)Some of your files might have ran away while you were gone..."
+			}
+
+		
+		
+		
+		//when curious
+		}when 14{
+
+			//Category-specific Dialogues
+			if checkGreatTP4{			//(currently) Maxed Out Positive ----------------------------------------
+
+
+			}elseif checkGreatTP3{		//Positive Route Pt 3 ---------------------------------------------------
+				"%(gelLookForward)Back to work time? You%(are) doin%(guh) just great I bet."
+				"%(gelLookForward)Yooo! %(gelBigSmile)Here comes the glorious %(binch). "
+
+			}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
+				
+				
+			}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
+				"%(gelLookForward)Good to have you! \w8%(gelExcited)Show me more of what this computer is made of."
+				
+			}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
+
+
+			}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+				if minidle <= 10{
+					"Oh, that did%(not) take long. %(gelLookForward)Welcome."
+				}
+
+			}elseif checkLessEqTN2{		//Negative Route Pt 2 (and more) ----------------------------------------
+				"%(gelLookForward)Comin%(guh) back to your grind? %(gelLookRight)Hopefully you%(will) keep the pummeling to your keyboard."
+				
+			}
+
+			//General Positive/Negative Route Dialogues
+			if checkGreatTP1; nonoverlap {				//Significantly positive---------------------------------
+				//If Gel has stayed successfully curious, the user was not away for very long.
+				//Most often, the user comes back to find Gel back to neutral. If it was too long,
+				//Gel is assuredly bored, tired (which they'll quickly snap out of if they're well rested),
+				//or asleep entirely.
+				"%(gelLookForward)Welcome back gamer! %(gelBigSmile)Fueled up for more?"
+				"%(gelLookForward)%(gelWistful)Nothing can keep you away for long"
+				"%(gelLookForward)Keep it goin%(guh)! %(gelThumbsUp)You%(are) on a roll!"
+			}
+
+
+			if checkGreatTN1{							//Any positive-------------------------------------------
+				"%(gelLookForward)C'mon, do%(not) let the energy fall! %(gelExcited)Go, go! I believe in you!"
+				"%(gelLookForward)Wowie, welcome. %(gelConfused)Back to bein%(guh) busy? I think you%(are) doin%(guh) great."
+
+
+			}else{										//Any negative-------------------------------------------
+				"%(gelLookForward)%(gelUh)Oh, back to try again?"
+			}
+
+
+		//handles neutral
+		}others{
+					
+			//Category-specific Dialogues
+			if checkGreatTP4{			//(currently) Maxed Out Positive ----------------------------------------
+				
+
+			}elseif checkGreatTP3{		//Positive Route Pt 3 ---------------------------------------------------
+				"%(gelLookForward)Be a cat. \w8%(gelLookRight)No more responsibilities. \w8\w8%(gelLookForward)Just meow meow"
+				if minidle > 5; "%(gelLookForward)%(gelConfused)What were you up to? Runnin%(guh) off without a care. Just leavin%(guh) me here in the silence staring at... %(gelLookSouthWest)this. "
+				if port == 434{
+					"%(gelLookForward)And so the traveler returns!"
+					"%(gelLookForward)Hark, traveler! \w8%(gelSilly)"
+					"%(gelLookForward)What brings you back to this tavern? Looking for quests? "
+					"%(gelLookForward)And it proved the traveler was not, in fact, dead. \![raise,OnSetVariable,jabbering,2]"
+				}
+			}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
+				"%(gelLookForward)Welcome back to your computer! %(gelHuh)Are you having a nice %(GetTimeSlot)? %(gelLookLeft)I want to see out your window. There%(is) no way it%(is) anything like we see in Atlas."
+				
+			}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
+				
+				
+			}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
+			
+				
+			}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+				"%(gelLookForward)Oh, you%(are) back? %(gelHuh)I%(am) uh, your cool assistant, ready for duty!"
+
+			}elseif checkLessEqTN2{		//Negative Route Pt 2 (and more) ----------------------------------------
+				"%(gelLookForward)%(gelFrown)The void called for you while you were gone. %(gelNoEyes)It%(has) started eating the edges of the world. "
+				"%(gelLookForward)The world will break in two and everything you know will go down the drain."
+				if port == 434; "%(gelLookForward)And it proved the traveler was not, in fact, dead. \![raise,OnSetVariable,jabbering,2]"
+			}
+
+			//General Positive/Negative Route Dialogues
+			if checkGreatTP2{							//Significantly positive---------------------------------
+
+			}
+
+
+			if checkGreatTN1{							//Any positive-------------------------------------------
+				
+				if minidle <= 10{
+					"%(gelLookForward)%(gelConfused)Did you just have to go get water or something?"
+					"%(gelLookForward)%(gelHuh)Did you have to get something?"
+				}else{
+					if hour > 19; "%(gelLookForward)%(gelHuh)Still have more to do today?"
+					if hour < 10 && hour > 4; "%(gelLookForward)%(gelHuh)Early day responsibilities? %(gelLookForward)You should just hang out with me forever."
+					"%(gelLookForward)Oh, there you are, %(nicknamed)! %(gelEarTwitch)I was wondering what you went off to do."
+				}
+				
+
+
+			}else{										//Any negative-------------------------------------------
+				"%(gelLookForward)Oh, you%(are) back. %(gelHuh)Could%(not) stay away?"
+			}
+
+			//Stagger versions (unlocked at the .5 mark)
+			if checkStaggerGreatTP3 {			//Positive Route Pt 3.5 ---------------------------------
+
+
+			}elseif checkStaggerGreatTP2 {		//Positive Route Pt 2.5 ---------------------------------
+				
+				
+			}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 1.5 -------------------------
+
+
+			}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
+				
+				
+			}elseif checkStaggerLessEqTN2 {		//Negative Route Pt 2.5 (and more) ----------------------
+				"%(gelLookForward)Oh, did you miss your punching bag?"
+				
+			}
+
+						
+		}
+		
+
+	}
+
+	
+		if checkGreatTP1{
+			"Hey, %(nicknamed).\e"
+			"Welcome back %username.\e"
+			"Welcome back %username.\e"
+			if minidle <= 10{
+				"Did you forget something?\e"
+				"Did you remember to refill your water?\e"
+				"Wuh buh %(nicknamed)!\e"
+			}
+		}elseif !checkBadMood{
+		
+			"Oh, you%(are) back, %username.\e"
+			"Hi. \e"
+			if minidle <= 10; "Water break?\e"
+			
+		
+		}else{
+			"%(gelLookRight)Welc I guess.\e"
+			"%(gelLookAway)...\e"
+			"%(gelLookAway)\e"
+			"\e"
+			"\e"
+		
+		}
+	}
+
+}
+
+
+
+
+//------------------------------------------------------------------------------
+//Incomplete
+//------------------------------------------------------------------------------
+MikireTalk
+{
+	//has to do with going partially off screen
+	//"%(gelBase)I%(am) out.\e"
+}
+
+//------------------------------------------------------------------------------
+//End
+//------------------------------------------------------------------------------
+EndMikireTalk
+{
+	//"%(gelBase)It returns from the end.\w8\1It looks very happy.\w8\0\n\nThat's right.\e:chain=mikirego"
+}
+
+
+//------------------------------------------------------------------------------
+// The first random talk after a closeout will be a talk related to a closeout.
+// I accomplish this with a chain
+//------------------------------------------------------------------------------
+mikirego
+{{CHAIN
+	"%(gelBase)You can at least warn me, %username.\e"
+}}CHAIN
+
+//******************************************************************************
+// Surface restoration
+//******************************************************************************
+
+//******************************************************************************
+//translator
+//******************************************************************************
+
+
+
+//------------------------------------------------------------------------------
+//OnTranslateInternal events
+//------------------------------------------------------------------------------
+// OnTranslate goes through the main body once, YAYA  ¨ main body  ¨ YAYA,
+// OnTranslateInternal is a translation inside YAYA.
+// Therefore, it is passed to this function without changing the reference variable etc.
+// The argument is the content of the talk just before _argv [0] is passed to the body.
+// Comment out so that it does not move.
+
+OnTranslate
+{	
+  //  _timestart = GETTICKCOUNT
+   
+	_text = reference0
+	
+	if reference1 == "" && reference2 == ""
+    { //send input box : no event (ref2) , no special flag (ref1)
+        EVAL('"' + REPLACE(_text,'"','" + CHR(0x22) + "') + '"')
+		//"
+    }else{
+		
+		if emotion > 0 {
+			//People refer to their friends differently. 434 is not way too out of the ordinary, but is overwhelmingly positive regarding the Wicker family motive. 
+			//434 just calls their friends by their first names.
+			if port != 434{
+				_text = REPLACE(_text, "AnMaryWicker", "\_a[AnchorMaryWicker]Rep Mary Wicker\_a")
+				_text = REPLACE(_text, "AnNariyakiWicker", "\_a[AnchorNariyakiWicker]Rep Nariyaki Wicker\_a")
+				_text = REPLACE(_text, "AnShijoWicker", "\_a[AnchorShijoWicker]Shijo Wicker\_a")
+			}else{
+				_text = REPLACE(_text, "AnMaryWicker", "\_a[AnchorMaryWicker]Mary\_a")
+				_text = REPLACE(_text, "AnNariyakiWicker", "\_a[AnchorNariyakiWicker]Yaki\_a")
+				_text = REPLACE(_text, "AnShijoWicker", "\_a[AnchorShijoWicker]Shijo\_a")
+
+			}
+			
+			
+			_text = REPLACE(_text, "AnEvanLocke", "\_a[AnchorEvanLocke]Evan Locke\_a")
+			_text = REPLACE(_text, "AnArtemPulsar", "\_a[AnchorArtemPulsar]Artem Pulsar\_a")
+			_text = REPLACE(_text, "AnTheNameless", "\_a[AnchorTheNameless]The Nameless, leader of the Rainbow Rebels\_a")
+			
+			_text = REPLACE(_text, "An0000", "\_a[AnchorOG]#0000\_a")
+			_text = REPLACE(_text, "AnPort0000", "\_a[AnchorOG]Port #0000\_a")
+			_text = REPLACE(_text, "AnIris", "\_a[AnchorIris]Iris\_a")
+			_text = REPLACE(_text, "AnTaboo", "\_a[AnchorTaboo]Taboo\_a")
+			_text = REPLACE(_text, "An434", "\_a[Anchor434]Port #434\_a")
+			_text = REPLACE(_text, "An2681", "\_a[AnchorNeon]Port #2681\_a")
+			
+			if port != 3839; _text = REPLACE(_text, "AnGra", "\_a[AnchorGra]Gra\_a")
+			
+			_text = REPLACE(_text, "AnDrNeon", "\_a[AnchorDrNeon]Dr.\w1 Neon\_a")
+			_text = REPLACE(_text, "AnWillow", "\_a[AnchorWillow]Willow\_a")
+			_text = REPLACE(_text, "AnRadius", "\_a[AnchorRadius]Radius\_a")
+			_text = REPLACE(_text, "AnRam", "\_a[AnchorRam]Ram\_a")
+			_text = REPLACE(_text, "AnSco ", "\_a[AnchorScorpion]Sco\_a")
+			_text = REPLACE(_text, "AnScorpion", "\_a[AnchorScorpion]Scorpion\_a")
+			_text = REPLACE(_text, "AnTwins", "\_a[AnchorTwins]The Twins\_a")
+			_text = REPLACE(_text, "AnJade", "\_a[AnchorJade]Jade Eyes\_a")
+		}
+		
+		if !("\_q" _in_ _text){
+			_text = REPLACE(_text, ", ", ",\w6 ")
+			_text = REPLACE(_text, "\,\w6 ", "\, ")
+			_text = REPLACE(_text, ". ", ". \w8")
+			_text = REPLACE(_text, "? ", "? \w8\w4")
+		}
+		
+		//A few stutters.
+		if claustro > CLAUSTRODILATION && !("\q" _in_ _text)&& !("\!" _in_ _text)&& !("\_a" _in_ _text){
+			_text = REPLACE(_text, "G", "G-G")
+			_text = REPLACE(_text, "D", "D-D")
+		//	_text = REPLACE(_text, "!", ".")
+			//this one ended up being a little too overwhelming honestly 
+			//_text = REPLACE(_text, "d", "d-d")
+		
+		}
+		if claustro > CLAUSTROSTUTTER && !("\q" _in_ _text)&& !("\!" _in_ _text){
+			_text = REPLACE(_text, " T", " T-T")		
+			_text = REPLACE(_text, ". ", "... ")
+			_text = REPLACE(_text, "B", "B-B")
+		//	_text = REPLACE(_text, "C", "C-C")
+			_text = REPLACE(_text, "K", "K-K")
+			_text = REPLACE(_text, " g", " g-g")
+		
+		}
+		//Iris is babey
+		if port == 1712{
+			_text = REPLACE(_text, "\i[353]", "\i[357]\i[353]")
+			_text = REPLACE(_text, "\i[352] ", "\i[352]\i[356]")
+			_text = REPLACE(_text, "\i[354]", "\i[354]\i[358]")
+			_text = REPLACE(_text, "\i[355]", "\i[359]\i[355]")
+			_text = REPLACE(_text, "\i[358]", "\i[358]\i[354]")
+			_text = REPLACE(_text, "\i[356]", "\i[352]\i[356]")
+			_text = REPLACE(_text, "\i[357]", "\i[357]\i[353]")
+			_text = REPLACE(_text, "\i[359]", "\i[355]\i[359]")
+			
+			_text = REPLACE(_text, "\i[363]", "\i[367]\i[363]")
+			_text = REPLACE(_text, "\i[362] ", "\i[362]\i[366]")
+			_text = REPLACE(_text, "\i[364]", "\i[364]\i[368]")
+			_text = REPLACE(_text, "\i[365]", "\i[369]\i[365]")
+			_text = REPLACE(_text, "\i[368]", "\i[368]\i[364]")
+			_text = REPLACE(_text, "\i[366]", "\i[362]\i[366]")
+			_text = REPLACE(_text, "\i[367]", "\i[367]\i[363]")
+			_text = REPLACE(_text, "\i[369]", "\i[365]\i[369]")
+		}
+		
+		_text = REPLACE(_text, "\e", "\w9\w9\e")
+	//	_timeend = GETTICKCOUNT - _timestart
+	//	_text = _text + _timeend
+		
+		_text
+	
+	}
+		
+	
+	
+}
+
+
+
+
+//------------------------------------------------------------------------------
+//OnTranslate events
+//------------------------------------------------------------------------------
+// The simplest example. Inflection ( g. h  ¨  gNii. h).
+// Comment out so that it does not move.
+
+
+//shameful, we can't make Gra too chaotic.... goal would still be to make them talk in colors
+/*
+OnTranslate
+{
+    _talk = reference0;
+     //_talk = REPLACE(_talk, "Anchor 1", "\_a[anchor1]Anchor 1\_a")
+     
+    if reference1 == "" && reference2 == ""
+    { //send input box : no event (ref2) , no special flag (ref1)
+        EVAL('"' + REPLACE(_talk,'"','" + CHR(0x22) + "') + '"')
+		//"
+    }
+    else
+    { //event result from ghost
+        TOSTR(_talk);
+    }
+}
+*/

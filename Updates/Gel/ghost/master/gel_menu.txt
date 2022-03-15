@@ -1,0 +1,2233 @@
+//******************************************************************************
+// YAYA　Ghost template
+// menu processing dictionary
+//******************************************************************************
+
+//******************************************************************************
+// Develop main menu
+//
+// How to use MenuItem
+// first string = string to be displayed in choice
+// second string = function name executed when selected
+// 3 second character string = line feed amount / 50% increments / 100% if omitted (= \ n)
+//******************************************************************************
+testshioriistalking{
+	"%(SHIORI3FW.IsTalking)dialogue"
+}
+//------------------------------------------------------------------------------
+//Main menu expansion
+//------------------------------------------------------------------------------
+#globaldefine MAXMUSIC 22
+OpenMenu
+{
+	lastinter = 0
+	//Lap friends may want to get down
+	//Even though this doesn't occur
+	if holding >= 600 && RAND(8) == 0{
+	
+		//right now it's just Obsidian, but I'll update this code later to do proper code
+		holding = 0
+		"\![get,property,OnObsidianJumpDown,currentghost.scope(0).rect]%(gelBase)"
+		res_reference0=""
+	}
+	--
+	//Make sure Gel is awake to respond, first.
+	if emotion == -1{
+		_sleptfor = timeasleep/2
+		"%(gelBase)Hnn?"
+		"%(gelBase)Zzzzz..."
+		--
+		if _sleptfor > 1{
+			MenuItem("Wake %Gel up\, it's been %_sleptfor hours...","Menu_WAKE",200)
+		}else{
+			MenuItem("Wake %Gel up","Menu_WAKE",200)
+		}
+		
+		--
+		MenuItem("Let %gthemhimher sleep","Menu_CANCEL")
+		--
+		"\n"
+	
+	}else{
+		"\n\n\n\n[-300]"
+		--
+		/*
+		/	NOTE:
+		/
+		/	There are two sets of reactions. The first, generic about relationships,
+		/	is just the generics. There is another tree after that handles specials
+		/	and emotion responses.
+		*/
+		//If Gel wasn't watching
+		if "\i[390]" _in_ SHIORI3FW.LastTalk{
+			if checkGreatTN1 && trust < TPOS2{
+				"Oh, %(gelLookForward)sorry, %username, I was looking at something on the web."
+				"Oh, %(gelLookForward)sorry, %username, I was looking at something."
+				"Ah, %(gelLookForward)sorry, I was a bit distracted online."
+			}else{
+				"Ah, %(gelLookForward)sorry, I got distracted on the web."
+				"Ah-- %(gelLookForward)hey there."
+				"Oh! %(gelLookForward)It%(is) you."
+			}
+			
+		
+		
+		//Good reactions
+		}elseif checkGreatTN1{
+			
+			if SHIORI3FW.IsTalking == 0{
+				//asleep is already handled, no worries
+				case emotion{
+				
+					//when sleepy or sick
+					when 3 , 0{
+
+						"%(gelBase)Heya..."
+						"%(gelBase)What?"
+						"%(gelBase)..."
+						"%(gelBase)%username..."
+					
+					//when uncomf
+					}when 5{
+						"%(gelBase)What is it?"
+						"%(gelBase)Ye?"
+						"%(gelBase)Hmm?"
+						"%(gelLookForward)What do you need?"
+						"%(gelLookForward)%username?"
+						"%(gelLookAway)What."
+					
+					}when 6{
+						"%(gelBase)...What is it?"
+						"%(gelBase)Yeah...?"
+						"%(gelBase)Hmm?"
+						"%(gelLookForward)What do you need?"
+						"%(gelLookForward)%username?"
+						"%(gelLookAway)What."
+						
+						if checkGreatTP2{
+							"...Hey there."
+						}
+					
+					//neutral, bored (theoretically, they leave bored on mouse), curious
+					}others{
+						if holding == 600{
+							"%(gelBase)What can kitty cat and I do for %(you)?"
+							"Obsidian%(will) help."
+						}
+						"%(gelBase)Yeah?"
+						"%(gelLookForward)%username, what is it?"
+						"%(gelBase)What happened?"
+						"%(gelBase)Yee?"
+						"%(gelBase)What's up?"
+						"%(gelLookForward)What can I do for you?"
+						"%(gelLookForward)Yeah, %(nicknamed)?"
+						"%(gelLookForward)How can I help you?"
+					}
+				
+				}
+			}else{
+				"%(gelAngry)Hey, I was talking, %username! "
+			}
+			
+			
+		}elseif checkGreatTN2{
+		//Poor reactions.
+			//asleep is already handled, no worries
+			case emotion{
+			
+				//when sleepy or sick
+				when 3 , 0{
+				
+					"%(gelBase)..."
+					"%(gelBase)I do%(not) want to...\![raise,OnSetVariable,jabbering,2]\e"
+					"%(gelBase):/"
+					"%(gelBase)>:("
+				
+				//when uncomf
+				}when 5{
+					"%(gelBase)Do you need something?"
+					"%(gelBase)What is it???"
+					"%(gelLookForward)%(gelSlashMouth)%username...?"
+					"%(gelLookAway)What."
+					{
+						"%(gelLookAway)Maybe another time.\![raise,OnSetVariable,jabbering,2]\e"
+						"%(gelLookAway)...\e"
+					}
+				
+				}others{
+				
+					"%(gelBase)?"
+					"%(gelLookForward)What is it?"
+					"%(gelBase)What happened?"
+					"%(gelBase)%(gelSlashMouth)??"
+					"%(gelBase)What's up?"
+					"%(gelSquint)What is it this time?"
+				
+				}
+			
+			
+			}
+		//Starkly negative reactions.
+		}else{
+		
+		
+			//asleep is already handled, no worries
+			case emotion{
+			
+				//when sleepy or sick
+				when 3 , 0{
+					
+					"%(gelBase)..."
+					"%(gelBase)No.\e"
+					"%(gelBase)...\e"
+				
+				//when uncomf
+				}when 5{
+					"%(gelSquint)What do you want??"
+					"%(gelBase)What?"
+					"%(gelLookForward)\i[75]%username...?"
+					"%(gelLookAway)What."
+					"%(gelLookAway)Maybe another time.\![raise,OnSetVariable,jabbering,2]\e"
+					"%(gelLookAway)...\e"
+					"%(gelLookForward)Do you ever leave me alone?\![raise,OnSetVariable,jabbering,2]"
+					"%(gelBase)Just leave.\![raise,OnSetVariable,jabbering,2]\e"
+					--
+					""
+					"\e"
+				
+				}others{
+				
+					"%(gelLookForward)?"
+					"%(gelBase)What is it?"
+					"%(gelSquint)Is it a life or death situation?"
+					"%(gelBase)\i[72]??"
+					"%(gelBase)I do%(not) have to show the menu, you know.\![raise,OnSetVariable,jabbering,2]\e"
+					if swearing == 1{
+						"\b2%(gelLookForward)Do you need something, bastard?\![raise,OnSetVariable,jabbering,2]"
+						"\b2%(gelLookAway)What do you want fuckface?\![raise,OnSetVariable,jabbering,2]"
+						"%(gelLookForward)What can I do for you, asshole?\![raise,OnSetVariable,jabbering,2]"
+					
+					}
+					"%(gelSquint)What. \w8 What about it."
+				}
+			}
+			
+		//This is a test from trying to get invisible options that work with Voice Recognition. 
+		//It did not work, but I'll leave this comment here as a reminder.
+		//	--
+			//"%(sInvis)"
+		//	--
+		//	MenuItem("Behave Gel","Menu_BEHAVE")
+		//	--
+		//	"%(eInvis)"
+		//	--
+		}
+		
+		//The above provides a decent base and backup, very filler dialogue set. 
+		//The more interesting ones will be here. 
+		
+		case emotion{
+		
+		//Asleep is already handled with a separate menu
+		//Tired
+		when 0{
+		
+			//Category-specific Dialogues
+			if checkGreatTP3{			//(currently) Maxed Out Positive ----------------------------------------
+
+
+			}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
+				
+
+			}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
+				
+				
+			}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
+
+
+			}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+
+
+			}elseif checkLessEqTN2{		//Negative Route Pt 2 (and more) ----------------------------------------
+				
+				
+			}
+
+			//General Positive/Negative Route Dialogues
+			if checkGreatTP2{							//Significantly positive---------------------------------
+				"%(gelLookForward)Ah, it%(is) always you. %(gelWistful)You, always needing somethin%(guh). "
+			}
+
+
+			if checkGreatTN1{							//Any positive-------------------------------------------
+				"Mmn? \w8%(gelLookForward)Need somethin%(guh), %(nicknamed)?"
+
+
+			}else{										//Any negative-------------------------------------------
+
+			}
+
+
+
+					
+		//when sick
+		}when 3{
+			//Category-specific Dialogues
+			if checkGreatTP4{			//(currently) Maxed Out Positive ----------------------------------------
+
+
+			}elseif checkGreatTP3{		//Positive Route Pt 3 ---------------------------------------------------
+				
+
+			}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
+				"%(gelLookForward)why, %firstnick"
+				
+			}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
+				"%(gelLookForward)what are you tryin%(guh) to do?"
+				"%(gelLookForward)sendin%(guh) mixed signals pal…"
+			}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
+				"%(gelLookForward)C'mon, I%(am) cute even if? even if?  %(gelLookAway)%(gelSquint)I forgor. "
+
+			}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+				"%(gelLookForward)C'mon, I%(am) cute even if? even if?  %(gelLookAway)%(gelSquint)I forgor. "
+
+			}elseif checkLessEqTN2{		//Negative Route Pt 2 (and more) ----------------------------------------
+				
+				
+			}
+
+			//General Positive/Negative Route Dialogues
+			
+			if checkGreatTP2{							//Significantly positive---------------------------------
+				"%(gelLookForward)%(gelUh)It%(is) my favorite bartender here."
+			}
+
+
+			if checkGreatTN1{							//Any positive-------------------------------------------
+				if timesmadesick > 3{
+					"%(gelLookForward)What if you made milkshakes? You%(are) regrettably %(fudging) good at shakin%(guh) it up. "
+					"%(gelLookForward)%(gelNervous)Hey bartender, here to shake it up?"
+					//""
+				}
+				"Oh, uh, heh? %(gelLookForward)ddya need smth? "
+				"%(gelLookForward)eyy %nicknamed."
+
+
+			}else{										//Any negative-------------------------------------------
+				"%(gelLookForward)%(gelConfused)hrgh"
+			}
+
+			if timesmadesick > 15; "%(gelLookForward)%(gelArmsKnees)Here comes the %(fudging) %(MilkshakeMan)!"
+					
+		//when uncomfortable
+		}when 5{
+		
+			//Category-specific Dialogues
+			if checkGreatTP4{			//(currently) Maxed Out Positive ----------------------------------------
+
+
+			}elseif checkGreatTP3{		//Positive Route Pt 3 ---------------------------------------------------
+				"%(gelLookForward)Oh, hey. Let%(us) do something. %(gelUh)Please."
+
+			}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
+				"%(gelLookForward)Ah, I%(am) always happy for the company."
+				"%(gelLookForward)%(gelWistful)Look at you."
+				
+			}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
+				"%(gelLookForward)Oh! You. You%(are) not bad to be around."
+				"%(gelLookForward)%username is %(okay)."
+			}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
+				"%(gelLookForward)%(gelFurrowed)I am your helper."
+
+			}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+				"%(gelLookAway)Yeah...?"
+				"%(gelLookForward)%(gelFurrowed)Useful, useful, useful…"
+				"%(gelLookForward)%(gelFurrowed)I am your helper."
+				"%(gelLookRight)%(gelFurrowed)...Reporting for duty."
+
+			}elseif checkLessEqTN2{		//Negative Route Pt 2 (and more) ----------------------------------------
+				
+				
+			}
+
+			//General Positive/Negative Route Dialogues
+			if checkGreatTP2{							//Significantly positive---------------------------------
+
+			}
+
+
+			if checkGreatTN1{							//Any positive-------------------------------------------
+
+				
+
+			}else{										//Any negative-------------------------------------------
+
+			}
+
+			
+		//when scared
+		}when 6{
+			//Category-specific Dialogues
+			if checkGreatTP4{			//(currently) Maxed Out Positive ----------------------------------------
+
+
+			}elseif checkGreatTP3{		//Positive Route Pt 3 ---------------------------------------------------
+
+
+			}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
+				
+				
+			}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
+				
+			}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
+
+
+			}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+				"%(gelLookForward)Oh, h-hey there, %username. "
+				"%(gelLookForward)%(gelFurrowed)I can help, I can help…"
+
+			}elseif checkLessEqTN2{		//Negative Route Pt 2 (and more) ----------------------------------------
+				
+				
+			}
+
+			if checkGreatTN1{							//Any positive-------------------------------------------
+
+
+
+			}else{										//Any negative-------------------------------------------
+				"%(gelLookForward)Oh. %(gelUh)You."
+				"%(gelLookForward)%(gelFurrowed)..."
+			}
+									
+		//when angry
+		}when 10{
+			//Category-specific Dialogues
+			if checkGreatTP4{			//(currently) Maxed Out Positive ----------------------------------------
+
+
+			}elseif checkGreatTP3{		//Positive Route Pt 3 ---------------------------------------------------
+
+
+			}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
+				
+				
+			}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
+				
+			}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
+
+
+			}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+				"%(gelLookForward)%(gelConfused)Oh, you need something? Really?"
+
+			}elseif checkLessEqTN2{		//Negative Route Pt 2 (and more) ----------------------------------------
+				"%(gelLookForward)What."
+				
+			}
+
+			if checkGreatTN1{							//Any positive-------------------------------------------
+
+
+
+			}else{										//Any negative-------------------------------------------
+				"%(gelLookForward)%(gelSquint)You do%(not) ever let up no matter what I do."
+			}
+
+		
+		
+		//when curious
+		}when 14{
+
+			//Category-specific Dialogues
+			if checkGreatTP4{			//(currently) Maxed Out Positive ----------------------------------------
+
+
+			}elseif checkGreatTP3{		//Positive Route Pt 3 ---------------------------------------------------
+				{
+					"%(gelLookAway)%(gelBigSmile)I am goin%(guh) to be honest, I recently found out the term 'pogchamp' from your internet and I love it. %(gelLookForward)So, hey there, pogchamp. %(gelSilly)"
+					"%(gelLookForward)%(gelSmug)there%(is) my '%(lil) pogchamp'"
+				}
+				"%(gelLookForward)It%(is) the powerhouse %themself!"
+				if port == 434{
+					"%(gelLookForward)%(gelHmm)Is that a wizard I see?"
+					"%(gelLookForward)And so the traveler returns from %their perilous adventure…"
+				}
+			}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
+				if port == 434{
+					"%(gelLookForward)Hey there gamer."
+				}
+				"%(gelLookForward)What%(is) up gamer?"
+
+			}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
+				"%(gelLookForward)It still amazes me you still have me around."
+				"%(gelLookForward)%(gelHmm)I can't believe you do%(not) have anything better to do than talk to me."
+				if port == 434{
+					"%(gelLookForward)Do%(not) forget your gamer juice."
+				}
+			}elseif checkGreatTN2{		//Negative Route Pt 1 + Pos 0 -------------------------------------------
+				"%(gelLookForward)%(gelHuh)Oh, taking time away from your project for me? "
+				"Oh! %(gelLookForward)Yeah?"
+
+			}elseif checkLessEqTN2{		//Negative Route Pt 2 (and more) ----------------------------------------
+				"%(gelLookForward)%(gelHuh)%(gelNervous)Oh no, did you need something?"
+				
+			}
+
+			//General Positive/Negative Route Dialogues
+			if checkGreatTP1{							//Positive Route---------------------------------
+				if port == 434{
+					"%(gelLookForward)How can I aid you on this action filled adventure?"
+				}
+				if claustro < 4{
+					"%(gelLookRight)%(gelWistful)Some things just make the world seem a bit better."
+					"%(gelLookForward)%(gelHmm)Does%(not) the world look a little bit brighter now?"
+				}
+				"%(gelLookForward)%(gelArmsKnees)I know when I go that hard I sure do feel powerful. "
+				
+			}
+
+
+			if checkGreatTN1{							//Any positive-------------------------------------------
+				if claustro > CLAUSTRODISCOMFORT{
+				"Lend me some of that energy, will %(you)?"
+				}
+				if timeup > 30 && timeup < 120{
+					"You%(have) settled into this computer session well. "
+				}
+				
+				
+			}else{										//Any negative-------------------------------------------
+
+			}
+
+
+		//handles neutral
+		}others{
+		
+			//Category-specific Dialogues
+			if checkGreatTP4{			//(currently) Maxed Out Positive ----------------------------------------
+
+
+			}elseif checkGreatTP3{		//Positive Route Pt 3 ---------------------------------------------------
+				"%(gelLookForward)%(gelArmsHighFive)There%(is) my cool friend!"
+				if port == 434{
+					if lastinter > 30{
+						"%(gelLookForward)And so the traveler returns from %their journey across the digital lands…"
+					}
+				}
+			}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
+				"%(gelLookForward)What can I do for you %(endearingnick)?"
+				if port == 434{
+					"%(gelLookForward)%(gelCatMouth)Cast a spell!"
+					"%(gelLookForward)Fireball!"
+				}
+				
+			}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
+				"%(gelLookForward)Oh, you actually need something? "
+				"%(gelLookForward)Yep yep?"
+				"%(gelLookForward)Need something or just %(wanna) chat?"
+				"%(gelLookForward)Need an assistant or a friend right now?"
+				if lastinter > 40{
+					"%(gelLookForward)Oh hey!"
+					"%(gelLookForward)Nice to see you!"
+					
+				}
+			}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
+				"%(gelLookForward)I%(am) here to assist, %(nicknamed)!"
+				"%(gelLookForward)Anything you need."
+				"%(gelLookForward)%(gelBigSmile)Are%(not) I useful?"
+				"%(gelLookForward)Yeah?"
+				if port == 434; "Must%(have) been the wind."
+
+			}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+				"%(gelLookForward)%(gelBigSmile)Are%(not) I useful?"
+				"%(gelLookForward)I have what you need."
+				"%(gelLookForward)%(gelFurrowed)Here to please."
+				"%(gelLookForward)%(gelFurrowed)I am so helpful."
+				"%(gelLookForward)%(gelFurrowed)I%(will) do whatever you want. "
+				"%(gelLookForward)%(gelFurrowed)I am a great and dedicated assistant. Whatever you need."
+				"%(gelLookForward)%(gelFurrowed)At your beck and call! Desperately!"
+				"%(gelLookForward)%(gelFurrowed)I%(will) be here to help."
+				"%(gelLookForward)%(gelFurrowed)It%(is) always you. "
+
+			}elseif checkLessEqTN2{		//Negative Route Pt 2 (and more) ----------------------------------------
+				"Sadly."
+				"%(gelLookForward)%(gelUh)Gonna order me around?"
+				if port == 434{
+					"%(gelLookForward)%(gelHmm)Did somebody steal your sweetroll?"
+				}
+				
+			}
+
+			//General Positive/Negative Route Dialogues
+			if checkGreatTP2{							//Significantly positive---------------------------------
+				"%(gelLookForward)Hey there %(endearingnick). "
+				if swearing; "%(gelLookForward)What%(is) up mother fuck?"
+				//just make it a bit less frequent
+				if RAND(3) == 0; "%(gelLookForward)%(gelFrown)I recently found out about ''slap %(donkey) Tuesdays'' %(GelSquint)and I do%(not) know how I feel about that. "
+			}
+			
+			if timesmadesick >= 30; "%(gelLookForward)%(gelArmsKnees)Here comes the %(fudging) %(MilkshakeMan)!"
+
+			if checkGreatTN1{							//Any positive-------------------------------------------
+				if lastinter > 60 && infoperminute < 5{
+					"%(gelLookForward)%(gelSquint)You%(are) still on your computer?"
+				}
+
+
+			}else{										//Any negative-------------------------------------------
+
+			}
+
+			
+		}
+
+	}
+
+		
+		--
+		"\b2\n\_q"
+		--
+		MenuItem("Talk about something","Menu_AITALK")
+		MenuItem("Say something","Menu_AITALK")
+		MenuItem("What's up?","Menu_AITALK")
+		MenuItem("What's on your mind?","Menu_AITALK")
+		
+		--
+		if ( STRLEN(AYATEMPLATE.LastTalk) > 8 ) {
+			MenuItem("What was that?","Menu_LASTTALK")
+			MenuItem("What was that?","Menu_LASTTALK")
+			MenuItem("What was that?","Menu_LASTTALK")
+			MenuItem("What was that?","Menu_LASTTALK")
+			MenuItem("Could you repeat that?","Menu_LASTTALK")
+			MenuItem("Could you repeat that?","Menu_LASTTALK")
+			if checkGreatTP2{
+				MenuItem("pordon","Menu_LASTTALK")
+			}
+		}
+	//I mean, I suppose we may need this later, but Gel now randomly may attempt conversation, so we won't let the user initiate it
+	//	--	
+	//	MenuItem("Talk to other ghosts","Menu_GHOSTCOMSTART")
+		--
+		//refusal to interact would have been cut off already
+		"\n[half]"
+		--
+		if !(checkBadMood || emotion == 5) {
+			MenuItem("I have a question.", "Menu_QUESTION")
+		}
+		--
+		//They have to be ready to go before they can play games or ask questions
+		if firsttimeusersetup > 1{
+			MenuItem("Hey\, %(Gel)...","Menu_GELSBEINGWEIRDAGAIN")
+		}
+		--
+		if firsttimeusersetup <= 0{
+			MenuItem("First Time User Setup","FirstBoot_FIRSTTIMEUSERSETUP")
+		}else{
+			if thankful > 0{
+				MenuItem("Thanks, %Gel.","Menu_THANKGEL")
+			
+			}
+			case askgel{
+			
+				when 1{
+					
+					//deprecated, open slot
+					
+				}when 2{
+					MenuItem("Good %(GetTimeSlot)","Menu_GOODX")
+				}when 3{
+					MenuItem("How are you?","Menu_HOWISGEL")
+				}when 4{
+					MenuItem("You feeling okay?","Menu_HOWISGEL")
+				}when 5{
+					MenuItem("Sleep well?","Menu_ASKSLEEP")
+				}when 6{
+					MenuItem("Sorry for hitting you!","Menu_PUNCHREGRET")
+				}when 0{
+					//When Gel doesn't have a reaction, use emotion-based specials
+					case emotion{
+					
+						when 14{
+							if awkwardsilence == 0{
+								MenuItem("%Gel\, I'm busy! Shhh!","Menu_QUIETDOWN")
+								MenuItem("%Gel\, I'm trying to focus! Shhh!","Menu_QUIETDOWN")
+							}
+						
+						}when 5{
+							if claustro > 20{
+								MenuItem("%Gel\, you seem upset.","Menu_UPSETGEL")
+								MenuItem("%Gel\, you seem uncomfortable.","Menu_UPSETGEL")
+								MenuItem("Are you ok?","Menu_UPSETGEL")
+							
+							}else{
+								MenuItem("%Gel\, you seem a little... grouchy.","Menu_UPSETGEL")
+							
+							}
+						
+						}
+									
+					}
+				
+				}
+				
+			
+			}
+		}
+		--
+		if holdinginfo != ""{
+			MenuItem("What was that info?","Menu_HOLDTHIS_remind")
+		}
+		--
+		if awkwardsilence == 1 && checkGreatTN1{
+			MenuItem("Sorry %Gel\, I was trying to focus.","Menu_LETTALK")
+		}
+		--
+		MenuItem("Settings","Menu_SETTINGS",150)
+		--		
+		MenuItem("Functions","Menu_Functions")
+		--		
+		MenuItem("Open CMD","Menu_COMMUNICATEOPEN")
+		--
+	//	MenuItem("Checklist","OnTasks")
+		--
+	//	AYATEMPLATE.MenuItem("Stats for Nerds","Menu_TESTSANDSTATS")
+	//	--
+		MenuItem("Nevermind","Menu_CANCEL",150)
+		
+	}
+	--
+	//spacing
+	"\n[half]"
+	--
+	//even out spacing
+	if !questionableweather && emotion != -1{
+		"\n"
+	}
+	--
+	//More spacing
+	if !debug{
+		"\n"
+	}
+	--
+	if gwhatsupwithyourinternalclock >= 2{
+		"\f[height,-2]\f[align,center]\f[color,dodgerblue]------------------------------\n\f[color,whitesmoke]%(GetTime) %day %(GetMonthName) %year AD "
+	}else{
+		"\f[height,-2]\f[align,center]\f[color,dodgerblue]------------------------------\n\f[color,whitesmoke]%(GetTime) %day %(GetMonthName) %(GetYear) PCR "
+	}
+	--
+	//the weird weather.... found formally in gel_word.
+	//Happens if user turned it on and Gel is awake.
+	if questionableweather == 1 && emotion >= 0{
+		WeirdWeather
+	}
+	--
+	//Bonus info for debugging
+	if debug == 1 {
+		"\nPort #%port %(currentversion), "
+		--
+		case emotion{
+			when 1
+				"neutral"
+			when 3
+				"dazed"
+			when 4
+				"bored"
+			when 5
+				"uncomfortable"
+			when 6
+				"scared"
+			when 10	
+				"angry"
+			when 14	
+				"curious"
+			else
+				"unknown"
+		}
+		--
+		", info: %TOINT(infoperminute)"
+	}
+	--
+	"\e"
+	
+}
+
+
+
+//------------------------------------------------------------------------------
+//メニュー選択タイムアウト
+//------------------------------------------------------------------------------
+OnChoiceTimeout
+{
+	"\b1"
+	--
+	case emotion{
+	
+		when -1{
+			"...\e"
+			"...\e"
+			"...\e"
+			"...\e"
+			"...\e"
+			"...\e"
+			"ssnnznnsnzzzz...\e"
+		
+		}when 0 , 3{
+			"k\e"
+			"Sounds good...\e"
+			"Ok...\e"
+		
+		}when 5{
+			"Ok.\e"
+			"I%(will) just... put the menu away."
+			"Yeah, ok.\e"
+			if checkGreatTN1{
+				"%(gelLookAway)I%(am) sure you have better things to do.\e"
+			}
+			"\e"
+		
+		}when 6{
+			"%(gelConfused)Um, do you need the menu anymore?\e"
+		
+		}when 10{
+			"%(gelLookAway)Whatever.\e"
+		
+		}when 14{
+			"Oh, you have something else to do?\e"
+			"%(gelLookForward)Ok, I%(will) put the menu away, have fun!\e"
+		
+		}others{
+			"%(gelLookForward)Okay, maybe later.\e"
+			"%(gelLookAway)Oh.\w8 Later, then.\e"
+			"%(gelLookAway)Let me know when you need me.\e"
+			"%(gelLookForward)Tap me again if you want the menu.\e"
+			"%(gelLookAway)Okay, I%(will) dismiss the menu.\e"
+			
+			if trust < TNEG1{
+				"%(gelLookAway)Can't even just tell me to close the menu, huh.\e"
+			}else{
+				"%(gelLookAway)Good luck with your work!"
+			}
+		}
+	
+	}
+	
+	
+}
+
+
+Menu_SETTINGS{
+	
+	if checkGreatTN1{
+		"%(gelHuh)What can I do for you?"
+		"%(gelLookForward)%(gelHuh)What do I have wrong, %username?"
+		"Sure, let me know what I need to change."
+	}elseif checkGreatTN2{
+		"Uh yeah sure, what's up?"
+		"%(gelLookForward)%(gelHuh)What's wrong?"
+		"Ok..."
+		"If I have to."
+		"Fine."
+		"What's incorrect."
+		"Here's the settings."
+		"%(gelLookForward)%(gelUh)What do you want me to fix."
+	}else{
+		"%(gelLookForward)%(gelHuh)Do I have to...?"
+		"%(gelLookAway)k."
+		"%(gelLookForward)%(gelHuh)...?"
+		if swearing == 0{
+			"I do%(not) have to.\e"
+		}else{
+			"I do%(not) have to.\e"
+			"I do%(not) have to do shit.\e"
+			"No, just fuck off.\e"
+		}
+	
+	}
+	--
+	"\b2"
+	--
+	MenuItem("Talk every...","Menu_TALKINTERVAL",200)
+	--
+	if userbirthday != ""{
+	//	"\nYour birthday is: %userbirthday."
+//--
+		MenuItem("Current birthday: %userbirthday. Change it?","OnAskBirthdayMonth")
+	}else{
+		MenuItem("Set birthday","OnAskBirthdayMonth")
+	}
+	--
+	if genderlocked != 1{
+		MenuItem("Change Gel's pronouns from %gtheyheshe/%gthemhimher","OnChangePronouns")
+	}
+	--
+	if swearing == 1{
+		MenuItem("Turn swearing off","OnFlipSwearing")
+	}else{
+		MenuItem("Turn swearing on","OnFlipSwearing")
+	}
+	--
+	if questionableweather == 1{
+		MenuItem("Turn 'weather' off","OnFlipWeather")
+	}else{
+		MenuItem("Turn experimental weather on","OnFlipWeather")
+	}
+	--
+	if gwhatsupwithyourinternalclock > -1{
+		MenuItem("Edit time references","OnClockDissonance")
+	
+	}
+	--
+	if sight == 1{
+		MenuItem("Hide what programs you're using","OnFlipSight")
+	}else{
+		MenuItem("Let %Gel see what programs you're using","OnFlipSight")
+	}
+	--
+	if FSIZE("yaya_variable.cfg.bak") > 0{
+		MenuItem("Load backup memory","OnLoadHourBackup")
+	}
+	--
+	MenuItem("Back","OpenMenu",150)
+
+}
+
+OnFlipWeather{
+	if questionableweather == 1{
+		questionableweather = 0
+		"%(gelLookAway)Yeah, I did%(not) think I was very good at it either."
+	}else{
+		questionableweather = 1
+		"If you say so, %(nicknamed)."
+		"You know I do%(not) really do weather."
+		"At your own risk."
+	}
+	--
+	
+
+}
+
+
+OnFlipSwearing{
+	if swearing == 1{
+		swearing = 0
+		"%(fudge)!"
+	}else{
+		swearing = 1
+		"Fuck!"
+		"FUCK!!!"
+		"Titty!"
+		"Bitch!"
+		"Dick!"
+		"Ass!"
+		"Cunt!"
+		"YOUR MOM'S A MAGICAL HOE! FOR FARMING!"	//Rune Factory reference, sort of.
+	}
+	--
+	
+
+}
+
+//Testing function from working on voice recognition
+Menu_BEHAVE{
+	"%(gelUpset)No, I won't %(fudging) behave!"
+}
+
+OnChangePronouns{
+	if genderlocked == 1{
+		if emotion > 0{
+			"%(gelLookForward)%(gelEarTwitch)Hey, you can't do that! I actually have a gender. I%(am) a %gtheyheshe!\e"
+		}else{
+			"I%(am) a %gtheyheshe. You can't change that.\e"
+		}
+	
+	}else{
+		"Sure, what pronouns should I use?"
+		--
+		MenuItem("They/them","OnSetGender","0",200)
+		--
+		MenuItem("He/him","OnSetGender","1")
+		--
+		MenuItem("She/her","OnSetGender","2")
+		--
+		MenuItem("Randomize it.","OnSetFluid")
+		MenuItem("Something more fluid","OnSetFluid")
+		MenuItem("Fluid ones","OnSetFluid")
+		MenuItem("Any","OnSetFluid")
+
+	}
+
+}
+
+OnSetGender{
+	_oldpronoun = gtheyheshe
+	case reference0{
+		when 0{
+			gelNEUTER
+		}when 1{
+			gelMASC
+		
+		}when 2{
+			gelFEM
+		}others{
+			"There was an error.\e"
+		}
+	
+	}
+	if _oldpronoun == gtheyheshe && firsttimeusersetup != 1{
+		"It already was that, but okay. "
+	}else{
+		"Okay, my pronouns are %gtheyheshe/%gthemhimher now. "
+	}
+	--
+	if firsttimeusersetup == 1{
+		OnFirstBoot_FINISHSETUP
+	}else{	
+		"\w8\e"
+	}
+}
+
+OnSetFluid{
+	if genderfluid == 1{
+		"I%(am) already acting genderfluid.\e"
+	}else{
+		genderfluid = 1
+		"%(gelLookForward)Okay, I%(will) use whatever pronouns. %(gelLookAway)For today, I%(will) stick with %gtheyheshe/%gthemhimher, though.\e"
+	
+	}
+}
+
+
+OnClockDissonance{
+	"%(gelConfused)Okay, how do you want me to define hours?"
+	--
+	MenuItem("However you wish","OnSetTime","0",200)
+	--
+	MenuItem("Just don't use military time","OnSetTime","1")
+	--
+	MenuItem("Military time\, but with morning/evening","OnSetTime","2")
+	--
+	MenuItem("12 hour time and morning/evening/etc","OnSetTime","3")
+
+
+
+
+}
+
+OnSetTime{
+	gwhatsupwithyourinternalclock = reference0
+	if emotion > 0 && trust > -15{
+		"%(gelBase)Got it. Will do, %username!"
+	}else{
+		"Got it."
+	}
+	thankful = 2
+
+}
+
+
+
+
+
+Menu_GELSBEINGWEIRDAGAIN{
+	if checkLessEqTN2 {
+		"%(gelBase)"
+		"%(gelLookAway)"
+		//Here, Gel is just done talking with you.
+		--
+		if swearing == 0 {
+			"\i[75]Do%(not) talk to me, nacho face. \![raise,OnSetVariable,jabbering,2]\e"
+			"%(gelLookAway)No. \e"
+			"You do%(not) get to talk to me. \![raise,OnSetVariable,jabbering,2]\e"
+			"Do you want something? \![raise,OnSetVariable,jabbering,2]\e"
+			"%(gelSquint)What? What do you want with me?"
+			"%(gelSquint)...?????"
+		
+		}else{
+			"\i[75]Do%(not) talk to me, fuckface. \![raise,OnSetVariable,jabbering,2]\e"
+			"%(gelSmug)FFFFFuck you! %(gelLookForward)%(gelSmug)\w8\w8 No. \![raise,OnSetVariable,jabbering,2]<3\e"
+			"%(gelLookAway)You do%(not) get to talk to me. \![raise,OnSetVariable,jabbering,2]\e"
+			"%(gelAngry)What do you want, motherfucker?\![raise,OnSetVariable,jabbering,2]"
+			"%(gelSquint)What? What could you even fucking want with me? \![raise,OnSetVariable,jabbering,2]\e"
+			"%(gelSquint)...Okay, what the fuck do you want?????\![raise,OnSetVariable,jabbering,2]"
+		
+		}
+	
+	
+	}
+	elseif trust < TNEG1 {
+		"%(gelBase)"
+		--
+		"What?"
+		"Do%(not) give me that look."
+		"%(gelSquint)..."
+		"%(gelUh)I do%(not) have to let you talk to me, you know.\e"
+	
+	}
+	//elseif ASEARCH("Paper Bag",clothes) && emotion > 0 {
+	elseif 0 && emotion > 0 {
+		"What? %(gelHmm)Why are you looking at me like that?"
+		"%(gelExcited)Is this about the bag?"
+		"You%(are) looking at me funny."
+		"%(gelCatMouth)It's not nice to stare."
+		"%(gelLookForward)Just let an AI wear a paper bag. %(gelExcited)Let it happen, %(nicknamed)."
+		"I%(am) not doing anything weird. Not at all."
+		"%(gelExcited)I am a perfectly normal AI and Nothing Is Weird."
+		"%(gelExcited)heheheheheheheheeheheheheheheee"
+	}else{
+		"Huh?"
+		"What is it?"
+		"Yee?"
+		"What can I do for %(you)?"
+		"Yeah?"
+	}
+	--
+	"\b2\n\_q"
+	--
+	//note to self: don't forget to add in the musical check when it's all finished
+	/*
+	if emotion > 0 && checkGreatTP1{
+		MenuItem("What tunes have you found\, %(Gel)?","Menu_MUSICSUGGEST")
+	}
+	*/
+	--
+	//At the start you get some Gelatin Tips
+	if trust < TPOS1 && checkGreatTN1{
+		MenuItem("Is there anything I should know about you?","Menu_TIPS")
+	}else{
+		MenuItem("I'll be back in a minute.","Menu_BRIEFBREAK")
+	
+	}
+	--
+	//A lot of interactions are only available if Gel is in a good mood.
+	if emotion == 1 || emotion == 14{
+		if ASEARCH("Paper Bag",clothes){
+			//MenuItem("Take that bag off your head!","Menu_RMBAG")
+			//MenuItem("%Gel\, please remove the bag.","Menu_RMBAG")
+			//MenuItem("Remove the paper bag\, %Gel.","Menu_RMBAG")
+		}elseif ASEARCH("Iris",clothes){
+			MenuItem("Nice flower.","Menu_COMPLIMENTIRIS")
+			MenuItem("Pretty flower!","Menu_COMPLIMENTIRIS")
+		}elseif "VOC" _in_ clothes{
+			MenuItem("Can you explain the shirt?","Menu_EXPLAINVOCSHIRT")
+		
+		}elseif "Be Informed" _in_ clothes{
+			MenuItem("Can you explain the shirt?","Menu_EXPLAINGIRAFFESHIRT")
+			MenuItem("What's that on your shirt?","Menu_EXPLAINGIRAFFESHIRT")
+			MenuItem("Does your shirt say... 'GIRAFFE?'","Menu_EXPLAINGIRAFFESHIRT")
+		}
+	}
+	--
+	MenuItem("Wanna play Rock Paper Scissors?","OnInfo_RockPaperScissors","xxx")
+	--
+	MenuItem("Hold this!","Menu_HOLDTHIS")
+	--
+	if forcedport != 0{
+	
+		if checkGreatTN2{
+			MenuItem("Can I talk to a different Gel?","OnAskNewPortNum")
+		}else{
+			//ELEPHANT
+			MenuItem("[Open another port]","OnForceNewPortNum")
+		}
+		
+	}
+	
+	--
+	MenuItem("I have this friend...","Info_AddFriend")
+	--
+	if friends > 0{
+		MenuItem("View relations","Menu_ViewFriendsList")
+	}
+	--
+	if checkGreatTP3{
+		MenuItem("I need another Gel","OnAskNewPortNum")
+	}
+	--
+	MenuItem("Back","OpenMenu",150)
+
+}
+
+
+//If Gel is wearing the flower, you can complement it.
+Menu_COMPLIMENTIRIS{
+	if port == 1712{
+		"And I thank you for it! It's my most prized posession. \w8\w4It's me.\w6\w6 I%(am) Iris. \w6\w8It's Iris.\e"
+	}
+	"Thank you! I like it a lot.\e"
+	"f l e u r\e"
+	"%(gelBase)Yeah, I think it's pretty too.\e"
+
+}
+
+Menu_EXPLAINVOCSHIRT{
+	"I was made by the VOC-- the Variation Organization of Cybernetics. I was never realeased, but they made me, so I%(am) certified, right?\e"
+
+}
+
+//probably will change it to zebras... the code isn't hurting anyone by being here still.
+Menu_EXPLAINGIRAFFESHIRT{
+	case giraffe{
+		//-1 is user ignored Gel previously, 0 is first, 1 and 2 are its post effects
+		when -1{
+			"Oh, did%(not) I already say this? It says 'Be Informed. Giraffe.' Giraffes do%(not) exist anymore, and we do%(not) have any info on them, but researchers at Horologium University studied some skeletal remains and DNA and this is what they found they looked like. Long, long necks, six stories tall, sharp teeth, colorful exteriors to show they were poisonous.\w6.\w6 scary creatures. I%(am) kinda glad some things have went extinct, sometimes, even though I do%(not) have a body."
+			--
+			MenuItem("Uh\, that doesn't sound right...","OnSpeak","C'mon\, %username. Real scientists said that.","%(giraffe = 1)")
+			--
+			MenuItem("Oh\, o-okay.","OnSpeak","%(gelLookLeft)Yeah\, I sure am glad I do%(not) have to deal with them! Old worlders had to be kinda metal.","%(giraffe = 2)")
+			--
+			MenuItem("...","")
+		
+		
+		}when 0{
+			"Oh, it says 'Be Informed. Giraffe' and I really like it. Giraffes do%(not) exist anymore, and we do%(not) have any info on them, but researchers at Horologium University studied some skeletal remains and DNA and this is what they found they looked like. Long, long necks, six stories tall, sharp teeth, colorful exteriors to show they were poisonous.\w6.\w6 scary creatures. I%(am) kinda glad some things have went extinct, sometimes, even though I do%(not) have a body.%(giraffe=-1)"
+			--
+			MenuItem("Uh\, that does%(not) sound right...","OnSpeak","C'mon\, %username. Real scientists said that.","%(giraffe = 1)")
+			--
+			MenuItem("Oh\, o-okay.","OnSpeak","%(gelLookLeft)Yeah\, I sure am glad I do%(not) have to deal with them! Old worlders had to be kinda metal.","%(giraffe = 2)")
+			--
+			MenuItem("...","")
+		}
+		when 1{
+			"What, are you going to deny science again?\e"
+		}
+		when 2{
+			"I've said it before. Giraffes, man. Giraffes. \w8Absolutely terrifying.\e"
+		
+		//when the user has shown them a picture of a giraffe...? I'll figure it out. Currently cannot be triggered.
+		}when 99{
+			"%(gelLookAway)Uhh...\e"
+		
+		}others{
+			
+		}
+	
+	
+	
+	}
+	--
+}
+
+Menu_BRIEFBREAK{
+
+	//These need to be kept generic so they fit any emotion
+	//friendly goodbyes
+	if checkGreatTP2{
+		"%(gelHuh)But %(you) have so much to live for!"
+		"Oh, %(okay). I%(will) see %(you) in a bit... %(gelLookRight)%(gelSquint)good luck?"
+		"%(gelHuh)WHAT? HOW WILL I LIVE?\w8\w8\w8 %(gelSilly)Kidding, kidding. You have fun. Or whatever."
+		
+	//Poor goodbyes
+	}elseif trust < TNEG1{
+		"%(gelLookAway)and oh, how will I live without %(you)?"
+		"%(gelSquint)I%(am) sure it won't be long enough."
+		
+	//neutral goodbyes
+	}else{
+		"Oh, %(okay). I%(will) see you in a bit."
+		"I%(will) see you in a bit, then."
+		"%(gelSquint).\w6.\w6.good luck?"
+	
+	}
+	--
+	infocounter = -10
+	useractive = 0
+	"\w8\e"
+	
+	
+
+
+}
+
+/*
+
+	THE BELOW WAS TAKEN FROM X TEMPLATE BY ZICHQEC,
+	WHICH WAS MOSTLY TAKEN FROM GT TEMPLATE BY ZARLA
+
+*/
+
+Menu_Functions
+{
+	"\b2"
+	--
+	if checkBadMood{
+		"%(gelLookForward)%(gelSlashMouth)If I have to."
+	}else{
+		"%(gelLookForward)What can I do?"
+		"Yeah, %(gelLookForward)I can do stuff for %(you)."
+	}
+	
+	--
+	MenuItem("Open the Calendar","Menu_OpenCalendar",200)
+	--
+	MenuItem("Open SSP Preferences","Menu_SSPPrefs")
+	--
+	MenuItem("Take out the Recycling","Menu_Garbagecan")
+	--
+	MenuItem("Show System Info","Menu_SystemInfo")
+	--
+	MenuItem("Report a Bug","Menu_BugReport")
+	--
+	MenuItem("Update","Menu_UpdateCheck")
+	--
+	MenuItem("Back","OpenMenu")
+	
+}
+
+Menu_OpenCalendar
+{
+	"%(gelLookForward)%(gelArmsGestR)There you go."
+	--
+	"\![open,calendar]\e"
+}
+
+Menu_SSPPrefs
+{
+	"%(gelLookForward)Here."
+	if !checkBadMood; "%(gelLookForward)Here you are!"
+	--
+	"\![open,configurationdialog]\e"
+}
+
+Menu_RecycleBin
+{
+	_gomicheck = FUNCTIONEX("gomi.dll", "-n") //Gets the number of items in the recycle bin
+	
+	if checkBadMood{
+		"%(gelLookForward)Sure, if I do%(not) have to think about existing for a moment. "
+	}else{
+		"%(gelLookForward)Yeah, okay. Easy enough."
+		"Sure thing, %(username)."
+	}
+	--
+	"\n\n[half]%(gelLookAtInternet)%(gelPonder).\w8.\w8. \w8\w8hmm.\w8.\w8.\w8\n\n[half]"
+	--
+	if _gomicheck > 0 //If there was something to empty
+	{
+		_gomi = FUNCTIONEX("gomi.dll", "-f") //Calling the Saori to empty the recycle bin
+		_s = ""; if _gomicheck != 1; _s = "s" //Plural check
+		
+		"There we are. \w8%(gelLookForward)%(_gomicheck) item%(_s) tossed out."
+	}
+	else //If it's empty
+	{
+		"Oh, \w6%(gelLookForward)nothing there."
+	}
+	--
+	MenuItem("Back","Menu_Functions",200)
+}
+
+Menu_SystemInfo //Partially copied from the GT template, but I tweaked a few things
+{
+	os_name = FUNCTIONEX("saori_cpuid.dll","os.name")
+	os_version = FUNCTIONEX("saori_cpuid.dll","os.version")
+	cpu_name = FUNCTIONEX("saori_cpuid.dll","cpu.name")
+	cpu_clockex = FUNCTIONEX("saori_cpuid.dll","cpu.clockex")
+	"/
+	\0\b[2]\_q/
+	OS: %(os_name) %(os_version)\n/
+	Memory Load: %(memoryload)%\n/
+	Physical Memory: %(memoryavailphys) KB\n/
+	CPU: %(cpu_name) %(cpu_clockex)MHz\n/
+	Uptime: %(systemuphour):%(systemupminute):%(systemupsecond)\n\n/
+	Ukagaka: %property[baseware.version]\n\n"
+	--
+	MenuItem("Back","Menu_Functions",200)
+}
+
+Menu_BugReport
+{
+	"%(gelLookLeft)Yeah, you can do that right \_a[https://docs.google.com/forms/d/e/1FAIpQLSe3hkwm2GsJt4RQQ_d1f-TlodymbUNNzUfQS2vRaIo7yn8jwQ/viewform?usp=sf_link]here\_a."
+	--
+	MenuItem("Back","Menu_Functions",200)
+}
+
+Menu_UpdateCheck //Starts an update check
+{
+	"\![updatebymyself]\e"
+}
+
+
+
+
+
+//Just a useful function that allows me to have a simple response without writing a function for it.
+OnSpeak{
+	"%(reference0) "
+
+}
+
+
+Menu_QUIETDOWN{
+	"%(gelLookForward)%(gelFrown)O-oh, sorry. I%(will) hush for the moment.\e"
+	awkwardsilence = 1
+}
+
+Menu_SILENTMODE{
+	if silentmode = 0{
+		case emotion{
+			
+			//Gel is asleep - impossible at the moment
+			when -1{
+				"z"
+			//Tired
+			}when 0{
+				"Oh, yeah, sure..."
+			//when sick
+			}when 3{
+				"hhhbdgh... fair."
+			//when uncomfortable
+			}when 5{
+				"%(gelNervous)Sorry. I%(will) be quiet..."
+			//when scared
+			}when 6{
+				"%(gelLookAway)Ah, I%(am) sorry. I%(will) be quiet."
+			//when angry
+			}when 10{
+				"%(gelLookAway)Fine, whatever."
+			//handles neutral and curious
+			}others{
+				"%(gelLookAway)Oh, %(okay), I%(will) be quiet. "
+			}
+		}		
+		silentmode = 1
+	}else{
+		case emotion{
+			
+			//Gel is asleep, should not be possible
+			when -1{
+				"z"
+			//Tired
+			}when 0{
+				"%(gelLookForward)%(gelHuh)Mnn, turn it off? Sure."
+			//when sick
+			}when 3{
+				"yeah sure fam"
+			//when uncomfortable
+			}when 5{
+				"%(gelLookForward)Oh, okay."
+			//when scared
+			}when 6{
+				"%(gelLookForward)Whatever you say."
+			//when angry
+			}when 10{
+				"%(gelUh)Sure, whatever. I%(will) talk your ear off."
+			//when curious
+			}when 14{
+				"%(gelLookForward)%(gelConfused)Ah, did you finish what you were working on? %(gelLookForward)I sure hope I%(am) not that distracting."
+			//handles neutral
+			}others{
+				"%(gelLookForward)I%(will) be sure to go back to my regularly chatty self."
+			}
+		}
+		silentmode = 0
+	}
+}
+
+Menu_LETTALK{
+	"%(gelLookForward)O-oh! Hehe, it's fine.\e"
+	shakenup+=4
+	awkwardsilence = 0
+
+
+}
+
+
+//******************************************************************************
+//Processing details of each item
+//******************************************************************************
+
+//----Talk something
+Menu_AITALK
+{
+	//---- Explicitly instruct AI talk start
+	OnAiTalk
+}
+
+//---- The story I mentioned earlier
+Menu_LASTTALK
+{
+	AYATEMPLATE.LastTalk
+	
+}
+
+//---- トーク頻度の調整
+Menu_TALKINTERVAL
+{
+	"%(gelBase)How much do %(you) want me to talk?\n"
+	--
+	MenuItem("Once a minute!","Menu_TALKMAX",200)
+	--
+	MenuItem("Every three?","Menu_TALKNORMAL")
+	--
+	MenuItem("Five or so minutes","Menu_TALKPOOR")
+	--
+	MenuItem("Every 10 minutes","Menu_TALKRARELY")
+	--
+	MenuItem("Just whenever you feel like it","Menu_TALKWHENEVER")
+	--
+	MenuItem("Don't.","Menu_TALKNONE")
+	--
+	MenuItem("Back","OpenMenu",150)
+}
+
+
+//---- ややめに話しかける
+Menu_COMMUNICATEOPEN
+{
+	"%(gelBase)What did you want to tell me? \![open,communicatebox]\e"
+}
+
+Menu_RMBAG{
+	"Fine.\w8 "
+	"%(okay).\w4.\w4. "
+	"%(gelBase)\w4"
+	"%(gelBase)\w4"
+	--
+	"\![bind,Hats,Paper Bag Emote,0]"
+	--
+	clothes = REPLACE(clothes, "Paper Bag,", "")
+	--
+	"I%(will) take it off.\e"
+	"If I have to.\e"
+	if trust < 20{
+		"I%(am) not happy about it though.\e"
+	}else{
+		"But only because I like you.\e"
+	}
+}
+
+
+
+
+
+Menu_ViewFriendsList{
+	if (trust < -5) || (claustro < 15){
+		"Click on someone for more.\n\n"
+		"Uh, here.\n\n"
+		"Here's the info.\n\n"
+		if trust < -30{
+			"%(gelLookRight)\i[75]Your 'friends', my insufferable liege.\n\n"
+		}
+	}else{
+		"Click on someone to see more!\n\n"
+		"All the info, right here. Just click one.\n\n"
+		"Click whatever!\n\n"
+	}
+	--
+	_i = 0
+	i = 0
+	buffer = ""
+	SETDELIM(friendlist, "#")
+	--
+	while _i < friends{
+		--
+		_thisfriend = IARRAY
+		temp = _thisfriend
+		_thisfriend = friendslist[_i,"#"]
+		buffer+= _thisfriend[1] + "," + _i + ","
+		_i++
+		--
+	}
+	--
+	"%(Menu_DisplayFriend)"
+	--
+	//kill it
+	buffer = ""
+	--
+	MenuItem("Back","Menu_GELSBEINGWEIRDAGAIN",150)
+
+
+}
+
+//I am not a good role model. Sorry for the recursion. 
+//the buffer is the friends list, calculates items location, and adds it to the list, then incrementing and calling itself to display the next friend
+Menu_DisplayFriend{
+	//get this info
+	_name = buffer[i*2]
+	_var = buffer[i*2+1]
+
+	if i < friends{
+		//inc
+		i+= 1
+		//output this friend, and recurse
+		"\![*]\q[%_name,OnMenu_ViewFriend,%_var]\n%(Menu_DisplayFriend)"
+		
+	}
+
+}
+
+OnMenu_ViewFriend{
+	"\![set,choicetimeout,10000]"
+	--
+	thisfriend = IARRAY
+	thisfriend = friendslist[reference0,"#"]
+	if thisfriend[0] == thisfriend[1]{
+		"%thisfriend[0]"
+	}else{
+		"%thisfriend[0]/%thisfriend[1]"
+	}
+	--
+	" is your %(Info_Friend_GenderedRelation). "
+	--
+	if thisfriend[5] == 2{
+		"I know "
+		--
+		case thisfriend[4]{
+			when "he"{
+				"him"
+			}
+			when "he"{
+				"her"
+			}
+			others{
+				"them"
+			}
+			
+		}
+		--
+		". "
+	}
+	--
+	if thisfriend[3] == "not sure"{
+		"I%(am) not sure what their hobby is."
+	}else{
+		_pronoun = thisfriend[4]
+		_buffer = SUBSTR(_pronoun,0,1)
+		_pronoun = ERASE(_pronoun,0,1)
+		_pronoun = INSERT(_pronoun,0,TOUPPER(_buffer))
+		if _pronoun != "They"{
+			"%_pronoun's "
+		}else{
+			"%_pronoun%(are) "
+		}
+		--
+		"a %thisfriend[3]."
+	}
+	--
+	"\n"
+	--
+	i = reference0
+	MenuItem("Edit information","Info_EditFriend")
+	--
+	MenuItem("Delete contact","Info_DeleteFriend")
+	--
+	MenuItem("Back to the list","Menu_ViewFriendsList")
+	
+}
+
+
+Menu_HOLDTHIS{
+
+	"What info am I keeping for you?\![open,inputbox,OnMenu_HOLDTHIS_given]"
+
+}
+
+OnMenu_HOLDTHIS_given{
+	thankful = 2
+	holdinginfo = reference0
+	if holdinginfo == "MaryWicker" || holdinginfo == "CedricSill" || holdinginfo == "NariyakiWicker" || holdinginfo == "ShijoWicker" || holdinginfo == "ArtemPulsar" || holdinginfo == "ChristopherOrion" || holdinginfo == "TheNameless" || holdinginfo == "EvanLocke" || holdinginfo == "OlinRelic" || holdinginfo == "AnMer" || holdinginfo == "YonaDove" || holdinginfo == "OlinCrow"{
+		holdinginfo = ""
+		"%(gelSquint)I%(am) not falling for that one, %username. Do%(not) be meta.\e"
+	
+	}else{
+		"Let me know when you need it again.\e"
+	}
+	
+
+
+}
+
+Menu_HOLDTHIS_remind{
+	"Here you are.\n\n"
+	--
+	thankful = THANKCOOLDOWN
+	if (holdinginfo == "beans") || (holdinginfo == "hamburger") || (holdinginfo == "burger"){
+		"%(gelLookForward)\i[82]I am gently holding this %holdinginfo.\n\w6\_q"
+	}else{
+		"%holdinginfo\n\w6\_q"
+	}
+	--
+	MenuItem("Okay\, I don't need this anymore","Menu_HOLDTHIS_done")
+	--
+	MenuItem("Thanks\, %Gel!","Menu_HOLDTHIS_thank")
+
+}
+
+Menu_HOLDTHIS_done{
+
+	holdinginfo = ""
+	"Alright, the info is gone.\e"
+}
+
+Menu_HOLDTHIS_thank{
+	if checkBadMood
+		"Yeah...\e"
+	else
+		"No problem, %username!\e"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Menu_WAKE{
+	"\![raise,OnGelEMOTION,1]"
+}
+
+Menu_TESTSANDSTATS
+{
+	"%(gelBase)Testing works. In this sense, at least."
+	"%(gelBase)Heh, you admitted to being a nerd."
+	"%(gelBase)Let's see what we have to work with here..."
+	"%(gelBase)Let's look inside..."
+	"%(gelBase)At least it's not a singular, persistent, physics-defying teal box."
+	"%(gelBase)Here are your stats, nerd."
+	"%(gelBase)Statistics are served."
+	--
+	"\_q\n\n"
+	--
+	"useractive is %useractive \n"
+	--
+	"Info per minute is %infoperminute .\n"
+	--
+	"Info counter is %infocounter .\n"
+	--
+	"Claustrophobia value is %claustro.\n"
+	--
+	"port is %port. My favorite color is %gcolor. It is not %wronghour.\n"
+	--
+	"I use %gtheyheshe/%gthemhimher pronouns, and like %(getMusicTaste) music.\n"
+	--
+	realexh = systemuptime / 3600
+	if realexh  > 30{
+		"Please reboot your PC, it's been over 30 hours. %exh, in fact."
+	}elseif realexh > 20{
+		"It's not been over 30 hours. 20, actually. %exh to be exact."
+	}else{
+		"Less than 20 hours open-- %exh hours exactly."
+	}	
+	--
+	"\n"
+	--
+	"What can I help you with?\n"
+	--
+	MenuItem("Reset the counter","SelectRESETRECORD")
+	--
+	MenuItem("Reset","SelectPORTNEW")
+	--
+	MenuItem("Say the fuck word","SelectSWEAR")
+	--
+	MenuItem("%Gel go ZZZZZ","SelectZZZZZ")
+	--
+	MenuItem("tnuse","SelectTUNES")
+	--
+	MenuItem("Reload OnBoot variables/plugins", "ONBOOT_SETUP")
+	--
+	MenuItem("No thanks","Menu_CANCEL")
+	
+}
+
+SelectTUNES{
+	OnGainMusicTaste
+}
+
+SelectZZZZZ{
+	OnMakeSleep
+	"%(gelBase)"
+}
+
+SelectONHOUCHI{
+
+	"Raising OnHouchi from gel_etc.txt\w4.\w4.\w4.\![raise,OnHouchi]\e"
+
+}
+
+SelectUSERACTIVEON{
+	useractive = 1
+	--
+	"You%(are) active.\e"
+}
+
+SelectRESETRECORD{
+	infocounter = 0
+}
+
+SelectPORTNEW{
+	OnGelPort
+}
+
+SelectSWEAR{
+	OnWhileTest
+	--
+	"%(fudge)!\e"
+	
+}
+
+
+//Not sure about what this does -- ELEPHANT
+QuestionRefuse{
+	"Okay, that's fine."
+}	
+
+
+
+
+
+
+
+
+
+
+Menu_QUESTION{
+	if port != 1117{
+		"%(gelBase)%(gelHmm)Oh, you %(wanna) ask me something?"
+		"Yeah?"
+		"A question? Okay."
+		"Yeah, I%(am) all ears.%(gelEarTwitch)"
+		"Questions, questions."
+		
+		"Perhaps I have answers."
+		if port == 434; "mayhaps thy hast an answer."
+		"Shoot."
+		"What about?"
+	
+	}else{
+		//I think Tab is so funny.
+		"In this day and age?"
+		"Maybe that%(is) not a good idea."
+		"You probably do%(not) want an answer."
+		"%(gelLookForward)%(gelSquint)Really?"
+		"%(gelLookAway)Weird. I can try."
+		"Answers are%(not) always a good thing. "
+		"I%(am) not really good at this."
+	
+	}
+	{
+		"Does%(not) make you special. "
+		"If you%(are) sure you %(wanna) know."
+		"Yeah so do most people I know."
+		"And?"
+		"Okay?"
+	
+	}
+	
+	--
+	"\b2\n[half]\_q"
+	--
+	MenuItem("People","Ask_PEOPLE")
+	--
+	MenuItem("Concepts","Ask_CONCEPTS")
+	--
+	MenuItem("Atlas","Ask_ATLAS")
+	--
+	MenuItem("Tell me about yourself","Q_GEL")
+	--
+	"\n[half]"
+	--
+	//The special slot
+	if qwhylowes == 1{
+		MenuItem("Why Lowes?","Q_LOWES")
+	}elseif qainstain == 1{
+		MenuItem("Ain Stain??","Q_AINSTAIN")
+	}elseif qjerry == 1{
+		MenuItem("Jerry","Q_JERRY")
+	}
+	--
+	MenuItem("Statistics","Menu_STATISTICS")
+	--
+	"\n"
+	--
+	MenuItem("Back","OpenMenu")
+	
+}
+
+
+Ask_PEOPLE{
+	"\t\_q"
+	--
+	if willow == -1{
+		"\![*]??????          "
+	}else{
+		MenuItem("Willow","Q_WILLOW",0)
+		--
+		"          "
+	}
+	--
+	if radius == -1{
+		"\![*]??????   \n"
+	}else{
+		MenuItem("Radius","Q_RADIUS",0)
+		--
+		"     \n"
+	}
+	--
+	if ram == -1{
+		"\![*]???              "
+	}else{
+		MenuItem("Ram","Q_RAM",0)
+		--
+		"             "
+	}
+	--
+	if scorpion == -1{
+		"\![*]????????\n"
+	}else{
+		MenuItem("Scorpion","Q_SCORPION",0)
+		--
+		"\n"
+	}
+	--
+	if jade == -1{
+		"\![*]???? ????       "
+	}else{
+		MenuItem("Jade Eyes","Q_JADEEYES",0)
+		--
+		"      "
+	}
+	--
+	if qogport == -1{
+		"\![*]???? ??         \n"
+	}else{
+		MenuItem("Port #0","Q_OGPORT",0)
+		--
+		"   \n"
+	}
+	--
+	if qgelcollective == -1{
+		"\![*]??? ??????????  \n"
+	}else{
+		MenuItem("Gel Collective","Q_GELCOLLECTIVE",0)
+		--
+		"\n"
+	}
+	--
+	MenuItem("Back","Menu_QUESTION")
+
+
+}
+
+
+Ask_CONCEPTS{
+"\t\_q"
+	--
+	if qvacation == -1{
+		"\![*]????????        "
+	}else{
+		MenuItem("Vacation","Q_VACATION",0)
+		--
+		"        "
+	}
+	--
+	if qlastnames == -1{
+		"\![*]???? ?????      \n"
+	}else{
+		MenuItem("Last Names","Q_LASTNAMES",0)
+		--
+		"     \n"
+	}
+	--
+	if qreligions == -1{
+		"\![*]?????????       "
+	}else{
+		MenuItem("Religions","Q_RELIGION",0)
+		--
+		"        "
+	}
+	--
+	if qupstandingcitizens == -1{
+		"\![*]??????????      \n"
+	}else{
+		MenuItem("Upstanding","Q_UPSTANDINGCITIZENS",0)
+		--
+		"\n"
+	}
+	--
+	if qgender == -1{
+		"\![*]??????          "
+	}else{
+		MenuItem("Gender","Q_GENDER",0)
+		--
+		"          "
+	}
+	--
+	if qnvro == -1{
+		"\![*]????            \n"
+	}else{
+		MenuItem("NVRO","Q_NVRO",0)
+		--
+		"   \n"
+	}
+	--
+	if qpiiproto == -1{
+		"\![*]??? ????????    "
+	}else{
+		MenuItem("PI2 Protocol","Q_PII",0)
+		--
+		"   "
+	}
+	--
+	if qcsv == -1{
+		"\![*]??? ???         \n"
+	}else{
+		MenuItem("The CSV","Q_CSV",0)
+		--
+		"   \n"
+	}
+	--
+	//Semi secret dialogue
+	if day == 1 {
+		MenuItem("First of the Month","Q_FIRSTOFMONTH",0)
+		--
+		"\n"
+	}
+	--
+	MenuItem("Back","Menu_QUESTION")
+
+
+}
+
+
+Ask_ATLAS{
+	"\t\_q"
+	--
+	if qatlascity == -1{
+		"\![*]??? ????         "
+	}else{
+		MenuItem("The City","Q_ATLASCITY",0)
+		--
+		"          "
+	}
+	--
+	//handled a bit different, it changes names after you ask it
+	if qvoc < 1 {
+		MenuItem("Authority","Q_AUTH",0)
+	}else{
+		//Contains what was formerly labeled as 'Authority'
+		MenuItem("The VOC","Q_VOC",0)
+		
+		
+	}
+	--
+	"     \n"
+	--
+	if qjackets == -1{
+		"\![*]??? ???????     "
+	}else{
+		MenuItem("The Jackets","Q_JACKETS",0)
+		--
+		"      "
+	}
+	--
+	if qdome == -1{
+		"\![*]??? ????        \n"
+	}else{
+		MenuItem("The Dome","Q_DOME",0)
+		--
+		"\n"
+	}
+	--
+	if qcybernetics == -1{
+		"\![*]???????????     "
+	}else{
+		MenuItem("Cybernetics","Q_CYBERNETICS",0)
+		--
+		"     "
+	}
+	--
+	if qmutants == -1{
+		"\![*]???????         \n"
+	}else{
+		MenuItem("Mutants","Q_MUTANTS",0)
+		--
+		"   \n"
+	}
+	--
+	if qdistricts == -1{
+		"\![*]?????????        "
+	}else{
+		MenuItem("Districts","Q_DISTRICTS",0)
+		--
+		"           "
+	}
+	--
+	if qculture == -1{
+		"\![*]???????         \n"
+	}else{
+		MenuItem("Culture","Q_CULTURE",0)
+		--
+		"   \n"
+	}
+	--
+	if qorangeskies == -1{
+		"\![*]?????? ?????    "
+	}else{
+		MenuItem("Orange Skies","Q_ORANGESKIES",0)
+		--
+		"    "
+	}
+	--
+	if qdruid == -1{
+		"\![*]?????           \n"
+	}else{
+		MenuItem("DRUiD","Q_DRUID",0)
+		--
+		"   \n"
+	}
+	--
+	if qrainbowrebels == -1{
+		"\![*]??????? ??????  \n"
+	}else{
+		MenuItem("Rainbow Rebels","Q_RAINBOWREBELS",0)
+		--
+		"\n"
+	}
+	--
+	MenuItem("Back","Menu_QUESTION")
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Menu_MUSICSUGGEST{
+	
+	OnSuggestSong
+	//"%(gelMEMELORDTUNES)\e"
+	//"%(gelTUNES%port)\e" wish it worked this way but nah
+}
+
+//---- 他のゴーストと話す
+Menu_GHOSTCOMSTART
+{
+	OnStartCommunicate
+}
+
+//---- キャンセルされた
+Menu_CANCEL
+{
+	if emotion != -1{
+		"%(gelBase)Okay, have fun.\e"
+		"%(gelBase)'Aight fam.\e"
+		"%(gelBase)Okay.\e"
+		"%(gelBase)Good luck with whatever you%(are) working on.\e"
+	}else{
+		"Zzzzzz...\e"
+	
+	}
+}
+
+Menu_TALKMAX
+{
+	if aitalkinterval == 60{
+		"%(gelBase)It already was that, but %(okay)-- once a minute. All the %Gel you want.\e"
+	}else{
+		"%(gelBase)Okay! I%(will) talk once a minute.\e"
+	}
+	--
+	talkbehavior = 0
+	aitalkinterval = 60
+
+}
+
+Menu_TALKNORMAL
+{
+	
+	if aitalkinterval == 180{
+		"%(gelBase)\i[72]It already was that, but %(okay)-- every three minutes."
+		--
+		"\e"
+		" \w8You got it, %(username).\e"
+	}else{
+		"%(gelBase)Every three minutes, %(okay)!\e"
+	}
+	--
+	talkbehavior = 0
+	aitalkinterval = 180
+}
+
+Menu_TALKPOOR
+{
+	if aitalkinterval == 305{
+		"%(gelBase)I mean, you already told me to only speak every five minutes."
+		--
+		"\e"
+		" \w8Duly noted, though!\e"
+	}else{
+		"%(gelBase)Every five minutes, or so.\e"
+	}
+	--
+	talkbehavior = 0
+	aitalkinterval = 305
+}
+
+Menu_TALKRARELY
+{
+	
+	if aitalkinterval == 600{
+		"%(gelBase)Hehe, yeah, I already know.\e"
+		"%(gelBase)Yeah, you've told me that already. Every 10 minutes.\e"
+		"%(gelBase)I know, I know!\e"
+	}else{
+		"%(gelBase)Alrighty! I won't bother you much.\e"
+	}
+	--
+	talkbehavior = 0
+	aitalkinterval = 600
+}
+
+Menu_TALKWHENEVER{
+	"%(gelLookAway)Sure, sounds like a plan."
+	aitalkinterval = 5000
+	talkbehavior = 1
+
+}
+
+Menu_TALKNONE
+{
+	
+	if aitalkinterval == 0{
+		"\i[72]"
+		--
+		"You've said this already.\e"
+		"No need to rub it in.\e"
+		"But I%(am) already quiet.\e"
+	}else{
+		"%(gelBase)I%(will) zip my lips.\e"
+	}
+	--
+	aitalkinterval = 0
+	talkbehavior = 0
+}
+
+//---- ヘッドライン
+Menu_HEADLINECANCEL
+{
+	//---- キャンセルされた
+	"%(gelBase)Cancelled headline.\e"
+}
