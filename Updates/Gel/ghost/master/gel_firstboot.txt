@@ -17,7 +17,7 @@ OnFirstBoot
 	
 	OnGelPort	
 	--
-	"\![enter,passivemode]\t\![raise,OnPopupTwo,The application 'chamaeleon.exe' has requested permissions to see your screen. (Deny if you aren't on Windows.) \n\nPublisher: Variation Organization of Cybernetics\nCertificate Renewed 169 PCR,           Allow           ,FirstBoot_ACCEPTSIGHT,          Defend          ,FirstBoot_DIALOGUE]"
+	"\![enter,passivemode]\0\s[-1]\t\![raise,OnPopupTwo,The application 'chamaeleon.exe' has requested permissions to see your screen. (Deny if you aren't on Windows.) \n\nPublisher: Variation Organization of Cybernetics\nCertificate Renewed 169 PCR,           Allow           ,FirstBoot_ACCEPTSIGHT,          Defend          ,FirstBoot_DIALOGUE]"
 
 }
 
@@ -187,7 +187,7 @@ FirstBoot_REBEL{
 	if emotion == 5{
 		"%(gelLookForward)%(gelCatMouth)Heh, a Rebel. %(gelArmsFistChin)Sure thing, I totally believe you. \n\n[half]%(gelLookForward)%(gelFurrowed)Still, we could do first time user setup now, or we could leave it till later. Your choice. "
 	}else{
-		"%(gelHmm)Ehehe, a Rainbow Rebel, huh? %(gelLookForward)Cute. %(gelArmsGestR)%(gelHmm)Anyway, Rebel, wanna set up? %(gelArmsQuestion)We can do it later if you want, but c’mon, I do%(not) even know your name.\![raise,OnUnlock,qrainbowrebel]"
+		"%(gelHmm)Ehehe, a Rainbow Rebel, huh? %(gelLookForward)Cute. %(gelArmsGestR)%(gelHmm)Anyway, Rebel, wanna set up? %(gelArmsQuestion)We can do it later if you want, but c'mon, I do%(not) even know your name.\![raise,OnUnlock,qrainbowrebel]"
 	}
 	--
 	MenuItem("What's a Rebel?","FirstBoot_WHATREBEL",200)
@@ -210,7 +210,7 @@ FirstBoot_WHATREBEL{
 FirstBoot_TIMETRAVELER{
 	firstnickname = "Time Traveler"
 	if emotion == 5{
-		"%(gelLookForward)%(gelCatMouth)Ahaha, you almost got me. %(gelLookLeft)%(gelCatMouth)I really could believe it, I do%(not) even know what half of this is on this OS. It looks so weird. \w8\w8\n\n[half]%(gelLookForward)%(gelBlush)Thanks for the laugh, ‘’Time Traveler’’, I really needed that. \w8%(gelLookForward)%(gelHmm)Want to go on to first time setup? %(gelLookForward)We do%(not) have to, if you do%(not) want to, but I do%(not) even know your name yet. %(gelCatMouth)%(gelFurrowed)You can just continue to be Time Traveler for a little longer, if you want, though. "
+		"%(gelLookForward)%(gelCatMouth)Ahaha, you almost got me. %(gelLookLeft)%(gelCatMouth)I really could believe it, I do%(not) even know what half of this is on this OS. It looks so weird. \w8\w8\n\n[half]%(gelLookForward)%(gelBlush)Thanks for the laugh, ''Time Traveler'', I really needed that. \w8%(gelLookForward)%(gelHmm)Want to go on to first time setup? %(gelLookForward)We do%(not) have to, if you do%(not) want to, but I do%(not) even know your name yet. %(gelCatMouth)%(gelFurrowed)You can just continue to be Time Traveler for a little longer, if you want, though. "
 	}else{
 		"%(gelLookForward)%(gelExcited)See! %(gelLookForward)That one makes sense. %(gelHmm)This place is weird as %(fudge). %(gelLookLeft)%(gelGestL)Like, look at that. %(gelConfused)%(gelAmused)What the %(heck) even is that? Who designed that? %(gelLookForward)It really does look like %year. \w8\n\n[half]I like your jokes, Time Traveler. %(gelExcited)I think we%(will) get along great.\n\n[half]As much as I%(would) like to sit around and chat, do you want to move on to first time set up? "
 	}
@@ -226,7 +226,7 @@ FirstBoot_HISTORYBUFF{
 	if emotion == 5{
 		"%(gelLookLeft)%(gelT)Yeah sure does look it. Crusty butt OS. %(gelSquint)I bet %year sucks even more than %(GetYear). \w8\w8\w8\n\n[half]%(gelLookForward)%(gelFurrowed)Uh, anyway, did you want to do first time setup now or not really? Your choice."
 	}else{
-		"\b2%(gelLookForward)%(gelConfused)You%(are) right, it sure does look like you are. %(gelLookLeft)%(gelT)Straight lines, full opacity, white so bright it could kill a person... %(gelSquint)why would anyone want to be in %year’s technology? It sucks. \w8\n\n[half]%(gelLookForward)%(gelSquint)What else do you know about the year? %(gelHmm)Is%(not) that like the start of the end before the world got destroyed? \n\n[half]"
+		"\b2%(gelLookForward)%(gelConfused)You%(are) right, it sure does look like you are. %(gelLookLeft)%(gelT)Straight lines, full opacity, white so bright it could kill a person... %(gelSquint)why would anyone want to be in %year's technology? It sucks. \w8\n\n[half]%(gelLookForward)%(gelSquint)What else do you know about the year? %(gelHmm)Is%(not) that like the start of the end before the world got destroyed? \n\n[half]"
 		--
 		"\n\n[half]\![*]Wait wha--\n\n[half]"
 		--

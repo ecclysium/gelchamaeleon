@@ -400,7 +400,7 @@ OnGeneralClearInternal{
 
 
 GetYear{
-	year - 1831
+	year - 1836
 	return
 }
 
@@ -656,7 +656,7 @@ OnBootPartTwo
 			
 			if checkGreatTP1{
 				if emotion  == 5{
-					"O-%(gelLookForward)Last time I went to the void-place it was pretty sudden. %(gelLookAway)%(gelFurrowed)I think I came out feelin%(guh) worseÅc"
+					"O-%(gelLookForward)Last time I went to the void-place it was pretty sudden. %(gelLookAway)%(gelFurrowed)I think I came out feelin%(guh) worse..."
 				}else{
 					"Woah! %(gelLookForward)Computer went out last time! \w8%(gelHmm)Well, %(gelSmug)guess there%(is) another point to how crusty this place is."
 				}
@@ -746,7 +746,7 @@ OnBootPartTwo
 					}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
 						"Ah-%(gelLookForward)Ah, good %(_timeslot) user! %(gelExcited)Nice to see you so early in your day. %(gelLookForward)It feels good that you think of me at this hour. What%(will) you do today? "
 					}elseif checkGreatTP1 {		//Positive Route Pt 1 ---------------------------------
-						"O-Oh, %(gelLookForward)heya. %(gelHmm)You still want me around even though I%(am) pretty bad at the whole assistant thing? %(gelLookRight)I wonÅft complain. It%(is) nice, being here."
+						"O-Oh, %(gelLookForward)heya. %(gelHmm)You still want me around even though I%(am) pretty bad at the whole assistant thing? %(gelLookRight)I won't complain. It%(is) nice, being here."
 						"O-Oh, %(gelLookForward)nice to see you. %(gelHmm)I might not be helpful but hopefully you still find me fun!"
 						"A-Ah, %(gelLookForward)hey there, %username. I guess you still think I%(am) neat."
 
@@ -832,7 +832,7 @@ OnBootPartTwo
 					}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
 						"W-W-W-%(gelLookForward)Well hey there! %(gelFurrowed)It%(is), uh, nice seeing you at this time. %(gelLookRight)%(gelFurrowed)You %(kinda) scared me a bit. "
 					}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
-						"H-H-%(gelLookForward)Hey! It%(is) you, you%(are) still here. That%(is), uh, cool. LetÅfs have some fun today, okay?"
+						"H-H-%(gelLookForward)Hey! It%(is) you, you%(are) still here. That%(is), uh, cool. Let's have some fun today, okay?"
 					}elseif checkLessEqTN2{		//Negative Route Pt 2 (and more) ----------------------------------------
 						"A-%(gelLookForward)Again...?"
 					}
@@ -1043,7 +1043,7 @@ OnClose
 				
 				
 			}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
-				"%(gelLookForward)%(gelHmm)Oh, time for me to go again? Okay, %username. %(gelLookLeft)%(gelSlashMouth)I sure hope I%(will) see you soonÅc"
+				"%(gelLookForward)%(gelHmm)Oh, time for me to go again? Okay, %username. %(gelLookLeft)%(gelSlashMouth)I sure hope I%(will) see you soon..."
 				
 			}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
 

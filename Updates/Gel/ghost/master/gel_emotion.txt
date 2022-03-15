@@ -79,12 +79,12 @@ OnGelEMOTIONBase{
 			"Five more minutes\w8%(gelBase).\w8.\w8. \w8oh."
 			"%(gelBase)%(okay).\w8.\w8."
 			if port == 434{
-				"I do%(not) want to stop playing…"
-				"After this raid is over…"
-				"I have%(not) even checked my farm yet…"
+				"I do%(not) want to stop playing..."
+				"After this raid is over..."
+				"I have%(not) even checked my farm yet..."
 			}
 			if checkGreatTP2{
-				"Oh, is it you? %(gelLookForward)It%(is) the cool user…"
+				"Oh, is it you? %(gelLookForward)It%(is) the cool user..."
 			}
 			--
 			"\w8\w8\e"

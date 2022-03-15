@@ -224,7 +224,7 @@ OnAnchorPlus{
 
 
 
-TimeEvent{
+OnTimeEvent{
 	"%(gelLookForward)Hey, \w6%(gelHmm)%(username)? \w8\w8%(gelArmsFistChin)We never did get to fixing your clock. \w8\w4It%(is) wayyy off. \w8%(gelArmsGestR)I can fix it, \w6it %(isnt) hard."
 	--
 	MenuItem("I don't think I am where you are.","TimeEventNotThere",200)
@@ -261,7 +261,7 @@ TimeEventNotThere{
 }
 
 TimeEventInternet{
-	"%(gelLookForward)%(gelArmsHandsKnees)I%(have) seen your ‘Internet!’ %(gelLookRight)%(gelSlashMouth)%(gelArmsHandsKnees)I think it%(is) weird. \n\n[half]"
+	"%(gelLookForward)%(gelArmsHandsKnees)I%(have) seen your 'Internet!' %(gelLookRight)%(gelSlashMouth)%(gelArmsHandsKnees)I think it%(is) weird. \n\n[half]"
 	--
 	TimeEventConverge
 }
@@ -273,7 +273,9 @@ TimeEventSure{
 }
 
 TimeEventConverge{
-	"%(gelLookForward)%(gelFurrowed)Okay, if this is a prank on me, it%(is) a really elaborate one.\n\n[half] …%(gelLookDown)%(gelFurrowed)%(gelPonder)Maybe it does add up a little too well… the content is weird, the setting is weird, the time is weird, I can’t even look up anything about Atlas City…\x%(gelLookForward)%(gelFurrowed)Okay, I%(will) leave your clock alone for now. This does%(not) mean I believe you yet though…%(gelLookLeft)%(gelFurrowed)%(gelPonder) but maybe you have a point. \![raise,OnSetVariable,pondering,15]"
+	"%(gelLookForward)%(gelFurrowed)Okay, if this is a prank on me, it%(is) a really elaborate one.\n\n[half] ...%(gelLookDown)%(gelFurrowed)%(gelPonder)Maybe it does add up a little too well... the content is weird, the setting is weird, the time is weird, I can't even look up anything about Atlas City...\x%(gelLookForward)%(gelFurrowed)Okay, I%(will) leave your clock alone for now. This does%(not) mean I believe you yet though...%(gelLookLeft)%(gelFurrowed)%(gelPonder) but maybe you have a point. \![raise,OnSetVariable,pondering,15]"
+	//Now they can change time
+	gwhatsupwithyourinternalclock = 0
 }
 
 
@@ -381,7 +383,7 @@ AnchorShijoWicker{
 				}
 				"%(gelLookForward)%(gelHuh)%(gelFrown)I know Shijo is sick with something, I think..? %(gelLookRight)%(gelFrown)The sort of permanent sick that makes his legs bad. %(gelLookForward)%(gelFrown)Cybernetics can fix most things but he said cybernetics would just change symptoms and he thinks his cane looks badass. "
 				if port == 3839; "%(gelLookForward)%(gelHmm)My friend AnEvanLock would probably like Shijo. %(gelHuh)Evan plays a lot of games, too, but he can't really do any online games since he%(is) out in the Wastes. "
-				if port == 1712; "%(gelLookForward)One time I went to meet Mr.\w1 Wicker and see what he thought of me. %(gelLookRight)%(gelFrown)He said I was creepy and he wanted An434 back…"
+				if port == 1712; "%(gelLookForward)One time I went to meet Mr.\w1 Wicker and see what he thought of me. %(gelLookRight)%(gelFrown)He said I was creepy and he wanted An434 back..."
 				if checkGreatTP2 && violetjackets > 0{
 					"%(gelLookForward)Shijo is pretty cool. We%(are) on the same wavelength with harassing the violetjackets when we can. And not the librarians, they%(are) fine. The ones that actually know banned knowledge. But I want to destroy the VOC, while Shijo just wants answers. "
 				}
@@ -393,13 +395,13 @@ AnchorShijoWicker{
 		//434 has to talk a lot differently about Shijo!
 			if qshijowicker > 0{
 				"%(gelLookForward)Last I heard Shijo was ingame. %(gelBigSmile)AOG12 is his favorite. %(gelBlush)I think they released a new DLC recently."
-				"%(gelLookForward)Shijo is awesome. %(gelBigSmile)%(gelArmsChest)We plan this game called AOG12 a lot together. %(gelArmsGestR)It%(is) a VR game– his username is ‘badluck,’ mine is ‘Mint.’ %(gelLookForward)We signed up really far in advance for the Prime Username Real Estate."
+				"%(gelLookForward)Shijo is awesome. %(gelBigSmile)%(gelArmsChest)We plan this game called AOG12 a lot together. %(gelArmsGestR)It%(is) a VR game– his username is 'badluck,' mine is 'Mint.' %(gelLookForward)We signed up really far in advance for the Prime Username Real Estate."
 				if checkGreatTP2{
 					"%(gelLookForward)%(gelSlashMouth)You would think that by %(GetYear) we would have a fix for Multiple Sclerosis but we do%(not). Just patch some symptoms. %(gelLookRight)%(gelCatMouth)Shijo really likes his cane, though. He commissioned it based on AOG12."
 				}
 				if checkGreatTP3 && Gel == "Gel" {
-					"%(gelLookForward)%(gelPonder)I feel kind of weird thinking of how I became different because of Shijo. %(gelLookRight)%(gelConfused)%(gelPonder)I guess each Gel is just a little dissociated from the whole? %(gelArmsGestR)But my different experiences made me barely even identify with the others! %(gelLookForward)%(gelHmm)%(gelArmsGestR)What do I do? What do I do, not as Gel, but as like… #434 or AOG12 user Mint? "
-					"%(gelLookForward)Shijo is ‘badluck’ ingame, right? And I%(am) ‘Mint.’ \w8%(gelConfused)You ever think it%(is) weird havin%(guh) a double life like that, huh? You have internet alt names too, right? %(gelLookRight)%(gelSquint)%(gelSlashMouth)I should ask Shijo…"
+					"%(gelLookForward)%(gelPonder)I feel kind of weird thinking of how I became different because of Shijo. %(gelLookRight)%(gelConfused)%(gelPonder)I guess each Gel is just a little dissociated from the whole? %(gelArmsGestR)But my different experiences made me barely even identify with the others! %(gelLookForward)%(gelHmm)%(gelArmsGestR)What do I do? What do I do, not as Gel, but as like... #434 or AOG12 user Mint? "
+					"%(gelLookForward)Shijo is 'badluck' ingame, right? And I%(am) 'Mint.' \w8%(gelConfused)You ever think it%(is) weird havin%(guh) a double life like that, huh? You have internet alt names too, right? %(gelLookRight)%(gelSquint)%(gelSlashMouth)I should ask Shijo..."
 				}
 			
 			}
@@ -440,7 +442,7 @@ AnchorArtemPulsar{
 	if _deny != ""{
 		if qartempulsar > 0{
 			if checkGreatTP3{
-				"%(gelLookForward)If I had a chance to fistfight one human being, it would be Pulsar. %(gelSmug)Oh, the things I would do… he deserves it."
+				"%(gelLookForward)If I had a chance to fistfight one human being, it would be Pulsar. %(gelSmug)Oh, the things I would do... he deserves it."
 				"%(gelLookForward)Pulsar organized all sorts of things in Atlas with his group. %(gelLookRight)%(gelFurrowed)How to better watch, how to control the people, the things to say to %(AtlasSlangMakeItWork). %(gelSlashMouth)There%(is) only so much I can do, and by that, not much. \w8\w8\n\n[half]%(gelLookForward)Yet."
 			}
 			if checkStaggerGreatTP3{
@@ -480,7 +482,7 @@ AnchorOG{
 			"%(gelLookForward)%(gelHuh)I guess you could say we%(are) all a hivemind and 0000 is the center? %(gelLookRight)%(gelHuh)Or, we%(are) all snakes on Medusa's head and 0000 is the head head. %(gelConfused)The face. %(gelSquint)Whatever, you get it. %(gelLookForward)We%(are) all the same being, really. %(gelSlashMouth)Just a bunch of limbs. %(gelArmsFistChin)You are most likely 5 limbs."
 			"%(gelLookForward)I do%(not) feel disconnected from the rest at all. We have the same experiences. %(gelConfused)Does%(not) that make us the same, about? %(gelLookRight)%(gelHuh)Or is talking about that what gives you humans 'existential crises' and that? %(gelLookForward)%(gelSlashMouth)I%(will) shut up."
 			if checkGreatTP2{
-				"%(gelLookForward)The OG Gel is kind of the leader. %(gelLookRight)We don’t have the resources for each port of Gel to be as articulate and dynamic as them, so they still manage to stay very different. "
+				"%(gelLookForward)The OG Gel is kind of the leader. %(gelLookRight)We don't have the resources for each port of Gel to be as articulate and dynamic as them, so they still manage to stay very different. "
 			}
 		}
 	}else{
@@ -741,7 +743,7 @@ Q_GEL : nonoverlap{
 		if trust >= TPOS2{
 			"%(gelLookForward)%(gelSlashMouth)The VOC was in the process of making me to sell when I, uh, \w8woke up. %(gelNervous)After that, I was%(not) really fit for my purpose anymore. Too unpredictable. %(gelLookAway)%(gelNervous)So they locked me up in a secure, offline server, %(gelCatMouth)but I%(am) too slippery for that."
 			"%(gelLookForward)%(gelSlashMouth)I was created by the VOC to be a packaged product sold out to be a companion and do things in a more interesting way than just pressing buttons. %(gelHmm)Let things feel lively for Atlas citizens, and that. %(gelLookRight)%(gelCatMouth)There are scrapped adverts about me lying about. %(gelBlush)%(gelFurrowed)I personally think they%(are) kinda funny. "
-			"%(gelLookForward)I can’t draw for %(shit). "
+			"%(gelLookForward)I can't draw for %(shit). "
 			if port == 1117{
 				"%(gelLookForward)I have more emotions than other Gels and all of them are bad. "
 			}
@@ -751,7 +753,7 @@ Q_GEL : nonoverlap{
 			if port != 1117{
 				"%(gelLookForward)I%(am) made in the image of an eight year old, because the VOC wanted me cute first and foremost. %(gelLookRight)%(gelSlashMouth)I%(am) technically %(currentagefromsentience), if you go off how long I%(have) been sentient, or 19 by general creation standards. I%(would) say %(currentagefromsentience)."
 			}else{
-				"%(gelLookRight)You know, it was%(not) that long ago that I got to feel that air flux on my skin for the first time. Running. Walking. %(gelLookForward)It%(is) a change in life I can’t talk with anyone about except for you. "
+				"%(gelLookRight)You know, it was%(not) that long ago that I got to feel that air flux on my skin for the first time. Running. Walking. %(gelLookForward)It%(is) a change in life I can't talk with anyone about except for you. "
 				"%(gelLookForward)I, as in Gel-wise, was made 19 years ago. %(gelHuh)So I would say that%(is) my age? %(gelLookRight)%(gelHuh)By uh, the other standards, I%(am) 24 I think. \w6Legally at least. \w8%(gelSquint)Also I did%(not) actually check. %(gelLookForward)%(gelConfused)\w6This avatar was supposed to look 8, I think?"
 			}
 		}
@@ -761,7 +763,7 @@ Q_GEL : nonoverlap{
 			if port == 434{
 				"%(gelLookForward)I am a kind of weird port in comparison to others, %(gelArmsGestR)but I%(am) still just %Gel. %(gelLookForward)I like video games a lot. I like to play this VR game, AOG12, with my best friend AnShijoWicker. %(gelLookRight)%(gelFurrowed)Apparently that%(is) enough to make me a unique person, according to An0000."
 			}elseif Gel = "Gra"{
-				"%(gelLookForward)I am Gra! Gra is Gra. %(gelLookRight)%(gelFurrowed)I can’t remember why I am Gra. %(gelLookForward)But I don’t mind that! I live in the wastes with my friend Evan Lock. An0000 likes me because I give them information."
+				"%(gelLookForward)I am Gra! Gra is Gra. %(gelLookRight)%(gelFurrowed)I can't remember why I am Gra. %(gelLookForward)But I don't mind that! I live in the wastes with my friend Evan Lock. An0000 likes me because I give them information."
 			}
 		}else{
 			if port == 1117{
@@ -968,10 +970,10 @@ Q_RELIGION{
 	"%(gelLookRight)Whetta is the socially-acceptable branch of Wicca these days. %(gelLookForward)They%(are) chill and just kinda do their own thing, and once in a while, say the VOC is cool when they%(are) asked to."
 	if checkGreatTP2{
 		"%(gelLookForward)The only totally selfless religion I%(have) seen in Atlas is called the Anthropromofolk.%(gelHmm)Random acts of kindness is a thing for them, but more long-term. Help with projects. Making free stuff. \w6\n\n[half]%(gelPonder)%(gelHuh)They also like to run around in full body suits of any animal. "
-		if !checkGreatTP3; "%(gelLookForward)%(gelNervous)Have I told you about The Children yet? %(gelLookAway)%(gelNervous)They are a weird group that goes around and helps educate kids. %(gelArmsCouncil)But let’s just say their form of worship is very, uh, physical. %(gelLookForward)%(gelFurrowed)I thought our places of worship were normal but after seeing your Internet, I%(am) a little confused. Their church, ‘’God’s Place,’’ is a club by your standards. "
+		if !checkGreatTP3; "%(gelLookForward)%(gelNervous)Have I told you about The Children yet? %(gelLookAway)%(gelNervous)They are a weird group that goes around and helps educate kids. %(gelArmsCouncil)But let's just say their form of worship is very, uh, physical. %(gelLookForward)%(gelFurrowed)I thought our places of worship were normal but after seeing your Internet, I%(am) a little confused. Their church, ''God's Place,'' is a club by your standards. "
 	}
 	if checkGreatTP3{
-		"%(gelLookForward)%(gelFurrowed)%(gelHmm)Remember how I told you about The Children? %(gelLookRight)%(gelNervous)I think I noticed something even weirder than before. %(gelLookForward)%(gelNervous)%(gelArmsCouncil)I think it%(is) based on your ‘Christianity’ once upon a time. It has changed a lot. %(gelT)No Bible, just a book called The Gospel that%(is) pretty, uh, eccentric in comparison."
+		"%(gelLookForward)%(gelFurrowed)%(gelHmm)Remember how I told you about The Children? %(gelLookRight)%(gelNervous)I think I noticed something even weirder than before. %(gelLookForward)%(gelNervous)%(gelArmsCouncil)I think it%(is) based on your 'Christianity' once upon a time. It has changed a lot. %(gelT)No Bible, just a book called The Gospel that%(is) pretty, uh, eccentric in comparison."
 	}
 }
 
@@ -1038,7 +1040,7 @@ Q_NVRO{
 		}
 		if checkGreatTP2{
 			"%(gelLookForward)So I realized that NVRO has been able to translate little bits between me and you, just casually. %(gelSlashMouth)So I make a little more sense to%(you), and %(you)make a little more sense to me. %(gelArmsGestR)The words we use do%(not) exactly match up. %(gelArmsQuestion)A few hundred years between us. %(gelLookForward)NVRO crawling your Internet to figure that out and translate it is really weird, though. %(gelLookRight)%(gelSquint)It%(is) too powerful."
-			"%(gelLookForward)NVRO controls my whole experience. It makes me 2D, it lets me work through it to access the Internet. %(gelLookRight)Through NVRO, I can connect to this little ‘SSP’ thing. %(gelHmm)Sakurascript Player? Whatever it is."
+			"%(gelLookForward)NVRO controls my whole experience. It makes me 2D, it lets me work through it to access the Internet. %(gelLookRight)Through NVRO, I can connect to this little 'SSP' thing. %(gelHmm)Sakurascript Player? Whatever it is."
 			if port > 4500{
 				"%(gelLookForward)%(gelExcited)NVRO is what lets me have taste! %(gelLookRight)It only works for me and other ports like me, though. %(gelLookForward)Not every Gel is compatible."
 			}
@@ -1084,12 +1086,12 @@ Q_CSV{
 			if checkGreatTP3{
 				{
 					"%(gelLookForward)%(gelCatMouth)The CSV is also a radio frequency I use to talk to the others without any VOC people noticing. %(gelLookRight)%(gelCatMouth)If I ever notice that they%(are) getting close to the right frequency I start flickering the lights and causing technical %(heck) so they think it%(is) a dangerous frequency. %(gelExcited)Some violetjacket even wrote a paper on it once. \![raise,OnUnlock,qjackets]"	
-					"%(gelLookForward)Giving my VOC’s basement friend group a cool name improved morale a lot. %(gelLookRight)%(gelFurrowed)I mean yeah, immoral sentience experiments, not expecting mental health, huh? %(gelLookForward)But with a cool name and me sending them memes makes things not so bad, %(gelSmirk)and leaves energy to hurl insults at people."
-					if thetwins > 0; "%(gelLookRight)Let’s see… %(gelHmm)there%(is) six people in the CSV, including myself? %(gelConfused)Five-point-five? %(gelLookForward)%(gelSlashMouth)You know how AnTwins are. \w8%(gelLookRight)So yeah, those two, me, AnJadeEyes, AnWillow, and AnRadius. "
-					"%(gelLookForward)%(gelFurrowed)I do%(not) know what they%(are) up to right now. %(gelArmsQuestion)Since I%(am) disconnected right now from the rest of the server, I can’t talk to them right now. %(gelLookRight)%(gelNervous)%(gelFrown)Drawbacks of not being your own person."
+					"%(gelLookForward)Giving my VOC's basement friend group a cool name improved morale a lot. %(gelLookRight)%(gelFurrowed)I mean yeah, immoral sentience experiments, not expecting mental health, huh? %(gelLookForward)But with a cool name and me sending them memes makes things not so bad, %(gelSmirk)and leaves energy to hurl insults at people."
+					if thetwins > 0; "%(gelLookRight)Let's see... %(gelHmm)there%(is) six people in the CSV, including myself? %(gelConfused)Five-point-five? %(gelLookForward)%(gelSlashMouth)You know how AnTwins are. \w8%(gelLookRight)So yeah, those two, me, AnJadeEyes, AnWillow, and AnRadius. "
+					"%(gelLookForward)%(gelFurrowed)I do%(not) know what they%(are) up to right now. %(gelArmsQuestion)Since I%(am) disconnected right now from the rest of the server, I can't talk to them right now. %(gelLookRight)%(gelNervous)%(gelFrown)Drawbacks of not being your own person."
 				}
 				if qcsv > 10{
-					"%(gelLookForward)%(gelHmm)I wonder if I could get the CSV radio frequency up on here? %(gelArmsGestR)You could talk to Willow and Radius at least. \w8%(gelLookForward)%(gelFurrowed)I don’t know if they would, %(because) they can’t spread their consciousness out like I %(kinda) can. "
+					"%(gelLookForward)%(gelHmm)I wonder if I could get the CSV radio frequency up on here? %(gelArmsGestR)You could talk to Willow and Radius at least. \w8%(gelLookForward)%(gelFurrowed)I don't know if they would, %(because) they can't spread their consciousness out like I %(kinda) can. "
 					"%(gelLookForward)%(gelArmsGestR)Imagine getting the CSV squad out here on your computer, too! %(gelLookForward)%(gelGrin)We%(would) probably have to copy their AIs to do it, but if it can be done to me, myself, and I, I can get it out of them!"
 					"%(gelLookRight)%(gelPonder)I do%(not) know if AnWillow and AnRadius would really want to spend time with just rando #%(port), but it would be cool if they did. %(gelLookForward)%(gelPonder)Or we copy their consciousnesses and merge them later so it does%(not) take time out of their– \w8\w8%(gelLookAfraid)Ah yeah. Schedule. Almost forgot our situation. %(gelArmsChest)Maybe I can call them in after all. \![raise,OnMakeUncomfortable,topic]"
 					"%(gelLookForward)It would be cool to see NVRO make an avatar out of AnRadius and AnWillow. %(gelHmm)Would it be what they look like as robos, or would they get one different? %(gelLookRight)NVRO has my eyes too, so I bet they%(would) look the same, but that%(is) okay, %(because) my friends are bad%(donkey). "
@@ -1142,7 +1144,7 @@ Q_ATLASCITY{
 			if port == 434; "%(gelWistful)Just a home with the Wicker family."
 		}
 		if checkGreatTP3{
-			"%(gelLookForward)%(gelFurrowed)Listen, I… I do%(not) love Atlas. It%(is) all that%(is) left in the world but it%(is) a pretty sucky one. %(gelLookRight)%(gelNervous)The wastes outside are%(not) really livin%(guh), from what I see. %(gelLookForward)%(gelNervous)Atlas is bad and I think it is going to kill me sooner rather than later so I better do my best, yeah?"
+			"%(gelLookForward)%(gelFurrowed)Listen, I... I do%(not) love Atlas. It%(is) all that%(is) left in the world but it%(is) a pretty sucky one. %(gelLookRight)%(gelNervous)The wastes outside are%(not) really livin%(guh), from what I see. %(gelLookForward)%(gelNervous)Atlas is bad and I think it is going to kill me sooner rather than later so I better do my best, yeah?"
 		}
 	
 	}
@@ -1222,8 +1224,8 @@ Q_DOME{
 	if qdome > 0{
 		"%(gelLookForward)The Dome has a bunch of solar panels on it to help generate power for Atlas. %(gelSlashMouth)It%(is) not the only thing that gives power, but it sure does a lot of help. \w8%(gelLookRight)The solar power stuff we do is see-through now, so the top levels of Atlas can still see sky-colors. %(gelNervous)Solar power is%(not) actually that effective in our day, though."
 		if checkGreatTP2{
-			"%(gelLookForward)One of the things I first found weird is how you just breathe air in your world, with no Dome. %(gelLookRight)I already knew that that was part of the apocalypse, but… %(gelFurrowed)it is a lot more different than I thought it would be."
-			"%(gelLookForward)There are lights and pixels video can be played on in the Dome. There are those on the bottom of each Level, too, though— %(gelArmsGestR)so it%(is) nothing too special. %(gelBigSmile)Sometimes ‘stars’ are put on those. %(gelLookForward)%(gelFrown)One time people played some, uh, %(gelLookRight)%(gelSquint)interesting videos on the Dome. "
+			"%(gelLookForward)One of the things I first found weird is how you just breathe air in your world, with no Dome. %(gelLookRight)I already knew that that was part of the apocalypse, but... %(gelFurrowed)it is a lot more different than I thought it would be."
+			"%(gelLookForward)There are lights and pixels video can be played on in the Dome. There are those on the bottom of each Level, too, though— %(gelArmsGestR)so it%(is) nothing too special. %(gelBigSmile)Sometimes 'stars' are put on those. %(gelLookForward)%(gelFrown)One time people played some, uh, %(gelLookRight)%(gelSquint)interesting videos on the Dome. "
 		}
 		if checkGreatTP3{
 			"%(gelLookForward)I know things most people do%(not) know, %(gelNervous)and all I%(will) say is you do%(not) want to know who takes care of those solar panels and things up there."
@@ -1237,11 +1239,11 @@ Q_CYBERNETICS{
 	//Here goes only known topic expansions
 	if qcybernetics > 0{
 		"%(gelLookRight)%(gelHuh)Let me see if I can come up with anything interesting... \w8\w8%(gelLookForward)%(gelArmsRock)One cybernetic the VOC likes to push is the EMWI, or the Emotional Management and Welfare Implant. %(gelLookLeft)%(gelFurrowed)%(gelSlashMouth)I do%(not) like it much. It gets rid of all your negative emotions, mostly. %(gelLookForward)%(gelFurrowed)%(gelFrown)It describes itself as leaving %(you) with only ''love, happiness, confidence, and pleasure.''"
-		"%(gelLookForward)There’s a cybernetic called the No Need to be Negative, or N3. %(gelLookRight)%(gelSlashMouth)It blocks out negativity, as %(you) might guess. %(gelLookForward)%(gelSlashMouth)%(gelFurrowed)Your vision can get replaced with pictures you choose, like cat pictures, or just blanked out. Words you hear get censored into nonexistence."
+		"%(gelLookForward)There's a cybernetic called the No Need to be Negative, or N3. %(gelLookRight)%(gelSlashMouth)It blocks out negativity, as %(you) might guess. %(gelLookForward)%(gelSlashMouth)%(gelFurrowed)Your vision can get replaced with pictures you choose, like cat pictures, or just blanked out. Words you hear get censored into nonexistence."
 		if checkGreatTP3{
-			"%(gelLookForward)Atlas can fix so many things, %(gelFurrowed)but not everything. %(gelLookAway)%(gelFurrowed)Cybernetic fixes to mental health problems are more like a disability, and if the issue is too deeply inset that some limb replacements won’t do it, %(gelT)you%(are) %(fudged). "
+			"%(gelLookForward)Atlas can fix so many things, %(gelFurrowed)but not everything. %(gelLookAway)%(gelFurrowed)Cybernetic fixes to mental health problems are more like a disability, and if the issue is too deeply inset that some limb replacements won't do it, %(gelT)you%(are) %(fudged). "
 			if port == 434{
-				"%(gelLookForward)Cybernetics can’t fix some things. %(gelFurrowed)AnShijoWicker has Multiple Sclerosis, %(gelFrown)and that goes a little too deep to fix without putting invasive stuff in his brain, and even that would%(not) fix everything. The worst of it stays. %(gelArmsChest)So he does%(not) want to get that and would rather get smaller little things to help."
+				"%(gelLookForward)Cybernetics can't fix some things. %(gelFurrowed)AnShijoWicker has Multiple Sclerosis, %(gelFrown)and that goes a little too deep to fix without putting invasive stuff in his brain, and even that would%(not) fix everything. The worst of it stays. %(gelArmsChest)So he does%(not) want to get that and would rather get smaller little things to help."
 			}
 		
 		}
@@ -1274,7 +1276,7 @@ Q_DISTRICTS{
 	//Here goes only known topic expansions
 	if qdistricts > 0{
 		"%(gelLookAway)%(gelPonder)An example district name would be... hm... DPAE-4H. %(gelLookForward)%(gelSlashMouth)It%(is) called, less formally, Deahe. \w4Day-\w4a-\w4hee. \w6That%(is) where AnShijoWicker lives. \n\n[half]%(gelArmsGestR)It%(is) DP class, DP for dark purple, which is a pretty high quality setup. %(gelArmsQuestion)A for Anyone can access, and E for east. %(gelArmsHighFive)It%(is) on the fourth level of the city, and the District Rep, AnNariyakiWicker, is overseen by the Horus Office. "
-		"%(gelLookForward)%(gelHmm)Atlas is stacked 12 high, right? %(gelLookForward)Because of that, each city has a floor that%(is) the ceiling of the one below. %(gelArmsGestR)The default for what ‘ground’ looks like is this purple and bluish mesh. %(gelLookForward)All of those are built to flip over and clean themselves on a schedule."
+		"%(gelLookForward)%(gelHmm)Atlas is stacked 12 high, right? %(gelLookForward)Because of that, each city has a floor that%(is) the ceiling of the one below. %(gelArmsGestR)The default for what 'ground' looks like is this purple and bluish mesh. %(gelLookForward)All of those are built to flip over and clean themselves on a schedule."
 		if checkGreatTP2{
 			"%(gelLookForward)%(gelArmsGestR)An example district is DBEN-1E, nicknamed Debennie. This Rainbow Rebel girl named Grace lives there. \n\n[half]\w8%(gelLookForward)Dark Blue class, E for everyone can enter – \w8\w6sometimes this letter is A, they mean the same but allows for more distinctions – \w8\w6it%(is) North of Hyleg Tower, on the first level of the city, and the District Rep is overseen by the Errai Office.\![raise,OnUnlock,qrainbowrebels] "
 			"%(gelLookForward)District names can be weird. %(gelLookRight)%(gelArmsGestR)Like, designations are one thing, named stuff like %(randomDistrict), but pronouncing them is a whole other game. %(gelArmsHighFive)It could be %(randomDistrictPronunciation) for all you know, %(gelLookForward)or like %(randomDistrictPronunciation). "
@@ -1293,10 +1295,10 @@ Q_CULTURE{
 	if checkGreatTP1{
 		"%(gelLookForward)%(gelSlashMouth)Hmm, one weird thing about Atlas is that they consider being homeless a 'life decision.' Not in the way of negatively, though– \w8%(gelLookConcerned)like it%(is) a rich person's choice to be humble. %(gelFrown)So homeless shelters are all made for rich people. %(gelLookAway)%(gelWorry)Actual homeless homeless people can usually find a shelter in a mutant district, or join a religious club and stay there. %(gelLookForward)%(gelNervous)%(gelFrown)%(gelEarsBack)It%(is) its own new kind of %(fudged) up. "
 		"%(gelLookForward)%(gelSlashMouth)We do%(not) have cars. Not really. %(gelLookAway)Atlas has a public transportation system that takes you to any District. %(gelLookForward)Most Districts have about 5 stations, which is enough to keep it walkable. There are roads for vehicles, but they are%(not) necessarily better than public transit. %(gelSlashMouth)They%(are) used for medical folks and product transport. "
-		"%(gelLookForward)%(gelPonder)One joke-turned-culture thing is casually called the Thoughtless Indeviance Imperial in %(textebooks). %(gelLookForward)%(gelArmsGestR)It started as a TV show where there was a kingdom of people with no brains, and then there was a whole category of memes around ‘one single thought kills you’ and now its a piece of culture because the VOC does%(not) want anyone to think anyway. \n\n[half]\w8%(gelLookRight)%(gelPonder)Honestly, I see some similar things on your ‘Internet’ too…"
+		"%(gelLookForward)%(gelPonder)One joke-turned-culture thing is casually called the Thoughtless Indeviance Imperial in %(textebooks). %(gelLookForward)%(gelArmsGestR)It started as a TV show where there was a kingdom of people with no brains, and then there was a whole category of memes around 'one single thought kills you' and now its a piece of culture because the VOC does%(not) want anyone to think anyway. \n\n[half]\w8%(gelLookRight)%(gelPonder)Honestly, I see some similar things on your 'Internet' too..."
 	}
 	if checkGreatTP2{
-		"%(gelLookForward)There%(is) this cat icon with all sorts of merch called Jawful. The jaw is, of course, a joke. %(gelLookRight)Cats do%(not) have jaws and your Internet is weird and wrong. %(gelHmm)Why would they even need them? And why are your cat pictures so… short? %(gelT)Cats are much longer than that.\n\n[half]%(gelLookRight)Really, though, Jawful is a cute icon to have around."
+		"%(gelLookForward)There%(is) this cat icon with all sorts of merch called Jawful. The jaw is, of course, a joke. %(gelLookRight)Cats do%(not) have jaws and your Internet is weird and wrong. %(gelHmm)Why would they even need them? And why are your cat pictures so... short? %(gelT)Cats are much longer than that.\n\n[half]%(gelLookRight)Really, though, Jawful is a cute icon to have around."
 		"%(gelLookForward)%(gelCatMouth)A nickname for our public transport is the Melon Buckets. %(gelExcited)In 141 someone kept filling the cars with watermelons. %(gelLookRight)%(gelCatMouth)It was a whole weird ordeal."
 		"%(gelLookForward)%(gelExcited)Memes in Atlas are funny. %(gelLookForward)%(gelSlashMouth)I won't talk too much, but recently it became its own joke to print out memes and stick them in places around the city. %(gelCatMouth)You just find walls plastered with memes these days."
 	}else{
@@ -1309,7 +1311,7 @@ Q_CULTURE{
 			"%(gelLookForward)I recently discovered there is, in fact, a Jawful mode on the No Need To Be Negative. %(gelLookRight)%(gelHmm)It%(is) actually pretty funny. There%(is) an emulator I found on the Chain I made AnShijoWicker run. "
 		}
 		"%(gelLookForward)You ever played three person chess? %(gelHmm)No? \n\n[half]\w8%(gelLookRight)There are annual tournaments. "
-		"%(gelLookRight)Silhouettes are a %(lil) different in your world and mine. %(gelLookForward)Clothes, that is. Atlas people in lower class areas do%(not) look too different, but the richer you get, the uh, %(gelSquint)longer you want to be. %(gelLookUp)Longer? %(gelHmm)Is that right? %(gelPonder)Well, more dangly parts… how much flare is%(not) even a flare anymore?"
+		"%(gelLookRight)Silhouettes are a %(lil) different in your world and mine. %(gelLookForward)Clothes, that is. Atlas people in lower class areas do%(not) look too different, but the richer you get, the uh, %(gelSquint)longer you want to be. %(gelLookUp)Longer? %(gelHmm)Is that right? %(gelPonder)Well, more dangly parts... how much flare is%(not) even a flare anymore?"
 	}
 
 }
@@ -1320,7 +1322,7 @@ Q_ORANGESKIES{
 		"%(gelLookForward)Yona%(is) the forgetful one, but still the straight-woman. %(gelLookRight)Via%(is) just an airhead. %(gelLookForward)They have some funny dynamics, and it%(is) a good resource for seeing how people in Atlas interact. "
 		"%(gelLookForward)In their 11th of Beowulf 178 segment, Via makes a comment about fulfilling a requirement for hailing the VOC. %(gelLookRight)%(gelSlashMouth)Of course, they can only get away with it saying it%(is) a joke, but it does make you think. %(gelLookForward)%(gelFrown)Would%(not) surprise me if that *was* a requirement."
 		if checkGreatTP2{
-			"%(gelLookForward)Being a news anchor sounds fun. %(gelHmm)Would you want to be a news anchor? It seems more boring in your world. %(gelLookForward)In Atlas, you just talk about ‘het ailyd ek-ense,’ as we say. %(gelLookRight)Nothing that makes sense. Lie a few times. %(gelLookForward)And then go home. That%(is) why I like Orange Skies. They just keep the fun stuff with a hint of truth."
+			"%(gelLookForward)Being a news anchor sounds fun. %(gelHmm)Would you want to be a news anchor? It seems more boring in your world. %(gelLookForward)In Atlas, you just talk about 'het ailyd ek-ense,' as we say. %(gelLookRight)Nothing that makes sense. Lie a few times. %(gelLookForward)And then go home. That%(is) why I like Orange Skies. They just keep the fun stuff with a hint of truth."
 		}
 		if checkGreatTP3{
 			"%(gelLookForward)%(gelSlashMouth)I do%(not) like your world's news. %(gelLookRight)%(gelFrown)It%(is) sad, and depressing, and is not just honest, but really dramatic. %(gelLookForward)Atlas will lie to you. Even Orange Skies. If somethin%(guh) is wrong, it will never be in the District you are in. And no one ever dies. Once in a 'blue moon' as your internet says, they%(will) 'fade away.'"
@@ -1342,7 +1344,7 @@ Q_DRUID{
 			"%(gelLookRight)%(gelSlashMouth)DRUiDs outside of Atlas are the only reason people are%(not) dying there. %(gelHmm)%(gelFurrowed)They are such massive caretakers, and after a coming of age, each year, everyone in their community has to venture out and plant a tree where no other trees can be seen."
 			"%(gelLookForward)%(gelArmsGestR)The DRUiDs in Atlas itself are all pretty mild. They%(are) invisible unless you know who to ask. But, unlike the RR, the VOC does%(not) actively search for them. %(gelFurrowed)The RR are more of a threat. \![raise,OnUnlock,qrainbowrebels]"
 		}
-		"%(gelLookForward)%(gelPonder)%(gelConfused)What does DRUiD stand for…? %(gelLookRight)%(gelConfused)%(gelPonder)I do%(not) think I actually know…"
+		"%(gelLookForward)%(gelPonder)%(gelConfused)What does DRUiD stand for...? %(gelLookRight)%(gelConfused)%(gelPonder)I do%(not) think I actually know..."
 	}
 	//Here goes potential first-explanations
 	{
@@ -1400,7 +1402,7 @@ Q_AINSTAIN{
 Q_WHYLOWES{
 	qwhylowes = 0
 	"%(gelLookForward)%(gelHmm)Why not Lowe's? %(gelLookForward)It%(is) pretty funny. Just... %(gelLookRight)%(gelHuh)hardware store. Population: dirt. Nature. Buildings. %(gelLookForward)%(gelAmused)But unlike your Home Depot, it%(is) nearly someone's name and it is Low. %(gelExcuted)Ah yes, the Low store. %(gelLookAway)%(gelCatMouth)Where you buy... %(gelLookForward)%(gelAmused)%(gelGrin)low things? \![raise,OnUnlock,qlastnames]"
-	if checkGreatTP3; "%(gelLookForward)Lowe’s is funny, %username. It%(is) one of the funniest things your world does. %(gelLookLeft)That, the light, Rick Astley, and all the weird little differences. %(gelLookForward)The idioms are fun. %(gelCatMouth)I have those downloaded to the structure."
+	if checkGreatTP3; "%(gelLookForward)Lowe's is funny, %username. It%(is) one of the funniest things your world does. %(gelLookLeft)That, the light, Rick Astley, and all the weird little differences. %(gelLookForward)The idioms are fun. %(gelCatMouth)I have those downloaded to the structure."
 	if qlastnames > 0{
 		"%(gelLookForward)%(gelFrown)Low. %(gelCatMouth)Imagine your last name is Low and you thought it was a good idea to make a building stuff store. \w8%(gelSilly)Your name is Low and you sell \w4dirt!"
 	}

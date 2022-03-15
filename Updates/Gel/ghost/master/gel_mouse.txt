@@ -845,7 +845,7 @@ MouseMove_THANKGEL{
 			}elseif _effectivepets > TPOS2{				//Positive Route Pt 3 ---------------------------------------------------
 				"%(gelLookForward)%(gelConfused)You know how much I wish my friends could pet me like you do? So much. %(gelLookForward)You just show up and bam! I do somethin%(guh) for %(you), %(gelLookLeft)then you think to pet me as a thank-you and it%(is) the %(gelAdoring)AI equivalent of serotonin straight to my binary brain. "
 			}elseif _effectivepets > TPOS1{				//Positive Route Pt 2 ---------------------------------------------------
-				"%(gelLookUp)Oh, you%(are) still gonna pet me like that for thanks when we%(are) on more casual terms? \w8%(gelLookForward)I wonft say no to that. "
+				"%(gelLookUp)Oh, you%(are) still gonna pet me like that for thanks when we%(are) on more casual terms? \w8%(gelLookForward)I won't say no to that. "
 			}elseif _effectivepets > TNEG1{				//Positive/Neutral Route Pt 1 -------------------------------------------
 				"%(gelConfused)Pets as thanks? %(gelLookForward)You%(are) very welcome, %(username)!"
 				"%(gelLookForward)Pets are a viable transaction as thanks, you%(are) correct. "
@@ -1281,7 +1281,7 @@ gelNoTouchiePetResponses{
 				}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
 					
 				}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
-					"newstuff"
+					//"newstuff"
 				}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
 
 				}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
@@ -1313,7 +1313,7 @@ gelNoTouchiePetResponses{
 				}elseif checkStaggerGreatTP3 {		//Positive Route Pt 2.5 ---------------------------------
 					
 				}elseif checkStaggerGreatTP2{		//Positive Route Pt 1.5 ---------------------------------------------------
-					"newstuff"
+					//"newstuff"
 				}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 0.5 -------------------------
 
 				}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
@@ -1390,7 +1390,7 @@ gelNoTouchiePetResponses{
 				}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
 					
 				}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
-					"newstuff"
+					//"newstuff"
 				}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
 
 				}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
@@ -1486,7 +1486,7 @@ gelNoTouchiePetResponses{
 				}elseif checkStaggerGreatTP3 {		//Positive Route Pt 2.5 ---------------------------------
 					"%(gelConcerned)Why! Why, %username! Stop that, %(you) know better! I do%(not) want to be touched!\![raise,OnSetVariable,jabbering,2]"
 				}elseif checkStaggerGreatTP2{			//Positive Route Pt 1.5--------------------------------------------------
-					"newstuff"
+					//"newstuff"
 				}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 0.5 -------------------------
 
 				}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
@@ -1648,7 +1648,7 @@ gelNoTouchiePetResponses{
 					"%(gelLookForward)%(gelSlashMouth)This feels bad."
 					"%(gelUncomfortable)You%(are) making me uncomfortable... \![raise,OnMakeUncomfortable,touch]"
 				}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
-					"newstuff"
+					//"newstuff"
 				}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
 					if currentpets > 0; "%(gelLookAway)I%(am) not comfortable with this."
 					"%(gelLookForward)%(gelUh)Are you... petting me? \w8\w8%(gelUh)Can you not?"
@@ -1685,7 +1685,7 @@ gelNoTouchiePetResponses{
 				}elseif checkStaggerGreatTP2 {		//Positive Route Pt 2.5 ---------------------------------
 					
 				}elseif checkStaggerGreatTP1{		//Positive Route Pt 1.5--------------------------------------------------
-					"newstuff"
+					//"newstuff"
 				}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 0.5 -------------------------
 					"%(gelLookRight)Do%(not) pet me, please. "
 				}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
@@ -2043,7 +2043,7 @@ MouseDoubleClick0Face
 						}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
 							"%(gelLookForward)What the?! %(gelSurprise)Did you just punch me for talking too much!? %(gelUh)That%(is) not like you. %(gelLookAway)That%(is)... "
 						}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
-							"newstuff"
+							//"newstuff"
 						}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
 							"%(gelLookForward)Ouch! \w8\w8I%(am) sorry I was talking too much, %(gelConfused)but do%(not) you think that%(is) excessive? "
 						}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
@@ -2138,7 +2138,7 @@ MouseDoubleClick0Face
 						}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
 							
 						}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
-							"newstuff"
+							//"newstuff"
 						}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
 
 						}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
@@ -2310,7 +2310,7 @@ MouseDoubleClick0Face
 						}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
 							
 						}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
-							"newstuff"
+							//"newstuff"
 						}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
 							"%(gelLookForward)%(gelGlare)Ow, hey! I did%(not) do anything to deserve that. You should%(not) hit."
 							"%(gelLookForward)%(gelGlare)Oh, so you%(are) gonna hit me? %(gelSmug)Is a cute %(lil) assistant not what you want? Want me to be scary?\![raise,OnSetVariable,jabbering,2]"
@@ -2365,7 +2365,7 @@ MouseDoubleClick0Face
 					}elseif checkGreatTP2{        //Positive Route Pt 2 ---------------------------------------------------
 						
 					}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
-						"newstuff"
+						//"newstuff"
 					}elseif checkGreatTN1{        //Positive/Neutral Route Pt 0 -------------------------------------------
 						"%(gelLookForward)%(gelGlare)Ow, hey! I did%(not) do anything to deserve that. You should%(not) hit."
 						"%(gelLookForward)%(gelGlare)Oh, so you%(are) gonna hit me? %(gelSmug)Is a cute %(lil) assistant not what you want? Want me to be scary?\![raise,OnSetVariable,jabbering,2]"
@@ -2398,7 +2398,7 @@ MouseDoubleClick0Face
 					}elseif checkStaggerGreatTP3 {        //Positive Route Pt 2.5 ---------------------------------
 						
 					}elseif checkStaggerGreatTP2{		//Positive Route Pt 1.5--------------------------------------------------
-						"newstuff"
+						//"newstuff"
 					}elseif checkStaggerGreatTP1 {        //Positive/Neutral Route Pt 0.5 -------------------------
 
 					}elseif checkStaggerGreatTN1{        //Negative Route Pt 1.5 ---------------------------------

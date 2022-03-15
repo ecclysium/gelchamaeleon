@@ -10,18 +10,20 @@
 
 RandomTalk
 {
+	"random\n"
+	--
     TOSTR(EVAL(CHR(0x22)+RandomTalkEx()+CHR(0x22)))
 }
 
 //------------------------------------------------------------------------------
 // Random talk body: Please write the random talk in this
-// Always write in '' only here.
+// Always write in "" only here.
 // Because% () is expanded in the contents of RandomTalk above, it is OK without using "".
 // High-speed measures
 //------------------------------------------------------------------------------
 RandomTalkEx : nonoverlap
 {
-	"%(gelBase)"
+	"%(gelBase)RANDOMTALK\n"
 	--
 	talksthishour+=1
 	if useractive == 1{
@@ -511,7 +513,7 @@ OnHourChange{
 							"%(gelLookRight)%(gelCatMouth)It%(is) those lucky hours. "
 							--
 							if "SPAMTON" _in_ ghostfriends{
-								"%(gelLookForward)Spin Spamton’s wheel!"
+								"%(gelLookForward)Spin Spamton's wheel!"
 							}
 						}
 					}else

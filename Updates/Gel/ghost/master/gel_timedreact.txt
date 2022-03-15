@@ -73,7 +73,7 @@ Menu_UPSETGEL{
 	}elseif checkStaggerGreatTP3 {		//Positive Route Pt 2.5 ---------------------------------
 		"%(gelLookForward)Yeah, the VOC made me like this purposely, and do maintenance early in the month... it%(is) er, %(gelLookRight)kind of my flaw. "
 	}elseif checkStaggerGreatTP2 {		//Positive Route Pt 1.5 ---------------------------------
-		"newstuff"
+		
 	}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 0.5 -------------------------
 		"%(gelLookLeft)Sorry, I do%(not) mix with tight spaces. "
 	}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
@@ -476,7 +476,7 @@ Menu_THANKGEL{
 		}elseif checkStaggerGreatTP3 {		//Positive Route Pt 2.5 ---------------------------------
 			"D'aw, you know you%(are) welcome."
 		}elseif checkStaggerGreatTP2 {		//Positive Route Pt 1.5 ---------------------------------
-			"newstuff"
+			//"newstuff"
 		}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 0.5 -------------------------
 			"%(gelLookForward)%(gelBigSmile)Aww, you%(are) welcome, %(username)! %(gelExcited)I%(am) always happy to be of service."
 			"%(gelExcited)Helping you out is what I%(am) here for! %(gelLookForward)Anytime."
@@ -730,7 +730,7 @@ GOOD_Morning{
 			"G'mornin%(guh), %(nicknamed). %(gelLookForward)It is real great you spend so much time with me. How did you sleep last night? Well, I hope.%(HOWIS_Waking)"
 			
 		}elseif checkStaggerGreatTP2 {		//Positive Route Pt 1.5 ---------------------------------
-			"newstuff"
+			//"newstuff"
 		}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 0.5 -------------------------
 			"%(gelLookForward)%(gelConfused)Oh, so it is good morning, not happy morning? %(gelLookRight)I mean, we do say good purple in Atlas a lot, but happy purple is%(not) anything strange. \w8I still have to get used to this. "
 
@@ -771,7 +771,7 @@ GOOD_Evening{
 		}elseif checkStaggerGreatTP3 {		//Positive Route Pt 2.5 ---------------------------------
 			"%(gelLookForward)%(gelConfused)Only evening? %(gelUh)It%(is) too tiring for that, %username! "
 		}elseif checkStaggerGreatTP2 {		//Positive Route Pt 1.5 ---------------------------------
-			"newstuff"
+			//"newstuff"
 		}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 0.5 -------------------------
 
 		}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
@@ -800,7 +800,7 @@ GOOD_Evening{
 		}elseif checkStaggerGreatTP3 {		//Positive Route Pt 2.5 ---------------------------------
 			"sure thing bartender, evening..."
 		}elseif checkStaggerGreatTP2 {		//Positive Route Pt 1.5 ---------------------------------
-			"newstuff"
+			//"newstuff"
 		}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 0.5 -------------------------
 			"%(gelLookForward)Oh, evening. It%(is) getting late. %(gelLookAway)%(gelFurrowed)I, uh, hope you%(have) been enjoying yourself. \w8\w8Things are fine! Do%(not) worry about me."
 		}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------	
@@ -830,7 +830,7 @@ GOOD_Evening{
 		}elseif checkStaggerGreatTP3 {		//Positive Route Pt 2.5 ---------------------------------
 			
 		}elseif checkStaggerGreatTP2 {		//Positive Route Pt 1.5 ---------------------------------
-			"newstuff"
+			//"newstuff"
 		}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 0.5 -------------------------
 			"%(gelLookForward)Hmm... %(gelLookRight)maybe. Maybe in your world. %(gelUh)But my world is entirely different."
 		}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
@@ -869,7 +869,7 @@ GOOD_Evening{
 			"%(gelLookForward)Good evening, %username. %(gelConfused)Does this mean %(you)%(are) about to break for a bit? %(gelSlashMouth)Eat something?"
 			
 		}elseif checkStaggerGreatTP2 {		//Positive Route Pt 1.5 ---------------------------------
-			"newstuff"
+			//"newstuff"
 		}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 0.5 -------------------------
 			"Goood evenin%(guh). What%(is) the sitch?"
 
@@ -892,7 +892,7 @@ GOOD_Evening{
 			"Evening! %(gelLookForward)%(gelHuh)Have %(you) had dinner yet? %(gelLookForward)You people with fleshy bits have to do that. My fleshy friends might have a lot of metal in them but it %(isnt) enough to make them not have to eat. %(gelLookRight)%(gelUh)They said everyone has to do that."
 			
 		}elseif checkGreatTP1 {		//Positive Route Pt 1 ---------------------------------
-			"%(gelLookForward)%(gelSquint)Evening. %(gelLookRight)%(gelSquint)What does that even mean…? Evening. \w8\w8Evening evening evening."
+			"%(gelLookForward)%(gelSquint)Evening. %(gelLookRight)%(gelSquint)What does that even mean...? Evening. \w8\w8Evening evening evening."
 		}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
 			"%(gelLookForward)Good evening. %(gelConfused)To you, this is dinner and wrap up for bedtime, right? %(gelSlashMouth)Have you eaten? "
 			"%(gelLookForward)Ah, yeah, good evening to you too! %(gelLookSouthEast)In Atlas, evening is just orange. %(gelLookForward)The times that it happen are a little different, though. %(gelHuh)We really just mark it as the color the sky is, outside of the Dome. Atlas is so tall, only people above around level 8 can see the sky colors. %(gelLookDown)It%(is) plainly pitch down below."
@@ -987,7 +987,7 @@ GOOD_Afternoon{
 		}elseif checkStaggerGreatTP3 {		//Positive Route Pt 2.5 ---------------------------------
 			
 		}elseif checkStaggerGreatTP2 {		//Positive Route Pt 1.5 ---------------------------------
-			"newstuff"
+			//"newstuff"
 		}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 0.5 -------------------------
 			"Mmmn, after noon, fleshy..."
 		}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
@@ -1037,7 +1037,7 @@ GOOD_Afternoon{
 		}elseif checkStaggerGreatTP3 {		//Positive Route Pt 2.5 ---------------------------------
 			
 		}elseif checkStaggerGreatTP2 {		//Positive Route Pt 1.5 ---------------------------------
-			"newstuff"
+			//"newstuff"
 		}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 0.5 -------------------------
 
 		}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
@@ -1074,7 +1074,7 @@ GOOD_Afternoon{
 			
 			
 		}elseif checkStaggerGreatTP2 {		//Positive Route Pt 1.5 ---------------------------------
-			"newstuff"
+			//"newstuff"
 		}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 0.5 -------------------------
 
 
@@ -1132,7 +1132,7 @@ GOOD_Afternoon{
 			
 			
 		}elseif checkStaggerGreatTP2 {		//Positive Route Pt 1.5 ---------------------------------
-			"newstuff"
+			//"newstuff"
 		}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 0.5 -------------------------
 
 
@@ -1313,7 +1313,7 @@ GOOD_Purple{
 			if _cityday != ""; "%(gelLookForward)Good purple! It%(is) %(cityday). %(gelConfused)Will you participate in the festivities? "
 			
 		}elseif checkGreatTP1 {		//Positive Route Pt 1 --------------------------------------------------
-			"%(gelLookForward)%(gelUh)Purple. \w8%(gelLookForward)%(gelSlashMouth)Sorry, just thinkin%(guh). %(gelHmm)Did I explain purple yet? %(gelLookRight)%(gelSlashMouth)The hours the air looks a little purple… from about 9:00 to 11:00. %(gelLookForward)%(gelHuh)I guess it%(is) about your morning?"
+			"%(gelLookForward)%(gelUh)Purple. \w8%(gelLookForward)%(gelSlashMouth)Sorry, just thinkin%(guh). %(gelHmm)Did I explain purple yet? %(gelLookRight)%(gelSlashMouth)The hours the air looks a little purple... from about 9:00 to 11:00. %(gelLookForward)%(gelHuh)I guess it%(is) about your morning?"
 		}elseif checkGreatTN1{		//Positive/Neutral Route Pt 1 -------------------------------------------
 			"%(gelLookForward)Happy purple to you too! It%(is) always nice when someone takes the time to really greet you."
 			"%(gelLookForward)Hapy purple to you too! It%(is) a nice time to start the day. %(gelHuh)Or have you already been up for a bit? %(gelLookRight)I forget how your times work, your version of the Chain (Internet?) says it%(is) morning but morning is a little different."
@@ -1336,7 +1336,7 @@ GOOD_Purple{
 				"%(gelLookForward)Good purple! %(gelHuh)How%(is) the air smelling? %(gelConfused)Does the air smell fresh over there? What is smell like, anyways?"
 			}
 			if boots < 4 && boots > 1{
-				"%(gelLookForward)%(gelCatMouth)Happy Purple, ‘%firstnick,’ heh. \w8%(gelConfused)Well… okay, not certain you are actually from Atlas. %(gelSquint)Maybe I can’t make that joke. %(gelLookRight)%(gelSquint)Weird things happen."
+				"%(gelLookForward)%(gelCatMouth)Happy Purple, '%firstnick,' heh. \w8%(gelConfused)Well... okay, not certain you are actually from Atlas. %(gelSquint)Maybe I can't make that joke. %(gelLookRight)%(gelSquint)Weird things happen."
 				
 			}
 
@@ -1352,7 +1352,7 @@ GOOD_Purple{
 			"%(gelLookForward)Thanks for letting me be on your mind first thing in the waking hours! %(gelAdoring)That%(is) sweet of you."
 			
 		}elseif checkStaggerGreatTP2 {		//Positive Route Pt 1.5 ---------------------------------
-			"newstuff"
+			//"newstuff"
 		}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 0.5 -------------------------
 			"%(gelLookForward)%(gelConfused)Ah yeah, it%(is) waking hours for you, right? %(gelLookForward)Good purple. How are %(you) gonna conquer it?"
 			"%(gelSlashMouth)Yeah, your-year-people are all like, what we call Purple to Black folks. %(gelLookForward)You get up right when the sky is purple and do%(not) go to bed until it%(is) black out! %(gelLookRight)%(gelHuh)It%(is) also technically a sign of being better off, because the people who do that can actually get light through the Dome, so they%(are) at least on level 6, even though you can't really see it until level 7. "
@@ -1522,7 +1522,7 @@ GOOD_Orange{
 			"%(gelLookForward)%(gelArmsHighFive)Good orange, %(nicknamed)! "
 			
 		}elseif checkGreatTP2 {		//Positive Route Pt 1 ---------------------------------
-			"%(gelLookRight)%(gelConfused)Why did we decide to call it orange, anyway…? %(gelLookForward)%(gelHuh)Does the sun look like an orange? %(gelConfused)Is that why? \w8\w8\w8\n\n[half]%(gelLookForward)%(gelT)Oh and good orange, yeah."
+			"%(gelLookRight)%(gelConfused)Why did we decide to call it orange, anyway...? %(gelLookForward)%(gelHuh)Does the sun look like an orange? %(gelConfused)Is that why? \w8\w8\w8\n\n[half]%(gelLookForward)%(gelT)Oh and good orange, yeah."
 		}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
 			"%(gelLookForward)Goood orange %username! %(gelLookForward)%(gelHmm)You%(are) still a little new to our times— \w8%(gelConfused)what time does your Internet say the sky is orange? %(gelConfused)Evenings? %(gelSlashMouth)Evening is an outdated term to us. "
 			
@@ -1560,7 +1560,7 @@ GOOD_Orange{
 			"%(gelLookForward)Good orange! Have %(you) had dinner yet? Is it even time for that? \n\n[half]You people with fleshy bits have to do that. Eating, that is. My fleshy friends said everyone has to do that, even if they%(are) more on the metal than fleshy end. "
 			
 		}elseif checkStaggerGreatTP2 {		//Positive Route Pt 1.5 ---------------------------------
-			if port == 434; "%(gelLookUp)The sky cresting over the lands, warning us for the night-monsters to arrive… %(gelLookForward)%(gelCatMouth)Good orange."
+			if port == 434; "%(gelLookUp)The sky cresting over the lands, warning us for the night-monsters to arrive... %(gelLookForward)%(gelCatMouth)Good orange."
 		}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 0.5 -------------------------
 			"%(gelLookForward)Good orange! Ah, this is my favorite time of day. It%(is)— \w8%(gelHmm)um, just evening to you, huh? %(gelConfused)Right? "
 			"%(gelLookForward)Good orange Atlas! %(gelLookAway)%(gelFurrowed)Or, uh, %(nicknamed)'s world. %(gelLookForward)How%(has) your day been? \w8Thanks for thinking of me."
@@ -1724,7 +1724,7 @@ GOOD_Black{
 			}
 			"%(gelLookAway)I want to sit outside in the darkness. %(gelLookForward)In your world, not mine. %(gelWistful)I want to see these ''stars'' not only as weird images on your internet, but in reality. %(gelLookForward)I... %(gelLookRight)I think I%(would) like to wander around there. The day would be too bright for me, but night... %(gelLookForward)I could do that."
 		}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
-			if port == 434; "%(gelLookRight)%(gelSlashMouth)And so the journey ends, and people retire to their tavern… %(gelLookForward)hehe, kidding. Good Black. %(gelConfused)Well we could retire to a tavern if we really wanted to. Would be neat."
+			if port == 434; "%(gelLookRight)%(gelSlashMouth)And so the journey ends, and people retire to their tavern... %(gelLookForward)hehe, kidding. Good Black. %(gelConfused)Well we could retire to a tavern if we really wanted to. Would be neat."
 			
 		}elseif checkGreatTP1 {		//Positive Route Pt 1 ---------------------------------
 			"%(gelLookForward)The blackest skies. Hope you%(are) enjoying it.\w2%(gelLookRight)\w2.\w4. total darkness is the normal in Atlas."
@@ -1896,7 +1896,7 @@ GOOD_Dust{
 			"%(gelLookForward)%(gelConfused)Would you judge me if I took a nap even at this hour? I%(am) tired. (!fullnightsrest) %(gelLookAway)I did%(not) get to sleep all through last night..."
 			"%(gelLookForward)I%(am) sleepy. %(gelLookRight)Wish I was%(not) in a box like this 'n someone else could curl up with me. "
 		}elseif checkStaggerGreatTP2 {		//Positive Route Pt 1.5 ---------------------------------
-			"newstuff"
+			//"newstuff"
 		}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 0.5 -------------------------
 			"Ah yeah, pure dust. %(gelLookForward)The day passes way too slowly, and I just %(wanna) sleep already."
 		}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
@@ -2173,9 +2173,9 @@ Menu_HOWISGEL{
 				"%(gelLookForward)I%(am) just a %(lil) sleepy. %(gelLookAway)Sorry, %(you) keep doin%(guh) what you%(are) doin%(guh) and I%(will) be here. \w6Do%(not) mind me. "
 			}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
 				if fullnightsrest{
-					"%(gelLookForward)Ah, maybe I am a bit bored and sleepy… %(gelLookDown)might take a nap."
+					"%(gelLookForward)Ah, maybe I am a bit bored and sleepy... %(gelLookDown)might take a nap."
 				}else{
-					"%(gelLookRight)I am just a bit sleepy… %(gelLookForward)Not anything on you. "
+					"%(gelLookRight)I am just a bit sleepy... %(gelLookForward)Not anything on you. "
 				}
 		
 			}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
@@ -2381,7 +2381,7 @@ Menu_HOWISGEL{
 				"%(gelLookForward)I really do%(not) like small spaces... %(gelLookRight)%(gelFrown)like this monitor."
 				"%(gelLookForward)I%(am) uh, just a bit twisted up. %(gelLookAway)I%(am) actually %(kinda) claustrophobic. %(gelFrown)It%(is) part of how I was made."
 			}elseif checkGreatTP1 {		//Positive Route Pt 1 -------------------------
-				"%(gelLookRight)%(gelFurrowed)Eeehh… well, I just get like this sometimes. %(gelLookForward)Not anythin%(guh) on you. %(gelSlashMouth)I guess maybe I just need time."
+				"%(gelLookRight)%(gelFurrowed)Eeehh... well, I just get like this sometimes. %(gelLookForward)Not anythin%(guh) on you. %(gelSlashMouth)I guess maybe I just need time."
 				"I am experiencing one of those human emotion things. %(gelLookForward)Not certain which, but you fleshies seem to live pretty suboptimally. "
 			}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
 				"%(gelLookLeft)I%(am) not feeling great right now."

@@ -1,0 +1,5 @@
+charset,Shift_JIS
+type,balloon
+name,Varia Sunset 165
+directory,ssp_default
+refresh,1

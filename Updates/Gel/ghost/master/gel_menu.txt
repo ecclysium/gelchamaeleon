@@ -284,7 +284,7 @@ OpenMenu
 				
 			}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
 				"%(gelLookForward)what are you tryin%(guh) to do?"
-				"%(gelLookForward)sendin%(guh) mixed signals pal…"
+				"%(gelLookForward)sendin%(guh) mixed signals pal..."
 			}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
 				"%(gelLookForward)C'mon, I%(am) cute even if? even if?  %(gelLookAway)%(gelSquint)I forgor. "
 
@@ -341,7 +341,7 @@ OpenMenu
 
 			}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
 				"%(gelLookAway)Yeah...?"
-				"%(gelLookForward)%(gelFurrowed)Useful, useful, useful…"
+				"%(gelLookForward)%(gelFurrowed)Useful, useful, useful..."
 				"%(gelLookForward)%(gelFurrowed)I am your helper."
 				"%(gelLookRight)%(gelFurrowed)...Reporting for duty."
 
@@ -384,7 +384,7 @@ OpenMenu
 
 			}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
 				"%(gelLookForward)Oh, h-hey there, %username. "
-				"%(gelLookForward)%(gelFurrowed)I can help, I can help…"
+				"%(gelLookForward)%(gelFurrowed)I can help, I can help..."
 
 			}elseif checkLessEqTN2{		//Negative Route Pt 2 (and more) ----------------------------------------
 				
@@ -450,7 +450,7 @@ OpenMenu
 				"%(gelLookForward)It%(is) the powerhouse %themself!"
 				if port == 434{
 					"%(gelLookForward)%(gelHmm)Is that a wizard I see?"
-					"%(gelLookForward)And so the traveler returns from %their perilous adventure…"
+					"%(gelLookForward)And so the traveler returns from %their perilous adventure..."
 				}
 			}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
 				if port == 434{
@@ -512,7 +512,7 @@ OpenMenu
 				"%(gelLookForward)%(gelArmsHighFive)There%(is) my cool friend!"
 				if port == 434{
 					if lastinter > 30{
-						"%(gelLookForward)And so the traveler returns from %their journey across the digital lands…"
+						"%(gelLookForward)And so the traveler returns from %their journey across the digital lands..."
 					}
 				}
 			}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------

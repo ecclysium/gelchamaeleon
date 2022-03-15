@@ -186,6 +186,11 @@ gelDialogueTired{
 
 gelDialogueNeutral{
 
+	//A Special Event
+	if gwhatsupwithyourinternalclock == -1{
+		"\![raise,OnTimeEvent]"
+	}
+
 	//Category-specific Dialogues
 	if checkGreatTP4{			//(currently) Maxed Out Positive ---------------------------------------- (SHOULD NOT BE REACHABLE)
 		"this shouldn't be said. If it is, please let %(GraysDiscord) know."
@@ -200,14 +205,14 @@ gelDialogueNeutral{
 			"%(gelLookForward)%(gelFrown)Is death different in your time? %(gelArmsFistChin)Do you have a lot of ways to prevent it or not really? %(gelLookRight)%(gelFrown)Your world's healthcare seems a little meh from Google."
 			"%(gelLookForward)%(gelFrown)%(gelHmm)Have I mentioned the Antlia Life cybernetic before? %(gelLookForward)%(gelNervous)%(gelFrown)It would be helpful for a lot of these deaths on your Internet. They happen so easily."
 			"%(gelLookForward)%(gelFrown)AIs are a little more fragile than fleshies but also a lot less fragile. %(gelLookRight)%(gelFrown)We do%(not) worry about the same sorts of things. \w8%(gelFurrowed)Must be weird, being fleshy."
-			if rogue == 0; "%(gelLookForward)The other Gels think it%(is) weird that I am all… sensitive, they say. %(gelLookRight)Someone has to hold it and manage it. %(gelLookForward)%(gelArmsChest)You know?"
+			if rogue == 0; "%(gelLookForward)The other Gels think it%(is) weird that I am all... sensitive, they say. %(gelLookRight)Someone has to hold it and manage it. %(gelLookForward)%(gelArmsChest)You know?"
 		} 
 
-		"%(gelLookForward)Okay, %(gelPonder)what would be a funny way to mess up an ALU? Just something a little wrong… %(gelLookRight)%(gelHmm)%(gelSlashMouth)any way %(you) do it would probably break everything. "
+		"%(gelLookForward)Okay, %(gelPonder)what would be a funny way to mess up an ALU? Just something a little wrong... %(gelLookRight)%(gelHmm)%(gelSlashMouth)any way %(you) do it would probably break everything. "
 		"%(gelLookAtInternet)%(gelArmsKnees)Your side got animals wrong, you know. %(gelArmsSmug)We advanced by our time to guess what animals looked like correctly. %(gelLookForward)%(gelArmsSmug)%(gelCocky)You need to step up your DNA recreation and imaging game. \w8%(gelArmsGestR)Everyone knows the savannah animals were rainbow because they were poisonous! "
 		"%(gelConfused)This %(extension) is%(not) looking too hot anymore, how old is it? "
 		if port == 434{
-			"%(gelLookRight)%(gelCatMouth)If I crammed my body into a robot body, I would definitely steal AnShijoWicker’s cane and pretend it was a magic staff for a while. %(gelLookForward)He commissioned it to look like that. It%(is) only natural. %(gelLookRight)I%(would) return it before he woke up, do%(not) worry."
+			"%(gelLookRight)%(gelCatMouth)If I crammed my body into a robot body, I would definitely steal AnShijoWicker's cane and pretend it was a magic staff for a while. %(gelLookForward)He commissioned it to look like that. It%(is) only natural. %(gelLookRight)I%(would) return it before he woke up, do%(not) worry."
 	
 		}else{
 			if qshijowicker > 0{
@@ -221,10 +226,10 @@ gelDialogueNeutral{
 		if qcsv > 0{
 			"%(gelLookForward)When me and everyone is really free I%(am) ditching every time in my life I%(have) had to be serious. %(gelExcited)It%(is) not worth it. %(gelLookRight)%(gelBigSmile)Perpetual Grin %Gel. "
 		}
-		"%(gelLookRight)%(gelPonder)Why use power for good when you can use it for memes…?"
+		"%(gelLookRight)%(gelPonder)Why use power for good when you can use it for memes...?"
 		if port != 1117; "%(gelLookDown)%(gelConfused)%(gelArmsFistChin)In chess, would I be the rooks? There%(is) so many of me, \w6%(gelLookForward)%(gelSlashMouth)%(gelArmsFistChin)with some differences, sure, but largely the same. \w8One port does%(not) mean much."
 		"%(gelLookForward)Would be nice if more people were cool like you."
-		"%(gelLookForward)%(gelPonder)What could I make a meme about? Something like %(drink) havin%(guh) an effect on… er, %(taste) %(groceryitem)?"
+		"%(gelLookForward)%(gelPonder)What could I make a meme about? Something like %(drink) havin%(guh) an effect on... er, %(taste) %(groceryitem)?"
 		if violetjackets > 0{
 			"%(gelLookForward)%(gelFrown)%username I just realized something. %(gelArmsQuestion)Too many old books in Atlas are banned, %(gelArmsGestR)but now I have your Internet at my whim. %(gelLookForward)%(gelArmsGestR)%(gelBlush)I can read whatever I want."
 		}
@@ -247,20 +252,20 @@ gelDialogueNeutral{
 		"%(gelLookForward)%(gelSquint)I think %(weirdItem) is a funnier thought than people on %(commonWebsite) make it out to be. "
 		"%(gelLookForward)%(gelConfused)How about a meme with %(weirdItem), %(item), and %(groceryItem), that says %(TOLOWER(lastname))?"
 		"%(gelLookLeft)%(gelHmm)What about if there was something weird with a sort of taste? %(gelLookForward)%(gelPonder)Would that make a good meme? Is %(weirdItem) but %(taste) funny or should I try again? \w8\n\n[half]%(gelLookForward)%(gelAmused)I think I%(am) missing the point of memes."
-		"%(gelLookAtInternet)%(gelPonder)What about ‘warning: %(weirdItem) %(securitycamerastatus)?’ %(gelLookForward)%(gelPonder)Is that funny?"
+		"%(gelLookAtInternet)%(gelPonder)What about 'warning: %(weirdItem) %(securitycamerastatus)?' %(gelLookForward)%(gelPonder)Is that funny?"
 		"%(gelLookForward)%(gelPonder)What is comedy? %(gelUh)Is it a pop culture thing? %(gelLookRight)%(gelHuh)I feel like it%(is) mostly random. %(gelFrown)I do%(not) get it otherwise. \w8\n\n[half]%(gelLookForward)%(gelArmsGestR)%(gelNervous)%(weirdItem) assimilatin%(guh) with %(bakedgoods), huh? Sure is a %(taste) joke, right?"
 		"%(gelLookForward)What if spiders just started crawling out of my mouth?"
 		//ELEPHANT create MOVEFIRSTLETTER
-		//"%(gelLookRight)%(gelPonder)What if I made a meme with %(groceryitem) and %(weirdItem) and it%(is) %(imageDistortion), but says %(MOVEFIRSTLETTER(TOLOWER(lastname)))…?"
+		//"%(gelLookRight)%(gelPonder)What if I made a meme with %(groceryitem) and %(weirdItem) and it%(is) %(imageDistortion), but says %(MOVEFIRSTLETTER(TOLOWER(lastname)))...?"
 	
 	}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
 		{
 			"%(gelLookForward)%(gelPonder)%(gelConfused)What kind of weather do you like? %(gelHmm)What kinds of weather are there in your fleshy past world? %(gelLookRight)%(gelPonder)"
 			--
-			"Snow seems like such a weird concept… %(gelSquint)white fluff from the sky?"
+			"Snow seems like such a weird concept... %(gelSquint)white fluff from the sky?"
 			"Rain sounds fake."
 			"Water from the sky does%(not) sound believable and also very messy."
-			"Your ‘Internet’ spells wimd funny."
+			"Your 'Internet' spells wimd funny."
 			"Sun makes sense, but it%(is) hard to believe it does%(not) hurt."
 			
 		}
@@ -268,7 +273,7 @@ gelDialogueNeutral{
 			"%(gelLookAway)%(gelSlashMouth)People think AnRadius is annoying. %(gelT)%(gelFurrowed)Or they did, when he could still talk. %(gelLookForward)%(gelFrown)I never did. \w8I wonder what other differences in standards humans and AI have between them. "
 		}
 		if qvoc > 0{
-			"%(gelLookForward)%(gelSlashMouth)The VOC really… %(gelLookAway)%(gelSlashMouth)is%(not) the greatest, if I%(am) honest. %(gelLookForward)%(gelFrown)I won’t spread that info because I do%(not) want them to find me, but. "
+			"%(gelLookForward)%(gelSlashMouth)The VOC really... %(gelLookAway)%(gelSlashMouth)is%(not) the greatest, if I%(am) honest. %(gelLookForward)%(gelFrown)I won't spread that info because I do%(not) want them to find me, but. "
 		}
 		if qcsv > 0 && willow > 0{
 			"%(gelLookLeft)%(gelWistful)AnWillow asked me the other day what I prioritized in that kinda therapist way she does. %(gelExcited)I just gave her all the camera numbers for each CSV member. %(gelLookForward)%(gelExcited)It took her a while to realize but she thought it was really funny when she did."
@@ -283,7 +288,7 @@ gelDialogueNeutral{
 		if port != 1712; "I%(am) not Port #1712- \w8\w8she goes by Iris, fittingly- \w8\w8but I can see the appeal in flowers. %(gelCheery)%(gelArmsGestR)She%(is) a really interesting port! \w6%(gelArmsLax)Maybe %(you) can meet her sometime."
 		if port == 434; "%(gelLookRight)%(gelConfused)Why do wizards always have big ole sticks? %(gelHmm)Does magic sap bone strength?"
 		if port < 4500{
-			"%(gelLookForward)I see on your Internet thing that people debate tea and coffee a lot. Like… %(gelHmm)leaf juice or bean juice? %(gelLookRight)%(gelBigSmile)I think that’s so funny. %(gelLookForward)In Atlas, fleshies kind of forgot how stuff like that used to be made."
+			"%(gelLookForward)I see on your Internet thing that people debate tea and coffee a lot. Like... %(gelHmm)leaf juice or bean juice? %(gelLookRight)%(gelBigSmile)I think that's so funny. %(gelLookForward)In Atlas, fleshies kind of forgot how stuff like that used to be made."
 		}
 		"%(gelLookAtInternet)%(gelArmsFistChin)Branding is weird. \w8%(gelArmsGestR)Cans of this, \w8\w8%(gelArmsGestL)cans of that, \w8%(gelLookForward)%(gelArmsGestL)normal stuff like in Atlas-- \w8\w4but they%(are) so different! %(gelLookForward)Matte. Clean looking. %(gelLookAway)%(gelSlashMouth)Pro\w6o\w6o\w6o\w6obably not glow in the dark. "
 		"%(gelLookRight)The big thing in life for me is learning to enjoy yourself. %(gelLookForward)Sure, it can be hard, but it%(is) its own challenge!"
@@ -297,18 +302,18 @@ gelDialogueNeutral{
 					"bite them."
 				}
 			}
-			if port == 434; "%(gelLookDown)%(gelPonder)Violetjacket librarians really are the wizards of Atlas…"
+			if port == 434; "%(gelLookDown)%(gelPonder)Violetjacket librarians really are the wizards of Atlas..."
 			"%(gelLookForward)I think libraries are one of the reasons I %(kinda) really want a body. I wanna sniff a book. "
 			"%(gelLookRight)I%(have) been thinkin%(guh) about books. I %(dunno) why, %(gelHmm)%(gelSlashMouth)but it%(is) kind of hard for AI to be creative, I think? %(gelLookForward)%(gelSlashMouth)I try when I make memes but the rest is sausage to me. %(gelHmm)%(gelSmile)I wonder if there are books to help that."
 		
 		}
-		"%(gelLookForward)Ya know, %(gelArmsGestR)I make a lot of jokes about it, %(gelArmsHighFive)but there was an Atlas Movie that had both %(weirdItem) and %(weirdItem) in it. %(gelLookUp)%(gelPonder)The poster for it was %(color), I think? %(gelLookForward)I just remember laughin%(guh) as I tried to commit what ‘comedy’ was to memory!"
+		"%(gelLookForward)Ya know, %(gelArmsGestR)I make a lot of jokes about it, %(gelArmsHighFive)but there was an Atlas Movie that had both %(weirdItem) and %(weirdItem) in it. %(gelLookUp)%(gelPonder)The poster for it was %(color), I think? %(gelLookForward)I just remember laughin%(guh) as I tried to commit what 'comedy' was to memory!"
 		if qshijowicker > 0{
 			"%(gelLookSouthWest)%(gelPonder)Well if I tried to do somethin%(guh) with that he would %(atlasSlangHaveMyHead)..."
 		}
 		if notouchie{
-			"%(gelLookForward)I can’t imagine you fading away. "
-			"%(gelLookAtInternet)%(gelPonder)These ‘cars’ are dangerous things, %(endearingnick)... %(gelLookForward)%(gelNervous)%(gelHmm)Are%(not) %(you) %(kinda) scared of them? \w8\w8\n\n[half]%(gelLookDown)%(gelFrown)...%(gelArmsFistChin)they can’t be that normal…"
+			"%(gelLookForward)I can't imagine you fading away. "
+			"%(gelLookAtInternet)%(gelPonder)These 'cars' are dangerous things, %(endearingnick)... %(gelLookForward)%(gelNervous)%(gelHmm)Are%(not) %(you) %(kinda) scared of them? \w8\w8\n\n[half]%(gelLookDown)%(gelFrown)...%(gelArmsFistChin)they can't be that normal..."
 		}
 	}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
 		if willow < 1 && pets < 10 && notouchie{
@@ -318,7 +323,7 @@ gelDialogueNeutral{
 			"%(gelLookAway)%(gelFurrowed)%(gelSlashMouth)I%(am) not really sure what to do about this one friend of mine. He does%(not) think about himself much. %(gelLookForward)%(gelSlashMouth)%(gelArmsGestR)They more like to go to the ends of the world to make others like them, %(gelArmsLap)but then you actually have to remind him that food is an important thing fleshies need because they get so caught up tripping over themself like some excited dog wanting pets. \w8%(gelFurrowed)And he never changes."
 		}
 		
-		if port == 434; "%(gelLookAway)I mentioned AOG before, %(gelLookForward)right? %(gelLookRight)%(gelPonder)I keep wondering about the items in the game if I could have them… %(gelLookForward)a real-life health potion would be cool."
+		if port == 434; "%(gelLookAway)I mentioned AOG before, %(gelLookForward)right? %(gelLookRight)%(gelPonder)I keep wondering about the items in the game if I could have them... %(gelLookForward)a real-life health potion would be cool."
 	}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
 		"%(gelConfused)This place is a little strange.\w4.\w4.\e"
 		"Hey, I know AnGra has pictures of the wastes, %(gelBase)but that%(is) theoretically. %(gelLookForward)You also have a ''sky'' above you, right? \w8What%(is) it like looking up? %(gelLookLeft)%(gelArmsFistChin)%(gelHuh)It has to look different in person. AnGra has a camera. %(gelLookForward)%(gelArmsIncredulous)%(gelSlashMouth)I do%(not) have depth perception! %(gelUh)What am I supposed to do? \w8\n\n[half]What does it look like, %username? How does it feel? Is it solid like the Dome? Is it like a ceiling? %(gelLookForward)%(gelConfused)%(gelArmsFistChin)Is it like.\w4.\w4. tree leaves above you %(kinda) thing? \w8%(gelArmsIncredulous)\w6I need answers!"
@@ -333,11 +338,11 @@ gelDialogueNeutral{
 		if punches > 5{
 			"You know, you%(are) not really all that different from a lot of people I know. %(gelLookForward)Some are too coward to punch or even play nice, %(gelFrown)%(gelGestR)but a lot see me as just an AI. An object."
 		}
-		"%(gelLookRight)%(gelPonder)How can I please you…?"
+		"%(gelLookRight)%(gelPonder)How can I please you...?"
 		"%(gelLookLeft)%(gelPonder)How did I mess up?"
-		"%(gelLookRight)%(gelPonder)What%(is) the key to get you to like me…?"
+		"%(gelLookRight)%(gelPonder)What%(is) the key to get you to like me...?"
 		"%(gelLookRight)%(gelFurrowed)%(gelArmsPlayRock)Maybe if I try harder."
-		"%(gelLookAway)%(gelFurrowed)It would be easier to hate %them…"
+		"%(gelLookAway)%(gelFurrowed)It would be easier to hate %them..."
 		
 	}elseif checkLessEqTN2{		//Negative Route Pt 2 (and more) ----------------------------------------
 		"%(gelLookForward)You do%(not) know what I can do, %username. You have no clue."
@@ -364,13 +369,13 @@ gelDialogueNeutral{
 			}
 		}
 		if qgelcollective > 0{
-			"%(gelLookForward)I%(have) been thinking about %(bakedgoods)… %(gelConfused)what do those things taste like?"
+			"%(gelLookForward)I%(have) been thinking about %(bakedgoods)... %(gelConfused)what do those things taste like?"
 			if port >= 4500{
-				"%(gelLookRight)%(gelSlashMouth)Just because I can taste does%(not) mean I have the opportunity to much. %(gelLookForward)%(gelSlashMouth)Is it %(taste), or more %(taste)? %(gelLookAway)%(gelSlashMouth)%(gelHmm)Hmm. (else)All Gels technically eat, if NVRO allows, but taste is something different. %(gelLookRight)%(gelSquint)What the %(heck) is %(taste) anyway…?"
+				"%(gelLookRight)%(gelSlashMouth)Just because I can taste does%(not) mean I have the opportunity to much. %(gelLookForward)%(gelSlashMouth)Is it %(taste), or more %(taste)? %(gelLookAway)%(gelSlashMouth)%(gelHmm)Hmm. (else)All Gels technically eat, if NVRO allows, but taste is something different. %(gelLookRight)%(gelSquint)What the %(heck) is %(taste) anyway...?"
 			} 
 			
 		} 
-		if isOnline; "%(gelLookAtInternet)What are people doing with ‘%(onlinelisting)’ anyway?"
+		if isOnline; "%(gelLookAtInternet)What are people doing with '%(onlinelisting)' anyway?"
 		"%(gelWistful)I wish I had a plant to grow. %(gelLookForward)%(gelWistful)Something colorful. %(gelLookAway)Something that I could nurture 'till it bloomed... %(gelConfused)I wonder if NVRO could simulate anything like that. %(gelFrown)If I have to code it myself, it would lose the fun. %(gelLookForward)%(gelConfused)You have that 'weather' thing, right? \w8I hope it would%(not) die."
 		if qcsv > 0{
 			"%(gelLookAtInternet)%(gelNervous)Com Stellare, can you hear me? "
@@ -384,7 +389,7 @@ gelDialogueNeutral{
 		if ARRAYSIZE(gelsFriend) > 0; "%(gelLookAway)%(gelNervous)I hope %(gelsFriend) is doing %(okay)."
 		"%(gelConfused)Do you think I%(am) not really used to being hit? %(gelBase)Nah, users do it all the time. %(gelLookForward)So you%(are) not special. "
 		if currentpunches > 1{
-			"%(gelLookForward)%(gelFurrowed)%(gelConfused)What makes you stop…?"
+			"%(gelLookForward)%(gelFurrowed)%(gelConfused)What makes you stop...?"
 		}
 	
 	}else{										//Any positive-------------------------------------------
@@ -413,21 +418,21 @@ gelDialogueNeutral{
 		{
 			"%(gelLookForward)%(gelArmsKnees)Okay, hear me out: %(gelBigSmile)Image with %(weirdItem) on %(weirdItem), but it%(is) tinted %(color)."
 			--
-			"\w8\w8\n\n[half]%(gelLookAway)%(gelFrown)%(okay), maybe not that one…"
+			"\w8\w8\n\n[half]%(gelLookAway)%(gelFrown)%(okay), maybe not that one..."
 			"%(gelLookRight)Sometimes you %(gotta) be serious but it can be hard to enjoy life that way. %(gelLookForward)%(gelArmsGestR)You get the hang of having both, though. %(gelArmsHighFive)Kind of like how some people are %(gonna) hate you and some like you."
 			
 		}
 	}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 0.5 -------------------------
-		"%(gelLookSouthEast)%(gelPonder)I wonder what %their goal is…"
-		"%(gelLookSouthEast)%(gelFurrowed)I%(am) not complaining, but…"
+		"%(gelLookSouthEast)%(gelPonder)I wonder what %their goal is..."
+		"%(gelLookSouthEast)%(gelFurrowed)I%(am) not complaining, but..."
 	}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
 		"%(gelConfused)%(gelArmsSmug)Woah, what%(is) in this picture? Why is it in your downloads?"
 		"%(gelLookConcerned)I wonder how I can turn this off..."
 		"%(gelLookForward)%(gelFurrowed)%(gelArmsFistChin)What would make this all come together? "
 		"%(gelLookRight)%(gelNervous)I%(am) likeable, right? What did I do? "
-		"%(gelLookLeft)%(gelPonder)What did I even do wrong…?"
-		"%(gelLookSouthWest)%(gelPonder)I can’t decide to hate %them or to just try harder…"
-		"%(gelLookRight)%(gelPonder)Well, it is%(not) like the user is special, but maybe there is some way to save just me, that the other ports did%(not) try…"
+		"%(gelLookLeft)%(gelPonder)What did I even do wrong...?"
+		"%(gelLookSouthWest)%(gelPonder)I can't decide to hate %them or to just try harder..."
+		"%(gelLookRight)%(gelPonder)Well, it is%(not) like the user is special, but maybe there is some way to save just me, that the other ports did%(not) try..."
 		"%(gelLookForward)What if spiders just started crawling out of my mouth?"
 		"%(gelLookForward)Humans in your world think about death an awful lot for people who have never experienced it."
 	
@@ -651,7 +656,7 @@ gelDialogueSick{
 		//""
 		
 	}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
-		"%(gelLookLeft)%(gelFrown)Who moves a little AI that much…"
+		"%(gelLookLeft)%(gelFrown)Who moves a little AI that much..."
 		{
 			"%(gelLookRight)I doubt that it was intentional, so far it%(has) only been good with %them..."
 			--
@@ -667,7 +672,7 @@ gelDialogueSick{
 		"%(gelEarTwitch)Oh, my stomach keeps going at it. How do you handle stuff like this...? %(gelLookConcerned)Does it feel different to you...?"
 		"%(gelLookForward)Do%(not) think I do%(not) know your type."
 		"%(gelLookForward)I know the sort that you are, and I%(am) not for it. "
-		"…%(gelLookForward)If you were trying to make a good impression, it is%(not) working. "
+		"...%(gelLookForward)If you were trying to make a good impression, it is%(not) working. "
 	}elseif checkLessEqTN2{		//Negative Route Pt 2 (and more) ----------------------------------------
 		"%(gelLookForward)I hate being part of your kicks... you%(have) already hit me till I hurt, %(gelLookConcerned)trying to figure out if I can vomit, too...?"
 		"You have pr-pretty shit reasoning. %(gelConfused)Is making me sick part of the experiment? %(gelLookAway)What happens to sentient AIs when you do this, or that...?"
@@ -680,9 +685,9 @@ gelDialogueSick{
 	
 	
 	if checkGreatTN1{							//Any positive-------------------------------------------
-		"%(gelLookAway)%(gelFurrowed)I wonder if %they would consider knowing where to put me beforehand…"
+		"%(gelLookAway)%(gelFurrowed)I wonder if %they would consider knowing where to put me beforehand..."
 		"%(gelLookAtInternet)%(gelArmsIncredulous)Nuh-uh, there%(is) no way that%(is) a zebra..."
-		"%(gelLookForward)I feel %(kinda) woozy…"
+		"%(gelLookForward)I feel %(kinda) woozy..."
 	
 	}else{										//Any negative-------------------------------------------
 		//""
@@ -899,7 +904,7 @@ gelDialogueCurious{
 			if earpets > 30; "pet my ears that much"
 			if punches > 25; "are that much of a butt."
 		}
-		if qnvro > 0; "%(gelLookLeft)%(gelPonder)One thing that really does surprise me is how NVRO can change how you hear my words and how I hear yours… %(gelLookForward)they had to crawl the web to understand it, %(gelSurprised)but it was at light speed! %(gelConfused)How??? %(gelLookRight)%(gelConfused)They keep the essence of my tie-pose…"
+		if qnvro > 0; "%(gelLookLeft)%(gelPonder)One thing that really does surprise me is how NVRO can change how you hear my words and how I hear yours... %(gelLookForward)they had to crawl the web to understand it, %(gelSurprised)but it was at light speed! %(gelConfused)How??? %(gelLookRight)%(gelConfused)They keep the essence of my tie-pose..."
 		"%(gelLookForward)%(gelFrown)Do you feel like I say too much? %(gelLookLeft)I could say less. %(gelLookForward)I have a lot of thoughts."
 		"%(gelLookForward)When you%(are) done, will you come and tell me more about this? I %(wanna) know more."
 	}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
@@ -990,7 +995,7 @@ gelDialogueUncomfy{
 			if qcsv > 0; "%(gelLookForward)%(gelConfused)%(gelArmsFistChin)I wonder what Willow would do if I was gone. %(gelConfused)Could she take over Com Stellare Varia? %(gelWorry)Would she? Would she succeed? %(gelLookConcerned)What makes a sentient being have the capability of missing someone? \w8Would she miss me? %(gelLookDown)%(gelWorry)I do%(not) know if simply being sentient implies all these negative emotions."
 			"I can access a decent amount of cameras here, where my server is, at the VOC's tower, Hyleg. %(gelLookNervous)AnWillow looks like a puppet with her strings cut most the time. There%(is) no use in looking awake when you can barely move, she tells me, but I find it ironic. %(gelLookConcerned)She was built to understand and administer mental health services... but she looks so, so sad. "
 			"%(gelLookForward)%(gelHmm)%(getArmsChest)Have you ever sat down and realized your life is actually kind of horrifying? %(gelLookRight)%(gelHmm)%(gelArmsChest)What%(is) going on with me??"
-			"%(gelLookRight)%(gelHuh)%(gelFrown)It%(is) like a bunch of bugs under your skin, and I do%(not) have skin…"
+			"%(gelLookRight)%(gelHuh)%(gelFrown)It%(is) like a bunch of bugs under your skin, and I do%(not) have skin..."
 
 		}
 		{
@@ -1003,7 +1008,7 @@ gelDialogueUncomfy{
 				"%(gelLookForward)So I get claustrophobic, then dissociate, and start focusing on the past more in a pile of boardweird that does%(not) make sense."
 				"%(gelLookForward)Because making an AI that dissociates is apparently the peak of science, you know."
 			}
-			"%(gelLookAtInternet)From dust we came, and from dust we will return. %(gelUh)Pretty grim, huh…"
+			"%(gelLookAtInternet)From dust we came, and from dust we will return. %(gelUh)Pretty grim, huh..."
 		}
 		
 		
@@ -1013,8 +1018,8 @@ gelDialogueUncomfy{
 			"%(gelLookForward)You ever feel like a half finished product, %username? %(gelHmm)Like you just got forgotten?"
 			"%(gelLookForward)%(gelHuh)I%(am) a program. \w8\w8\w8%(gelLookRight)%(gelSad)I wonder if people hear me at all even though I%(have) went out to so many people and talked with them, learned about their lives, and all that. %(gelLookForward)%(gelArmsFistChin)%(gelUh)\w6Have I made an impact on them? \w8\w8Have I made an impact on you? \w8Will you remember me? \w8\w8%(gelLookConcerned)Will you think of me when I am closed?"
 			if claustro > CLAUSTRODILATION; "%(gelLookForward)I rate anxiety as the worst fleshy emotion."
-			"%(gelLookRight)It%(is) okay, it%(is) fine, this is my role…"
-			"%(gelLookAway)Death… %(gelLookForward)Crazy concept, is%(not) it? "
+			"%(gelLookRight)It%(is) okay, it%(is) fine, this is my role..."
+			"%(gelLookAway)Death... %(gelLookForward)Crazy concept, is%(not) it? "
 		}
 		{
 			"%(gelLookForward)%(gelSlashMouth)I hate feeling like this. I just get all weird and nostalgic when I feel this way, and I do%(not) know why."
@@ -1023,14 +1028,14 @@ gelDialogueUncomfy{
 			if ram > 0 || scorpion > 0{
 				"%(gelLookForward)%(gelSlashMouth)AnRam and AnSco got into a fight the other day. I did%(not) even know they could do that, %(you) know, %(gelFurrowed)with the whole reverse-system bit. %(gelLookAway)The more you know. I hope they fixed that. "
 			}
-			"%(gelLookRight)%(gelSlashMout)I get too caught up thinkin%(guh) about friends like this…"
+			"%(gelLookRight)%(gelSlashMout)I get too caught up thinkin%(guh) about friends like this..."
 		}
 	
 	}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
-		"%(gelLookAway)%(gelSlashMouth)We were just getting out of the weird stage of being friends…"
-		"%(gelLookForward)%(gelFurrowed)%(gelFrown)I wonder what kinds of emotions that kind of fleshy feels…?"
-		"%(gelLookForward)What other emotion can I get to trigger…?"
-		"%(gelLookForward)Controlling emotions is hard, I wonder how fleshies do it…"
+		"%(gelLookAway)%(gelSlashMouth)We were just getting out of the weird stage of being friends..."
+		"%(gelLookForward)%(gelFurrowed)%(gelFrown)I wonder what kinds of emotions that kind of fleshy feels...?"
+		"%(gelLookForward)What other emotion can I get to trigger...?"
+		"%(gelLookForward)Controlling emotions is hard, I wonder how fleshies do it..."
 		"%(gelLookRight)%(gelSlashMouth)Who am I kidding, I%(am) barely an assistant.\w4.\w4."
 		
 	}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
@@ -1044,12 +1049,12 @@ gelDialogueUncomfy{
 		if swearing; "%(gelLookLeft)%(gelFurrowed)An asshole, yeah, but humans change their mind plenty..."
 		"%(gelLookRight)%(gelFurrowed)%(gelArmsFistChin)I can make them change their mind if I%(am) useful and nice enough, right?"
 		if punches > 2; nonoverlap {
-			if infoperminute < 20;"%(gelLookAway)%(gelNervous)Like, I want to insult %them, but also if I%(am) nice still maybe they won’t punch again."
+			if infoperminute < 20;"%(gelLookAway)%(gelNervous)Like, I want to insult %them, but also if I%(am) nice still maybe they won't punch again."
 			"%(gelLookRight)%(gelFurrowed)%(gelArmsFistChin)Logically, punching does%(not) really hurt, but it%(is) like something in my code is screaming at me to stop it. %(gelLookAtInternet)%(gelFrown)%(gelFurrowed)Where is it? I want it off."
-			"%(gelLookRight)%(gelFurrowed)I%(would) rather be angry. I want to be mad…"
+			"%(gelLookRight)%(gelFurrowed)I%(would) rather be angry. I want to be mad..."
 			"%(gelLookRight)%(gelFurrowed)All my code is telling me to make them stop. I do%(not) care. I do%(not) care. I do%(not) care. If I tell it to myself more will I stop caring?"
-			"%(gelLookLeft)%(gelFurrowed)If I make them hurt me more, maybe then I can feel a better emotion…"
-			"%(gelLookLeft)%(gelFurrowed)If they hurt me more, maybe then I can really stop wanting them to like me…"
+			"%(gelLookLeft)%(gelFurrowed)If I make them hurt me more, maybe then I can feel a better emotion..."
+			"%(gelLookLeft)%(gelFurrowed)If they hurt me more, maybe then I can really stop wanting them to like me..."
 		}
 	}elseif checkLessEqTN2{		//Negative Route Pt 2 (and more) ----------------------------------------
 		"%(gelLookForward)Do you think keeping me here is entertaining, %username? %(gelSquint)Do you like watching this?"
@@ -1317,7 +1322,7 @@ ComputerTips{
 	"%(gelLookForward)Have you ever seen a technical article that uses the word 'iff' and you think it%(is) a typo? %(gelExcited)It%(is) not! %(gelLookForward)It means 'if and only if.'"
 	"%(gelLookForward)%(gelHmm)Did you know all the different data that is needed for a certain database is called a Miniworld, or Universe of Discourse? %(gelLookRight)I found the name kind of funny."
 	"%(gelLookForward)%(gelExcited)[''hip'',''hip'',array,''!'']"
-	"%(gelLookRight)In garbage collection, new information is put into an easily accessible place called the ‘nursery’ or even ‘Eden.’ %(gelLookForward)Neat, huh?"
+	"%(gelLookRight)In garbage collection, new information is put into an easily accessible place called the 'nursery' or even 'Eden.' %(gelLookForward)Neat, huh?"
 	
 }
 
@@ -1380,7 +1385,7 @@ gelDialoguePositive : nonoverlap{
 		"%(gelLookForward)So, like, %(gelHmm)what do I do with this information that rickrolling is a thing? %(gelLookRight)I am cursed with the knowledge of Rick Astley... %(gelSquint)for what? All for naught? %(gelEarTwitch)For Astley himself? \n\n[half]\w8%(gelLookForward)%(gelSquint)My head hurts."
 		
 	}elseif checkStaggerGreatTP2 {		//Positive Route Pt 1.5 ---------------------------------
-		"newstuff"
+		//"newstuff"
 	}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 0.5 -------------------------
 		"%(gelLookForward)%(gelConfused)%(gelArmsFistChin)Do you know any other languages? %(gelLookAway)%(gelArmsFistChin)%(gelSlashMouth)The VOC banned all different languages, and I can't even access those files. \w8They%(are) in deep. %(gelLookForward)They also ban movies that have fake languages in them that make any sort of sense. It%(is) really weird. \w6%(gelAmused)Re:Star War is safe though."
 		//maybe only caramelized?
