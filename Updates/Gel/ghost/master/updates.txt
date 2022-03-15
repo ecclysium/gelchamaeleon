@@ -2,7 +2,7 @@ charset,OSNative
 file,ghost/master/activitycounter.dll7bd9cbb51b7ebba3288849e485d18ab7size=252416date=2022-03-10T22:39:28
 file,ghost/master/descript.txt394310410dfca729876bd2375dda548bsize=1597date=2022-03-15T00:24:47
 file,ghost/master/findwin.dllcd84a5a29163ef88c93bf097ec54ab7fsize=73728date=2020-04-13T17:01:04
-file,ghost/master/gel_aitalk.txtb6fefee8ae03792e6adc9bbaf842d0c5size=46044date=2022-03-14T23:37:11
+file,ghost/master/gel_aitalk.txt72bb1878dd445f6644ac1b07e4ffdd99size=46056date=2022-03-15T12:45:31
 file,ghost/master/gel_bootend.txt218e8503267675472915fc493b353f40size=54667date=2022-03-14T23:37:11
 file,ghost/master/gel_change.txt9611f4ee80f0640de9fdc4188a43c357size=12781date=2022-03-14T23:37:11
 file,ghost/master/gel_communicate.txt7b332d7dcac325d00140a128a6c361b8size=14799date=2022-03-14T23:37:11
@@ -48,7 +48,6 @@ file,ghost/master/system_config.txtd261dc982dabe8ada33496d23a3f4841size=802da
 file,ghost/master/time_check.dll07b7dabf0de6b5ea0a23178efc4d1c4fsize=105472date=2020-07-27T17:05:28
 file,ghost/master/yaya.dll3af110afc40bb71722361eedca74b25csize=745472date=2021-11-22T13:02:09
 file,ghost/master/yaya.txtb9e81ca848f66d30f2e1f1271d6d52f6size=2358date=2022-01-16T11:54:26
-file,ghost/master/yaya_config.txt9495597c69934d22b2efcfc023f0a476size=3554date=2022-02-02T17:21:21
 file,install.txt4d7cdc285e19632895ca1fda7efa75d5size=99date=2022-03-14T23:51:38
 file,readme.txt3bf3763eecb60339ff808f8647c6aaa5size=712date=2022-03-09T00:46:12
 file,shell/master/descript.txt46d25ed346b58978ba66ae455046814bsize=1629date=2022-02-14T21:08:34

@@ -10,8 +10,6 @@
 
 RandomTalk
 {
-	"random\n"
-	--
     TOSTR(EVAL(CHR(0x22)+RandomTalkEx()+CHR(0x22)))
 }
 
@@ -23,15 +21,15 @@ RandomTalk
 //------------------------------------------------------------------------------
 RandomTalkEx : nonoverlap
 {
-	"%(gelBase)RANDOMTALK\n"
+	"%(gelBase)"
 	--
 	talksthishour+=1
 	if useractive == 1{
 		if emotion !=-1{
 			if awkwardsilence == 1{
-				"%(gelLookLeft)...\e"
-				"%(gelLookRight)...\e"
-				"%(gelLookAway)Er...\e"
+				"%(gelLookLeft)%(gelFurrowed)...\e"
+				"%(gelLookRight)%(gelFurrowed)...\e"
+				"%(gelLookAway)%(gelFurrowed)Er...\e"
 						
 			}elseif !checkSilentMode{
 				case emotion{
