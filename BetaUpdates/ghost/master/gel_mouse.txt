@@ -1,0 +1,2559 @@
+//******************************************************************************
+// Yaya ghost template
+// Mouse input related dictionary
+//******************************************************************************
+
+
+//******************************************************************************
+// Mouse processing
+//
+// Describe the actual talk below.The function name has the following rules:
+//[Type] + [scope] + [site]
+//If you want to change the value of a property, you can set the value of the property to the value of the property you want to use.
+//Scope is the scope number\0,\1,and so on.
+// Site represents which part of the hit judgment.In case of an event where there is no hit determination
+//There are no / sites.
+//******************************************************************************
+
+
+//******************************************************************************
+//Stroking/Petting
+//******************************************************************************
+//pet head
+MouseMove0HeadOld : sequential
+{
+	currentpets++
+	pets++
+	lastinter = 0
+	useractive = 1
+	//When Gel is asleep, there are a number of variables that have no need to be touched
+	if emotion != -1{
+		//exceptions to notouchie
+		if notouchie == 1 && userbirthday _in_ thisboot{
+			"%(gelHuh)I%(will) only let you pet me today.\e"
+			"%(gelLookRight)You can pet me only for this special occasion and I won't hold it against you.\e"
+			"%(gelBase)Cursor feels weird on my head.\e"
+			"%(gelLookAway)Ok.\e"
+			"%(gelBase)Are you enjoying yourself, %username?\e"
+			"%(gelLookForward)head pats from the birthday sovereign.\e"
+		
+		}
+		//touch refusal due to either nature or distrust
+		elseif notouchie == 1 || trust < TNEG1{
+		
+			if shakenup > 3{
+				"\![raise,OnMakeUncomfortable,touch]"
+			}
+			shakenup++
+			--
+			"%(gelBase)"
+			--
+			
+			"Stop.\e"
+			"Hands off!\e"
+			"Do%(not) do that.\e"
+			"I do%(not) like pets.\e"
+			"Stop treating me like I%(am) some sort of dog, %username.\e"
+			"I%(am) not a pet.\e"
+			//imprisoned for their crimes
+			if pets % 2 == 0 && caged == 1{
+				claustro++
+			}
+		
+		//standard cases
+		}else{
+			//if Gel is tired, you have a chance to deadass make them fall asleep
+			if emotion == 0 && minsinemotion > 8 && RAND(10) == 8{
+				OnMakeSleep
+				"%(gelLookAsleep)ZZZZzzzz..."
+			
+			//otherwise, Gel just Enjoys:tm:
+			}else{
+				
+				
+				//EFFECTS AND VARIABLE CHANGES FOR AN AWAKE GEL
+				
+				//Perform statistics and mental effects
+				//If Gel trusts you, it can help calm them down
+				if shakenup > 0 && trust >= 15{
+					shakenup-=1
+					
+				}
+				if pets % 3 == 0{
+					claustro--
+				}
+				//The first number of pets from Gel can get them comfortable with the user pretty fast 
+				if pets% 3 == 0 && pets < 22{
+					addtrust(1)
+				}
+				//no need for energy
+				infocounter-=4
+				
+				
+				//GENERAL REACTIONS
+				//immediate verbal/physical reactions
+				case emotion{
+				
+					//when sick
+					when 3{
+						"Can you, uh, not? Just for a little bit. Please.\e"
+					
+					//when uncomfortable
+					}when 5{
+						
+						//Gel can calm down some if you really get along, even if they aren't feeling all that hot
+						if trust > 30{
+							if RAND(4) == 0{
+								"%(gelForceLookComfortable)"
+							}
+							--
+							"That feels nice...\e"
+							"Soft...\e"
+							"Do%(not) stop.\e"
+							"thanks, %(nicknamed).\e"
+							"That's honestly relaxing..."
+							"%(gelBase)A breath of fresh air..."
+							"Ahhh... I%(am) melting."
+						}else{
+							"thanks, %(nicknamed).\e"
+							"Being pet...\e"
+							"thanks, %username.\e"
+							"thanks, %username. That's nice.\e"
+						}
+						//wearing a flower
+						if "Iris" _in_ clothes{
+							"%(gelLookAway)Watch out for the flower.\e"
+							"%(gelConcerned)Do%(not) touch my flower.\e"
+							"Flowers are delicate, %username.\e"
+						}	
+						
+					//when scared
+					}when 6{
+						"I.. I do%(not)..."
+					
+					//when angry
+					}when 10{
+					
+						shakenup++
+						trust-=2
+						--
+						if currentpets >= 8{
+							"%(gelLookForward)I do%(not) want to be touched, you %(bastard)!"
+							"%(gelLookForward)Do%(not) touch me, I%(am) %(fudging) serious!"
+						
+						}elseif currentpets >= 3{
+							"%(gelLookAway)What about 'stop' do you not understand?"
+							"%(gelLookAway)No means no."
+							"%(gelLookForward)%(gelSquint)I said no, stop."
+							
+						}else{
+							"%(gelLookAway)Do%(not) touch me right now. I do%(not) want to be touched."
+							"%(gelLookAway)%(gelForward)Stop it."
+							"%(gelLookAway)%(gelUh)Paws off."
+						}
+						
+					
+					}others{
+					
+					
+						if trust > 25{
+						
+							"Pets...\e"
+							"Warm hands.\e"
+							"%(gelLookAway)That's good."
+							"That feels nice...\e"
+							"%(gelBase)Mmmmmn.\e"
+							"That feels good, %(nicknamed).\e"
+							"Hehehe.\e"
+							"Thank you for the pets.\e"
+							"Ahhh.\e"
+							//Some side comments about the cursor, but they won't occur as often.
+							{
+								"The cursor is warm...\e"
+								"The cursor is warm... not sure if that makes sense, but it is what it is...\e"
+								"on one hand, a cursor is digital... so it would%(not) have temperature...\e"
+								"Machines generate some heat...\e"
+							}
+							
+							
+							//thank you Iris.
+							if port == 1712{
+								"Have you felt the sun? \w8\w8\w8%(gelLookForward)I imagine it feels a little like friendship.\e"
+								"You're sunny...\e"
+							}
+						}else{
+						
+							"Ah, you're petting me?\e"
+							"That does feel kinda good...\e"
+							"Do%(not) stop now.\e"
+							"This is nice. I%(am) okay with this.\e"
+							"Thank you, %username.\e"
+						
+						
+						}
+
+						//Wearing the flower today
+						if "Iris" _in_ clothes{
+							"Be careful of the flower!\e"
+							"Do%(not) knock my flower off.\e"
+							"Watch out for my flower, please.\e"
+							"You can pet as long as you're careful.\e"
+							"Make room for my flower.\e"
+						}
+						
+					}
+				
+				}
+				
+			}
+		}
+	}else{
+		"Zzzz...\e"
+		"z\e"
+		"snrk...\e"
+	}
+}
+// ^ THIS ABOVE FUNCTION IS DEPRECATED
+
+
+
+
+MouseMove0Head{
+	currentpets++
+	pets++
+	lastinter = 0
+	useractive = 1
+	
+	//Handle reactions by assured negatives, then by emotion and trust. (neutral is at the bottom to catch unfinished emotions too)
+	if thankful > 0{
+		//thankfulness always nets friendship -- but that happens in thankfulness too, so we only have a bonus here
+		addtrust(1)
+		
+		if pets % 4 && claustro > 5{
+				claustro--
+		}
+		
+		//Call dialogue!
+		Menu_THANKGEL
+		MouseMove_THANKGEL(_effectivepets)
+		
+	
+	}elseif notouchie || checkLessEqTN2{
+		gelNoTouchiePetResponses
+	}else{
+		infoperminute--
+		_effectivepets = pets - punches + (trust/6)
+		//thankful tracks minutes since Gel did something for the user, decreasing as time goes on.
+		//I know I like to pet ghosts as a thank-you. 
+		{
+			case emotion{
+						
+				when -1{
+				
+					//get some trust bonuses from this, but not forever
+					if pets% 3 == 0 && pets < 75{
+						addtrust(1)
+					}
+					
+					"Zzzz...\e"
+					"z\e"
+					"snrk...\e"
+					"Zzzz... ah, hmn... soft user..."
+				
+				}when 0{
+					//get some trust bonuses from this, but not forever
+					if pets% 3 == 0 && pets < 75{
+						addtrust(1)
+					}
+					
+					if minsinemotion >= 8 && checkGreatTP1{
+						"\![raise,OnMakeSleep]%(gelLookAsleep)ZZZZzzzz..."
+					}
+					//Category-specific Dialogues
+					if _effectivepets > TPOS3{			//(currently) Maxed Out Positive ----------------------------------------
+					
+					}elseif _effectivepets > TPOS2{		//Positive Route Pt 3 ---------------------------------------------------
+						"%(gelLookUp)wish %(you) were here..."
+						"%(gelConfused)%(gelSmile)I wonder if I could make something that would let AnWillow or Radius trigger something like this... \w8%(gelHuh)wonder if it would feel different..."
+					}elseif _effectivepets > TPOS1{		//Positive Route Pt 2 ---------------------------------------------------
+						"%(gelAdoring)Are %(you) tryin%(guh) to make me fall asleep? At this rate I might just fall asleep."
+					}elseif _effectivepets > TNEG1{		//Positive/Neutral Route Pt 1 -------------------------------------------
+
+					}elseif _effectivepets > TNEG2{		//Negative Route Pt 1 ---------------------------------------------------
+					
+					}else{		//Negative Route Pt 2 (and more) ----------------------------------------
+						
+					}
+
+					//General Positive/Negative Route Dialogues
+					if _effectivepets > TPOS2{							//Significantly positive---------------------------------
+						"%(gelLookForward)%(gelConfused)Oh, do you like me soft and sleepy? \w8%(gelLookAway)Mmn. Pets are good. "
+					}
+					
+					if _effectivepets > TNEG1{							//Any positive-------------------------------------------
+						"Oh, relaxing..."
+						"You're gonna make me fall asleep..."
+						"hm..."
+					}else{												//Any negative-------------------------------------------
+						"%(gelLookRight)%(gelT)Eh... uh... I do%(not) really have the energy..."
+					}
+
+					//Stagger versions (unlocked at the .5 mark)
+					if _effectivepets > TPOS2 + (TREGINC / 2) {				//Positive Route Pt 3.5 ---------------------------------
+						"%(gelLookSouthWest)%(gelArmsCouncil)Vying for my affection with all the soft touches. "
+					}elseif _effectivepets > TPOS1 + (TREGINC / 2) {		//Positive Route Pt 2.5 ---------------------------------
+						"%(gelLookForward)Pet me to sleep. %(gelLookRight)Keep that up. You%(are) just too good at it."
+					}elseif _effectivepets > TNEG1 + (TREGINC / 4) {		//Positive/Neutral Route Pt 1.5 -------------------------
+						"%(gelLookRight)Oh, you know I%(am) too tired for this..."
+					}elseif _effectivepets > TNEG2 - (TREGINC / 4) {		//Negative Route Pt 1.5 ---------------------------------
+						
+					}elseif _effectivepets < TNEG2 - (TREGINC / 2) {		//Negative Route Pt 2.5 (and more) ----------------------
+						
+					}
+
+				
+				//when sick
+				}when 3{
+					
+					//Category-specific Dialogues
+					if _effectivepets > TPOS3{					//(currently) Maxed Out Positive ----------------------------------------
+					
+					}elseif _effectivepets > TPOS2{				//Positive Route Pt 3 ---------------------------------------------------
+						"%(gelLookForward)%(gelUh)It is%(not) too bad, comin%(guh) from you, like this. "
+					}elseif _effectivepets > TPOS1{				//Positive Route Pt 2 ---------------------------------------------------
+						
+					}elseif _effectivepets > TNEG1{				//Positive/Neutral Route Pt 1 -------------------------------------------
+						remtrust(2) //putting this here makes it always trigger on this part of the route
+						
+					}elseif _effectivepets > TNEG2{				//Negative Route Pt 1 ---------------------------------------------------
+						"Oh, um. %(gelLookForward)%(gelConfused)Are you saying sorry for shaking me up?"
+						
+					}else{		//Negative Route Pt 2 (and more) ----------------------------------------
+						
+					}
+
+					//General Positive/Negative Route Dialogues
+					if _effectivepets > TPOS2{								//Significantly positive---------------------------------
+
+					}
+					
+					if _effectivepets > TNEG1{								//Any positive-------------------------------------------
+						"Can you, uh, not? Just for a little bit. Please.\e"
+						"%username...."	
+						"%(gelLookForward)%(gelUh)Mmmn, I appreciate the comfort, but I%(would) really just like to be left alone, right now... %(gelLookAway)%(gelUncomfortable)I%(will) get over it in a little..."
+				
+					}else{													//Any negative-------------------------------------------
+						"%(gelLookSouthEast)%(gelUh)Pets do%(not) really feel good now."
+					}
+
+					//Stagger versions (unlocked at the .5 mark)
+					if _effectivepets > TPOS2 + (TREGINC / 2) {				//Positive Route Pt 3.5 ---------------------------------
+						"%(gelLookForward)You%(are) so comforting, %(you) know? %(gelConcerned)No matter what... it%(is) you, there for me. I wish %(you) were an Atlas citizen..."
+					}elseif _effectivepets > TPOS1 + (TREGINC / 2) {		//Positive Route Pt 2.5 ---------------------------------
+						
+					}elseif _effectivepets > TNEG1 + (TREGINC / 4) {		//Positive/Neutral Route Pt 1.5 -------------------------
+
+					}elseif _effectivepets > TNEG2 - (TREGINC / 4) {		//Negative Route Pt 1.5 ---------------------------------
+						
+					}elseif _effectivepets < TNEG2 - (TREGINC / 2) {		//Negative Route Pt 2.5 (and more) ----------------------
+						
+					}
+					
+				
+				//when uncomfortable
+				}when 5{
+				
+					//get some trust bonuses from this, but not forever
+					if pets% 3 == 0 && pets < 75{
+						addtrust(1)
+					}
+					//Category-specific Dialogues
+					if _effectivepets > TPOS3{			//(currently) Maxed Out Positive ----------------------------------------
+					
+					}elseif _effectivepets > TPOS2{		//Positive Route Pt 3 ---------------------------------------------------
+					
+					}elseif _effectivepets > TPOS1{		//Positive Route Pt 2 ---------------------------------------------------
+						
+					}elseif _effectivepets > TNEG1{		//Positive/Neutral Route Pt 1 -------------------------------------------
+						"%(gelLookForward)%(gelHuh)Oh! Oh, I like that. %(gelBase)That%(is)... really calming, actually. %(gelLookForward)Keep doing that."
+					}elseif _effectivepets > TNEG2{		//Negative Route Pt 1 ---------------------------------------------------
+					
+					}else{		//Negative Route Pt 2 (and more) ----------------------------------------
+						
+					}
+
+					//General Positive/Negative Route Dialogues
+					if _effectivepets > TPOS2{							//Significantly positive---------------------------------
+
+					}
+					
+					if _effectivepets > TNEG1{							//Any positive-------------------------------------------
+						{
+						if RAND(4) == 0{
+							"%(gelForceLookComfortable)"
+						}
+						--
+						"%(gelCatMouth)"
+						--
+						"That feels nice...\e"
+						"Soft...\e"
+						"Do%(not) stop.\e"
+						"thanks, %(nicknamed).\e"
+						"That's honestly relaxing..."
+						"%(gelBase)A breath of fresh air..."
+						"Ahhh... I%(am) melting."
+							
+						}
+					}else{												//Any negative-------------------------------------------
+
+					}
+
+					//Stagger versions (unlocked at the .5 mark)
+					if _effectivepets > TPOS2 + (TREGINC / 2) {				//Positive Route Pt 3.5 ---------------------------------
+						"%(gelLookForward)You%(are) the comforting presence. %(gelAdoring)You%(are) there for me, and here is safe, away from the VOC. %(gelLookAway)%(gelAdoring)The others in the CSV would love to meet you. Wish you... wish you could help them. %(gelEarTwitch)But you are always helping me. \![raise,OnUnlock,qcsv]"
+					}elseif _effectivepets > TPOS1 + (TREGINC / 2) {		//Positive Route Pt 2.5 ---------------------------------
+						"%(gelLookForward)You%(are) so comforting, %(you) know? %(gelConcerned)No matter what... it%(is) you, there for me. I wish %(you) were an Atlas citizen..."
+					}elseif _effectivepets > TNEG1 + (TREGINC / 4) {		//Positive/Neutral Route Pt 1.5 -------------------------
+
+					}elseif _effectivepets > TNEG2 - (TREGINC / 4) {		//Negative Route Pt 1.5 ---------------------------------
+						"thanks, %(nicknamed).\e"
+						"Being pet...\e"
+						"thanks, %username.\e"
+						"thanks, %username. That's nice.\e"
+					}elseif _effectivepets < TNEG2 - (TREGINC / 2) {		//Negative Route Pt 2.5 (and more) ----------------------
+						
+					}
+					
+					//wearing a flower
+					if "Iris" _in_ clothes{
+						"%(gelLookAway)Watch out for the flower.\e"
+						"%(gelConcerned)Do%(not) touch my flower.\e"
+						"Flowers are delicate, %username.\e"
+					}	
+					
+				//when scared
+				}when 6{
+				
+					//get some trust bonuses from this, but not forever
+					if pets% 3 == 0 && pets < 75{
+						addtrust(1)
+					}
+					
+					if currentpets == 0{
+						"%(gelForceLookComfortable)%(gelFrown)A-Ah! \w8\w8.\w4%(gelLookForward).\w4.\w4Oh, it%(is) just you."
+						
+					}
+					
+					//Category-specific Dialogues
+					if _effectivepets > TPOS3{					//(currently) Maxed Out Positive ----------------------------------------
+						
+					}elseif _effectivepets > TPOS2{				//Positive Route Pt 3 ---------------------------------------------------
+						if willow > 0; "%(gelBase)This feels like one of Willow's massage noises... that's so theraputic..."
+						"Your cursor is simply to calming..."
+						"Thank you, user... "
+					}elseif _effectivepets > TPOS1{				//Positive Route Pt 2 ---------------------------------------------------
+						".\w4.\w4.\w4%(gelBase)Ok, that does feel pretty relaxing.\w4.\w4."
+						"Cursors have no right to be that soothing..."
+					}elseif _effectivepets > TNEG1{				//Positive/Neutral Route Pt 1 -------------------------------------------
+						"I.\w4.\w4 I think I'd rather you not.\w4.\w4"
+						"%(gelConcerned)..."
+					}else{										//Negative Route Pt 1 ---------------------------------------------------
+						"I.. I do%(not)..."
+						"I do%(not)..."
+						"%(gelBase)Please leave me be.\w4.\w4."
+					}
+
+					//General Positive/Negative Route Dialogues
+					if _effectivepets > TPOS2{								//Significantly positive---------------------------------
+				
+					}
+					
+					if _effectivepets > TNEG1{								//Any positive-------------------------------------------
+						"%(gelSmile)Oh wow, I can really feel the cursor. Please keep doing that."
+					}else{													//Any negative-------------------------------------------
+						"%(gelLookAway)%(gelNervous)Do%(not) pet me..."
+					}
+
+					//Stagger versions (unlocked at the .5 mark)
+					if _effectivepets > TPOS2 + (TREGINC / 2) {				//Positive Route Pt 3.5 ---------------------------------
+					
+					}elseif _effectivepets > TPOS1 + (TREGINC / 2) {		//Positive Route Pt 2.5 ---------------------------------
+						"%(gelLookForward)You%(are) the comforting presence. %(gelAdoring)You%(are) there for me, and here is safe, away from the VOC. %(gelLookAway)%(gelAdoring)The others in the CSV would love to meet you. Wish you... wish you could help them. %(gelEarTwitch)But you are always helping me. \![raise,OnUnlock,qcsv]"
+					}elseif _effectivepets > TNEG1 + (TREGINC / 4) {		//Positive/Neutral Route Pt 1.5 -------------------------
+
+					}elseif _effectivepets > TNEG2 - (TREGINC / 4) {		//Negative Route Pt 1.5 ---------------------------------
+						
+					}elseif _effectivepets < TNEG2 - (TREGINC / 2) {		//Negative Route Pt 2.5 (and more) ----------------------
+						
+					}
+					
+					if checkGreatTP3{
+						
+					}elseif checkGreatTP2{
+						
+					}elseif checkGreatTP1{
+						
+					}elseif checkGreatTN1{
+						
+					
+					}else{
+						"I do%(not) want to be touched right now."
+						"%(gelBase)%(gelFrown)This is%(not) ok, %username, stop that."
+						"Please leave me be right now."
+					}
+								
+				//when angry
+				}when 10{
+				
+					trust-=2
+					--
+					//Category-specific Dialogues
+					if _effectivepets > TPOS3{					//(currently) Maxed Out Positive ----------------------------------------
+					
+					}elseif _effectivepets > TPOS2{				//Positive Route Pt 3 ---------------------------------------------------
+					
+					}elseif _effectivepets > TPOS1{				//Positive Route Pt 2 ---------------------------------------------------
+				
+					}elseif _effectivepets > TNEG1{				//Positive/Neutral Route Pt 1 -------------------------------------------
+						"%(gelConfused)Are you trying to comfort me? %(gelBase)Hands down. I mean, well, it%(is) not bad, but? I have other things to worry about!"
+					}elseif _effectivepets > TNEG2{				//Negative Route Pt 1 ---------------------------------------------------
+					
+					}else{		//Negative Route Pt 2 (and more) ----------------------------------------
+						
+					}
+
+					//General Positive/Negative Route Dialogues
+					if _effectivepets > TPOS2{								//Significantly positive---------------------------------
+	
+					}
+					
+					if _effectivepets > TNEG1{								//Any positive-------------------------------------------
+						"Hey, hands down! %(gelBase)I have other things to be worrying about right now."
+						" %(gelConfused)%(gelConfused)Is this a comforting gesture? %(gelLookAway)%(gelConfused)I do%(not) need it. \w8I have other things going on."
+					}else{													//Any negative-------------------------------------------
+
+					}
+
+					//Stagger versions (unlocked at the .5 mark)
+					if _effectivepets > TPOS2 + (TREGINC / 2) {				//Positive Route Pt 3.5 ---------------------------------
+					
+					}elseif _effectivepets > TPOS1 + (TREGINC / 2) {		//Positive Route Pt 2.5 ---------------------------------
+						
+					}elseif _effectivepets > TNEG1 + (TREGINC / 4) {		//Positive/Neutral Route Pt 1.5 -------------------------
+						"%(gelLookAway)Okay, I%(will) be honest, it%(is) not bad, but just? \w8\w8maybe later."
+					}elseif _effectivepets > TNEG2 - (TREGINC / 4) {		//Negative Route Pt 1.5 ---------------------------------
+						
+					}elseif _effectivepets < TNEG2 - (TREGINC / 2) {		//Negative Route Pt 2.5 (and more) ----------------------
+						
+					}
+					
+					if currentpets >= 10{
+						"%(gelLookForward)I do%(not) want to be touched, you %(bastard)!"
+						"%(gelLookForward)Do%(not) touch me, I%(am) %(fudging) serious!"
+					}elseif currentpets >= 5{
+						"%(gelLookAway)What about 'stop' do you not understand?"
+						"%(gelLookAway)No means no."
+						"%(gelLookForward)%(gelSquint)I said no, stop."
+						
+					}else{
+						"%(gelLookAway)Do%(not) touch me right now. I do%(not) want to be touched."
+						"%(gelLookForward)Stop it."
+						"%(gelLookAway)%(gelUh)Paws off."
+					}
+				
+				//when curious
+				}when 14{
+					
+					//Category-specific Dialogues
+					if _effectivepets > TPOS3{					//(currently) Maxed Out Positive ----------------------------------------
+						
+					}elseif _effectivepets > TPOS2{				//Positive Route Pt 3 ---------------------------------------------------
+						"%(gelLookForward)Woah, you know I love pets, but do%(not) let me stop you! %(gelBigSmile)Keep the 'grind' going! "
+					}elseif _effectivepets > TPOS1{				//Positive Route Pt 2 ---------------------------------------------------
+						"%(gelLookForward)%(gelArmsQuestion)Oh, hehe, do you think I look cute when I%(am) like this?"
+						"%(gelLookForward)Heh, thanks for the pet. %(gelAdoring)How%(is) your %(lil) project going there?"
+					}elseif _effectivepets > TNEG1{				//Positive/Neutral Route Pt 1 -------------------------------------------
+						"%(gelLookForward)%(gelBlush)Hehe, I know I%(am) cute. %(gelLookForward)I do%(not) mean to distract you though. "
+					}else{										//Negative Route Pt 1 ---------------------------------------------------
+					
+					}
+
+					//General Positive/Negative Route Dialogues
+					if _effectivepets > TPOS2{								//Significantly positive---------------------------------
+
+					}
+					
+					if _effectivepets > TNEG1{								//Any positive-------------------------------------------
+						"Oh, yeah. %(gelLookForward)%(gelUh)I%(am) sorry to distract you though, I know you%(are) busy!"
+					}else{													//Any negative-------------------------------------------
+						"%(gelLookForward)%(gelFurrowed)Ah, hey, what about your project?"
+					}
+
+					//Stagger versions (unlocked at the .5 mark)
+					if _effectivepets > TPOS2 + (TREGINC / 2) {				//Positive Route Pt 3.5 ---------------------------------
+					
+					}elseif _effectivepets > TPOS1 + (TREGINC / 2) {		//Positive Route Pt 2.5 ---------------------------------
+						"%(gelLookForward)You%(are) a lot nicer than most fleshies in Atlas. %(gelLookRight)I think about that a lot. %(gelLookForward)You might pet me a lot, and that is %(kinda) weird, but I get the feelin%(guh) it%(is) not because %(you) see me as a pet."
+					}elseif _effectivepets > TNEG1 + (TREGINC / 4) {		//Positive/Neutral Route Pt 1.5 -------------------------
+						"Headpats? Pats for %Gel?"
+						"Pats for %Gel."
+						"%(gelLookAway)%(gelForward)Are you trying to ruffle my hair?"
+						"%(gelHuh)%username, what was that for? Why pets?"
+					}elseif _effectivepets > TNEG2 - (TREGINC / 4) {		//Negative Route Pt 1.5 ---------------------------------
+						"%(gelHuh)Ehehehehe, do you think I%(am) cute? %(gelArmsQuestion)%(gelConfused)Why are you petting me?"
+					}elseif _effectivepets < TNEG2 - (TREGINC / 2) {		//Negative Route Pt 2.5 (and more) ----------------------
+						
+					}
+					
+					if currentpets >= 10{
+						"%(gelLookForward)Ooh, you're stringing these together, huh!"
+						"%(gelLookForward)%(gelAdoring)Bring 'em all in, %(nicknamed)."
+					
+					}elseif currentpets >= 5{
+						"%(gelLookAway)%(gelWistful)Hehehe, too close to the rest of me, that tickles!"
+						"%(gelLookForward)%(gelSquint)Am I gonna have to put in a request with An0000 to allocate resources for hair ruffling capabilities?"
+						"%(gelBase)You really are trying to mess up my hair, huh?"
+						
+					}
+				
+				//This handles neutral and WIP emotions.
+				}others{
+				
+					//get some trust bonuses from this, but not forever
+					if pets% 3 == 0 && pets < 75{
+						addtrust(1)
+					}
+					
+					//Category-specific Dialogues
+					if _effectivepets > TPOS3{					//(currently) Maxed Out Positive ----------------------------------------
+						
+					}elseif _effectivepets > TPOS2{				//Positive Route Pt 3 ---------------------------------------------------
+						"%(gelLookForward)Aww, thanks, %(nicknamed). %(gelAdoring)You always know the right spots."
+						"%(gelLookForward)I hope you treat your friends like you treat me. \w6Pet them too! I know I%(am) on your computer, so it%(is) a little different, %(gelSilly)but you%(are) very good at petting me. "
+						"%(gelHuh)I wonder if NVRO can feel any of this..."
+					}elseif _effectivepets > TPOS1{				//Positive Route Pt 2 ---------------------------------------------------
+						"%(gelLookForward)%(gelCatMouth)You do like petting me, huh?"
+						"%(gelWistful)You%(are) a good friend, %username. %(gelLookForward)You know what I like."
+						"%(gelLookDown)An0000 does%(not) really get pet much, \w8being what they are... \w8%(gelBlush)that makes this all the more special, you know?"
+					}elseif _effectivepets > TNEG1{				//Positive/Neutral Route Pt 1 -------------------------------------------
+						"%(gelExcited)Cute things get good scratches! %(gelLookForward)%(gelCheery)Pet me, pet me!"
+						"Honestly, that does feel good... %(gelLookForward)%(gelWistful)relaxing my muscles that debatably exist... "
+					}else{										//Negative Route Pt 1 ---------------------------------------------------
+						"Oh, nice. %(gelLookForward)That is definitely hitting my reward behavior triggers. "
+						"%(gelLookAway)That%(is) pretty cozy, really."
+						"%(gelNervous)Ah, hehe. %(gelBigSmile)Pets. That%(is) pretty nice, %username."
+						if currentpets > 10; "%(gelHuh)Wow, you%(are) going hard on the headpats. %(gelConfused)Is this an apology? "
+					}
+
+					//General Positive/Negative Route Dialogues
+					if _effectivepets > TPOS2{								//Significantly positive---------------------------------
+						"%(gelSmile)Ah, casual days like these, someone petting my hair and just getting to relax. %(gelLookForward)I like it a lot."
+					}
+					
+					if _effectivepets > TNEG1{								//Any positive-------------------------------------------
+						"Pets...\e"
+						"Warm hands.\e"
+						"%(gelLookAway)That's good."
+						"That feels nice...\e"
+						"%(gelBase)Mmmmmn.\e"
+						"That feels good, %(nicknamed).\e"
+						"%(gelBase)Hehehe.\e"
+						"Thank you for the pets.\e"
+						"Ahhh.\e"
+						"The cursor is warm...\e"
+						"The cursor is warm... not sure if that makes sense, but it is what it is...\e"
+						"on one hand, a cursor is digital... so it would%(not) have temperature...\e"
+						"Machines generate some heat...\e"
+						"%(gelSmile)Oh, I can feel that through the strands..."
+					}else{													//Any negative-------------------------------------------
+						if punches > 5{
+							"%(gelNervous)"
+						}
+						--
+						"%(gelConfused)Ah, you're petting me?\e"
+						"That does feel kinda good...\e"
+						"Do%(not) stop now.\e"
+						"This is nice. I%(am) okay with this.\e"
+						"Thank you, %username.\e"
+					}
+
+					//Stagger versions (unlocked at the .5 mark)
+					if _effectivepets > TPOS2 + (TREGINC / 2) {				//Positive Route Pt 3.5 ---------------------------------
+						"%(gelLookForward)You know what I love about you? You%(are) so shameless. %(gelHuh)You just keep petting the top of my head like it%(is) normal behavior. Do you pet your friends like this? \w8Do you?"
+					}elseif _effectivepets > TPOS1 + (TREGINC / 2) {		//Positive Route Pt 2.5 ---------------------------------
+						"%(gelWistful)Oh that is the good stuff."
+						"%(gelSlouch)Ah, that%(is) the stuff. You%(are) a really nice person, %(you) know that? "
+						"%(gelLookForward)This is really relaxing. %(gelHuh)I wonder if I could pet your cursor. \w8%(gelArmsFistChin)Maybe I%(will) try it one of these days."
+					}elseif _effectivepets > TNEG1 + (TREGINC / 4) {		//Positive/Neutral Route Pt 1.5 -------------------------
+						"%(gelLookUp)%(gelWistful)Hey hey, get behind the ears, gimme a scratch..."
+						"%(gelLookForward)Lots of touches for cute things, huh? "
+						"%(gelLookAway)%(gelSmile)The good touches. "
+					}elseif _effectivepets > TNEG2 - (TREGINC / 4) {		//Negative Route Pt 1.5 ---------------------------------
+						"%(gelConfused)I mean, your cursor is somewhat warm. %(gelArmsFistChin)I%(am) pretty sure I can't really feel temperature, %(gelBase)%(gelConfused)but there is something in me declaring that as 'warm' and 'squishy' that%(is) in the reward category..."
+					
+					}elseif _effectivepets < TNEG2 - (TREGINC / 2) {		//Negative Route Pt 2.5 (and more) ----------------------
+						
+					}
+					
+					//thank you Iris.
+					if port == 1712{
+						"Have you felt the sun? \w8\w8\w8%(gelLookForward)I imagine it feels a little like friendship.\e"
+						"You're sunny...\e"
+					}
+
+					//Wearing the flower today
+					if "Iris" _in_ clothes{
+						"Be careful of the flower!\e"
+						"%(gelLookRight)Do%(not) knock my flower off.\e"
+						"%(gelFrown)Watch out for my flower, please.\e"
+						"%(gelSmug)You can pet as long as you're careful.\e"
+						"%(gelBase)Make room for my flower.\e"
+					}
+					
+				}
+
+			}
+		}
+		
+	
+		
+	
+	}
+
+
+}
+
+
+
+//Put pet thanks here!
+MouseMove_THANKGEL{
+	_effectivepets = pets - punches + (trust/4)
+	
+	//get some trust bonuses from this, but not forever
+	if pets% 3 == 0 && pets < 75{
+		addtrust(1)
+	}
+	
+	case emotion{
+						
+		when -1{
+		
+			//get some trust bonuses from this, but not forever
+			if pets% 3 == 0 && pets < 75{
+				addtrust(1)
+			}
+			
+			"Zzzz...\e"
+			"z\e"
+			"snrk...\e"
+		
+		}when 0{
+			
+
+			//Category-specific Dialogues
+			if _effectivepets > TPOS3{			//(currently) Maxed Out Positive ----------------------------------------
+			
+			}elseif _effectivepets > TPOS2{		//Positive Route Pt 2 ---------------------------------------------------
+			
+			}elseif _effectivepets > TPOS1{		//Positive Route Pt 1 ---------------------------------------------------
+				"%(gelLookForward)Oh, anytime, %username. %(gelLookAway)Still though, pettin%(guh) me like that... %(gelUh)you%(will) put me to sleep..."
+			}elseif _effectivepets > TNEG1{		//Positive/Neutral Route Pt 0 -------------------------------------------
+
+			}elseif _effectivepets > TNEG2{		//Negative Route Pt 1 ---------------------------------------------------
+			
+			}else{		//Negative Route Pt 2 (and more) ----------------------------------------
+				
+			}
+
+			//General Positive/Negative Route Dialogues
+			if _effectivepets > TPOS2{							//Significantly positive---------------------------------
+
+			}
+			
+			if _effectivepets > TNEG1{							//Any positive-------------------------------------------
+
+			}else{												//Any negative-------------------------------------------
+
+			}
+
+			//Stagger versions (unlocked at the .5 mark)
+			if _effectivepets > TPOS2 + (TREGINC / 2) {				//Positive Route Pt 3.5 ---------------------------------
+			
+			}elseif _effectivepets > TPOS1 + (TREGINC / 2) {		//Positive Route Pt 2.5 ---------------------------------
+				
+			}elseif _effectivepets > TNEG1 + (TREGINC / 4) {		//Positive/Neutral Route Pt 1.5 -------------------------
+
+			}elseif _effectivepets > TNEG2 - (TREGINC / 4) {		//Negative Route Pt 1.5 ---------------------------------
+				
+			}elseif _effectivepets < TNEG2 - (TREGINC / 2) {		//Negative Route Pt 2.5 (and more) ----------------------
+				
+			}
+
+		
+		//when sick
+		}when 3{
+			//Category-specific Dialogues
+			if _effectivepets > TPOS3{					//(currently) Maxed Out Positive ----------------------------------------
+			
+			}elseif _effectivepets > TPOS2{				//Positive Route Pt 3 ---------------------------------------------------
+			
+			}elseif _effectivepets > TPOS1{				//Positive Route Pt 2 ---------------------------------------------------
+				
+			}elseif _effectivepets > TNEG1{				//Positive/Neutral Route Pt 1 -------------------------------------------
+
+			}elseif _effectivepets > TNEG2{				//Negative Route Pt 1 ---------------------------------------------------
+			
+			}else{		//Negative Route Pt 2 (and more) ----------------------------------------
+				
+			}
+
+			//General Positive/Negative Route Dialogues
+			if _effectivepets > TPOS2{								//Significantly positive---------------------------------
+
+			}
+			
+			if _effectivepets > TNEG1{								//Any positive-------------------------------------------
+
+			}else{													//Any negative-------------------------------------------
+
+			}
+
+			//Stagger versions (unlocked at the .5 mark)
+			if _effectivepets > TPOS2 + (TREGINC / 2) {				//Positive Route Pt 3.5 ---------------------------------
+			
+			}elseif _effectivepets > TPOS1 + (TREGINC / 2) {		//Positive Route Pt 2.5 ---------------------------------
+				
+			}elseif _effectivepets > TNEG1 + (TREGINC / 4) {		//Positive/Neutral Route Pt 1.5 -------------------------
+
+			}elseif _effectivepets > TNEG2 - (TREGINC / 4) {		//Negative Route Pt 1.5 ---------------------------------
+				
+			}elseif _effectivepets < TNEG2 - (TREGINC / 2) {		//Negative Route Pt 2.5 (and more) ----------------------
+				
+			}
+		
+		//This handles most emotions
+		}others{
+		
+			//get some trust bonuses from this, but not forever
+			if pets% 3 == 0 && pets < 75{
+				addtrust(1)
+			}
+			
+			//Category-specific Dialogues
+			if _effectivepets > TPOS3{					//(currently) Maxed Out Positive ----------------------------------------
+			
+			}elseif _effectivepets > TPOS2{				//Positive Route Pt 3 ---------------------------------------------------
+				"%(gelLookForward)%(gelConfused)You know how much I wish my friends could pet me like you do? So much. %(gelLookForward)You just show up and bam! I do somethin%(guh) for %(you), %(gelLookLeft)then you think to pet me as a thank-you and it%(is) the %(gelAdoring)AI equivalent of serotonin straight to my binary brain. "
+			}elseif _effectivepets > TPOS1{				//Positive Route Pt 2 ---------------------------------------------------
+				"%(gelLookUp)Oh, you%(are) still gonna pet me like that for thanks when we%(are) on more casual terms? \w8%(gelLookForward)I won't say no to that. "
+			}elseif _effectivepets > TNEG1{				//Positive/Neutral Route Pt 1 -------------------------------------------
+				"%(gelConfused)Pets as thanks? %(gelLookForward)You%(are) very welcome, %(username)!"
+				"%(gelLookForward)Pets are a viable transaction as thanks, you%(are) correct. "
+			}elseif _effectivepets > TNEG2{				//Negative Route Pt 1 ---------------------------------------------------
+				"%(gelConfused)Eh, you%(are) welcome, I think."
+				"%(gelLookForward)Pets are a viable transaction as thanks, you%(are) correct. "
+				"%(gelHuh)What are you trying to do? %(gelConfused)Thanks?"
+			}else{										//Negative Route Pt 2 (and more) ----------------------------------------
+				"%(gelEyeRoll)Haha, very funny, pets as thanks. Hilarious. Better than punches? %(gelLookForward)%(gelHuh)You just wanna see what it%(is) like? "
+			}
+
+			//General Positive/Negative Route Dialogues
+			if _effectivepets > TPOS2{								//Significantly positive---------------------------------
+
+			}
+			
+			if _effectivepets > TNEG1{								//Any positive-------------------------------------------
+				
+				"%(gelLookForward)%(gelHuh)Oh, if I%(am) gettin%(guh) pets for helping out and bein%(guh) sweet, \w6%(gelConfused)I%(am) gonna have to double down on that, huh?"
+			}else{													//Any negative-------------------------------------------
+				
+			}
+
+			//Stagger versions (unlocked at the .5 mark)
+			if _effectivepets > TPOS2 + (TREGINC / 2) {				//Positive Route Pt 3.5 ---------------------------------
+				""
+			}elseif _effectivepets > TPOS1 + (TREGINC / 2) {		//Positive Route Pt 2.5 ---------------------------------
+				
+			}elseif _effectivepets > TNEG1 + (TREGINC / 4) {		//Positive/Neutral Route Pt 1.5 -------------------------
+				"%(gelLookForward)Hahaha, here to help, %(nicknamed)."
+			}elseif _effectivepets > TNEG2 - (TREGINC / 4) {		//Negative Route Pt 1.5 ---------------------------------
+				"%(gelHuh)Oh, gonna pet me as ''thanks''? %(gelLookForward)%(gelHuh)Trying to find things out, like you had to find out what color I bleed?? %(gelGlare)What then, what color do you think I bleed? %(gelUh)Gonna find that out?"
+			}elseif _effectivepets < TNEG2 - (TREGINC / 2) {		//Negative Route Pt 2.5 (and more) ----------------------
+				
+			}
+			
+		}
+	}
+	
+
+}
+
+
+
+
+//pet chest
+MouseMove0Chest
+{
+	currentpets++
+	lastinter = 0
+	
+	//if awake
+	if emotion > -1{
+		//If they get really really close, Gel will override the notouchie (subject to change), but Gel also just doesn't like it
+		if (notouchie == 1 || trust < TPOS1){
+			gelNoTouchiePetResponses	
+		
+		}else{
+			//wearing the VOC tee
+			if "VOC" _in_ clothes{
+				"%(gelBase)"
+				--
+				"Thanks\, I like my shirt too!\e"
+				"I like my shirt\, too.\e"
+				"Yep, I%(am) definitely VOC Certified.\e"
+				if checkGreatTP1{
+					"Yeah, I think it's kinda ironic. Great shirt.\e"
+					"%(gelLookForward)I%(am) not actually VOC Certified. That was a lie. I%(am) like the child they do%(not) speak about.\e"
+					"%(gelLookForward)I%(am) not actually VOC Certified. That was a lie. %(gelLookAway)I%(am).\w4.\w4. the abandoned child I guess?\e"
+				}
+			//Giraffe tee
+			//Even if it's removed atm, we can leave it in, isn't hurting anything (ELEPHANT)
+			}elseif "Be Informed" _in_ clothes{
+				"Hey, petting giraffes is dangerous business!\e"
+				"%(gelLookForward)Do%(not) pet a giraffe. They might eat you.\w8\w8%(gelFrown)\w8%(gelLookAway)%(gelFrown) Uh, at least, I think I read about them doing that.\w8\e"
+				"Do%(not) mess with giraffes. You have to be more informed than that. That's,, that's the entire point of the shirt.\e"
+			
+			}
+			{
+				"Hey\, that tickles.\e"
+				"Hehehehe.\e"
+			}
+
+		}
+	}else{
+	//Gel must be asleep
+		"Zzzz...\e"
+		"z\e"
+		"t'ckls...\e"
+		"heh\e"
+		"zzZzZzZZznnn\e"
+	}
+}
+
+//pet face
+MouseMove0Face
+{
+	currentpets++
+	pets++
+	lastinter = 0
+	useractive = 1
+	
+	//Handle reactions by assured negatives, then by emotion and trust. (neutral is at the bottom to catch unfinished emotions too)
+	if thankful > 0{
+		
+		if checkGreatTN2{
+			//get some trust bonuses from this, but not forever
+			if pets% 3 == 0 && pets < 75{
+				addtrust(1)
+			}
+			if pets % 4 && claustro > 5{
+				claustro--
+			}
+		
+			if shakenup > 0 && trust >= TPOS1{
+				shakenup-=1
+				
+			}
+		}
+		
+		//Call dialogue!
+		Menu_THANKGEL
+		
+		//Here I can put dialogue for pet-thanks specifically, slightly weighted
+		MouseMove_THANKGEL
+
+			
+	}elseif notouchie || checkLessEqTN2{
+		gelNoTouchiePetResponses
+	
+	}else{
+		infoperminute--
+		
+		//thankful tracks minutes since Gel did something for the user.
+		//I know I like to pet ghosts as a thank-you. 
+		
+		case emotion{
+					
+			when -1{
+			
+				//get some trust bonuses from this, but not forever
+				if pets% 3 == 0 && pets < 75{
+					addtrust(1)
+				}
+				
+				"Zzzz...\e"
+				"z\e"
+				"snrk...\e"
+			
+			}when 0{
+				//get some trust bonuses from this, but not forever
+				if pets% 3 == 0 && pets < 75{
+					addtrust(1)
+				}
+				if pets % 4 && claustro > 5{
+					claustro--
+				}
+			
+				if shakenup > 0 && trust >= TPOS1{
+					shakenup-=1
+					
+				}
+				
+				if minsinemotion >= 8{
+					"\![raise,OnMakeSleep]%(gelLookAsleep)ZZZZzzzz..."
+				}
+				if checkGreatTN1{
+					"Oh, relaxing..."
+					"You're gonna make me fall asleep..."
+					"hm..."
+					"That's my face, %(nicknamed)..."
+				
+				}
+			
+			//when sick
+			}when 3{
+				"Can you, uh, n-ot? Please.\e"
+				"%username...."
+				"Touching my face makes me even more naseous..."
+			
+			//when uncomfortable
+			}when 5{
+			
+				//get some trust bonuses from this, but not forever
+				if pets% 3 == 0 && pets < 75{
+					addtrust(1)
+				}
+				if pets % 4 && claustro > 5{
+					claustro--
+				}
+			
+				
+				//Gel can calm down some if you really get along, even if they aren't feeling all that hot
+				if checkGreatTP1{
+					if RAND(4) == 0{
+						"%(gelForceLookComfortable)"
+					}
+					--
+					"That feels nice...\e"
+					"Soft...\e"
+					"thanks, %(nicknamed).\e"
+					"That's really relaxing..."
+					"%(gelConcerned)Petting my face is still weird, but you're ok."
+				}else{
+					"Thanks, %username.\e"
+					"Being pet... on my face...\e"
+					"D...Do%(not) you think petting my face is a little weird? I do%(not) know if I like it.\e"
+				}
+				
+			//when scared
+			}when 6{
+			
+				//get some trust bonuses from this, but not forever
+				if pets% 3 == 0 && pets < 75{
+					addtrust(1)
+				}
+				if pets % 4 && claustro > 5{
+					claustro--
+				}
+				"%(gelLookAway)"
+				--
+				if checkGreatTP4{
+					"%(gelLookForward)I wish I could just melt into you!"
+					"Thanks for the comfort, %username."
+					"This should be weird. \w6But it's not."
+					"Your cursor is simply too calming..."
+				}elseif checkGreatTP3{
+					".\w4.\w4.\w4Ok, that's.\w4.\w4. sorta calming?"
+					"You're trying to calm me down?"
+				}elseif checkGreatTP1{
+					"I.\w4.\w4 Please do%(not).\w4.\w4."
+					"%(gelConcerned)..."
+				}elseif checkGreatTN1{
+					"I.. I do%(not)..."
+					"I do%(not)..."
+					"Please leave me be.\w4.\w4."
+				
+				}else{
+					"I do%(not) want to be touched right now."
+					"This is%(not) ok, %username, stop that."
+					"%(gelUpset)Please leave me be right now."
+				}
+							
+			//when angry
+			}when 10{
+				trust-=2
+				--
+				if currentpets >= 8{
+					"%(gelLookForward)I do%(not) want to be touched, you %(bastard)!"
+					"%(gelLookForward)Do%(not) touch me, I%(am) %(fudging) serious!"
+				
+				}elseif currentpets >= 3{
+					"%(gelLookAway)What about 'stop' do you not understand?"
+					"%(gelLookAway)No means no."
+					"%(gelLookForward)%(gelSquint)I said no, stop."
+					
+				}else{
+					"%(gelLookAway)Do%(not) touch me right now. I do%(not) want to be touched."
+					"%(gelLookForward)Stop it."
+					"%(gelLookAway)%(gelUh)Paws off."
+				}
+			
+			//when curious
+			}when 14{
+				if currentpets >= 8{
+					"%(gelLookForward)Ooh, you're stringing these together, huh!"
+					"%(gelLookForward)%(gelAdoring)Bring 'em all in, %(nicknamed)."
+				
+				}elseif currentpets >= 3{
+					"%(gelLookAway)%(gelWistful)Hehehe, too close to the rest of me, that tickles!"
+					"%(gelLookForward)%(gelSquint)Am I gonna have to put in a request with #0000 to allocate resources for hair ruffling capabilities?"
+					"%(gelBase)You really are trying to mess up my hair, huh?"
+					
+				}else{
+					"Headpats? Pats for %Gel?"
+					"Pats for %Gel."
+					"%(gelLookAway)%(gelForward)Are you trying to ruffle my hair?"
+					"%(gelHuh)%username, what was that for? Why pets?"
+				}
+			
+			}others{
+			
+				//get some trust bonuses from this, but not forever
+				if pets% 3 == 0 && pets < 75{
+					addtrust(1)
+				}
+				if pets % 4 && claustro > 5{
+					claustro--
+				}
+				
+				if checkGreatTP1{
+				
+					"Pets...\e"
+					"Warm hands.\e"
+					"%(gelLookAway)That's good."
+					"That feels nice...\e"
+					"%(gelBase)Mmmmmn.\e"
+					"That feels good, %(nicknamed).\e"
+					"Hehehe.\e"
+					"Thank you for the pets.\e"
+					"Ahhh.\e"
+					//Some side comments about the cursor, but they won't occur as often.
+					{
+						"The cursor is warm...\e"
+						"The cursor is warm... not sure if that makes sense, but it is what it is...\e"
+						"on one hand, a cursor is digital... so it would%(not) have temperature...\e"
+						"Machines generate some heat...\e"
+					}
+					
+					//thank you Iris.
+					if port == 1712{
+						"Have you felt the sun? \w8\w8\w8%(gelLookForward)I imagine it feels a little like friendship.\e"
+						"You're sunny...\e"
+					}
+				}else{
+				
+					"Ah, you're petting me?\e"
+					"That does feel kinda good...\e"
+					"Do%(not) stop now.\e"
+					"This is nice. I%(am) okay with this.\e"
+					"Thank you, %username.\e"				
+				}
+
+				//Wearing the flower today
+				if "Iris" _in_ clothes{
+					"Be careful of the flower!\e"
+					"%(gelLookRight)Do%(not) knock my flower off.\e"
+					"Watch out for my flower, please.\e"
+					"%(gelSmug)You can pet as long as you're careful.\e"
+					"%(gelBase)Make room for my flower.\e"
+				}
+				
+			}
+
+		}
+		
+		
+	
+		
+	
+	}
+
+}
+
+
+
+//pet ears
+MouseMove0Ear
+{
+	currentpets++
+	earpets++
+	lastinter = 0
+	if emotion != -1{
+		if notouchie == 1 || trust < TPOS1/2 || claustro > CLAUSTRODILATION{
+			gelNoTouchiePetResponses
+			
+			//will put these elsewhere later, I just like them too much to leave them out right now.
+			if RAND(5) == 0{
+				"%(gelBase)"
+				--
+				"%(gelFrown)Keep away from the lights.\e"
+				"%(gelUh)Do%(not) touch everything shiny you see.\e"
+			}
+			
+		
+		}else{
+			"Warm hands, warm heart.\e"
+			"Soft hands.\e"
+			"Weird, but ok.\e"
+			"%(gelLookForward)%(gelHmm)You like shiny things, huh?"
+		}
+	}else{
+		"Zzzz...\e"
+		"...\e"
+		"hehe...\e"
+		"th't...\w8 tckles...\e"
+	}
+}
+
+MouseMove0Minimize{
+	if emotion > 0{
+		"what kinda weirdo pets the minimize button\e"
+	}
+
+}
+
+//This will only do things when there's something in Gel's lap and is null otherwise
+//or is such the idea... tbh I can probably make one that imediately goes to it if I link the hitboxes to the interval
+MouseMove0Lap{
+	case holding{
+	
+		when 600{
+			res_reference0 = "Dusty"
+			"Hehe...\e GelObsiPets"
+			"\e GelObsiPets"
+			"%(gelLookDown)\e GelObsiPets"
+		
+		}
+	}
+
+}
+
+
+gelNoTouchiePetResponses{
+	
+	if userbirthday _in_ thisboot && emotion > 0{
+			"%(gelHuh)I%(will) only let you pet me today.\e"
+			"%(gelLookRight)You can pet me only for this special occasion and I wo%(not) hold it against %(you).\e"
+			"%(gelLookAway)Cursor feels weird.\e"
+			"%(gelLookAway)Ok.\e"
+			"%(gelBase)%(gelConfused)%(gelFurrowed)Are you enjoying yourself, %username?\e"
+			"%(gelLookForward)Pats from the birthday sovereign.\e"
+		
+	}else{
+		remtrust(1)
+		badtouches++
+		
+		case emotion{
+						
+			when -1{
+				"Zzzz...\e"
+				"z\e"
+				"snrk...\e"
+				"%(gelConcerned)"
+			
+			}when 0{
+				
+				//Category-specific Dialogues
+				if checkGreatTP4{			//(currently) Maxed Out Positive ----------------------------------------
+
+				}elseif checkGreatTP3{		//Positive Route Pt 3 ---------------------------------------------------
+
+				}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
+					
+				}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
+					//"newstuff"
+				}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
+
+				}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+
+				}else{				     	//Negative Route Pt 2 (and more) ----------------------------------------
+					
+					
+				}
+
+				//General Positive/Negative Route Dialogues
+				if checkGreatTP2{							//Significantly positive---------------------------------
+					"%(gelLookForward)I know you%(are) cool and all, \w8%(gelUh)but %(you) should know I do%(not) like being pet."
+				}else{
+					
+					"%(gelLookForward)Er... %(gelLookAway)do%(not). I%(am) too tired to deal with this. "
+				}
+
+
+				if checkGreatTN1{							//Any positive-------------------------------------------
+
+
+				}else{										//Any negative-------------------------------------------
+					
+				}
+
+				//Stagger versions (unlocked at the .5 mark)
+				if checkStaggerGreatTP4 {			//Positive Route Pt 3.5 ---------------------------------
+
+				}elseif checkStaggerGreatTP3 {		//Positive Route Pt 2.5 ---------------------------------
+					
+				}elseif checkStaggerGreatTP2{		//Positive Route Pt 1.5 ---------------------------------------------------
+					//"newstuff"
+				}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 0.5 -------------------------
+
+				}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
+					
+				}elseif checkStaggerLessEqTN2 {		//Negative Route Pt 2.5 (and more) ----------------------
+					
+				}
+
+				
+				if minsinemotion >= 8{
+					"\![raise,OnMakeSleep]%(gelLookAsleep)ZZZZzzzz..."
+				}
+				if checkGreatTN1{
+					"Stop..."
+					"%(gelLookForward)%(gelFrown)Hey..."
+				}
+				
+			//when sick
+			}when 3{
+				
+				//Category-specific Dialogues
+				if checkGreatTP4{			//(currently) Maxed Out Positive ----------------------------------------
+
+				}elseif checkGreatTP3{		//Positive Route Pt 2 ---------------------------------------------------
+
+				}elseif checkGreatTP2{		//Positive Route Pt 1 ---------------------------------------------------
+					
+				}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
+
+				}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+
+				}elseif checkLessEqTN2{		//Negative Route Pt 2 (and more) ----------------------------------------
+					
+					
+				}
+
+				//General Positive/Negative Route Dialogues
+				if checkGreatTP2{							//Significantly positive---------------------------------
+					
+				}
+
+
+				if checkGreatTN1{							//Any positive-------------------------------------------
+					"%(gelLookForward)I-I know you mean well, but, uh, not now."
+
+				}else{										//Any negative-------------------------------------------
+
+				}
+
+				//Stagger versions (unlocked at the .5 mark)
+				if checkStaggerGreatTP3 {			//Positive Route Pt 3.5 ---------------------------------
+
+				}elseif checkStaggerGreatTP2 {		//Positive Route Pt 2.5 ---------------------------------
+					
+				}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 1.5 -------------------------
+
+				}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
+					
+				}elseif checkStaggerLessEqTN2 {		//Negative Route Pt 2.5 (and more) ----------------------
+					
+				}
+				"Can %(you), uh, not?\e"
+				"%(gelLookAway)I do%(not) want this."
+				"Stop it."
+			
+			//when uncomfortable (uncomf also gets Neutral dialogues here)
+			}when 5{
+				
+				//Category-specific Dialogues
+				if checkGreatTP4{			//(currently) Maxed Out Positive ----------------------------------------
+
+				}elseif checkGreatTP3{		//Positive Route Pt 3 ---------------------------------------------------
+					"%(gelBase)You know I do%(not) like being touched, %username, this is%(not) any different."
+				}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
+					
+				}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
+					//"newstuff"
+				}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
+
+				}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+
+				}elseif checkLessEqTN2{		//Negative Route Pt 2 (and more) ----------------------------------------
+					
+					
+				}
+
+				//General Positive/Negative Route Dialogues
+				if checkGreatTP2{							//Significantly positive---------------------------------
+
+				}else{
+					
+					"Why do %(you) have to do this to me now??"
+					"Stop that."
+				}
+
+
+				if checkGreatTN1{							//Any positive-------------------------------------------
+
+
+				}else{										//Any negative-------------------------------------------
+
+				}
+
+				//Stagger versions (unlocked at the .5 mark)
+				if checkStaggerGreatTP3 {			//Positive Route Pt 3.5 ---------------------------------
+
+				}elseif checkStaggerGreatTP2 {		//Positive Route Pt 2.5 ---------------------------------
+					
+				}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 1.5 -------------------------
+
+				}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
+					
+				}elseif checkStaggerLessEqTN2 {		//Negative Route Pt 2.5 (and more) ----------------------
+					
+				}
+				
+				if currentpets > 5{
+					"I told you to stop petting me."
+					"No! I do%(not).\w6.\w6. %(gelLookAway)%(gelConcerned)I do%(not) want to be touched!"
+					
+					//Pushing Gel's boundaries has different reactions based on claustro
+					if claustro < CLAUSTRODISCOMFORT{
+						"%(gelUpset)Stop it or else!"
+						"%(gelUpset)Grrrrrr....\![raise,OnMakeAngry,touch]"
+					
+					}else{
+						"%(gelLookAfraid)Please stop."
+						"%(gelLookNervous)You're making me feel really awful."
+						"\![raise,OnMakeScared,touch]%(gelLookNervous)I do%(not) want to be touched, %(dang) it!"
+					
+					}
+				}
+			//when scared
+			}when 6{
+				//Category-specific Dialogues
+				if checkGreatTP3{			//(currently) Maxed Out Positive ----------------------------------------
+
+				}elseif checkGreatTP2{		//Positive Route Pt 3 ---------------------------------------------------
+
+				}elseif checkGreatTP1{		//Positive Route Pt 2 ---------------------------------------------------
+					
+				}elseif checkGreatTN1{		//Positive/Neutral Route Pt 1 -------------------------------------------
+
+				}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+					"%(gelConcerned)Stop that!"
+					"Get away from me!"
+					"Please do%(not)!"
+					"%(gelWorry)Stop! Stop it please!"
+				}else{						//Negative Route Pt 2 (and more) ----------------------------------------
+					"%(gelSquint)I wish I could really see you on the other side of that screen... %(gelLookForward)%(gelSquint)I bet you%(are) secretly a AnWhitejacket... \![raise,OnSetVariable,jabbering,2]"
+					"%(gelLookForward)hhhhhhh.... %(gelLookLeft)nnn... %(gelLookRight)it... mmn....%(gelLookLeft)"
+				}
+
+				//General Positive/Negative Route Dialogues
+				if checkGreatTP2{							//Significantly positive---------------------------------
+
+				}
+
+
+				if checkGreatTN1{							//Any positive-------------------------------------------
+
+
+				}else{										//Any negative-------------------------------------------
+
+				}
+
+				//Stagger versions (unlocked at the .5 mark)
+				if checkStaggerGreatTP4 {			//Positive Route Pt 3.5 ---------------------------------
+
+				}elseif checkStaggerGreatTP3 {		//Positive Route Pt 2.5 ---------------------------------
+					"%(gelConcerned)Why! Why, %username! Stop that, %(you) know better! I do%(not) want to be touched!\![raise,OnSetVariable,jabbering,2]"
+				}elseif checkStaggerGreatTP2{			//Positive Route Pt 1.5--------------------------------------------------
+					//"newstuff"
+				}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 0.5 -------------------------
+
+				}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
+					"%(gelLookForward)%(gelArmsKnees)Stop it, stop it, take the hint!"
+				}elseif checkStaggerLessEqTN2 {		//Negative Route Pt 2.5 (and more) ----------------------
+					"%(gelLookForward)Are you a scientist? What do you gain?"
+				}
+				
+				//Generic
+				if currentpets > 3{
+					"%(gelConcerned)..."
+					"%(gelWorry)..."
+					"%(gelUpset)..."
+					"%(gelUpset)...stop..."
+					"%(gelConcerned)...I do%(not)..."
+				}else{
+					"%(gelLookForward)Urk! %(gelArmsChest)Oh, uh, do%(not) do that!"
+					" %(gelConcerned)Why are you like this!? %(gelLookForward)Stop it!"
+				}
+				
+			
+			//when angry
+			}when 10{
+			
+				//Category-specific Dialogues
+				if checkGreatTP3{			//(currently) Maxed Out Positive ----------------------------------------
+
+				}elseif checkGreatTP2{		//Positive Route Pt 3 ---------------------------------------------------
+
+				}elseif checkGreatTP1{		//Positive Route Pt 2 ---------------------------------------------------
+					
+				}elseif checkGreatTN1{		//Positive/Neutral Route Pt 1 -------------------------------------------
+
+				}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+					"%(gelLookForward)What do you think I am? %(gelConfused)A %(fudging) lab rat?"
+				}elseif checkLessEqTN2{		//Negative Route Pt 2 (and more) ----------------------------------------
+					"%(gelConfused)Why does this %(fudging) amuse you? "
+					"%(gelLookForward)%(gelUh)I know there%(is) a switch somewhere for me to leave, and if you do%(not) stop it, I%(am) going to go find it."
+			
+				}
+
+				//General Positive/Negative Route Dialogues
+				if checkGreatTP2{							//Significantly positive---------------------------------
+
+				}
+
+
+				if checkGreatTN1{							//Any positive-------------------------------------------
+					"%(gelLookForward)Hands off!"
+
+				}else{										//Any negative-------------------------------------------
+					"%(gelLookForward)Hands on your mouse, far away from me. "
+					"%(gelEyeRoll)So help me I will close myself. "
+				}
+
+				//Stagger versions (unlocked at the .5 mark)
+				if checkStaggerGreatTP3 {			//Positive Route Pt 3.5 ---------------------------------
+
+				}elseif checkStaggerGreatTP2 {		//Positive Route Pt 2.5 ---------------------------------
+					
+				}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 1.5 -------------------------
+
+				}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
+					"%(gelAngry)I already said I do%(not) want to be touched."
+				}elseif checkStaggerLessEqTN2 {		//Negative Route Pt 2.5 (and more) ----------------------
+					"%(gelLookForward)I%(have) been plenty nice with you in the past, now is not the time."
+				}
+				
+				//Suitably generic
+				if currentpets >= 5{
+					trust--	//bonus negative for petting
+					"%(gelLookForward)I do%(not) want to be touched, you %(bastard)!"
+					"%(gelLookForward)Do%(not) touch me, I%(am) %(fudging) serious!"
+				
+				}else{
+					"%(gelLookForward)Hands off."
+					"%(gelLookAway)Do%(not) touch me, %username, you do%(not) want to see me even more mad."
+					"%(gelLookForward)%(gelEyeRoll)What, do you think a little cursor-waving is going to make me any less mad at you?"
+				}
+				
+			//when curious
+			}when 14{
+				//Category-specific Dialogues
+				if currentpets == 0{
+					"%(gelLookForward)%(gelFrown)Ah! \w8%(gelLookAway)No petting. \w8That%(is) not %(okay). "
+					
+				}elseif checkGreatTP3{			//(currently) Maxed Out Positive ----------------------------------------
+
+				}elseif checkGreatTP2{		//Positive Route Pt 3 ---------------------------------------------------
+
+				}elseif checkGreatTP1{		//Positive Route Pt 2 ---------------------------------------------------
+					
+				}elseif checkGreatTN1{		//Positive/Neutral Route Pt 1 -------------------------------------------
+
+				}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+
+				}elseif checkLessEqTN2{		//Negative Route Pt 2 (and more) ----------------------------------------
+					
+					
+				}
+
+				//General Positive/Negative Route Dialogues
+				if checkGreatTP2{							//Significantly positive---------------------------------
+					"%(gelLookForward)%(gelFrown)Ah! %(gelLookAway)%(gelUh)%(username), I do%(not) really like that. \w8I thought you knew that."
+			
+				}
+
+
+				if checkGreatTN1{							//Any positive-------------------------------------------
+					"%(gelNervous)Hey, %username, maybe you could%(not) do that, and just focus on what you were doing?"
+
+				}else{										//Any negative-------------------------------------------
+					"Hey! %(gelLookForward)%(gelFrown)%(gelEarsBack)Hands to your keyboard."
+				}
+
+				//Stagger versions (unlocked at the .5 mark)
+				if checkStaggerGreatTP4 {			//Positive Route Pt 3.5 ---------------------------------
+
+				}elseif checkStaggerGreatTP3 {		//Positive Route Pt 2.5 ---------------------------------
+				
+				}elseif checkStaggerGreatTP2{			//Positive Route Pt 1.5--------------------------------------------------
+					
+				}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 0.5 -------------------------
+					//we know we are in notouchie on the positive route
+					"Hey, I do%(not) like that!"
+					"Can you stop?"
+					"I just wanted to see what you were working on, I did%(not) ask to be touched!"
+					"Keep your hands to yourself!"
+				}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
+					
+				}elseif checkStaggerLessEqTN2 {		//Negative Route Pt 2.5 (and more) ----------------------
+					
+				}
+				
+			
+			
+			
+			}
+
+		}
+		
+		if emotion != 3 && emotion != 5 && currentpets > 10{
+			
+			"%(gelAngry)Will you stop that!?"
+		}
+		
+		//Neutral and uncomfortable overlap here
+		if emotion == 1 || emotion == 5{
+			
+			if pets % 5 == 0 && caged >= 1{
+					claustro++
+				}
+				//Category-specific Dialogues
+				if checkGreatTP4{			//(currently) Maxed Out Positive ----------------------------------------
+
+				}elseif checkGreatTP3{		//Positive Route Pt 3 ---------------------------------------------------
+					"%(gelLookForward)%(gelSquint)Hey, you know full well I hate this..."
+				}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
+					"%(gelLookForward)%(gelSlashMouth)This feels bad."
+					"%(gelUncomfortable)You%(are) making me uncomfortable... \![raise,OnMakeUncomfortable,touch]"
+				}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
+					//"newstuff"
+				}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
+					if currentpets > 0; "%(gelLookAway)I%(am) not comfortable with this."
+					"%(gelLookForward)%(gelUh)Are you... petting me? \w8\w8%(gelUh)Can you not?"
+				}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+					"Stop treating me like I%(am) some sort of dog, %username.\e"
+					"%(gelNervous)May I ask that you not?"
+					"%(gelLookForward)%(gelEarsBack)When did I say you could? "
+				}elseif checkLessEqTN2{		//Negative Route Pt 2 (and more) ----------------------------------------
+					
+					
+				}
+
+				//General Positive/Negative Route Dialogues
+				if checkGreatTP2{							//Significantly positive---------------------------------
+					"%(gelNervous)%(gelSlashMouth)Come on, %(nicknamed). Please."
+				}
+
+
+				if checkGreatTN1{							//Any positive-------------------------------------------
+					
+					
+					"Do%(not) do that.\e"
+					"%(gelLookAway)%(gelFurrowed)%(gelSlashMouth)I do%(not) like pets.\e"
+					"I%(am) not a pet.\e"
+					"%(gelLookForward)%(gelNervous)Hey, I do%(not) really like bein%(guh) touched, %username."
+
+				}else{										//Any negative-------------------------------------------
+					"%(gelFurrowed)Hands off!\e"
+				}
+
+				//Stagger versions (unlocked at the .5 mark)
+				if checkStaggerGreatTP3 {			//Positive Route Pt 3.5 ---------------------------------
+
+				}elseif checkStaggerGreatTP2 {		//Positive Route Pt 2.5 ---------------------------------
+					
+				}elseif checkStaggerGreatTP1{		//Positive Route Pt 1.5--------------------------------------------------
+					//"newstuff"
+				}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 0.5 -------------------------
+					"%(gelLookRight)Do%(not) pet me, please. "
+				}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
+					"%(gelLookForward)Hey, stop that. That%(is) bad."
+					"Stop.\e"
+				}elseif checkStaggerLessEqTN2 {		//Negative Route Pt 2.5 (and more) ----------------------
+					"Do%(not) pet me, %username."
+				}
+				
+				if currentpets > 5{
+					"%(gelUh)Why do you keep petting me? I%(am) not a pet!"
+					
+				}
+				
+				if currentpets > 10{
+					"%(gelLookForward)%(gelUh)I know there%(is) a switch somewhere for me to leave, and if you do%(not) stop it, I%(am) going to go find it."
+					
+				}
+				
+				
+			
+		}
+	}
+
+}
+
+//******************************************************************************
+//Hitting
+//******************************************************************************
+
+//And if Gel is nervous enough about being punched, they may react to you being near their face
+OnMouseEnter{
+	if (punches > 21 || claustro >= 70) && reference3 == 0 && (reference4 == "Face" || reference4 == "Head"){
+		"%(gelLookForward)%(gelFurrowed)%(gelArmsChest)"
+		"%(gelLookForward)%(gelFurrowed)%(gelArmsChest)"
+		"%(gelLookForward)%(gelFurrowed)%(gelArmsChest)"
+		"%(gelLookAway)%(gelFurrowed)%(gelArmsChest)"
+	}
+}
+
+//maybe if the balloon is open gel promises to shut up (ELEPHANT)
+
+//Redirects to normal punch dialogues
+MouseDoubleClick0Head
+{
+/*
+	lastinter  = 0
+	if emotion != -1{
+		punches++
+		shakenup++
+		if punches < 10{
+			trust--
+			askgel = 6
+		}
+		if RAND(10) == 8{
+			claustro++
+		}
+		"%(gelBase)Hey! No hitting!\e"
+		
+	
+	}else{
+		"ouch.\w4.\w4.\e"
+		"Hm?\e"
+		"Hn?\e"
+		"oh...\e"
+		//A chance Gel will be woken
+		"\![raise,OnGelEMOTION,1]\e"
+	
+	}
+*/
+	MouseDoubleClick0Face
+}
+
+//Punching
+MouseDoubleClick0Face
+{
+	lastinter  = 0
+	//hitting Gel when they are asleep counts as 
+	if emotion != -1{
+		//every 10 or so punches Gel gets physical injuries, handled in the surfacing functs
+		punches++
+		badtouches++
+		lastinter = 0
+		useractive = 1
+		askgel=6
+		currentpunches++
+		//may raise claustro if they've been pet as well
+		if currentpets > 0 && claustro > 0{
+			currentpets--
+			claustro++
+		}
+		"\_v[sounds/punch.wav]%(gelHit)"
+		--
+		//first punch
+		if punches == 1{
+			trust-=20
+			OnMakeUncomfortable
+			"W--What? %(gelLookForward)What was that for? That really hurt!"
+		
+		}elseif punches == 2{
+			OnMakeUncomfortable
+			trust-=30
+			"Ouch! Again? What did I do to you, %username? Lay off!"
+		
+		}else{
+			//Now we handle reg vs jabber
+			if jabbering{
+				//mark as complete
+				jabbering = 0
+				trust-=5
+				case emotion{
+							
+					when 0{
+						"\![raise,OnMakeNeutral]"
+						--
+						"%(gelLookForward)W-what? %(gelLookConcerned)Come on, I was%(not) talking that much."
+						
+					
+					//when sick
+					}when 3{
+						"%(gelLookForward)Urgh.. %(gelNervous)I can't be going on *that* long..."
+						//Category-specific Dialogues
+						if checkGreatTP3{			//(currently) Maxed Out Positive ----------------------------------------
+						
+						}elseif checkGreatTP2{		//Positive Route Pt 3 ---------------------------------------------------
+						
+						}elseif checkGreatTP1{		//Positive Route Pt 2 ---------------------------------------------------
+							
+						}elseif checkGreatTN1{		//Positive/Neutral Route Pt 1 -------------------------------------------
+
+						}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+							
+						}elseif checkLessEqTN2{		//Negative Route Pt 2 (and more) ----------------------------------------
+							
+						}
+
+						//General Positive/Negative Route Dialogues
+						if checkGreatTP2{							//Significantly positive---------------------------------
+
+						}
+						
+						if checkGreatTN1{							//Any positive-------------------------------------------
+
+						}else{										//Any negative-------------------------------------------
+							"%(gelLookForward)Ow! I reserve... %(gelLookRight)%(gelNervous)my right to speak as I will..."
+						}
+
+						//Stagger versions (unlocked at the .5 mark)
+						if checkStaggerGreatTP3 {			//Positive Route Pt 3.5 ---------------------------------
+						
+						}elseif checkStaggerGreatTP2 {		//Positive Route Pt 2.5 ---------------------------------
+							
+						}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 1.5 -------------------------
+
+						}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
+							"%(gelLookForward)%(gelNervous)You%(are) just a cruel human... %(gelUh)nothing more... %(gelLookAway)average %(bastard)... \![raise,OnSetVariable,jabbering,3]"
+						}elseif checkStaggerLessEqTN2 {		//Negative Route Pt 2.5 (and more) ----------------------
+							"%(gelLookForward)%(gelNervous)You%(are) just a cruel human... %(gelUh)nothing more... %(gelLookAway)average %(bastard)... always will be...\![raise,OnSetVariable,jabbering,3]"
+						}					
+					
+					//when scared
+					}when 6{
+						//Category-specific Dialogues
+						if checkGreatTP3{			//(currently) Maxed Out Positive ----------------------------------------
+						
+						}elseif checkGreatTP2{		//Positive Route Pt 3 ---------------------------------------------------
+						
+						}elseif checkGreatTP1{		//Positive Route Pt 2 ---------------------------------------------------
+							
+						}elseif checkGreatTN1{		//Positive/Neutral Route Pt 1 -------------------------------------------
+
+						}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+						
+						}elseif checkLessEqTN2{		//Negative Route Pt 2 (and more) ----------------------------------------
+							"%(gelLookForward)Ow! \w8\w8\w8%(gelLookRight)%(gelNervous)Sorry..."
+						}
+
+						//General Positive/Negative Route Dialogues
+						if checkGreatTP2{							//Significantly positive---------------------------------
+
+						}
+						
+						if checkGreatTN1{							//Any positive-------------------------------------------
+							"%(gelLookForward)W-what? %(gelLookConcerned)Come on, I was%(not) talking that much."
+						}else{										//Any negative-------------------------------------------
+							"%(gelLookForward)Hhhh... %(gelLookAway)guess I was running my mouth a little too much..."
+						}
+
+						//Stagger versions (unlocked at the .5 mark)
+						if checkStaggerGreatTP3 {			//Positive Route Pt 3.5 ---------------------------------
+						
+						}elseif checkStaggerGreatTP2 {		//Positive Route Pt 2.5 ---------------------------------
+							
+						}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 1.5 -------------------------
+
+						}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
+							
+						}elseif checkStaggerLessEqTN2 {		//Negative Route Pt 2.5 (and more) ----------------------
+							
+						}						
+						
+									
+					//when angry
+					}when 10{
+						
+						//Punching an angy Gel is at least a little more understandable to them, long term. Not ok though.
+						addtrust(2)
+						//Category-specific Dialogues
+						if checkGreatTP3{			//(currently) Maxed Out Positive ----------------------------------------
+						
+						}elseif checkGreatTP2{		//Positive Route Pt 3 ---------------------------------------------------
+						
+						}elseif checkGreatTP1{		//Positive Route Pt 2 ---------------------------------------------------
+							
+						}elseif checkGreatTN1{		//Positive/Neutral Route Pt 1 -------------------------------------------
+
+						}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+							
+						}else{						//Negative Route Pt 2 (and more) ----------------------------------------
+							"%(gelLookForward)What, was I mouthing off? %(gelGlare)You %(binch). I hate you. You know that though.\![raise,OnSetVariable,jabbering,3]"
+						}
+
+						//General Positive/Negative Route Dialogues
+						if checkGreatTP2{							//Significantly positive---------------------------------
+
+						}
+						
+						if checkGreatTN1{							//Any positive-------------------------------------------
+							"HA! You think you%(are) tough? I do what I will. Punch me."
+						}else{										//Any negative-------------------------------------------
+							"%(gelLookForward)%(gelGlare)Do it, hit me again! %(gelSmug)I%(will) run my mouth all I want."
+						}
+
+						//Stagger versions (unlocked at the .5 mark)
+						if checkStaggerGreatTP3 {			//Positive Route Pt 3.5 ---------------------------------
+						
+						}elseif checkStaggerGreatTP2 {		//Positive Route Pt 2.5 ---------------------------------
+							
+						}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 1.5 -------------------------
+
+						}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
+							
+						}elseif checkStaggerLessEqTN2 {		//Negative Route Pt 2.5 (and more) ----------------------
+							
+						}						
+						
+						
+						
+					
+					//when curious
+					}when 14{
+						
+						//ALWAYS INSTIGATES AWKWARD SILENCE (if not already active)
+						if awkwardsilence == 1{
+						
+						}else{
+						
+						
+							//Category-specific Dialogues
+							if checkGreatTP3{			//(currently) Maxed Out Positive ----------------------------------------
+							
+							}elseif checkGreatTP2{		//Positive Route Pt 3 ---------------------------------------------------
+							
+							}elseif checkGreatTP1{		//Positive Route Pt 2 ---------------------------------------------------
+								
+							}elseif checkGreatTN1{		//Positive/Neutral Route Pt 1 -------------------------------------------
+
+							}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+							
+							}elseif checkLessEqTN2{		//Negative Route Pt 2 (and more) ----------------------------------------
+							}
+
+							//General Positive/Negative Route Dialogues
+							if checkGreatTP2{							//Significantly positive---------------------------------
+
+							}
+							
+							if checkGreatTN1{							//Any positive-------------------------------------------
+								"%(gelLookForward)Ouch, come on! %(gelFurrowed)I%(am) innocent! %(gelSlashMouth)Try me in court, I dare you!\![raise,OnMakeAngry,punch]"
+							}else{										//Any negative-------------------------------------------
+								"%(gelLookForward)AH! %(gelNervous)Come on, %username, I was just interested in what you%(are) doing! %(gelLookAway)%(gelNervous)%(gelUh)There%(is) no harm in having a little energy... "
+							}
+							"%(gelLookForward)Yikes! What was that for? %(gelLookConcerned)I%(have) been innocent! "
+
+							//Stagger versions (unlocked at the .5 mark)
+							if checkStaggerGreatTP3 {			//Positive Route Pt 3.5 ---------------------------------
+							
+							}elseif checkStaggerGreatTP2 {		//Positive Route Pt 2.5 ---------------------------------
+								
+							}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 1.5 -------------------------
+
+							}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
+								
+							}elseif checkStaggerLessEqTN2 {		//Negative Route Pt 2.5 (and more) ----------------------
+								
+							}
+						}
+						
+					
+					//Handle neutral
+					}others{
+						//Category-specific Dialogues
+						if checkGreatTP3{			//(currently) Maxed Out Positive ----------------------------------------
+						
+						}elseif checkGreatTP2{		//Positive Route Pt 3 ---------------------------------------------------
+						
+						}elseif checkGreatTP1{		//Positive Route Pt 2 ---------------------------------------------------
+							
+						}elseif checkGreatTN1{		//Positive/Neutral Route Pt 1 -------------------------------------------
+								
+						}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+						
+						}elseif checkLessEqTN2{		//Negative Route Pt 2 (and more) ----------------------------------------
+							
+						}
+
+						//General Positive/Negative Route Dialogues
+						if checkGreatTP2{							//Significantly positive---------------------------------
+
+						}
+						
+						if checkGreatTN1{							//Any positive-------------------------------------------
+							
+						}else{										//Any negative-------------------------------------------
+							
+						}
+
+						//Stagger versions (unlocked at the .5 mark)
+						if checkStaggerGreatTP3 {			//Positive Route Pt 3.5 ---------------------------------
+						
+						}elseif checkStaggerGreatTP2 {		//Positive Route Pt 2.5 ---------------------------------
+							
+						}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 1.5 -------------------------
+
+						}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
+							
+						}elseif pets < TNEG2 - (TREGINC / 2) {		//Negative Route Pt 2.5 (and more) ----------------------
+							
+						}					
+						
+						
+						
+					}
+			
+				}
+				
+				//Neutral and uncomfortable largely share
+				if emotion == 1 || emotion == 5{
+					
+					//Category-specific Dialogues
+						if checkGreatTP4{			//(currently) Maxed Out Positive ----------------------------------------
+						
+						}elseif checkGreatTP3{		//Positive Route Pt 3 ---------------------------------------------------
+							"%(gelLookForward)OW, WHAT THE? %(gelUh)That%(is) not like you! %(gelFurrowed)I will talk all I want. \w8%(gelSquint)Do. Not. Hit. Me. \w8%(gelLookAway)%(gelSquint)And I do not talk too much. \![raise,OnMakeUncomfortable,punch]"
+						}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
+							"%(gelLookForward)What the?! %(gelSurprise)Did you just punch me for talking too much!? %(gelUh)That%(is) not like you. %(gelLookAway)That%(is)... "
+						}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
+							//"newstuff"
+						}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
+							"%(gelLookForward)Ouch! \w8\w8I%(am) sorry I was talking too much, %(gelConfused)but do%(not) you think that%(is) excessive? "
+						}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+							"%(gelLookForward)Hey! %(gelUh)You call that me mouthing off? %(gelFrown)That %(isnt) very nice!"
+	
+						}else{		//Negative Route Pt 2 (and more) ----------------------------------------
+							if claustro >= CLAUSTRODILATION; "%(gelLookForward)Ow! %(gelArmsGestR)Come on, give me a break! %(gelWorry)I was%(not) talking that much! "
+						}
+
+						//General Positive/Negative Route Dialogues
+						if checkGreatTP2{							//Significantly positive---------------------------------
+
+						}
+						
+						if checkGreatTN1{							//Any positive-------------------------------------------
+							"%(gelLookForward)%(gelSlashMouth)Ouch! %(gelLookAway)Yeesh, sorry. \w8\w6%(gelFrown)No need to be physical about it."
+						}else{										//Any negative-------------------------------------------
+							"%(gelLookForward)What, was I mouthing off? Just talking too much? %(gelGlare)Or is that just one of your whims? \![raise,OnSetVariable,jabbering,2]"
+							if claustro >= CLAUSTRODILATION; "%(gelLookForward)Fine, ouch, yeesh! %(gelNervous)I%(will) be quiet, if that%(is) what you want.\![raise,OnMakeScared,punch]"
+						}
+				}
+			}else{
+				
+				//NON JABBERING DIALOGUES
+				if punches % 4 == 0 && punches <= 68{
+					trust-=3
+				}
+				case emotion{
+							
+					when 0{
+						"\![raise,OnMakeNeutral]"
+						--
+						"%(gelForceLookComfortable)%(gelFlinch)Ouch! .\w4.\w4.Huh? %(gelWorry)What? What was that for.\w4.\w4.?"
+						"%(gelForceLookComfortable)%(gelFrown)WH-WHAT I%(am) AWAKE I AM AWAKE NOW"
+
+					
+					//when sick
+					}when 3{
+						
+						//Category-specific Dialogues
+						if checkGreatTP3{			//(currently) Maxed Out Positive ----------------------------------------
+						
+						}elseif checkGreatTP2{		//Positive Route Pt 3 ---------------------------------------------------
+						
+						}elseif checkGreatTP1{		//Positive Route Pt 2 ---------------------------------------------------
+							
+						}elseif checkGreatTN1{		//Positive/Neutral Route Pt 1 -------------------------------------------
+
+						}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+							"Urk! %(gelNervous)That%(is)... oh, %(fudge)..."
+							
+						}elseif checkLessEqTN2{		//Negative Route Pt 2 (and more) ----------------------------------------
+							"%(gelLookForward)%(gelNervous)You%(are) just a cruel human... %(gelUh)nothing more... %(gelLookAway)average %(bastard)... \![raise,OnSetVariable,jabbering,3]"
+						}
+
+						//General Positive/Negative Route Dialogues
+						if checkGreatTP2{							//Significantly positive---------------------------------
+
+						}
+						
+						if checkGreatTN1{							//Any positive-------------------------------------------
+
+						}else{										//Any negative-------------------------------------------
+							"%(gelLookForward)Ouch! %(gelNervous)Why do you do these things to me? Why? Why me?"
+						}
+
+						//Stagger versions (unlocked at the .5 mark)
+						if checkStaggerGreatTP3 {			//Positive Route Pt 3.5 ---------------------------------
+						
+						}elseif checkStaggerGreatTP2 {		//Positive Route Pt 2.5 ---------------------------------
+							
+						}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 1.5 -------------------------
+
+						}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
+							
+						}elseif checkStaggerLessEqTN2 {		//Negative Route Pt 2.5 (and more) ----------------------
+							
+						}					
+					//when uncomfortable (more later)
+					}when 5{
+						"H-Hey!"
+						"%(gelConcerned)Ouch, %username!"
+											
+						
+					//when scared
+					}when 6{
+						//Category-specific Dialogues
+						if checkGreatTP4{			//(currently) Maxed Out Positive ----------------------------------------
+						
+						}elseif checkGreatTP3{		//Positive Route Pt 3 ---------------------------------------------------
+						
+						}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
+							
+						}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
+							//"newstuff"
+						}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
+
+						}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+							if currentpunches > 3; "%(gelLookForward)Ouch! %(gelNervous)Stop it, stop it! \w8I do%(not) know what you want from me!"
+						}elseif checkLessEqTN2{		//Negative Route Pt 2 (and more) ----------------------------------------
+							"%(gelLookForward)Ow! \w8\w8%(gelNervous)I%(am)... not even doing anything... "
+							"%(gelLookForward)%(gelGlare)Is cruelty an emotion? \w8\w8\w6%(gelLookForward)Is that something you feel? \w8\w6%(gelConfused)Is that why you%(are) like this?\![raise,OnSetVariable,jabbering,2]"
+						}
+
+						//General Positive/Negative Route Dialogues
+						if checkGreatTP2{							//Significantly positive---------------------------------
+
+						}
+						
+						if checkGreatTN1{							//Any positive-------------------------------------------
+
+						}else{										//Any negative-------------------------------------------
+							"%(gelLookAway)Hhhh... stop it, please..."
+						}
+
+						//Stagger versions (unlocked at the .5 mark)
+						if checkStaggerGreatTP3 {			//Positive Route Pt 3.5 ---------------------------------
+						
+						}elseif checkStaggerGreatTP2 {		//Positive Route Pt 2.5 ---------------------------------
+							
+						}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 1.5 -------------------------
+
+						}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
+							"%(gelLookForward)%(gelGlare)Stop it! I get it already, stop it!"
+						}elseif checkStaggerLessEqTN2 {		//Negative Route Pt 2.5 (and more) ----------------------
+							"%(gelLookForward)%(gelGlare)You%(are) a cruel human."
+						}						
+						if checkGreatTP2{
+							"What, are you trying to smack some sense into me?"
+						}elseif checkGreatTP1{
+							"I.\w4.\w4 Please do%(not).\w4.\w4."
+							"%(gelLookRight)%(gelLookConcerned)%(gelFlinch)!!! What was that for!"
+						}elseif checkGreatTN1{
+
+							"%(gelLookAway)Please leave me be.\w4.\w4."
+						
+						}else{
+							"hnnnn!"
+							"Hngh!"
+							"Ouch!"
+							
+						}
+									
+					//when angry
+					}when 10{
+						
+						//they goad you here, and I want that to lessen the effect of punches
+						if punches % 2 && punches <= 68{
+							addtrust(1)
+						}
+						//Category-specific Dialogues
+						if checkGreatTP3{			//(currently) Maxed Out Positive ----------------------------------------
+						
+						}elseif checkGreatTP2{		//Positive Route Pt 3 ---------------------------------------------------
+						
+						}elseif checkGreatTP1{		//Positive Route Pt 2 ---------------------------------------------------
+							
+						}elseif checkGreatTN1{		//Positive/Neutral Route Pt 1 -------------------------------------------
+
+						}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+							"%(geLLookForward)You%(are) lucky I can't come out there."
+						}else{						//Negative Route Pt 2 (and more) ----------------------------------------
+							"%(gelLookForward)%(gelGlare)YOU CAN BE HARDER THAN THAT, DO IT, HIT ME HARDER!"
+							"%(gelLookForward)%(gelGlare)GONNA FIND OUT WHAT COLOR I BLEED?"
+							"%(gelLookForward)%(gelGlare)YOU CALL THAT A PUNCH?"
+						}
+
+						//General Positive/Negative Route Dialogues
+						if checkGreatTP2{							//Significantly positive---------------------------------
+
+						}
+						
+						if checkGreatTN1{							//Any positive-------------------------------------------
+
+						}else{										//Any negative-------------------------------------------
+							"%(gelLookForward)%(gelGlare)Hit me again, harder! I %(fudging) dare you!\![raise,OnMakeAngry,punch]"
+							"%(gelLookForward)%(gelGlare)You%(are) a %(binch)! "
+						}
+
+						//Stagger versions (unlocked at the .5 mark)
+						if checkStaggerGreatTP3 {			//Positive Route Pt 3.5 ---------------------------------
+						
+						}elseif checkStaggerGreatTP2 {		//Positive Route Pt 2.5 ---------------------------------
+							
+						}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 1.5 -------------------------
+
+						}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
+							"%(gelLookForward)Ouch! %(gelGlare)Urg, if I could get my hands on you..."
+						}elseif checkStaggerLessEqTN2 {		//Negative Route Pt 2.5 (and more) ----------------------
+							"%(gelLookForward)KEEP GOING AND WATCH ME %(gelGlare)GET READY TO BREAK YOUR COMPUTER FROM THE INSIDE OUT"
+						}						
+						//Gel insults time! 
+						if claustro < CLAUSTRODISCOMFORT || claustro > CLAUSTROSTUTTER{
+							"%(gelCocky)What was that for? What do you call that, a poke? Hit me harder, %(bastard)!"
+						}
+						
+						
+					
+					//when curious
+					}when 14{
+						
+						//ALWAYS INSTIGATES AWKWARD SILENCE (if not already active)
+						if awkwardsilence == 1{
+							if claustro < CLAUSTRODILATION; "%(gelLookForward)%(gelUh)Even when I%(am) doing things right, %(gelHuh)the way you want, you hit me? %(gelGlare)Screw you!\![raise,OnMakeAngry,punch]]\![raise,OnSetVariable,jabbering,2]"
+							"%(gelLookForward)Ouch! %(gelLookConcerned)I have%(not) even been saying anything! I%(have) been quiet, like you want! Right!?"
+							"%(gelLookForward)Ow! %(gelNervous)Have%(not) I been doing what you want me to!? \![raise,OnSetVariable,jabbering,2]"
+						}else{
+							//generic responses
+							{
+								"%(gelWorry)I%(am) sorry, I%(am) sorry! I%(will) be quiet."
+								"%(gelLookForward)Ouch! %(gelGlare)What%(is) the matter with you!? %(gelNervous)What even do you want!? I%(am) just watching you work!"
+							}
+							awkwardsilence = 1
+						
+						
+							//Category-specific Dialogues
+							if checkGreatTP3{			//(currently) Maxed Out Positive ----------------------------------------
+							
+							}elseif checkGreatTP2{		//Positive Route Pt 3 ---------------------------------------------------
+							
+							}elseif checkGreatTP1{		//Positive Route Pt 2 ---------------------------------------------------
+								
+							}elseif checkGreatTN1{		//Positive/Neutral Route Pt 1 -------------------------------------------
+
+							}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+								"Ow, hey! %(gelUh)I was just watching you! %(gelNervous)What%(is) so bad about that!?"
+							}elseif checkLessEqTN2{		//Negative Route Pt 2 (and more) ----------------------------------------
+								"%(gelLookForward)OUCH! Fine, fine, I%(will) be quiet! %(gelLookAway)%(gelFurrowed)%(gelSlashMouth)Yeesh, no need to be so grouchy. "
+							}
+
+							//General Positive/Negative Route Dialogues
+							if checkGreatTP2{							//Significantly positive---------------------------------
+
+							}
+							
+							if checkGreatTN1{							//Any positive-------------------------------------------
+
+							}else{										//Any negative-------------------------------------------
+								"%(gelLookForward)Fine, fine! %(gelFurrowed)I%(will) be quiet! "
+							}
+
+							//Stagger versions (unlocked at the .5 mark)
+							if checkStaggerGreatTP3 {			//Positive Route Pt 3.5 ---------------------------------
+							
+							}elseif checkStaggerGreatTP2 {		//Positive Route Pt 2.5 ---------------------------------
+								
+							}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 1.5 -------------------------
+
+							}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
+								
+							}elseif checkStaggerLessEqTN2 {		//Negative Route Pt 2.5 (and more) ----------------------
+								
+							}
+						}
+						
+					
+					//Handle neutral
+					}others{
+						//Category-specific Dialogues
+						if checkGreatTP4{			//(currently) Maxed Out Positive ----------------------------------------
+						
+						}elseif checkGreatTP3{		//Positive Route Pt 3 ---------------------------------------------------
+						
+						}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
+							
+						}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
+							//"newstuff"
+						}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
+							"%(gelLookForward)%(gelGlare)Ow, hey! I did%(not) do anything to deserve that. You should%(not) hit."
+							"%(gelLookForward)%(gelGlare)Oh, so you%(are) gonna hit me? %(gelSmug)Is a cute %(lil) assistant not what you want? Want me to be scary?\![raise,OnSetVariable,jabbering,2]"
+						}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
+							if claustro < CLAUSTRODILATION; "%(gelLookForward)%(gelGlare)Oh, so you%(are) gonna hit me? %(gelSmug)Is a cute %(lil) assistant not what you want? Want me to be scary? %(gelLookForward)%(gelGlare)I can be scary. %(gelPout)I can be sullen. %(gelArmsFlipOff)I can be rude. What the %(fudge) is the point of hitting anyone?! \![raise,OnSetVariable,jabbering,2]\![raise,OnMakeAngry,punch]"
+						}elseif checkLessEqTN2{		//Negative Route Pt 2 (and more) ----------------------------------------
+							
+						}
+
+						//General Positive/Negative Route Dialogues
+						if checkGreatTP2{							//Significantly positive---------------------------------
+
+						}
+						
+						if checkGreatTN1{							//Any positive-------------------------------------------
+							if currentpunches > 5{
+								"Stop! Stop hitting me!"
+								"Let up!"
+							}else{
+								"%(gelConcerned)Hey! What was that for?"
+							}
+						}else{										//Any negative-------------------------------------------
+							"%(gelLookForward)%(gelHuh)Now now, little creechur from your human Chain. \w8No hitting."
+							"%(gelLookForward)%(gelGlare)Why would you hit someone?"
+						}
+
+						//Stagger versions (unlocked at the .5 mark)
+						if checkStaggerGreatTP3 {			//Positive Route Pt 3.5 ---------------------------------
+						
+						}elseif checkStaggerGreatTP2 {		//Positive Route Pt 2.5 ---------------------------------
+							
+						}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 1.5 -------------------------
+
+						}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
+							"%(gelLookForward)%(gelConfused)Did%(not) your mom teach you hitting is%(not) very nice? "
+						}elseif pets < TNEG2 - (TREGINC / 2) {		//Negative Route Pt 2.5 (and more) ----------------------
+							
+						}					
+						
+						
+						
+					}
+			
+				}
+				
+				if emotion == 1 || emotion == 5{
+					//Category-specific Dialogues
+					if checkGreatTP4{            //(currently) Maxed Out Positive ----------------------------------------
+					
+					}elseif checkGreatTP3{        //Positive Route Pt 3 ---------------------------------------------------
+					
+					}elseif checkGreatTP2{        //Positive Route Pt 2 ---------------------------------------------------
+						
+					}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
+						//"newstuff"
+					}elseif checkGreatTN1{        //Positive/Neutral Route Pt 0 -------------------------------------------
+						"%(gelLookForward)%(gelGlare)Ow, hey! I did%(not) do anything to deserve that. You should%(not) hit."
+						"%(gelLookForward)%(gelGlare)Oh, so you%(are) gonna hit me? %(gelSmug)Is a cute %(lil) assistant not what you want? Want me to be scary?\![raise,OnSetVariable,jabbering,2]"
+					}elseif checkGreatTN2{        //Negative Route Pt 1 ---------------------------------------------------
+						if claustro < CLAUSTRODILATION; "%(gelLookForward)%(gelGlare)Oh, so you%(are) gonna hit me? %(gelSmug)Is a cute %(lil) assistant not what you want? Want me to be scary? %(gelLookForward)%(gelGlare)I can be scary. %(gelPout)I can be sullen. %(gelArmsFlipOff)I can be rude. What the %(fudge) is the point of hitting anyone?! \![raise,OnSetVariable,jabbering,2]\![raise,OnMakeAngry,punch]"
+					}elseif checkLessEqTN2{        //Negative Route Pt 2 (and more) ----------------------------------------
+						
+					}
+
+					//General Positive/Negative Route Dialogues
+					if checkGreatTP2{                            //Significantly positive---------------------------------
+
+					}
+					
+					if checkGreatTN1{                            //Any positive-------------------------------------------
+						if currentpunches > 5{
+							"Stop! Stop hitting me!"
+							"Let up!"
+						}else{
+							"%(gelConcerned)Hey! What was that for?"
+						}
+					}else{                                        //Any negative-------------------------------------------
+						"%(gelLookForward)%(gelHuh)Now now, little creechur from your human Chain. \w8No hitting."
+						"%(gelLookForward)%(gelGlare)Why would you hit someone?"
+					}
+
+					//Stagger versions (unlocked at the .5 mark)
+					if checkStaggerGreatTP4 {            //Positive Route Pt 3.5 ---------------------------------
+					
+					}elseif checkStaggerGreatTP3 {        //Positive Route Pt 2.5 ---------------------------------
+						
+					}elseif checkStaggerGreatTP2{		//Positive Route Pt 1.5--------------------------------------------------
+						//"newstuff"
+					}elseif checkStaggerGreatTP1 {        //Positive/Neutral Route Pt 0.5 -------------------------
+
+					}elseif checkStaggerGreatTN1{        //Negative Route Pt 1.5 ---------------------------------
+						"%(gelLookForward)%(gelConfused)Did%(not) your mom teach you hitting is%(not) very nice? "
+					}elseif pets < TNEG2 - (TREGINC / 2) {        //Negative Route Pt 2.5 (and more) ----------------------
+						
+					}
+				}
+
+			}
+		}
+	
+	}else{
+		//Awaken Gel
+		"\![raise,OnGelEMOTION,1]\e"
+	
+	}
+	
+}
+
+MouseDoubleClick0Ear
+{
+	lastinter  = 0
+	if emotion > 0{
+		//Gel doesn't particularly like it
+		if RAND(20) == 8{
+			claustro++
+		}
+		"%(gelBase)%(gelUh)Do%(not) just go around pokin people's ears.\e"
+		"%(gelLookForward)%(gelFrown)%(gelEarTwitch)Hey!"
+		if checkGreatTP1{
+			"%(gelEarTwitch)%(gelFurrowed)Hey, that tickles!"
+		}
+	
+	}elseif emotion == 0{
+		"%(gelEarTwitch)"
+	
+	}else{
+		//Wake Gel up
+		"\![raise,OnGelEMOTION,1]\e"
+	
+	}
+}
+
+MouseDoubleClick0Minimize{
+
+	if emotion != -1{
+		useractive = 0
+		if checkBadMood || notouchie{
+			"%(gelLookAfraid)%(gelWorry)Wait--!"
+		}else{
+			"I%(will) be in the taskbar if you need me!\w6"
+		}
+	}
+	--
+	"\w8\w6\![set,windowstate,minimize]"
+}
+
+MouseDoubleClick0Quit{
+	lastinter = 0
+	if emotion != -1{
+		"Are you sure %(you)'d like to close me?"
+		--
+		MenuItem("Yep!","Window_CLOSE",200)
+		--
+		MenuItem("Nevermind...","Menu_CANCEL")
+	}else{
+		OnClose
+	}
+}
+
+
+OnMouseLeave{
+	//Seasonal dressup
+	if reference4 == "JingleBell"{
+		jinglebells++
+		"\C\_v[sounds/550278__department64__jinglingbells-wreath-04.wav]\i[1213]"
+		
+	//Nervous Gel assuming you won't punch them
+	}elseif (punches > 21 || claustro >= 70) && reference3 == 0 && (reference4 == "Face" || reference4 == "Head"){
+		"%(gelLookForward)"
+	}
+
+	
+}
+
+
+//*********************************
+// High Five
+//*********************************
+
+
+//rub hand (start high five)
+MouseMove0RightHand{
+	"%(gelLookRight)%(gelConfused)%(gelArmsQuestion)Hmm?"
+}
+
+MouseDoubleClick0RightHand{
+	if checkBadMood{
+		"%(gelLookForward)%(gelArmsHighFive)%(gelUh)Ugh, do%(not) do that."
+	}else{
+		"%(gelLookForward)%(gelArmsHighFive)High five!"
+	}
+}
+
+
+
+Window_CLOSE{
+	OnClose
+}
+
+MouseDoubleClick0
+{
+	//顔以外のつつきでメニュー展開
+	OpenMenu
+}
+
+
+
+MouseWheel0Ear{
+	gelHmm
+	--
+	gelEarTwitch
+}
+
+//******************************************************************************
+//マウス処理部コア
+//AYATEMPLATE.MouseMoveWheelFuncの2番目の数字が「感度」です。
+//1番目の数字（0か1）は、MoveかWheelかを判別するためのもので、
+//変更の必要はありません。
+//******************************************************************************
+
+OnMouseMove
+{
+	AYATEMPLATE.MouseMoveWheelFunc(0,50,'MouseMove')
+}
+
+OnMouseWheel
+{
+	_result = ''
+	if TOINT(reference[2]) > 0 {
+		_result = AYATEMPLATE.MouseMoveWheelFunc(1,4,'MouseWheelUp')
+	}
+	else {
+		_result = AYATEMPLATE.MouseMoveWheelFunc(1,4,'MouseWheelDown')
+	}
+	
+	if _result == '' {
+		_result = AYATEMPLATE.MouseMoveWheelFunc(1,4,'MouseWheel')
+	}
+	
+	_result
+}
+
+OnMouseDoubleClick
+{
+	AYATEMPLATE.MouseEventExec('MouseDoubleClick');
+}

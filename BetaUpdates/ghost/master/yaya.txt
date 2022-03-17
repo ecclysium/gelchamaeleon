@@ -1,0 +1,45 @@
+//******************************************************************************
+// 文　ゴーストテンプレート
+// yaya.txt (設定ファイル)
+// original written by umeici.
+// change by yaya develop team.
+//******************************************************************************
+
+//------------------------------------------------------------------------------
+//システム辞書
+//------------------------------------------------------------------------------
+include, system_config.txt		// YAYA:設定辞書。必ず最初に指定すること。
+
+//------------------------------------------------------------------------------
+//以下は紺野ややめのテンプレート
+//------------------------------------------------------------------------------
+dic, gel_tmpl_util.txt		// テンプレート共通処理
+
+dic, gel_word.txt 			// Word dictionary
+dic, gel_string.txt 		// String resource dictionary
+dic, gel_aitalk.txt 		// Random talk driver and minute/hour change events
+dic, gel_bootend.txt	    // Start / end talk dictionary
+dic, gel_change.txt		    // Switch talk dictionary
+dic, gel_communicate.txt	// Communication dictionary
+dic, gel_mouse.txt 		    // Mouse input related dictionary
+dic, gel_menu.txt 			// Menu processing dictionary
+dic, gel_etc.txt 			// various event dictionaries
+dic, gel_port.txt			// For nuances of loading up Gel
+dic, gel_infogather.txt		// For registering and processing activity, with some more unique events (ie moving monitors and shaking Gel up) and anchors
+dic, gel_emotion.txt		// For emotion handling
+dic, gel_dialogues.txt		// What Gel actually says randomly
+dic, gel_timedreact.txt		// Time sensitive reactions available from the menu
+dic, gel_friends.txt		// For the friends list handling and functions
+dic, gel_firstboot.txt		// For the first boot
+dic, gel_surfacing.txt		// for Gel's appearance envelopes
+dic, gel_story.txt  		// Asking Gel about their world, and anchors
+dic, gel_nvro.txt			// Responses and functions for NVRO, the invisible kero, somewhat
+
+//------------------------------------------------------------------------------
+//セーブファイル暗号化
+// onにするとセーブファイルを暗号化します。
+// 【注意】一度onにするとoffにしてもセーブファイルを削除するまで
+// 暗号化のままになります！
+//------------------------------------------------------------------------------
+// save.encode,on
+

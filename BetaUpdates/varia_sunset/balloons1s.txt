@@ -1,0 +1,13 @@
+origin.x,42
+origin.y,83
+
+windowposition.x,0
+windowposition.y,0
+
+wordwrappoint.x,-55
+wordwrappoint.y,-85
+
+
+validrect.top,80
+validrect.right,0
+validrect.bottom,-175

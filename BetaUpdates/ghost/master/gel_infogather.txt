@@ -1,0 +1,1236 @@
+//******************************************************************************
+// Info Gather
+// Functions related to infoperminute, games, and anything that defines the user as the user
+//******************************************************************************
+
+
+//------------------------------------------------------------------------------
+// Info per minute modifications and mouse interactions
+//------------------------------------------------------------------------------
+
+OnMouseEnterAll{
+	if useractive == 0{
+		OnUserReturn
+	}
+	//Stop squinting when they start questioning it.
+	elseif emotion == 4{
+		//Formerly this was specific to the early friendship stages! (trust < TPOS2)
+		//This is no longer, but in an update, the bored appearance may change to be more tolerant,
+		//and Gel will stop reacting and be honest.
+		//However, we don't currently have the dialogue options for that.
+		//ELEPHANT (so I can find this later)
+		emotion = 1
+		reason = "no"
+		minsinemotion = 0
+		"\w2%(gelLookForward)"
+	}
+}
+
+OnMouseMultipleClick{
+	//need check to make sure not hotspot
+	--
+	if emotion == 1 {
+		"The %(fudge) are you doing?\![raise,OnSetVariable,jabbering,2]\e"
+		"No need to be so pushy.\e"
+		"Just double clicking is fine, thanks.\e"
+		"Excited much?\e"
+		"tap tap tap tap tap tap tap tap tap tap tap\![raise,OnSetVariable,jabbering,2]\e"
+		"wot\e"
+		"pordon\e"
+		"%(defense)"
+	}elseif emotion == 0 && RAND(20) == 8{
+		infoperminute += 20
+		"What? What is it that %(you) want from me??\![raise,OnSetVariable,jabbering,2]"
+	}
+}
+
+OnDisplayHandover{
+	lastinter = 0
+	--
+	_temp = OnGelNAUSEA
+//	"%reference2 -> %reference3"
+	--
+	if emotion > 0 && firsttimeusersetup > 1{
+		
+		//if OnGelNAUSEA returns 1 if Gel was already not feeling well, and will return 2 if this was the tipping point
+		if _temp == 1{
+			"%(gelLookSick)"
+			--
+			if checkGreatTP2{
+				"why do I feel things...\e"
+				"hey, %username, I thought... urg... better\e"
+				"you're... better than that.\e"
+				"you're making me feel sick...\e"
+			}else{
+				"Make up your mind...\e"
+			}
+			"I%(am) gonna be sick...\e"
+			"Please stop!\e"
+			"This is a lot!\e"
+			"Stop shaking me!\e"
+			"Urk!\e"
+		
+		}elseif _temp == 2{
+			"%(gelLookSick)"
+			--
+			"My stomach...\e"
+			"Urk...\e"
+			"I%(am) feeling naseuous...\e"
+			"Please stop moving me...\e"
+			if timesmadesick > 1; "You do like er, shakin%(guh) it up, huh?"
+			if trust >= TPOS1{
+				"%(gelLookForward)ofivdsgjkhnv i am just,,, a liddle thign,,, have mercie"
+			}
+		
+		}else{
+			
+			//When you've known Gel for 2 days, they discover memes. And movies.
+			if daysknown >= 2 && checkGreatTN1 {
+				"A whole new woooooooooooooooorrrrlllddd...\e"
+				"WHOLE NEW WORLLLLDDD\e"
+				"A   D A Z Z L I N G    P L A C E    I    N E V E R    K N E W \e"
+				"NO ONE TO TELL US NO, OR WHERE TO GO!\e"
+				"OR SAy we're only dreamin...\e"
+				"By all known laws of aviation, a bee should not be able to fly.\e"
+				"\_a[https://www.youtube.com/watch?v=KlLMlJ2tDkg]Woah woah woah woah woah!\e"
+				"\_a[https://www.youtube.com/watch?v=ZaAbEW2J-cE]AJHVBwcedhcWHEDLCBEljesd.\e"
+				"(pretend Never Gonna Give You Up is playing)"
+				"[rickroll]"
+				"\_a[https://www.youtube.com/watch?v=dQw4w9WgXcQ]%(fudge)\e"
+			}
+			
+			if !checkBadMood{
+				"Woah.\e"
+				"Where are you setting me?\e"
+				if checkGreatTN1{
+					"%(gelLookForward)Okay I am over here now!"
+				}
+			}else{
+				"%(gelLookForward)%(gelFurrowed)Woah, hey there."
+				"%(gelLookForward)%(gelHuh)Moving me closer or farther away...?"
+			}
+			
+			
+			
+			if claustro > CLAUSTRODISCOMFORT && trust >= TPOS1{
+				//two of these in each is going to be 0, so we can't multiply, this will have to do even if it isn't always accurate
+				//if the location before is smaller than the location after (moving to a larger res screen)
+				if ( reference2[0] + reference2[1] + reference2[2] + reference2[3] ) < ( reference3[0] + reference3[1] + reference3[2] + reference3[3] ){
+					"%(gelLookForward)%(gelSurprise)Oh, this does feel a little bit better, %username."
+				//	shakenup--
+				}else{
+				//if Gel is being moved to a smaller screen
+					"%(gelLookLeft)%(gelFurrowed)There are less pixels here... I do%(not) think I like it. %(gelLookForward)I%(will) follow your lead, though."
+				//	shakenup++
+				}
+			}
+			
+			if ASEARCH(14,musictaste) >= 1{
+				"\_a[https://www.youtube.com/watch?v=fxqfGpxET38]feelin like a yoyo hours\e"
+			}
+		}
+	}elseif emotion == 0{
+	
+		"Huh?\e"
+		"Oh...\e"
+		"\e"
+		"\e"
+	}
+	
+}
+
+
+OnMouseDragStart{
+	lastinter = 0
+	--
+	_temp = OnGelNAUSEA
+	if _temp == 1{
+		"%(gelBase)"
+		--
+
+		if checkGreatTP2{
+			"why do I feel things...\e"
+			"hey, %username, I thought... urg... better\e"
+			"you're... better than that.\e"
+			"you're making me feel sick...\e"
+		}else{
+			"Make up your mind and set me anywhere...\e"
+		}
+		"My stomach...\e"
+		"Urk...\e"
+		"I%(am) feeling naseuous...\e"
+		"Please stop moving me...\e"
+		
+	}elseif _temp == 2{
+		"\0%(gelLookSick)"
+		--
+		if timesmadesick == 30{
+			"Achievement get: %(MilkshakeMan)"
+		}elseif timesmadesick > 30 && trust >= TPOS1{
+			"%(MilkshakeMan) strikes again! \w8%(gelNervous)Augh!"
+			"It%(is) the %(MilkshakeMan), here comes the %(MilkshakeMan)"
+			"%(MilkshakeMan) strikes..."
+			"have %(you) considered a different profession than shaking milkshakes"
+		}elseif jabbering > 0{
+			//This is the only trust compare to 0 I mean genuinely. If Gel hasn't at least gotten a decent vibe, they assume negatively.
+			if trust > 0{
+				{
+					"Hey! %(gelNervous)%username, that is%(not) nice... %(gelFrown)sorry for running my mouth..."
+					"I%(will) be nicer, just please stop!"
+				}
+				
+			}else{
+				"Hrgghhh... that%(is) a weird punishment...."
+				if timesmadesick > 5{
+					"I wish you%(would) stop this..."
+				}
+			}
+		}else{
+			"No.\e"
+			"Please stop.\e"
+			"Urgh...\e"
+			"Stomach hurts.\e"
+			"Oh...\e"
+		}
+	}
+
+
+}
+
+OnCheckForSong{
+	//Spotify, then Winamp, then VLC, then iTunes (probably)
+	//If one returns nothing and it doesn't exist, who cares? I don't. Seems less intense than checking for each player's existence; let's just cut to the chase
+	//Maybe we'll have Gel detect their player later
+	//One var where -1 is hasn't defined it, and 1 = Spotify, 2 = Winamp, etc?? Maybe?
+	_possibilities = FUNCTIONEX("findwin.dll","getcaption","Chrome_WidgetWin_0") + "," + FUNCTIONEX("findwin.dll","getcaption","Winamp v1.x") + "," + FUNCTIONEX("findwin.dll","getcaption","Qt5QWindowIcon") + "," + FUNCTIONEX("findwin.dll","getcaption","iTunes")
+	//temp = "Spotify: " + FUNCTIONEX("findwin.dll","getcaption","Chrome_WidgetWin_0")
+	if TOSTR(temp) _in_ TOSTR(_possibilities){
+		temp = 1
+		
+	}else{
+		temp = 0
+	
+	}
+
+
+}
+
+
+
+
+//------------------------------------------------------------------------------
+// Sleep Modification
+//------------------------------------------------------------------------------
+
+//linearly gets the hour (after 9 PM and before 5 AM) the user usually logs off the computer
+getLogOffHour{
+	//the first value is the hour, second is the # of times the user has left at that hour
+	_latesthour = (0,0)
+	
+	//cycle through the hours, returning the latest in the given day a user leaves (discourages Gel falling asleep in the AM in a case of ties)
+	for _i = 0 ; _i < 24 ; _i++ {
+		
+		if logginghours[_i*2 + 1] >= _latesthour[1]{
+			_latesthour = (_i,logginghours[_i*2 + 1])
+		}
+	}
+	_latesthour[0]
+}
+
+//A log off for the night must be at least 4 hours
+//This registers the given hour after a log off as the user going to sleep (argv[0] == hour logged off)
+addLogOffData{
+	_leftat = _argv[0]
+	
+	if logginghours[_leftat*2 + 1] > 0{
+		logginghours[_leftat*2 + 1]++
+	}
+}
+
+//11 PM is slightly weighted to be the starting hour
+startingLogOff{
+	
+	logginghours = ((0,1),(1,1),(2,1),(3,1),(4,1),(5,0),(6,0),(7,0),(8,0),(9,0),(10,0),(11,0),(12,0),(13,0),(14,0),(15,0),(16,0),(17,0),(18,0),(19,0),(20,1),(21,1),(22,1),(23,1))
+}
+
+//check if the given hour is marked as an hour that logging off counts as going to bed
+checkValidLogOffSleepHour{
+	
+	//any value larger than 0 will return true
+	logginghours[_argv[0]*2 + 1]
+	
+}
+
+//for testing purposes
+displayLoggingHours{
+	_output=""
+	for _i = 0 ; _i < 24 ; _i++ {
+		
+		_output += _i + ":" + (logginghours[_i*2 + 1]) + "\n"
+	}
+	_output
+}
+
+
+
+
+
+
+
+//------------------------------------------------------------------------------
+// Games
+//------------------------------------------------------------------------------
+
+
+OnInfo_RockPaperScissors{
+	//0: rock
+	//1: paper
+	//2: scissors
+	//The introductory bit
+	if reference[0] == "xxx"{
+		//intro speech
+		"Okay! What will you play?"
+		"Let's play!"
+		
+		--
+		"\n"
+		--
+		//Open with scissors
+		gelplay = 2
+	}else{
+		//Regular game calculations
+		userplay = TOINT(reference[0])
+		
+		//DETERMINE VICTOR-------------------------------------------------------------------------------------------------------
+		if gelplay == userplay{
+			"We tied."
+			_winner = 1
+		}else{
+			//Handle win/lose-- look at what Gel played, and handle the user put in turn. Ties already checked.
+			case gelplay{
+			
+				when 0{
+					//user proven to not played rock
+					if userplay == 1{
+						"Paper beats rock. You win!"
+						rpsuserwins++
+						_winner = 1
+					}else{
+						"Rock beats scissors! I win!"
+						rpsgelwins++
+						_winner = 0
+					}
+				
+				}when 1{
+					//user proven to not have played paper
+					if userplay == 0{
+						"Paper beats rock. I win!"
+						rpsgelwins++
+						_winner = 0
+					}else{
+						"Scissors beats paper. You win!"
+						rpsuserwins++
+						_winner = 1
+					}
+				
+				}when 2{
+					//user proven to not have played scissors
+					if userplay == 1{
+						"Scissors cuts paper. I win!"
+						rpsgelwins++
+						_winner = 0
+					}else{
+						"Rock beats scissors! You win!"
+						rpsuserwins++
+						_winner = 1
+					}
+				
+				}
+			
+			}
+		
+		}
+		--
+		//Spacing
+		"\n\n"
+		--
+		//Dialogue (second+ times)------------------------------------------------------------------------------------------------------
+		"%(okay), your play."
+		"Alright, make your pick."
+		"I've chosen mine."
+		if trust < -10{
+			"Just pick already."
+		}elseif trust > 20{
+			"Hehe! I got mine!"
+		}
+		--
+		//Gel's strategy-----------------------------------------------------------------------------------------------------------------
+		if rpsgelwins < rpsuserwins && RAND(3) != 1{
+			//Gel gets funky now and again if they know their Sick Strats (AKA: User is usually beating them)
+			gelplay = RAND(3)
+		
+		}else{
+			/*
+			//Sick strats: play what would beat whaever they played last, if they try to spam it will end up evening out
+			case gelplay{
+				when 0{
+					gelplay = 1
+				}
+				when 1{
+					gelplay = 2
+				
+				}
+				//catches any weird errors too
+				others{
+					gelplay = 0
+				}
+			
+			
+			}
+			*/
+			
+			gelplay = Info_RockPaperScissors_PICKGELPLAY(_winner)
+			
+		}
+	
+	}
+	//The options that persist whether this is an opening or not
+	--
+	MenuItem("Rock","OnInfo_RockPaperScissors", "0",200)
+	--
+	MenuItem("Paper","OnInfo_RockPaperScissors", "1")
+	--
+	MenuItem("Scissors","OnInfo_RockPaperScissors", "2")
+	--
+	"\n"
+	--
+	MenuItem("I'm done","Info_RockPaperScissors_End")
+
+}
+
+//argument 0 is whether the user won or lost
+Info_RockPaperScissors_PICKGELPLAY{
+
+	_victoryplay = 0
+	//user won/tied
+	if _argv[0]{
+		_victoryplay = userplay
+	//gel won
+	}else{
+		_victoryplay = gelplay
+	}
+	
+	case _victoryplay{
+		//rock
+		when 0{
+			1
+		}
+		//paper
+		when 1{
+			2
+		}
+		//scissors
+		others{
+			0
+		}
+	
+	}
+
+}
+
+
+
+Info_RockPaperScissors_End{
+	ERASEVAR("ulastplay","glastplay")
+	thankful = 2
+	if rpsgelwins > rpsuserwins{
+		"Ohoho, good game. You gonna try harder next time? I%(am) at %rpsgelwins, you're at %rpsuserwins."
+	
+	}else{
+		"Good game! It's currently at %rpsgelwins:%rpsuserwins. I%(will) beat you next time!\e"
+	}
+	
+	
+
+}
+
+
+
+
+
+Info_LightsOut_START{
+
+	//Settings
+	_HEIGHT = 8
+	_WIDTH = 7
+	_ontoken = 1
+	_offtoken = 0
+	
+	
+	lightsoutgrid = IARRAY
+	
+	//go through each row
+	for _c = 0 ; _c <= _HEIGHT ; _c++{
+	
+		_thisrow = IARRAY
+	
+		//for each part in that row
+		for _r = 0 ; _r < _WIDTH ; _r++{
+			_rand = RAND(5)
+			if _rand < 2{
+				_thisrow[_r] =_ontoken
+			}else{
+				_thisrow[_r] =_offtoken
+			}
+		}
+		//put it into its place
+		lightsoutgrid[_c] = _thisrow
+	
+	}
+	"\![lock,balloonrepaint]"
+	--
+	Info_LightsOut_DISPLAY(_HEIGHT,_WIDTH,lightsoutgrid)
+	
+
+}
+
+
+// arg 0 is the height
+// arg 1 is the width
+Info_LightsOut_DISPLAY{
+	"\C\_q\b2\c  "
+	--
+	_output = ""
+
+	//go through each row
+	for _c = 0 ; _c < _argv[0] ; _c++{
+
+		//for each part in that row
+		for _r = 0 ; _r < _argv[1] ; _r++{
+			_output += Info_LightsOut_DISPLAYPIECE(lightsoutgrid[_c * _argv[1] + _r],_c,_r,_argv[0],_argv[1],lightsoutgrid) //+ " Height: " + _argv[0] + " Width: " + _argv[1]
+		}
+		
+		_output += "\n  "
+	
+	}
+	
+	_output
+
+}
+// arg 0 is the piece
+// arg 1 is the column
+// arg 2 is the row
+// arg 3 is the height
+// arg 4 is the width
+// arg 5 is the board
+Info_LightsOut_DISPLAYPIECE{
+	
+	_display = ""
+	
+	//if this spot is 'on'
+	if _argv[0]{
+		_display = "\_b[img/on.png,inline,opaque]"
+	}else{
+	//if this spot is 'off'
+		_display = "\_b[img/off.png,inline,opaque]"
+	}
+	
+	_result = "\_a[OnInfo_LightsOut_FLICK,%(_argv[1]),%(_argv[2]),%(_argv[3]),%(_argv[4])]%_display\_a"
+	_result 
+	return
+
+}
+
+
+// ref 0 is the column (x) (row?)
+// ref 1 is the row (y) (column?)
+// ref 2 is the height
+// ref 3 is the width
+// ref 4 is the board
+OnInfo_LightsOut_FLICK{
+	
+	//the function itself will check for boundaries and will not execute if the point is not in bounds
+	Info_LightsOut_INVERTPIECE(reference[0],reference[1],reference[2],reference[3],reference[4])
+	Info_LightsOut_INVERTPIECE(reference[0]+1,reference[1],reference[2],reference[3],reference[4])
+	Info_LightsOut_INVERTPIECE(reference[0],reference[1]+1,reference[2],reference[3],reference[4])
+	Info_LightsOut_INVERTPIECE(reference[0]-1,reference[1],reference[2],reference[3],reference[4])
+	Info_LightsOut_INVERTPIECE(reference[0],reference[1]-1,reference[2],reference[3],reference[4])
+	--
+	_checkwin = Info_LightsOut_CHECKWIN
+	if _checkwin != ""{
+		Info_LightsOut_DISPLAY(reference[2],reference[3],reference[4])
+	}else{
+		//Checkwin will return the win message
+		_checkwin
+	}
+	
+	//"GAME_LightsOut_DISPLAY(%reference[2],%reference[3],%reference[4])"
+	
+	
+}
+
+
+// arg 0 is the column (row?)
+// arg 1 is the row
+// arg 2 is the height
+// arg 3 is the width
+// arg 4 is the board
+Info_LightsOut_INVERTPIECE{
+	//     if this is a valid column 		and		   if this is a valid row
+	if _argv[0] <= _argv[3] && _argv[0] >= 0 && _argv[1] < _argv[2] && _argv[1] >= 0{
+	
+		//can we just xor it? 
+		
+		//if it's on
+		if lightsoutgrid[_argv[0] * _argv[3] + _argv[1]] == 1{
+			lightsoutgrid[_argv[0] * _argv[3] + _argv[1]] = 0
+		}else{
+			lightsoutgrid[_argv[0] * _argv[3] + _argv[1]] = 1
+		}
+	
+	}
+}
+
+
+Info_LightsOut_CHECKWIN{
+	if ASEARCH(lightsoutgrid,1) == 0{
+		"\cYou win!"
+	}
+}
+
+
+
+
+
+
+
+//------------------------------------------------------------------------------
+// Misc
+//------------------------------------------------------------------------------
+
+
+
+OnOtherGhostTalk{
+	//ignore anything after a \e, as that is often stats and pings and all that
+	_theysay = TOLOWER(reference4)[0,"\e"]
+	_command = TOLOWER(reference4)[1,"\e"]
+	
+	if _command[0] == "givegel"{
+		//"You want to give me a %_command[3] %_command[2]? Okay.\eGelAccept%reference1,1"
+		
+		//Check for validity. 
+		//Give command processing at the end of the communicate file. 
+		if _command[1] == "givev1"{
+			GiveV1(reference1,_command[2],_command[3],_command[4],_command[5])
+		}else{
+			"(ERROR: Invalid give version.)"
+		}
+	}if TOLOWER(Gel) _in_ _theysay{
+	
+		"%reference0, did you say my name?\e"
+		"I could have sworn I heard my name...\e"
+		""
+		
+	}elseif "large and doesn't really have rooms" _in_ _theysay{
+		if checkBadMood{
+			"%(gelLookSouthWest)I%(would) say it has rooms. %(gelArmsGestR)They%(are) pretty useless rooms, without a door and all, but rooms still. %(gelUh)Nothing to get behind. "
+		}else{
+			"%(gelLookForward)%(gelConfused)I mean, I%(would) argue that one. It kinda does have rooms. %(gelArmsGestR)Each window is an enclosed space, and each monitor is like an apartment. %(gelLookSouthWest)The rooms can have different things inside and different lighting."
+		}
+	}elseif "VOC" _in_ reference4{
+		"Did you say something about the Variation Organization of Cybernetics?"
+		"What about the VOC?"
+		""
+	
+	}elseif "ukagaka" _in_ _theysay && RAND(3) == 0{
+		"Uka-whattas?\e"
+	
+	}
+	//dummy spaces since it can't be more precise, so it's not an always (in case there's a common use of words with gel in them)
+
+
+
+
+
+}
+
+
+
+
+OnCheckForDiscord{
+
+
+	_username = FUNCTIONEX("findwin.dll","getcaption","Chrome_WidgetWin_1")
+		if "@" _in_ _username{
+			if _username != ""{
+				_username = REPLACE(_username, " - ", "")
+				_username = REPLACE(_username, "Discord", "")
+			}
+			_username = REPLACE(_username, "@", "")
+			
+			//See if this someone in Discord is someone we know
+			_namecheck = ASEARCH(_username,Info_FriendNames)
+			_nickcheck = ASEARCH(_username,Info_FriendNicks)
+			if _namecheck > -1 ||_nickcheck > -1{
+				if _namecheck > _nickcheck{
+					thisfriend = friendslist[_namecheck,"#"]
+				//if they're equal, they're the same, anyways, so... who cares?
+				}else{
+					thisfriend = friendslist[_nickcheck,"#"]
+				}
+				
+				
+				"Hey, is%(not) that your %(Info_Friend_GenderedRelation)? How are they doing?\e"
+				if thisfriend[3] != "not sure"{
+					"Is that your %thisfriend[3] %(Info_Friend_GenderedRelation) you're talking to?\e"
+				}
+				//If they're one of Gel's friends
+				if thisfriend[5] == 2{
+					"Oh, hey, %thisfriend[1]! Tell them I say hi, %username!\e"
+					"Are you talking to %thisfriend[1]? Tell them I said hi!\e"
+				}
+				
+			
+			//If they don't recognize this, but Discord's DMs are pulled up...... new f r o n d?
+			}else{
+				thisfriend[0] = _username
+				thisfriend[1] = _username
+				"Hey, %username, who's %_username? Is that one of your friends?"
+				--
+				AYATEMPLATE.MenuItem("They're...","Info_AddFriendDiscordNameConfirm")
+				--
+				AYATEMPLATE.MenuItem("It's not important","QuestionRefuse")
+			
+			}
+		}
+
+
+
+
+
+
+
+}
+
+
+OnCheckForDragonAge{
+	_dai = FUNCTIONEX("findwin.dll","getcaption","Dragon Age: Inquisition")
+	if _dai != ""{
+		"Oh, is that Dragon Age? Huh, it looks a lot like AOG..."
+		"What are you playing as in DA? I hear an elven mage is pretty much the only 'real' way..."
+		"How old are dragons? %username? I have questions."
+	
+	}
+
+}
+
+
+
+
+OnLookForArtPrograms{
+	//Order of acquired programs: Clip Studio Paint, GIMP, SAI, FireAlpaca/Drawpile, MS Paint
+	_possibilities = IARRAY
+	_possibilities = FUNCTIONEX("findwin.dll","getcaption","742DEA58-ED6B-4402-BC11-20DFC6D08040")
+	_possibilities,= FUNCTIONEX("findwin.dll","getcaption","gdkWindowToplevel")
+	_possibilities,= FUNCTIONEX("findwin.dll","getcaption","sflRootWindow")
+	_possibilities,= FUNCTIONEX("findwin.dll","getcaption","Qt5QWindowIcon")
+	_possibilities,= FUNCTIONEX("findwin.dll","getcaption","sflRootWindow")
+	_possibilities,= FUNCTIONEX("findwin.dll","getcaption","MSPaintApp")
+
+	_foundprogram = 0
+	foreach ArtPrograms; _p {
+		_exist = ASEARCH(_possibilities,_p)
+		if _exist > -1{
+			_foundprogram = 1
+			
+		}
+	}
+	if _foundprogram == 1{
+		1
+		return
+	//The ones that are a bit more detailed in naming, so, MSPaint, SAI, and DrawPile
+	}elseif "Paint" _in_ _possibilities || "DrawPile" _in_ _Possibilities{
+		1
+		return
+	//Photoshop is pretty unique here, and there is no good way to identify it by the caption, so, hard pass
+	}elseif FUNCTIONEX("findwin.dll","find",,"Photoshop") > 0{
+		1
+		return
+	}else{
+		0
+		return
+	}
+
+
+}
+
+//The programs with more simple naming conventions
+ArtPrograms: array{
+	"CLIP STUDIO PAINT"
+	"GNU Image Manipulation Program"
+	"FireAlpaca"
+	"Adobe Photoshop 2020"
+
+}
+
+
+//unfinished
+OnLookForGames{
+	_possibilities = IARRAY
+	_possibilities,=  FUNCTIONEX("findwin.dll","getcaption","LWJGL")
+	_possibilities,=  FUNCTIONEX("findwin.dll","getcaption","UnityWndClass")
+
+}
+
+
+
+//------------------------------------------------------------------------------
+// To-Dos
+//------------------------------------------------------------------------------
+
+
+OnToDoExplanation{
+	todos = 0
+	dailies = 0
+	"%(gelLookForward)Yeah, I can help you set up a list of things! \w6\w8To do, tasks, daily things... I'd say groceries, \w6but if this ancient OS is anything to go off of, I do%(not) think I can be put on your- \w8\w8what's it called? %(gelLookRight)\i[82]\w8\w8\w8Phone.\e"
+
+
+}
+
+
+
+OnTasks{
+	"Here you are!"
+	--
+	OnDisplayToDos
+	--
+	OnDisplayDailies
+	--
+	OnDisplayWeeklies
+	--
+	AYATEMPLATE.MenuItem("Edit Tasks","OnToDosOrDaily")
+	--
+	AYATEMPLATE.MenuItem("Nevermind.","OpenMenu")
+
+
+
+
+}
+
+
+OnToDosOrDaily{
+	if (todos == 0) && (dailies == 0){
+		"%(gelBase)Sure, what can I help you set up?"
+	}else{
+		"What part do I need to edit?"
+	}
+
+	--
+	AYATEMPLATE.MenuItem("To Do","OnCheckToDo")
+	--
+	AYATEMPLATE.MenuItem("Daily Tasks","OnCheckDaily")
+	--
+	AYATEMPLATE.MenuItem("Weekday Tasks","OnCheckWeeklies")
+	--
+	AYATEMPLATE.MenuItem("Nevermind.","OpenMenu")
+
+}
+
+//INTERACTION STATES (listInt)
+//-1 means they are not being edited atm (so, details)
+//1 means adding 
+//2 means removing
+
+
+OnCheckToDo{
+	"Just click on one to check it off."
+	interactionstate = -1
+	--
+	OnDisplayToDos
+	--
+	AYATEMPLATE.MenuItem("Add To-Do","OnToDo_Add",150,"1")
+	--
+	AYATEMPLATE.MenuItem("Remove To-Do","OnToDo_Rem","2")
+	--
+	AYATEMPLATE.MenuItem("Back","Menu_GELSBEINGWEIRDAGAIN")
+}
+
+
+OnToDo_Rem{
+	interactionstate = 2
+	"Okay, what were you gonna delete?\n"
+	--
+	OnDisplayToDos
+
+}
+
+
+
+OnToDo_Add{
+	"What did you wanna add to the list?"
+	"Okay, what is it?"
+	"What's on the menu for today?"
+	if todos > 1{
+		"What is it this time?"
+	}
+	--
+	"\![open,inputbox,OnToDo_Added]"
+
+}
+
+
+
+OnToDo_Added{
+	interactionstate = TOINT(reference1)
+	todos++
+	if todos != 1{
+		todolist+=","
+	}
+	todolist+=reference0
+	--
+	if trust > -5{
+		"Okay! I added %reference0 to your todo list.\e"
+		"Okay, %reference0 added!\e"
+	}else{
+		"Okay, %reference0 added.\e"
+		"Ok.\e"
+	}
+
+}
+
+//TESTING COMMANDS
+//%(OnCheckToDo)\n%(todolist)\n%(todos)
+//%(todos=0)%(todolist="")
+
+OnDisplayToDos{
+	//this controls what element of the list we're at
+	_i = 0
+	i = 0
+	//what will become the output is put here
+	buffer = ""
+	SETDELIM(todolist, ",")
+	--
+	while _i < todos{
+		--
+		//access the needed item from the list and add it to the buffer along with it's number in the list (for proper access)
+		buffer += (todolist[_i] + "," + _i + ",")
+		_i+=1
+		--
+	}
+	--
+	"\n%(OnDisplayToDo)"
+	--
+	//kill it
+	buffer = ""
+
+
+}
+
+//I am not a good role model. Sorry for the recursion. 
+//the buffer is the friends list, calculates items location, and adds it to the list, then incrementing and calling itself to display the next friend
+OnDisplayToDo{
+	//get this info
+	_name = buffer[i*2]
+	_var = buffer[i*2+1]
+
+	if i < todos{
+		//inc
+		i+= 1
+		//output this item (treating it as needed), and recurse
+		if interactionstate == 2{
+			"\![*]\q[%_name,OnToDo_RemoveItem,%_var]\n%(OnDisplayToDo)"
+		}else{
+			"\![*]\q[%_name,OnToDo_CheckOffItem,%_var]\n%(OnDisplayToDo)"
+		}
+		
+	}
+
+}
+
+//remove item, add to stats
+OnToDo_CheckOffItem{
+	todos-=1
+	totaltodoscomplete+=1
+	_i = 0
+	//access the given item
+	while _i < reference0{
+		_i++
+	}
+	//delete
+	todolist[_i] = IARRAY
+	--
+	if checkGreatTP1{
+		"Woo! I%(am) proud of you."
+	}elseif checkGreatTN1{
+		"Nice job!"
+		"Well done!"
+		"You're doing good!"
+	}else{
+		"You did a thing."
+	}
+	--
+	"\n"
+	--
+	AYATEMPLATE.MenuItem("Menu","OpenMenu")
+	--
+	AYATEMPLATE.MenuItem("Checklist","OnTasks")
+}
+
+//remove item, do not add to stats
+OnToDo_RemoveItem{
+	todos-=1
+	_i = 0
+	//access the given item
+	while _i < reference0{
+		_i++
+	}
+	//delete
+	todolist[_i] = IARRAY
+	--
+	"Okay, I removed it."
+	"Removed."
+	"Taken off the list."
+	--
+	"\n"
+	--
+	AYATEMPLATE.MenuItem("Menu","OpenMenu")
+	--
+	AYATEMPLATE.MenuItem("ToDos","OnCheckToDo")
+}
+
+
+
+
+//------------------------------------------------------------------------------
+// Dalies
+//------------------------------------------------------------------------------
+
+
+//Interaction state is different here.
+//2 is still for removal, and -1 is neutral.
+//3 is now used to mark that we're using the extended daily list, or the tasks for today only. 3 implies removal, too.
+
+
+
+OnCheckDaily{
+	"Just click on one to check it off."
+	interactionstate = -1
+	--
+	OnDisplayDailies
+	--
+	AYATEMPLATE.MenuItem("Add Daily","OnDaily_Add",150,"1")
+	--
+	AYATEMPLATE.MenuItem("Remove Daily","OnDaily_Rem","3")
+	--
+	AYATEMPLATE.MenuItem("Back","Menu_GELSBEINGWEIRDAGAIN")
+}
+
+
+OnDaily_Rem{
+	interactionstate = 3
+	"Okay, what were you gonna delete?\n"
+	--
+	OnDisplayDailies
+
+}
+
+
+
+OnDaily_Add{
+	"What did you wanna add to the list?"
+	"Okay, what is it?"
+	"What's on the menu for today?"
+	if todos > 1{
+		"What is it this time?"
+	}
+	--
+	"\![open,inputbox,OnDaily_Added]"
+
+}
+
+
+
+OnDaily_Added{
+	interactionstate = TOINT(reference1)
+	dailies++
+	totaldailies++
+	if dailies != 1{
+		dailylist+=","
+	}
+	dailylist+=reference0
+	totaldailylist+=reference0
+	--
+	if trust > -5{
+		"Okay! I added %reference0 to your daily list.\e"
+		"Okay, %reference0 added!\e"
+	}else{
+		"Okay, %reference0 added.\e"
+		"Ok.\e"
+	}
+
+}
+
+//TESTING COMMANDS
+//%(OnCheckToDo)\n%(todolist)\n%(todos)
+//%(todos=0)%(todolist="")
+
+OnDisplayDailies{
+	//this controls what element of the list we're at
+	_i = 0
+	i = 0
+	//what will become the output is put here
+	buffer = ""
+	SETDELIM(dailylist, ",")
+	if interactionstate > 2{
+	
+		_accessing = totaldailylist
+		_targ = totaldailies
+	}else{
+		_accessing = dailylist
+		_targ = dailies
+	}
+	--
+	while _i < _targ{
+		--
+		//access the needed item from the list and add it to the buffer along with it's number in the list (for proper access)
+		buffer += (_accessing[_i] + "," + _targ + ",")
+		_i+=1
+		--
+	}
+	--
+	"\n%(OnDisplayDaily)"
+	--
+	//kill it
+	buffer = ""
+
+
+}
+
+//I am not a good role model. Sorry for the recursion. 
+//the buffer is the friends list, calculates items location, and adds it to the list, then incrementing and calling itself to display the next friend
+OnDisplayDaily{
+	//get this info
+	_name = buffer[i*2]
+	_var = buffer[i*2+1]
+	
+	if interactionstate > 2{
+	
+		_targ = totaldailies
+	}else{
+		_targ = dailies
+	}
+
+	if i < _targ{
+		//inc
+		i+= 1
+		//output this item (treating it as needed), and recurse
+		if interactionstate >= 2{
+			"\![*]\q[%_name,OnDaily_RemoveItem,%_var]\n%(OnDisplayDaily)"
+		}else{
+			"\![*]\q[%_name,OnDaily_CheckOffItem,%_var]\n%(OnDisplayDaily)"
+		}
+	}
+
+}
+
+//remove item, add to stats
+OnDaily_CheckOffItem{
+	dailies-=1
+	totaltodoscomplete+=1
+	_i = 0
+	//access the given item
+	while _i < reference0{
+		_i++
+	}
+	//delete
+	dailylist[_i] = IARRAY
+	--
+	if checkGreatTP1{
+		"Woo! I%(am) proud of you."
+		"Another daily task down."
+		"Daily tasks quiver when you near."
+	}elseif checkGreatTN1{
+		"Nice job!"
+		"Well done!"
+		"You're doing good!"
+		"Dailies fear your drive."
+	}else{
+		"You did a thing."
+	}
+	--
+	"\n"
+	--
+	MenuItem("Menu","OpenMenu")
+	--
+	MenuItem("Back to Checklist","OnTasks")
+}
+
+//remove item, do not add to stats
+OnDaily_RemoveItem{
+	//okay, so we need to remove it while being able to check for if it's already been done today or what -- actually, you know what? nah. Just make it so it won't repeat anymore.
+	totaldailies-=1
+	_i = 0
+	//access the given item
+	while _i < reference0{
+		_i++
+	}
+	//delete
+	totaldailylist[_i] = IARRAY
+	--
+	"Okay, I removed it."
+	"Removed."
+	"Taken off the list."
+	--
+	"\n"
+	--
+	MenuItem("Menu","OpenMenu")
+	--
+	MenuItem("Dailies","OnCheckDaily")
+}
+
+
+
+
+
+
+OnUserClick{
+	//"click"
+	minclick++
+
+}
+
+
+OnUserKey{
+	//"key"
+	minkey++
+}
+
+OnUserKillActivityCounter{
+
+	"%(gelLookForward)%(gelConfused)Hey %username, did you mean to do that? \w8%(gelLookAway)You pressed one of my Secret Combos for compatibility errors."
+	actcountallowed = 0
+}
+
+OnActivityCounterClose{
+	"Thread safely exited."
+}
+
+OnActivityCounterStop{
+	"Stop funct called."
+	
+}
+
+OnAutoClicker{
+
+	"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA!!! STOP THAT, STOP THAT, IT'S TOO LOUD!"
+	--
+	ONCLOSE_VAR
+	--
+	"\w9\w9\w9\-"
+
+}
+
+
+
+
+

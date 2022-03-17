@@ -1,0 +1,5 @@
+charset, Shift_JIS
+type,ghost
+name,Gel
+directory,gelchamaeleon
+balloon.directory,varia_sunset
