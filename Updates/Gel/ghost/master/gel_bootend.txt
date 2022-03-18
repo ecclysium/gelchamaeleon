@@ -22,6 +22,10 @@ ONBOOT_SETUP{
 		OnGeneralClear
 		
 	}
+	--
+	if getVersion != currentversion{
+		OnUpdateVars
+	}
 	//Processing for new appearances etc, DayChange manages some bonus variables
 	lastboot = thisboot
 	thisboot = TOSTR(month) + "/" + TOSTR(day)+ "/" + TOSTR(GetYear)

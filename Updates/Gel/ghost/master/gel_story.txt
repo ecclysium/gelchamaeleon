@@ -36,7 +36,7 @@ UNLOCK{
 }
 
 getVersion{
-	"V B0.6.7"
+	"V 1.0.1"
 }
 
 
@@ -238,8 +238,8 @@ OnTimeEvent{
 
 TimeEventNotThen{
 	"%(gelLookForward)%(gelHmm)%(gelArmsGestR)Suuuuure you are. \w8%(gelLookForward)%(gelHmm)When would you even be from, then? \w8\w4I think %year is a little unrealistic, \w6do%(not) you think? "
-	--
-	"\_q"
+	//--
+	//"\_q"
 	--
 	MenuItem("Look at the Internet.","TimeEventInternet",200)
 	--

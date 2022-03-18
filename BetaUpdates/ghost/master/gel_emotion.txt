@@ -198,7 +198,7 @@ OnGelEMOTIONBase{
 		
 			
 			//become neutral
-			if infoperminute > 50 && lastinter < 15{
+			if infoperminute > 30 && lastinter < 15{
 				emotion = 1
 				minsinemotion=0
 			}elseif infoperminute < 2 && lastinter >= 50{
@@ -211,6 +211,10 @@ OnGelEMOTIONBase{
 				minsinemotion=0
 				emotion = 5
 				reason = "claustrophobia"
+				
+			}elseif infoperminute > 45{
+				emotion = 1
+				minsinemotion=0
 			}
 			
 		//WHEN UNCOMFORTABLE

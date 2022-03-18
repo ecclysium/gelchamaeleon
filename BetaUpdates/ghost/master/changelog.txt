@@ -1,13 +1,19 @@
 Gel by GrayArea/Ecclysium
 
+
+MARCH 17, 2022 --- V1.0.1 PATCH
+   	-Right-click menu visual fixes
+	-AFK detection fixes
+	-Assorted other fixes
+
 MARCH 16, 2022 --- INITIAL RELEASE
    Features:
-	-Greeting options based on hour
-	-Unlockable questions about a plethora of worldbuilding
-	-A seeding system producing 5000 different Gels
-	-An understanding of... some contexts
-	-AFK detection
-	-Falls asleep based on the user's computer habits and time
-	-Multiple save system
-	-Nine different modes/emotions
-	-High fiving!
+	+Greeting options based on hour
+	+Unlockable questions about a plethora of worldbuilding
+	+A seeding system producing 5000 different Gels
+	+An understanding of... some contexts
+	+AFK detection
+	+Falls asleep based on the user's computer habits and time
+	+Multiple save system
+	+Nine different modes/emotions
+	+High fiving!

@@ -1,19 +1,19 @@
 Charset,UTF-8
 __system_settings_version__,2
-char0.bind.savearray,500=1 800=0 501=0 801=0 502=0 802=0 503=0 803=0 504=0 804=0 505=0 805=0 300=1 301=0 302=0 250=1 251=0 1250=0 1000=0 1212=0
+char0.bind.savearray,500=1 800=0 501=0 801=0 502=0 802=0 503=0 803=0 504=0 804=0 505=0 805=0 300=0 301=1 302=0 250=1 251=0 1250=0 1000=0 1212=0
 balloon,C:\Users\ihave\Desktop\Ukagaka\AlphaVerTest\balloon\Varia Sunset 165\
 Char1.balloon.isleft,1
 inputbox.left,2760
-scriptbox.left,3115
-balloon0.offset,-22.-76
+scriptbox.left,3144
+balloon0.offset,42.29
 Char9.center,3115
-Char0.centery,790
+Char0.centery,815
 balloon1.offset,1756.-924
 Char9.balloon.isleft,1
 Char0.balloon.isleft,1
 Char.VirtualDesktop,2bb34833-0df1-43f0-b124-1f10831c496b
-Char0.center,3260
-scriptbox.top,513
+Char0.center,3218
+scriptbox.top,907
 Char1.centery,1040
 Char1.center,1442
 seriko.scaling.percent.x,100

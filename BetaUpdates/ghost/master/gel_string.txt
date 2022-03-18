@@ -19,7 +19,7 @@ On_homeurl
 {
 	if betaupdates{
 		//Currently no beta updates, but this will change with a normal update when it is.
-		"https://raw.githubusercontent.com/ecclysium/gelchamaeleon/master/BetaUpdates/Gel/"
+		"https://raw.githubusercontent.com/ecclysium/gelchamaeleon/master/BetaUpdates/"
 	}else{
 		"https://raw.githubusercontent.com/ecclysium/gelchamaeleon/master/Updates/Gel/"
 	}

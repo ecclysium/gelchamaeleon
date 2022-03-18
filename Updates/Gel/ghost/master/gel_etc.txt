@@ -674,10 +674,12 @@ testweather{
 	"\![raiseplugin,Weather Station,OnWeatherStation.Weather]"
 }
 
+/*
 OnWeatherStation.Weather{
 	"%(gelPonder)It%(is) going HOW fast? Your wimd is at %reference13? What the %(fudge) is a mile????"
 
 }
+*/
 
 OnWeatherStation.Error{
 	"Uh... by the way, I%(am) seeing a '%reference0 error' in the wimd stuff if that%(is) something you want to tell someone."

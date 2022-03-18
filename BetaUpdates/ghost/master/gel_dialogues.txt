@@ -34,7 +34,7 @@ gelSelfCare0{
 	
 	if infoperminute > 56{
 		"You're really goin' at it, are%(not) you? %(gelLookForward)Do%(not) forget to take a deep breath and center yourself!\e"
-	}elseif infoperminute < 10{
+	}elseif infoperminute < 10 && lastinter > 20{
 		"hey, %username, %(gelLookForward)you still there?\e"
 	}
 	
@@ -422,7 +422,7 @@ gelDialogueNeutral{
 			
 		}
 	}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 0.5 -------------------------
-		"%(gelLookSouthEast)%(gelPonder)I wonder what %their goal is..."
+		"%(gelLookSouthEast)%(gelPonder)I wonder what is going on in that mind of %theirs..."
 		"%(gelLookSouthEast)%(gelFurrowed)I%(am) not complaining, but..."
 	}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
 		"%(gelConfused)%(gelArmsSmug)Woah, what%(is) in this picture? Why is it in your downloads?"

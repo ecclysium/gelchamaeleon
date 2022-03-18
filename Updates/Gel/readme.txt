@@ -14,6 +14,7 @@ M for menu
 
 Gel can be pet, punched, and poked depending on movement type and location.
 
+Note: Occasional typos are intentional.
 
 Jingle bell sound by Department64 on freesound - JinglingBells_Wreath_04
 Made with umeici's template with edits by ukiya.

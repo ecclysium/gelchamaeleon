@@ -453,7 +453,7 @@ OpenMenu
 				"%(gelLookForward)It%(is) the powerhouse %themself!"
 				if port == 434{
 					"%(gelLookForward)%(gelHmm)Is that a wizard I see?"
-					"%(gelLookForward)And so the traveler returns from %their perilous adventure..."
+					"%(gelLookForward)And so the traveler returns from a perilous adventure..."
 				}
 			}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
 				if port == 434{
@@ -515,7 +515,7 @@ OpenMenu
 				"%(gelLookForward)%(gelArmsHighFive)There%(is) my cool friend!"
 				if port == 434{
 					if lastinter > 30{
-						"%(gelLookForward)And so the traveler returns from %their journey across the digital lands..."
+						"%(gelLookForward)And so the traveler returns from a journey across the digital lands..."
 					}
 				}
 			}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
@@ -1838,7 +1838,8 @@ Menu_LETTALK{
 Menu_AITALK
 {
 	//---- Explicitly instruct AI talk start
-	OnAiTalk
+	//OnAiTalk
+	RandomTalk
 }
 
 //---- The story I mentioned earlier

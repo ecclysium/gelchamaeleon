@@ -216,7 +216,7 @@ OnBirthDayTeach{
 	if _day > 31{
 		"That can't be right. There's not even %_day days in that month. Come again? \![open,inputbox,OnBirthDayTeach]\e"
 	}else{
-		userbirthday += "/" + _day
+		userbirthday = _month + "/" + _day
 		"Alrighty! %_month/%_day it is. Is that right?\n\_q"
 		--
 		MenuItem("Yep!","OnBirthAccept")

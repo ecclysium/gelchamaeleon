@@ -31,8 +31,9 @@ RandomTalkEx : nonoverlap
 				"%(gelLookLeft)%(gelFurrowed)...\e"
 				"%(gelLookRight)%(gelFurrowed)...\e"
 				"%(gelLookAway)%(gelFurrowed)Er...\e"
-						
-			}elseif !checkSilentMode{
+			
+			//previously checked for silent mode
+			}else{
 				case emotion{
 					
 					when 0{
@@ -40,8 +41,10 @@ RandomTalkEx : nonoverlap
 					}
 					when 1{
 						gelDialogueNeutral
-						if _rand == 0; gelDialoguePositive
-						//"%(thisissosadgelsayloremipsum)"	
+						if _rand == 0{
+							gelDialoguePositive
+						} 
+							
 					}
 					when 3{	
 						"%(gelDialogueSick)"
@@ -60,7 +63,9 @@ RandomTalkEx : nonoverlap
 					}
 					when 14{
 						gelDialogueCurious
-						if _rand == 0; gelDialoguePositive
+						if _rand == 0{
+							gelDialoguePositive
+						} 
 					}
 					others{
 						"%(gelBase)%(gelWorry)No condition is met. Report this to GrayArea #5561 on Discord, please. He%(is) upkeep help for us.\e"
@@ -494,7 +499,7 @@ OnHourChange{
 					if trust <= TNEG1 && checkGreatTN2{
 						"%(gelLookForward)%(gelSlashMouth)I know how your kind of people work, I read it on your Internet. Why are you here this early?"
 					}
-					if emotion == 0 || emotion = 5{
+					if emotion == 0 || emotion == 5{
 						"%(gelLookForward)I am way too tired to be here. Please. %(gelFurrowed)%(gelEarsBack)It%(is) %hour, why are we here?"
 					}
 					"%(gelHourChime)"
