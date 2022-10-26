@@ -29,7 +29,7 @@ Menu_UPSETGEL{
 		"%(gelLookForward)This is pretty normal for me. %(gelLookAway)%(gelSlashMouth)It%(is) not really... something you need to worry about. \w8You can just leave me be."
 		"%(gelLookForward)Early in the month can be awkward for me. %(gelLookAway)It%(is) part of how I%(am) made. %(gelNervous)Sorry I%(am) not more interesting right now, %username."
 		"%(gelLookForward)Oh, yeah, the first day of the month can be a little... %(gelLookAway)problematic, for me. \w8%(gelForceLookComfortable)It%(is) nothing about you! It%(is) just what happens to me. "
-		"%(gelLookForward)Ah, eheh– it%(is) nothing you need to worry about, %(nicknamed). %(gelLookAway)I just can get like this a little sometimes."
+		"%(gelLookForward)Ah, eheh-- it%(is) nothing you need to worry about, %(nicknamed). %(gelLookAway)I just can get like this a little sometimes."
 	}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
 		"%(gelLookForward)Er, yeah. %(gelLookRight)I uh, do%(not) really want to talk about it with you. \w8Sorry."
 		if badtouches > 5; "%(gelLookAway)%(gelNervous)Uh, yeah, you keep touching me... obviously I%(am) going to be a little uncomfortable."
@@ -512,7 +512,7 @@ Menu_GOODX{
 		//Gel doesn't like stuff like this in a mood
 		remtrust(1)
 	}else{
-		addtrust(1)
+		addtrust(3)
 	}
 	--
 	if checkLessEqTN2{
@@ -991,7 +991,7 @@ GOOD_Afternoon{
 		}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 0.5 -------------------------
 			"Mmmn, after noon, fleshy..."
 		}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
-			"%(gelLookForward)Oh, uh, yeah– happy after-noon. %(gelLookAway)Sorry, it%(is) all naptime to me. %(gelLookForward)You should nap too. They%(are) good."
+			"%(gelLookForward)Oh, uh, yeah-- happy after-noon. %(gelLookAway)Sorry, it%(is) all naptime to me. %(gelLookForward)You should nap too. They%(are) good."
 		}elseif checkStaggerLessEqTN2 {		//Negative Route Pt 2.5 (and more) ----------------------
 			"Nah..."
 		}
@@ -1524,7 +1524,7 @@ GOOD_Orange{
 		}elseif checkGreatTP2 {		//Positive Route Pt 1 ---------------------------------
 			"%(gelLookRight)%(gelConfused)Why did we decide to call it orange, anyway...? %(gelLookForward)%(gelHuh)Does the sun look like an orange? %(gelConfused)Is that why? \w8\w8\w8\n\n[half]%(gelLookForward)%(gelT)Oh and good orange, yeah."
 		}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
-			"%(gelLookForward)Goood orange %username! %(gelLookForward)%(gelHmm)You%(are) still a little new to our times— \w8%(gelConfused)what time does your Internet say the sky is orange? %(gelConfused)Evenings? %(gelSlashMouth)Evening is an outdated term to us. "
+			"%(gelLookForward)Goood orange %username! %(gelLookForward)%(gelHmm)You%(are) still a little new to our times-- \w8%(gelConfused)what time does your Internet say the sky is orange? %(gelConfused)Evenings? %(gelSlashMouth)Evening is an outdated term to us. "
 			
 		}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
 
@@ -1591,7 +1591,7 @@ GOOD_Black{
 
 
 		if checkGreatTN1{							//Any positive-------------------------------------------
-			"Oh, good black– %(gelLookForward)are you goin%(guh) to bed? I hope you sleep well. %(gelHuh)Will I see you soon?%(HOWIS_GoingToBed)"
+			"Oh, good black-- %(gelLookForward)are you goin%(guh) to bed? I hope you sleep well. %(gelHuh)Will I see you soon?%(HOWIS_GoingToBed)"
 		}else{										//Any negative-------------------------------------------
 			"%(gelLookForward)Oh, good black. It is definitely bedtime. %(gelLookLeft)Go on."
 		}
@@ -1746,7 +1746,7 @@ GOOD_Black{
 
 
 		if checkGreatTN1{							//Any positive-------------------------------------------
-			"Oh, good black– %(gelLookForward)are you goin%(guh) to bed? I hope you sleep well. %(gelHuh)Will I see you soon?%(HOWIS_GoingToBed)"
+			"Oh, good black-- %(gelLookForward)are you goin%(guh) to bed? I hope you sleep well. %(gelHuh)Will I see you soon?%(HOWIS_GoingToBed)"
 			"%(gelLookForward)Good black. %(gelHuh)Probably time you%(are) wrapping up, huh? "
 			
 			if infoperminute <= 20{
@@ -2104,6 +2104,7 @@ HOWIS_Midday{
 
 
 HOWIS_Waking{
+	"\n[half]\_q"
 	
 	MenuItem("Pretty good","HOWIS_RESPONSE_GOODWAKIN")
 	--
@@ -2157,7 +2158,7 @@ Menu_HOWISGEL{
 	if trust < TNEG3{
 		trust--
 	}else{
-		addtrust(5)
+		addtrust(7)
 	}
 	askgel = 0
 	//there isn't any way to get here without using dev tools if Gel is asleep
@@ -2257,7 +2258,7 @@ Menu_HOWISGEL{
 
 			//General Positive/Negative Route Dialogues
 			if checkGreatTP2{							//Significantly positive---------------------------------
-				if "peach" _in_ clothes; "%(gelLookForward)I%(am) just peachy! You know, like the– \w8%(gelLookAway)nevermind. \n\n[half]\w8\w8%(gelHuh)Anyway, %(gelLookForward)I%(have) been talkin%(guh) with AnWillow over the AnSignal we use, %(gelHuh)and she asked me to ask you for an explanation on the 'Aurora Borealis'? %(gelLookLeft)We just sort of know it%(is) a sky thing."
+				if "peach" _in_ clothes; "%(gelLookForward)I%(am) just peachy! You know, like the-- \w8%(gelLookAway)nevermind. \n\n[half]\w8\w8%(gelHuh)Anyway, %(gelLookForward)I%(have) been talkin%(guh) with AnWillow over the AnSignal we use, %(gelHuh)and she asked me to ask you for an explanation on the 'Aurora Borealis'? %(gelLookLeft)We just sort of know it%(is) a sky thing."
 				if fullnightsrest = 0; "%(gelLookForward)I%(am) good. %(gelSquint)I want you to explain caffeine to me though."
 			}
 

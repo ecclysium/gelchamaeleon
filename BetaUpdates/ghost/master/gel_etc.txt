@@ -242,7 +242,12 @@ OnUpdateComplete
 	else
 	{
 		//---- é¿ç€Ç…çXêVÇ™äÆóπÇµÇΩ
-		"%(gelBase)Alrighty, I%(am) all synced up!\e"
+		if checkBadMood{
+			"%(gelLookForward)%(gelT)Well, at least I have some better memories in mind now.\e"
+		}else{
+			"%(gelBase)Alrighty, I%(am) all synced up!\e"
+		}
+		
 		OnUpdateVars
 	}
 }
@@ -682,7 +687,16 @@ OnWeatherStation.Weather{
 */
 
 OnWeatherStation.Error{
-	"Uh... by the way, I%(am) seeing a '%reference0 error' in the wimd stuff if that%(is) something you want to tell someone."
+	if timeup == 0{
+		returnlocation = "WeatherStationErrorResponse"
+		ONBOOT_SETUP
+	}else{
+		WeatherStationErrorResponse
+	}
+}
+
+WeatherStationErrorResponse{
+	"%(gelLookForward)Uh... by the way, I%(am) seeing a '%reference0' error in your Weather plugin stuff if that%(is) something you want to tell someone."
 
 }
 

@@ -113,7 +113,7 @@ chainPeeking_end
 //******************************************************************************
 /*
 //------------------------------------------------------------------------------
-//OnKeyPressƒCƒxƒ“ƒg
+//OnKeyPress
 //------------------------------------------------------------------------------
 // This event fires when any key on the keyboard is pressed.
 // When specifying the function key, specify "f1" etc.
@@ -123,11 +123,11 @@ chainPeeking_end
 
 OnKeyPress
 {
-	infocounter+=3
+	infocounter+=2
 	case reference0 {
 		when "a" {
-			testarray += "," + RAND(8)
-			"0:%testarray[0]: %testarray\e"
+			//testarray += "," + RAND(8)
+			//"0:%testarray[0]: %testarray\e"
 		}
 		when "t" {
 			'\![raise,OnAiTalk]'
@@ -140,9 +140,6 @@ OnKeyPress
 			_dummy = SLEEP(50)
 			returnlocation = "OnBootNVRO"
 			ONBOOT_SETUP
-			--
-			giraffe = 0
-			--
 			
 		}
 		when "m" {
@@ -152,14 +149,6 @@ OnKeyPress
 			else {
 				'\![raise,OnMouseDoubleClick,0,0,0,0,__SYSTEM_KEYDOWN_COL,0,mouse]'
 			}
-		}
-		when "s"{
-		//	temp = "Yeehaw"
-		//	OnCheckForSong
-		//	"%temp\e"
-		}
-		when "c"{
-		//	claustro = 20
 		}when "p"{
 		//	_art = OnLookForArtPrograms
 		//	--
@@ -173,10 +162,6 @@ OnKeyPress
 		}
 	}
 	
-	if reference4 == "esc"{
-		
-		"%(OnGelUpset)You can't escape me. \e"
-	}
 	
 }
 
@@ -237,7 +222,7 @@ OnMinuteChange
 		//build this mofo myself 
 		if reference4 > 100{
 			_minidle = reference[4] / 60
-			"\![raise,OnUserIdle,%_minidle]"
+			"\C\![raise,OnUserIdle,%_minidle]"
 		}elseif infocounter >= 59.9{
 			if debug; SENDERROR("INFO COUNTER MAY BE ROGUE")
 		}
@@ -384,7 +369,7 @@ OnMinuteChange
 	*/
 	--
 	//so Gel will move more
-	if SHIORI3FW.IsTalking == 0 {
+	if SHIORI3FW.IsTalking == 0 && minute % 3 == 1{
 		OnSurfaceRestore
 	}
 
@@ -650,8 +635,8 @@ OnSecondChange
 	
 	if closed == 0 && useractive == 0 && _activity > 3 && timeup >= 2{
 		//if the infoperminute is negative, it is providing a gap of time when the user tells Gel they will be gone
-		if emotion > 0 && infoperminute > -2{
-			SENDERROR('OnUserReturn','info')
+		if infoperminute > -2{
+			if debug == 1; SENDERROR('OnUserReturn','info')
 			"\![raise,OnUserReturn]"
 		
 		}else{
@@ -672,10 +657,12 @@ OnUserReturn{
 	if minidle > 90{
 		SetTimeSensitiveGreeting
 	}
-	//check if they logged off for the night and left Gel here (six hours)
-	if minidle > 360{
-		_timegone = FLOOR(minidle/60)
+	//check if they logged off for the night and left Gel here (five hours)
+	if minidle > 300{
+		//get the amount of hours the user was gone
+		_timegone = ROUND(minidle/60)
 		_logofftime = hour - _timegone 
+		//handling if there was a wraparound over midnight or etc so that we can find the initial hour the user left
 		if _logofftime < 0{
 			//add a negative to it
 			_logofftime = 24 + _logofftime
@@ -685,11 +672,14 @@ OnUserReturn{
 	--
 	if minidle > 2{
 	
-		case emotion{
+	case emotion{
 		
-		//Gel is asleep
+		//Gel is asleep 
 		when -1{
-			"Zzzzz... wh' was tht..."
+			//rarely will they have anything to say
+			if RAND(10) == 8{
+				"Zzzzz... wh' was tht..."
+			}
 
 		
 		//Tired
@@ -1126,31 +1116,34 @@ OnUserReturn{
 
 	}
 
-	
-		if checkGreatTP1{
-			"Hey, %(nicknamed).\e"
-			"Welcome back %username.\e"
-			"Welcome back %username.\e"
-			if minidle <= 10{
-				"Did you forget something?\e"
-				"Did you remember to refill your water?\e"
-				"Wuh buh %(nicknamed)!\e"
-			}
-		}elseif !checkBadMood{
-		
-			"Oh, you%(are) back, %username.\e"
-			"Hi. \e"
-			if minidle <= 10; "Water break?\e"
+		if emotion > 0{
+			if checkGreatTP1{
+				"Hey, %(nicknamed).\e"
+				"Welcome back %username.\e"
+				"Welcome back %username.\e"
+				if minidle <= 10{
+					"Did you forget something?\e"
+					"Did you remember to refill your water?\e"
+					"Wuh buh %(nicknamed)!\e"
+				}
+			}elseif !checkBadMood{
 			
-		
-		}else{
-			"%(gelLookRight)Welc I guess.\e"
-			"%(gelLookAway)...\e"
-			"%(gelLookAway)\e"
-			"\e"
-			"\e"
+				"Oh, you%(are) back, %username.\e"
+				"Hi. \e"
+				if minidle <= 10; "Water break?\e"
+				
+			
+			}else{
+				"%(gelLookRight)Welc I guess.\e"
+				"%(gelLookAway)...\e"
+				"%(gelLookAway)\e"
+				"\e"
+				"\e"
+			
+			}
 		
 		}
+		
 	}
 
 }
@@ -1204,7 +1197,174 @@ mikirego
 // The argument is the content of the talk just before _argv [0] is passed to the body.
 // Comment out so that it does not move.
 
-OnTranslate
+OnTranslate{
+	_text = reference0
+	if reference1 == "" && reference2 == ""
+    { //send input box : no event (ref2) , no special flag (ref1)
+        EVAL('"' + REPLACE(_text,'"','" + CHR(0x22) + "') + '"')
+		//"
+    }else{
+		//delim it up
+		_brokenupstart = IARRAY
+		SETDELIM(_brokenupstart,"$")
+		_brokenupstart = SPLIT(ANCHORPROCESSING(_text),"[")
+		//]" (for the code formatter being weird)
+		
+		_brokenupfinal = IARRAY
+		SETDELIM(_brokenupfinal,"$")
+		_brokenupfinal = _brokenupstart[0]
+		
+		//we have to catch the other side separately
+		for _i = 1 ; _i < ARRAYSIZE(_brokenupstart) ; _i++{
+			_brokenupfinal ,= SPLIT(_brokenupstart[_i],"]")
+		}
+
+		quicktimeflag = 0 //this will make everything after a \_q no longer insert natural pauses
+		temp = 0
+		_newtext = ""
+		
+		_i = 0
+		//parse each section separately so that it won't interact with whats inside a commmand
+		while _i < ARRAYSIZE(_brokenupfinal)-1 {
+			_newtext += PARSECONTENT(_brokenupfinal[_i]) + "[" + _brokenupfinal[_i+1] + "]" 
+			//"
+			temp+=2
+			_i+=2
+		}
+		//handle the case where the final bit is not a command
+		if _i == ARRAYSIZE(_brokenupfinal) - 1{
+			temp++
+			_newtext += PARSECONTENT(_brokenupfinal[_i])
+		}
+		
+		_text = REPLACE(_newtext, "\e", "\w9\w9\e")
+		
+		//Handle Iris's visual modifications separately, since they involve recognizing inside of square brackets.
+		if port == 1712{
+			_text = REPLACE(_text, "\i[353]", "\i[357]\i[353]")
+			_text = REPLACE(_text, "\i[352] ", "\i[352]\i[356]")
+			_text = REPLACE(_text, "\i[354]", "\i[354]\i[358]")
+			_text = REPLACE(_text, "\i[355]", "\i[359]\i[355]")
+			_text = REPLACE(_text, "\i[358]", "\i[358]\i[354]")
+			_text = REPLACE(_text, "\i[356]", "\i[352]\i[356]")
+			_text = REPLACE(_text, "\i[357]", "\i[357]\i[353]")
+			_text = REPLACE(_text, "\i[359]", "\i[355]\i[359]")
+			
+			_text = REPLACE(_text, "\i[363]", "\i[367]\i[363]")
+			_text = REPLACE(_text, "\i[362] ", "\i[362]\i[366]")
+			_text = REPLACE(_text, "\i[364]", "\i[364]\i[368]")
+			_text = REPLACE(_text, "\i[365]", "\i[369]\i[365]")
+			_text = REPLACE(_text, "\i[368]", "\i[368]\i[364]")
+			_text = REPLACE(_text, "\i[366]", "\i[362]\i[366]")
+			_text = REPLACE(_text, "\i[367]", "\i[367]\i[363]")
+			_text = REPLACE(_text, "\i[369]", "\i[365]\i[369]")
+		}
+		
+		//Handle the UWU :3 face
+		if (port == 83 || port == 636 || port == 737 || port == 939){
+			_text = REPLACE(_text, "\i[451]", "\i[463]")
+			
+		}
+		
+		_text
+	
+	}
+
+}
+
+PARSECONTENT{
+	_text = _argv[0]
+	
+	if emotion >= 0 {
+		
+		if !("\_q" _in_ _text) && quicktimeflag == 0{
+			_text = REPLACE(_text, ", ", ",\w6 ")
+			_text = REPLACE(_text, "\,\w6 ", "\, ")
+			_text = REPLACE(_text, ". ", ". \w8")
+			_text = REPLACE(_text, "? ", "? \w8\w4")
+		}else{
+			quicktimeflag = 1
+		}
+		
+		
+		//A few stutters.
+		if claustro > CLAUSTRODILATION && !("\q" _in_ _text)&& !("\!" _in_ _text)&& !("\_a" _in_ _text){
+			_text = REPLACE(_text, "G", "G-G")
+			_text = REPLACE(_text, "D", "D-D")
+			_text = REPLACE(_text, "!", ".")
+		
+		}
+		if claustro > CLAUSTROSTUTTER && !("\q" _in_ _text)&& !("\!" _in_ _text)&& !("\_q" _in_ _text){
+			_text = REPLACE(_text, " T", " T-T")		
+			_text = REPLACE(_text, ". ", ".\w4.\w4. ")
+			_text = REPLACE(_text, "B", "B-B")
+			_text = REPLACE(_text, "K", "K-K")
+			_text = REPLACE(_text, " g", " g-g")
+		
+		}
+		
+		//UWU Gels.
+		if (port == 83 || port == 636 || port == 737 || port == 939){
+			_text = REPLACE(_text, "l", "w")
+			_text = REPLACE(_text, "!!", "!11!!!1")
+			_text = REPLACE(_text, "ni", "nyi")
+			_text = REPLACE(_text, "na", "nya")
+			_text = REPLACE(_text, "ne", "nye")
+			_text = REPLACE(_text, "no", "nyo")
+			_text = REPLACE(_text, "r", "w")
+			
+			TOLOWER(_text)
+			
+		}
+	}
+	
+	_text
+}
+
+ANCHORPROCESSING{
+	_text = _argv[0]
+	if emotion > 0 {
+		//People refer to their friends differently. 434 is not way too out of the ordinary, but is overwhelmingly positive regarding the Wicker family motive. 
+		//434 just calls their friends by their first names.
+		if port != 434{
+			_text = REPLACE(_text, "AnMaryWicker", "\_a[AnchorMaryWicker]Rep Mary Wicker\_a")
+			_text = REPLACE(_text, "AnNariyakiWicker", "\_a[AnchorNariyakiWicker]Rep Nariyaki Wicker\_a")
+			_text = REPLACE(_text, "AnShijoWicker", "\_a[AnchorShijoWicker]Shijo Wicker\_a")
+		}else{
+			_text = REPLACE(_text, "AnMaryWicker", "\_a[AnchorMaryWicker]Mary\_a")
+			_text = REPLACE(_text, "AnNariyakiWicker", "\_a[AnchorNariyakiWicker]Yaki\_a")
+			_text = REPLACE(_text, "AnShijoWicker", "\_a[AnchorShijoWicker]Shijo\_a")
+		}
+		
+		//_text = REPLACE(_text, "AnEvanLocke", "\_a[AnchorEvanLocke]Evan Locke\_a")
+		//No anchor, yet.
+		_text = REPLACE(_text, "AnEvanLocke", "Evan Locke")
+		_text = REPLACE(_text, "AnArtemPulsar", "\_a[AnchorArtemPulsar]Artem Pulsar\_a")
+		_text = REPLACE(_text, "AnTheNameless", "\_a[AnchorTheNameless]The Nameless, leader of the Rainbow Rebels\_a")
+		
+		_text = REPLACE(_text, "An0000", "\_a[AnchorOG]#0000\_a")
+		_text = REPLACE(_text, "AnPort0000", "\_a[AnchorOG]Port #0000\_a")
+		_text = REPLACE(_text, "AnIris", "\_a[AnchorIris]Iris\_a")
+		_text = REPLACE(_text, "AnTaboo", "\_a[AnchorTaboo]Taboo\_a")
+		_text = REPLACE(_text, "An434", "\_a[Anchor434]Port #434\_a")
+		_text = REPLACE(_text, "An2681", "\_a[AnchorNeon]Port #2681\_a")
+		
+		if port != 3839; _text = REPLACE(_text, "AnGra", "\_a[AnchorGra]Gra\_a")
+		
+		_text = REPLACE(_text, "AnDrNeon", "\_a[AnchorDrNeon]Dr.\w1 Neon\_a")
+		_text = REPLACE(_text, "AnWillow", "\_a[AnchorWillow]Willow\_a")
+		_text = REPLACE(_text, "AnRadius", "\_a[AnchorRadius]Radius\_a")
+		_text = REPLACE(_text, "AnRam", "\_a[AnchorRam]Ram\_a")
+		_text = REPLACE(_text, "AnSco ", "\_a[AnchorScorpion]Sco\_a")
+		_text = REPLACE(_text, "AnScorpion", "\_a[AnchorScorpion]Scorpion\_a")
+		_text = REPLACE(_text, "AnTwins", "\_a[AnchorTwins]The Twins\_a")
+		_text = REPLACE(_text, "AnJade", "\_a[AnchorJade]Jade Eyes\_a")
+		
+	}
+	_text
+}
+
+OnTranslateOld
 {	
   //  _timestart = GETTICKCOUNT
    

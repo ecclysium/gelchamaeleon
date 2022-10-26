@@ -275,7 +275,7 @@ AYATEMPLATE.ExecuteGhostNameFunc
 		}
 	}
 
-	if _argc >= 2 {
+	if _argc != '' {
 		_script = EVAL(_argv[2])
 		if STRLEN(_script) != 0 {
 			REPLACE(_script,"\-","")

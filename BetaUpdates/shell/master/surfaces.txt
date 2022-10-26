@@ -733,18 +733,18 @@ surface3000
 //	animation501.pattern0,overlay,01050100,0,0,0
 	
 	//the arms
-	animation700.interval,never
+	animation700.interval,never + runonce
+	animation700.collision700,95,330,120,350,LeftHand
 	animation700.pattern1,overlay,03070000,0,0,0
 	animation700.pattern2,overlay,03070001,750,0,0
 	animation700.pattern3,overlay,03070002,200,0,0
 	animation700.pattern4,overlay,03070001,1500,0,0
 	animation700.pattern5,overlay,03070000,200,0,0
 	animation700.pattern7,start,700
-	animation700.collision700,95,330,120,350,LeftHand
+	
 
 	//arms in lap controller, which delegates, then calls sleeves (17000)
-	animation701.interval,never
-	animation701.pattern1,start,700		
+	animation701.interval,never + runonce
 	animation701.pattern2,overlay,37000,0,0,0	
 	animation701.pattern3,overlay,37001,750,0,0
 	animation701.pattern4,overlay,37002,200,0,0
@@ -1420,6 +1420,14 @@ surface.append1000-1999
 	animation1000.interval,bind
 	animation1000.pattern0,overlay,66666,0,0,0
 	
+	//candy corn
+	animation1100.interval,bind
+	animation1100.pattern0,overlay,01110000,0,0,0
+	
+	//pumpkin
+	animation1240.interval,bind
+	animation1240.pattern0,overlay,01124000,0,0,0
+	
 }
 
 
@@ -1429,7 +1437,7 @@ surface.append3000-3099
 {
 	
 	//back hair (default)
-	animation250.interval,bind + always
+	animation250.interval,bind + runonce
 	animation250.pattern1,overlay,03025000,0,0,0
 	animation250.pattern5,overlay,03025000,750,0,3
 	animation250.pattern6,overlay,03025000,100,0,5
@@ -1439,15 +1447,15 @@ surface.append3000-3099
 	animation250.pattern13,overlay,03025000,100,0,0
 	animation250.pattern14,start,250
 	
-	//back hair (default)
-	animation251.interval,bind + always
-	animation251.pattern1,overlay,01025100,0,2,34
-	animation251.pattern5,overlay,01025100,750,2,35
-	animation251.pattern6,overlay,01025100,100,2,37
-	animation251.pattern7,overlay,01025100,100,2,39
-	animation251.pattern10,overlay,01025100,1500,2,37
-	animation251.pattern11,overlay,01025100,100,2,35
-	animation251.pattern13,overlay,01025100,100,2,34
+	//back hair (ponytail)
+	animation251.interval,bind + runonce
+	animation251.pattern1,overlay,03025100,0,0,2
+	animation251.pattern5,overlay,03025100,750,0,4
+	animation251.pattern6,overlay,03025100,100,0,6
+	animation251.pattern7,overlay,03025100,100,0,7
+	animation251.pattern10,overlay,03025100,1500,0,6
+	animation251.pattern11,overlay,03025100,100,0,4
+	animation251.pattern13,overlay,03025100,100,0,2
 	animation251.pattern14,start,251
 	
 	//regular lax ears
@@ -1514,107 +1522,92 @@ surface.append3000-3099
 	animation450.interval,never
 	animation450.pattern0,overlay,01045000,0,0,0
 	
-	//some of these could use overlayfast...
-	
-	//default smile
-	animation451.interval,never
-	animation451.pattern0,overlay,03045100,0,0,1
-	animation451.pattern5,overlay,03045100,750,0,3
-	animation451.pattern6,overlay,03045100,100,0,5
-	animation451.pattern7,overlay,03045100,100,0,7
-	animation451.pattern10,overlay,03045100,1500,0,5
-	animation451.pattern11,overlay,03045100,100,0,3
-	animation451.pattern13,overlay,03045100,100,0,1
-	animation451.pattern14,start,451
-	
-	//mouth wiggly
-	animation452.interval,never
-	animation452.pattern0,parallelstop,(451,453,454,455,456,457,458,459,460)
-	animation452.pattern9,overlay,01045200,0,0,0
-		
-	//mouth :/
-	animation453.interval,never
-	animation453.pattern0,parallelstop,(451,452,454,455,456,457,458,459,460)
-	animation453.pattern9,overlay,01045300,0,0,0
-	
-	//mouth :/ but flatter
-	animation454.interval,never
-	animation454.pattern0,parallelstop,(451,452,453,455,456,457,458,459,460)
-	animation454.pattern9,overlay,01045400,0,0,0
-	
-	//mouth -U-
-	animation455.interval,never
-	animation455.pattern0,parallelstop,(451,452,453,454,456,457,458,459,460)
-	animation455.pattern9,overlay,01045500,0,0,0
-	
-	//mouth breathing face
-	animation456.interval,never
-	animation456.pattern0,parallelstop,(451,452,453,454,455,457,458,459,460)
-	animation456.pattern9,overlay,01045600,0,0,0
-	
-	//mouth :T
-	animation457.interval,never
-	animation457.pattern0,parallelstop,(451,452,453,454,455,456,458,459,460)
-	animation457.pattern9,overlay,01045700,0,0,0
-	
-	//mouth .v.
-	animation458.interval,never
-	animation458.pattern0,parallelstop,(451,452,453,454,455,456,457,459,460)
-	animation458.pattern9,overlay,01045800,0,0,0
-	
-	//mouth :o
-	animation459.interval,never
-	animation459.pattern0,parallelstop,(451,452,453,454,455,456,457,458,460)
-	animation459.pattern9,overlay,01045900,0,0,0
-	
-	//mouth :p
-	animation460.interval,never
-	animation460.pattern0,parallelstop,(451,452,453,454,455,456,457,458,459)
-	animation460.pattern9,overlay,01046000,0,0,0
-	
-	//mouth :'<
-	animation461.interval,never
-	animation461.pattern0,parallelstop,(451,452,453,454,455,456,457,458,459)
-	animation461.pattern9,overlay,01046100,0,0,0
-	
-	//mouth :(
-	animation462.interval,never
-	animation462.pattern0,parallelstop,(451,452,453,454,455,456,457,458,459,463)
-	animation462.pattern10,overlay,01046200,0,0,0
-	
-	//mouth :(
-	animation463.interval,never
-	animation463.pattern0,parallelstop,(451,452,453,454,455,456,457,458,459)
-	animation463.pattern9,overlay,01046300,0,0,0
-	
 	//Obsidian
 	animation600.interval,never
 	animation600.pattern0,overlay,01060000,0,0,0
 	
-//	animation700.interval,runonce
-//	animation700.pattern0,overlay,03070100,0,0,0
-//	animation700.pattern1,overlay,03070000,750,0,0
-//	animation700.pattern2,overlay,03070100,100,0,0
-//	animation700.pattern3,overlay,03070200,100,0,0
-//	animation700.pattern4,overlay,03070100,1500,0,0
-//	animation700.pattern5,overlay,03070000,100,0,0
-//	animation700.pattern6,overlay,03070000,100,0,0
-//	animation700.pattern7,start,700
-	
-	//tired eyes
-	//animation900.interval,never
-	//animation900.pattern0,overlay,03090000,0,0,0
-	//animation900.pattern3,overlay,03090000,750,0,3
-	//animation900.pattern4,overlay,03090000,100,0,5
-	//animation900.pattern5,overlay,03090000,100,0,7
-	//animation900.pattern8,overlay,03090000,1500,0,5
-	//animation900.pattern9,overlay,03090000,100,0,3
-	//animation900.pattern11,overlay,03090000,100,0,0
-	//animation900.pattern14,start,900
-	
 	//sickly green  blush
 	animation901.interval,never
 	animation901.pattern0,overlay,01090100,0,0,0
+	
+	//bruise
+	animation902.interval,never
+	animation902.pattern1,overlay,03090200,0,0,1
+	animation902.pattern2,overlay,03090200,750,0,3
+	animation902.pattern3,overlay,03090200,100,0,5
+	animation902.pattern4,overlay,03090200,100,0,7
+	animation902.pattern5,overlay,03090200,1500,0,5
+	animation902.pattern6,overlay,03090200,100,0,3
+	animation902.pattern7,overlay,03090200,100,0,1
+	animation902.pattern9,start,902
+	
+	//black eye
+	animation903.interval,never
+	animation903.pattern1,overlay,03090300,0,0,1
+	animation903.pattern2,overlay,03090300,750,0,3
+	animation903.pattern3,overlay,03090300,100,0,5
+	animation903.pattern4,overlay,03090300,100,0,7
+	animation903.pattern5,overlay,03090300,1500,0,5
+	animation903.pattern6,overlay,03090300,100,0,3
+	animation903.pattern7,overlay,03090300,100,0,1
+	animation903.pattern9,start,903
+	
+	//cut
+	animation904.interval,never
+	animation904.pattern1,overlay,03090400,0,0,1
+	animation904.pattern2,overlay,03090400,750,0,3
+	animation904.pattern3,overlay,03090400,100,0,5
+	animation904.pattern4,overlay,03090400,100,0,7
+	animation904.pattern5,overlay,03090400,1500,0,5
+	animation904.pattern6,overlay,03090400,100,0,3
+	animation904.pattern7,overlay,03090400,100,0,1
+	animation904.pattern9,start,904
+	
+	//choked
+	animation905.interval,never
+	animation905.pattern1,overlay,03090500,0,0,1
+	animation905.pattern2,overlay,03090500,750,0,3
+	animation905.pattern3,overlay,03090500,100,0,5
+	animation905.pattern4,overlay,03090500,100,0,7
+	animation905.pattern5,overlay,03090500,1500,0,5
+	animation905.pattern6,overlay,03090500,100,0,3
+	animation905.pattern7,overlay,03090500,100,0,1
+	animation905.pattern9,start,905
+	
+	//cracked
+	animation906.interval,never
+	animation906.pattern1,overlay,03090600,0,0,1
+	animation906.pattern2,overlay,03090600,750,0,3
+	animation906.pattern3,overlay,03090600,100,0,5
+	animation906.pattern4,overlay,03090600,100,0,7
+	animation906.pattern5,overlay,03090600,1500,0,5
+	animation906.pattern6,overlay,03090600,100,0,3
+	animation906.pattern7,overlay,03090600,100,0,1
+	animation906.pattern9,start,906
+	
+	
+	//candy corn
+	animation1100.interval,bind + always
+	animation1100.pattern0,overlay,01110000,0,-5,31
+	animation1100.pattern4,overlay,01110000,750,-5,33
+	animation1100.pattern6,overlay,01110000,100,-5,35
+	animation1100.pattern7,overlay,01110000,100,-5,37
+	animation1100.pattern8,overlay,01110000,200,-5,38
+	animation1100.pattern10,overlay,01110000,1300,-5,35
+	animation1100.pattern11,overlay,01110000,100,-5,33
+	animation1100.pattern13,overlay,01110000,100,-5,31
+	
+	//pel gumpkin (gel pumpkin)
+	animation1240.interval,bind + always
+	animation1240.pattern0,overlay,03124000,0,0,0
+	animation1240.pattern0,overlay,03124000,0,0,1
+	animation1240.pattern4,overlay,03124000,750,0,3
+	animation1240.pattern6,overlay,03124000,100,0,5
+	animation1240.pattern7,overlay,03124000,100,0,7
+	animation1240.pattern8,overlay,03124000,200,0,8
+	animation1240.pattern10,overlay,03124000,1300,0,5
+	animation1240.pattern11,overlay,03124000,100,0,3
+	animation1240.pattern13,overlay,03124000,100,0,1
 	
 	//paper bag emote
 	animation1250.interval,bind + always
@@ -1630,8 +1623,8 @@ surface.append3000-3099
 }
 
 
-//Generic slouched collisions
-surface.append2000-3999
+//Asleep collisions
+surface.append3000-3999
 {
 	collision0,100,200,170,230,Head
 	collision1,105,230,165,275,Face
@@ -1647,6 +1640,11 @@ surface.append2000-3999
 //Full slouch,but not asleep (bc asleep is animated)
 surface.append2000-2999
 {
+	collision0,95,180,170,215,Head
+	collision1,100,215,165,265,Face
+	collision2,75,215,105,245,Ear
+	collision3,165,215,195,245,Ear
+	collision4,115,275,155,300,Chest
 	
 	//back hair (default)
 	animation250.interval,bind

@@ -1,15 +1,15 @@
 Charset,UTF-8
 __system_settings_version__,2
-balloon,C:\Users\ihave\Desktop\Ukagaka\AlphaVerTest\balloon\Varia Sunset 165\
+balloon,C:\Users\ihave\Desktop\Ukagaka\AlphaVerTest\balloon\varia_sunset\
 inputbox.left,2760
 GroupFlagOverride,noupdateauto,nocheck,
-scriptbox.left,3144
+scriptbox.left,3501
 Char9.center,3115
 shiori.debugnotify,0
-Char.VirtualDesktop,2bb34833-0df1-43f0-b124-1f10831c496b
+Char.VirtualDesktop,bdd4b842-8081-410d-9e34-194b55e1f037
 Update.TestMode,1
-Char0.center,3218
-scriptbox.top,907
+Char0.center,3976
+scriptbox.top,651
 shell,shell\master\
 FirstBoot,booted
 Char1.center,1442

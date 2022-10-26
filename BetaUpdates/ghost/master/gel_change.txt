@@ -417,7 +417,7 @@ OnGhostCalled
 
 OnGhostCallComplete
 {	
-	SENDERROR("OnGhostCallComplete","info")
+	if debug == 1; SENDERROR("OnGhostCallComplete","info")
 	AYATEMPLATE.ExecuteChangeCallTalk("OnGhostCallComplete")
 }
 

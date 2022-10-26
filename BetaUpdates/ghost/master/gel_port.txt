@@ -14,21 +14,23 @@ OnBirthMonthTeach{
 	--
 	case _month{
 		when "january", "jan"{
+			userbirthday = "1"
 			if checkBadMood{
-				"Okay, you mean Hercules? January is an old word for that."
+				"Okay, you mean Hercules? January is an old word for that. "
 			}else
 				"%(gelLookForward)Hercules baby! %(gelLookRight)%(gelSlashMouth)January is a weird thing to call the month of Hercules. "
 		}when "hercules", "1", "01","herc", "hec"{
 			userbirthday = "1"
 			if checkBadMood{
-				"Okay, Hercules."
+				"Okay, Hercules. "
 			}else
 				"%(gelLookForward)Hercules baby! %(gelLookRight)Or, well, January. "
 		
 		}
 		when "february", "feb"{
+			userbirthday = "2"
 			if checkBadMood{
-				"%(gelLookForward)%(gelSquint)February is a bit of an outdated way to say it..."
+				"%(gelLookForward)%(gelSquint)February is a bit of an outdated way to say it... "
 			}else
 				"%(gelLookForward)%(gelConfused)February? That%(is) a weird thing to call the month of Juliet. That%(is) from the history books. "
 				
@@ -44,7 +46,7 @@ OnBirthMonthTeach{
 			if checkBadMood{
 				"%(gelLookForward)%(gelSquint)March is a bit of an outdated way to say it..."
 			}else
-				"%(gelLookForward)%(gelConfused)March? That%(is) a weird thing to call the month of Shirley. *March* to ''the beat of your own drum,'' though."
+				"%(gelLookForward)%(gelConfused)March? That%(is) a weird thing to call the month of Shirley. *March* to ''the beat of your own drum,'' though. "
 				
 		}when "shirley", "3", "03", "shr"{
 			userbirthday = "3"
@@ -56,23 +58,23 @@ OnBirthMonthTeach{
 		when "april", "apr"{
 			userbirthday = "4"
 			if checkBadMood{
-				"%(gelLookForward)%(gelSquint)April is a bit of an outdated way to say it..."
+				"%(gelLookForward)%(gelSquint)April is a bit of an outdated way to say it... "
 			}else
-				"%(gelLookForward)%(gelConfused)April? That%(is) a weird thing to call the month of Achilles. %(gelSmug)Are %(you) scared of getting poisoned in the heel or something?"
+				"%(gelLookForward)%(gelConfused)April? That%(is) a weird thing to call the month of Achilles. %(gelSmug)Are %(you) scared of getting poisoned in the heel or something? "
 				
 		}when "achilles", "4", "04", "ach"{
 			userbirthday = "4"
 			if checkBadMood{
-				"I always thought Achilles was a weird story to turn into a month."
+				"I always thought Achilles was a weird story to turn into a month. "
 			}else
 				"The month of Achilles. %(gelLookForward)Keep your heels safe. "
 		}
 		when "may"{
 			userbirthday = "5"
 			if checkBadMood{
-				"%(gelLookForward)%(gelSquint)Who even calls a month May? It%(is) weird. Use the new name, it%(is) better-- Merlin."
+				"%(gelLookForward)%(gelSquint)Who even calls a month May? It%(is) weird. Use the new name, it%(is) better-- Merlin. "
 			}else
-				"%(gelLookForward)%(gelConfused)May? That%(is) a weird thing to call the month of Merlin. %(gelSquint)May is a horrible name for a month."
+				"%(gelLookForward)%(gelConfused)May? That%(is) a weird thing to call the month of Merlin. %(gelSquint)May is a horrible name for a month. "
 				
 		}when "merlin", "5", "05", "mer"{
 			userbirthday = "5"
@@ -84,21 +86,21 @@ OnBirthMonthTeach{
 		when "june", "jun"{
 			userbirthday = "6"
 			if checkBadMood{
-				"%(gelLookForward)%(gelSquint)June is a bit of an outdated way to say it..."
+				"%(gelLookForward)%(gelSquint)June is a bit of an outdated way to say it... "
 			}else
-				"%(gelLookForward)%(gelConfused)June? That%(is) a weird thing to call the month of Solomon. Weird story, though."
+				"%(gelLookForward)%(gelConfused)June? That%(is) a weird thing to call the month of Solomon. Weird story, though. "
 				
 		}when "solomon", "king solomon", "6", "06", "sol"{
 			userbirthday = "6"
 			if checkBadMood{
-				"%(gelSlashMouth)Oh, this is a good month. King Solomon is an interesting literature lesson."
+				"%(gelSlashMouth)Oh, this is a good month. King Solomon is an interesting literature lesson. "
 			}else
 				"Solomon! Nice. %(gelHmm)What do you want for your birthday? Wisdom? %(gelLookForward)You might get more than what you ask for.\n\n"
 		}
 		when "july", "jul"{
 			userbirthday = "7"
 			if checkBadMood{
-				"%(gelLookForward)%(gelSquint)July is a bit of an outdated way to say it..."
+				"%(gelLookForward)%(gelSquint)July is a bit of an outdated way to say it... "
 			}else
 				"%(gelLookForward)%(gelConfused)July? That%(is) a weird thing to call the month of Indiana. That%(is) from the history books. "
 				
@@ -109,51 +111,51 @@ OnBirthMonthTeach{
 		when "august", "aug"{
 			userbirthday = "8"
 			if checkBadMood{
-				"%(gelLookForward)%(gelSquint)August is a bit of an outdated way to say it..."
+				"%(gelLookForward)%(gelSquint)August is a bit of an outdated way to say it... "
 			}else
 				"%(gelLookForward)%(gelConfused)August? That%(is) a weird thing to call Mockingbird. That%(is) from the history books. "
 				
 		}when "mockingbird", "8", "08", "mock", "mkb"{
 			userbirthday = "8"
 			if checkBadMood{
-				"To Kill a Mockingbird got banned a long time ago. I %(dunno) why they named a month after it."
+				"To Kill a Mockingbird got banned a long time ago. I %(dunno) why they named a month after it. "
 			}else
 				"Oh, Mockingbird! %(gelLookForward)Atlas City does%(not) have real birds, not really. %(gelSlashMouth)I wish I could see one, but that's impossible for multiple reasons. "
 		}
 		when "september", "sep"{
 			userbirthday = "9"
 			if checkBadMood{
-				"%(gelLookForward)%(gelSquint)September is a bit of an outdated way to say it..."
+				"%(gelLookForward)%(gelSquint)September is a bit of an outdated way to say it... "
 			}else
-				"%(gelLookForward)%(gelConfused)September? That%(is) a weird thing to call the month of Holmes. That%(is) from the history books. Everyone knows City Sunflower Day is the best holiday. Holmes is too important."
+				"%(gelLookForward)%(gelConfused)September? That%(is) a weird thing to call the month of Holmes. That%(is) from the history books. Everyone knows City Sunflower Day is the best holiday. Holmes is too important. "
 				
 		}when "holmes", "9", "09", "hol"{
 			userbirthday = "9"
 			if checkBadMood{
-				"Month of Sherlock Holmes, okay."
+				"Month of Sherlock Holmes, okay. "
 			}else
 				"Holmes' month. %(gelLookForward)%(gelHmm)Are you a good detective, %username? "
 		}
 		when "october", "oct"{
 			userbirthday = "10"
 			if checkBadMood{
-				"%(gelLookForward)%(gelSquint)October is a bit of an outdated way to say it..."
+				"%(gelLookForward)%(gelSquint)October is a bit of an outdated way to say it... "
 			}else
-				"%(gelLookForward)%(gelConfused)Why call it October? Even in history, it was just Hallowed Ween anyway, we just shortened it to the right holiday. Less weird now."
+				"%(gelLookForward)%(gelConfused)Why call it October? Even in history, it was just Hallowed Ween anyway, we just shortened it to the right holiday. Less weird now. "
 				
 		}when "hallowed", "10", "hal"{
 			userbirthday = "10"
 			if checkBadMood{
-				"A month of hallow."
+				"A month of hallow. "
 			}else
-				"%(gelLookForward)%(gelHuh)It%(is) the spooky month, huh? %(gelLookLeft)Hallowed to us in Atlas."
+				"%(gelLookForward)%(gelHuh)It%(is) the spooky month, huh? %(gelLookLeft)Hallowed to us in Atlas. "
 		}
 		when "november", "nov"{
 			userbirthday = "11"
 			if checkBadMood{
-				"%(gelLookForward)%(gelSquint)November is a bit of an outdated way to say it..."
+				"%(gelLookForward)%(gelSquint)November is a bit of an outdated way to say it... "
 			}else
-				"%(gelLookForward)%(gelConfused)November? Are you into history that much, really? It%(is) Beowulf, come on."
+				"%(gelLookForward)%(gelConfused)November? Are you into history that much, really? It%(is) Beowulf, come on. "
 				
 		}when "beowulf", "11", "beo"{
 			userbirthday = "11"
@@ -168,24 +170,24 @@ OnBirthMonthTeach{
 		when "december", "dec"{
 			userbirthday = "12"
 			if checkBadMood{
-				"%(gelLookForward)%(gelSquint)December is a bit of an outdated way to say it..."
+				"%(gelLookForward)%(gelSquint)December is a bit of an outdated way to say it... "
 			}else
-				"%(gelLookForward)%(gelConfused)December That%(is) a weird thing to call the month of Wizard. That%(is) from the history books. Wizard is much cooler."
-				
+				"%(gelLookForward)%(gelConfused)December That%(is) a weird thing to call the month of Wizard. That%(is) from the history books. Wizard is much cooler. "
+				 
 		}when "wizard", "12", "wiz"{
 			userbirthday = "12"
 			if checkBadMood{
-				"Wizard is at least a straightforward month name. Better than whatever they called it before, at least. December is weird."
+				"Wizard is at least a straightforward month name. Better than whatever they called it before, at least. December is weird. "
 			}else
-				"Kinda like Merlin, it's a pretty magical month! Wizard. %(gelLookForward)It%(is) up front about itself. High quality month name."
+				"Kinda like Merlin, it's a pretty magical month! Wizard. %(gelLookForward)It%(is) up front about itself. High quality month name. "
 		}others{
-			"%(gelUh)I%(am) sorry? What month?"
-			"%(gelHuh)That's not a real month.\w8 %(gelLookAway)%(gelUh)I do%(not) think so, at least."
+			"%(gelUh)I%(am) sorry? What month? "
+			"%(gelHuh)That's not a real month.\w8 %(gelLookAway)%(gelUh)I do%(not) think so, at least. "
 			if _month != ""{
-				"%(gelSquint)What kind of currency is a %reference0???"
-				"%(gelLookForward)%(gelSquint)What the %(fudge) kind of currency is a %reference0???"
+				"%(gelSquint)What kind of currency is a %reference0??? "
+				"%(gelLookForward)%(gelSquint)What the %(fudge) kind of currency is a %reference0??? "
 			}else{
-				"You--\w8 %(gelSquint)You literally just pressed the enter key. \w8Come on, %username."
+				"You--\w8 %(gelSquint)You literally just pressed the enter key. \w8Come on, %username. "
 			}
 			--
 			"\![open,inputbox,OnBirthMonthTeach]\e"
@@ -213,7 +215,10 @@ OnBirthDayTeach{
 		}
 	
 	}
-	if _day > 31{
+	if _day < 1{
+		"%(gelLookForward)%(gelSquint)Uhhhhh... what? That%(is) not a real day.\![open,inputbox,OnBirthDayTeach]"
+	}
+	elseif _day > 31{
 		"That can't be right. There's not even %_day days in that month. Come again? \![open,inputbox,OnBirthDayTeach]\e"
 	}else{
 		userbirthday = _month + "/" + _day
@@ -353,6 +358,7 @@ OnGelPort{
 	timesmadesick = 0
 	totalhoursknown = 0
 	punches = 0
+	firstpunch = 0	//used to detect confirming a punch
 	pets = 0
 	earpets = 0
 	badtouches = 0	//combo bad pets and punches
@@ -361,6 +367,7 @@ OnGelPort{
 	rpsgelwins = 0
 	rpsuserwins = 0
 	nvrononsenseclicks = 0
+	needlepokes=0
 	
 	//MEMORY
 	askgel = 0
@@ -376,6 +383,8 @@ OnGelPort{
 	giraffe = 0
 	todos = 0
 	dailies = 0
+	//initializes an array
+	startingLogOff
 	//If you ask Gel about their gender they'll ask about yours -- -1 not asked, 0 cis, 1 trans
 	usertranscis = -1
 	
@@ -579,9 +588,6 @@ PORTGEL{
 		gcolor = "green"
 		gelsalterego = "Jackpot Jel"
 	}elseif port == 11 || port == 22 || port == 33 ||port == 44 ||port == 55 ||port == 66 ||port == 77 ||port == 88 ||port == 99 || port == 111 || port == 222  || port == 333 || port == 444 ||port == 555 ||port == 666 ||port == 777 ||port == 888 ||port == 999 ||port == 1111 || port == 2222 || port == 3333 || port == 4444{
-		//hmm, can I make it treat it as an array? Later, later.
-		//EDIT: DONE
-		
 		//It's based off of Ram and Sco, so... gender.
 		if port % 2 {
 			gelFEM
@@ -624,6 +630,12 @@ PORTGEL{
 		genderlocked = 1
 		gelsalterego = "Mispronounced [NAME HERE]"
 	
+	}elseif port == 83 || port == 636 || port == 737 || port == 939{
+		Gel = "Gewetin"
+		gcolor = "pwink"
+		gelsalterego = "The Bwestest Gewetwin Dere Is"
+		claustro = (port % 9) + 1
+		
 	}elseif port == 3839{
 		Gel = "Gra"
 		gcolor = "sky blue"
@@ -678,6 +690,7 @@ PORTGEL{
 		genderlocked = 1
 		notouchie = 0
 		rogue = 1
+		gelsalterego = "Iris Flower"
 		gelFEM
 	
 	}elseif port == 3023{
@@ -692,6 +705,12 @@ PORTGEL{
 		gcolor = "egg yolk yellow"
 		claustro = (port % 10) + 1
 	
+	}elseif port == 4034{
+		Gel = "Pel"
+		gelsalterego = "Pel Gumpkin"
+		gcolor = "pumpkin orange"
+		claustro = (port % 10) + 1
+	
 	}else{
 		Gel = "Gel"
 		gcolor = gelCOLORIZED[ RAND(50) % ARRAYSIZE(gelCOLORIZED)]
@@ -700,7 +719,7 @@ PORTGEL{
 		gelsalterego = gelalteregoname[port % ARRAYSIZE(gelalteregoname)]
 	}
 	--
-	if port < 1000 && port%2 == 1{
+	if port < 1000 && port%2 == 1 && !(port == 83 || port == 636 || port == 737 || port == 939){
 		claustro = port % 100
 	}
 	--
@@ -851,7 +870,7 @@ getMusicTaste{
 			"D&B"
 		}others{ 
 			"no"
-			", well, actually, I don't like"
+			//", well, actually, I don't like"
 		}
 	
 	
@@ -1201,6 +1220,10 @@ OnUpdateVars{
 	INSTANTIATE(&nvrononsenseclicks,0)
 	INSTANTIATE(&betaupdates,0)
 	INSTANTIATE(&nvrosentient,0)
+	INSTANTIATE(&needlepokes,0)
+	if ISVAR(logginghours) == 0 || currentversion == "V 1.0.1" || currentversion == "V 1.0.0"{
+		startingLogOff
+	}
 }
 
 //takes a var and sets it to _argv1

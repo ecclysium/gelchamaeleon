@@ -258,6 +258,7 @@ TalkToUser
 			}else{
 				"Rams are a cool animal.\e"
 				"What great beasts with what great horns.\e"
+				"What about memory?\e"
 				"Uh, what?\e"
 			}
 			
@@ -464,6 +465,30 @@ ReplyToOther{
 	}
 }
 
+
+OnNeedlePoke{
+	if emotion > 0{
+		if checkBadMood{
+			//bad mood reactions
+			"%(gelLookConcerned)%(gelEarsUp)Ouch! \w8\w8%(gelEarsDown)%(gelWorry)I do%(not) like where this is going."
+			"%(gelLookNervous)%(gelArmsChest)Ow-- why did you bring this here again?"
+			if checkLessEqTN2; "%(gelLookAway)%(gelWorry)%(gelFrown)%(gelEarsBack)Hngh..."
+		}else{
+			//good mood
+			"%(gelLookRight)%(gelArmsChest)%(gelWorry)What is that!?"
+			"%(gelLookAfraid)%(gelArmsChest)%(gelWorry)%(gelEarsDown)Ow! That hurt!"
+			"%(gelLookNervous)%(gelArmsChest)%(gelT)Why is there a needle on your desktop, %username??"
+			
+		}
+	}
+	needlepokes++
+
+}
+
+
+
+
+
 //HOLDING GUIDE
 //600 - OBSIDIAN
 
@@ -531,7 +556,7 @@ GiveV1{
 		case _argv[1]{
 			
 			when "iris"{
-				if ASEARCH(inventory,"iris") != -1{
+				if ASEARCH(inventory,"iris") > -1{
 					"%(gelLookLeft)%(gelHmm)Oh, uh, no thank you. I already have one.\eGelAccept%_argv[0],0"
 				}elseif port == 1712{
 					emotion=0

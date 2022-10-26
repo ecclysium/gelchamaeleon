@@ -10,7 +10,7 @@
 
 //Driver
 ONBOOT_SETUP{
-	SENDERROR("ONBOOT_SETUP started execution successfully","info")
+	if debug == 1; SENDERROR("ONBOOT_SETUP started execution successfully","info")
 	//If Gel wasn't properly closed before, we need to check some things.
 //	"%reference0 , %reference1 , %reference2 , %reference3 , %reference4"
 	--
@@ -26,21 +26,17 @@ ONBOOT_SETUP{
 	if getVersion != currentversion{
 		OnUpdateVars
 	}
-	//Processing for new appearances etc, DayChange manages some bonus variables
+	//Processing for new appearances etc
 	lastboot = thisboot
 	thisboot = TOSTR(month) + "/" + TOSTR(day)+ "/" + TOSTR(GetYear)
-	//clothes check will return us to host function's real part two
-	if thisboot != lastboot{
-		//OnDayChange
-		OnClothesCheck
-	}
+	OnClothesCheck
 	if actcountallowed >= 1{
 		actcountallowed = 60
 		//This starts a timer to turn it on, since it is a hook that is naturally integrated into the system, so we work with that flow.
 	} 
 	--
-	"\![raise,OnBootPostClothes]"
-	SENDERROR("ONBOOT_SETUP completed execution successfully","info")
+	//"\![raise,OnBootPostClothes]"
+	if debug == 1; SENDERROR("ONBOOT_SETUP completed execution successfully","info")
 	
 	
 	
@@ -48,7 +44,7 @@ ONBOOT_SETUP{
 
 
 OnBootPostClothes{
-	SENDERROR("OnBootPostClothes started execution successfully","info")
+	if debug == 1; SENDERROR("OnBootPostClothes started execution successfully","info")
     _check = checkSilentMode
 	if _check == 1{
 		"\w2"
@@ -60,14 +56,14 @@ OnBootPostClothes{
 	--
 	//Pass it to dialogue!
 	"\![raise,%returnlocation]"
-	SENDERROR("OnBootPostClothes concluded execution successfully","info")
+	if debug == 1; SENDERROR("OnBootPostClothes concluded execution successfully","info")
 
 
 }
 
 //When this is not the same day at all, will generally also happen with OnGeneralClearInternal
 OnDayChange{
-	SENDERROR("OnDayChange started execution successfully","info")
+	if debug == 1; SENDERROR("OnDayChange started execution successfully","info")
 	//Gel is become fear
 	if claustro != 0{
 		OnSetDailyClaustro
@@ -91,7 +87,7 @@ OnDayChange{
 		--
 		daysknown++	
 	}
-	SENDERROR("OnDayChange concluded execution successfully","info")
+	if debug == 1; SENDERROR("OnDayChange concluded execution successfully","info")
 
 }
 
@@ -116,7 +112,7 @@ OnSetDailyClaustro{
 	if caged == 0 && claustro > 20{
 		claustro-=20
 	}
-	SENDERROR("Claustrophobia set: %claustro","info")
+	if debug == 1; SENDERROR("Claustrophobia set: %claustro","info")
 
 }
 
@@ -124,10 +120,9 @@ OnSetDailyClaustro{
 
 //This function sees if clothing needs to be added, and does such, returning to caller.
 OnClothesCheck{
-	SENDERROR("OnClothesCheck started execution successfully","info")
+	if debug == 1; SENDERROR("OnClothesCheck started execution successfully","info")
 	//"%reference0,%reference1,%reference2,%reference3,%reference4"
 	--
-	thisboot = TOSTR(month) + "/" + TOSTR(day)+ "/" + TOSTR(GetYear)
 	if thisboot != lastboot{
 		OnDayChange
 		--
@@ -137,9 +132,7 @@ OnClothesCheck{
 	}
 
 	--
-	//first one runs the proper Noise and animation, then we pass it to the main from there.
-	//"\![raise,%returnlocation]"
-	SENDERROR("OnClothesCheck concluded execution successfully","info")
+	if debug == 1; SENDERROR("OnClothesCheck concluded execution successfully","info")
 }
 
 
@@ -160,8 +153,13 @@ OnClothesChange{
 	if RAND(10) >= 8 && "iris" _in_ ginventory{
 	//	"\![bind,Hats,Iris,1]\![raise,OnEquipClothingItem,Iris]"
 	}
-	if RAND(30) == 8 && checkGreatTN2{
+	if RAND(20) == 8 && checkGreatTN2{
 		"\![bind,Hats,Paper Bag,1]\![raise,OnEquipClothingItem,Paper Bag]"
+	}
+	if port == 4034 || month == 10 && (day == 31 || RAND(5) == 0){
+		"\![bind,Hats,Pumpkin,1]\![raise,OnEquipClothingItem,Pumpkin]"
+	}elseif month == 10 && (port > 4500 || RAND(3) == 0){
+		"\![bind,Hats,Candy Corn,1]\![raise,OnEquipClothingItem,Candy Corn]"
 	}
 	--
 	//Shirts
@@ -214,18 +212,22 @@ OnClothesChange{
 	}
 	--
 	if userbirthday == (thisboot[0,"/"] + thisboot[1,"/"]){
-		"\![bind,Hats,We Like To Party,1]\![raise,OnEquipClothingItem,Crunchy Hat]"
+		"\![bind,Hats,Crunchy Hat,1]\![raise,OnEquipClothingItem,Crunchy Hat]"
 	
 	}else{
-		"\![bind,Hats,We Like To Party,0]"
+		"\![bind,Hats,Crunchy Hat,0]"
 	
 	}
+	--
+	"\![raise,OnBootPostClothes]"
 	
 }
 
 
 OnLoadOutfit{
+	UnEquipAllNonShirt
 	_outfit = ""
+	//ELEPHANT: optimize, does not need this much code now that I've synced names
 	foreach clothes; _item{
 	
 		case _item{
@@ -237,7 +239,7 @@ OnLoadOutfit{
 				_outfit+= "\![bind,Hair,Ponytail,1]"
 			}
 			when "Crunchy Hat"{
-				_outfit+= "\![bind,Hats,We Like To Party,1]"
+				_outfit+= "\![bind,Hats,Crunchy Hat,1]"
 			}
 			when "Green"{
 				_outfit+= "\![bind,Shirts,Green,1]"
@@ -247,17 +249,22 @@ OnLoadOutfit{
 			}
 			when "Ripped Black Jeans"{
 				_outfit+= "\![bind,Pants,Ripped Black Jeans,1]"
-			
 			}
 			when "Purple Pants"{
 				_outfit+= "\![bind,Pants,Purple Pants,1]"
 			}
+			when "Pumpkin"{
+				_outfit+= "\![bind,Pants,Pumpkin,1]"
+			}
+			when "Candy Corn"{
+				_outfit+= "\![bind,Pants,Candy Corn,1]"
+			}
 		
 		}
 	}
-	_outfit += "\w8\w8\w8\w8" + "\![raise,OnBootPostClothes]\![raise,OnBootPartTwo]"
+	_outfit += "\w8\w8\w8\w8" + "\![raise,OnBootPostClothes]"
 	--
-	SENDERROR("New outfit loaded successfully","info")
+	if debug == 1; SENDERROR("New outfit loaded successfully","info")
 	_outfit
 	
 	
@@ -272,11 +279,11 @@ OnEquipClothingItem{
 //We just put on the base shirt to be on the safer side, worst it gets is double-bound
 //Pants go to default.
 UnEquipAllNonShirt{
-	"\![bind,corrupted,We Like To Party,0]"
+	"\![bind,corrupted,Crunchy Hat,0]"
 	--
 	//"\![bind,Hats,Iris,0]"
 	--
-	"\![bind,Hats,Paper Bag,0]"
+	"\![bind,Hats,Paper Bag,0]\![bind,Hats,Pumpkin,0]\![bind,Hats,Candy Corn,0]"
 	--
 	"\![bind,Shirts,Green,1]\![bind,Shirts,Denied,0]\![bind,Shirts,VOC Certified,0]\![bind,Shirts,Baja Blasted,0]"
 	--
@@ -304,7 +311,7 @@ UnEquipAllNonShirt{
 
 //Clean up variables that are temp and that sort.
 ONCLOSE_VAR{
-	SENDERROR("ONCLOSE_VAR started execution successfully","info")
+	if debug == 1; SENDERROR("ONCLOSE_VAR started execution successfully","info")
 	//It's important to stay clean-- ones that are forced to multi-function use and cache.
 	ERASEVAR("thisfriend","friendslist","friendslist","reference0","reference1","reference2","reference3","i","buffer","play","temp","testarray")
 	//Flags that will be reset on boot as it is, if needed.
@@ -325,17 +332,17 @@ ONCLOSE_VAR{
 	
 	//it should do this automatically, but no harm in this either.
 	SAVEVAR("yaya_variable.cfg")
-	SENDERROR("ONCLOSE_VAR concluded execution successfully","info")
+	if debug == 1; SENDERROR("ONCLOSE_VAR concluded execution successfully","info")
 }
 
 
 
 //Clearing things when it's a reboot/reload
 OnGeneralClear{
-	SENDERROR("OnGeneralClear started execution successfully","info")
+	if debug == 1; SENDERROR("OnGeneralClear started execution successfully","info")
 	infocounter = 10
 	infoperminute = 30
-	//emotion = 1
+	emotion = 1
 	minsinemotion = 0
 	lastinter = 0
 	shakenup = 0
@@ -354,7 +361,7 @@ OnGeneralClear{
 	--
 	//birthday boot will short-circuit the regular boot
 	if userbirthday _in_ thisboot{
-		SENDERROR("OnGeneralClear interrupted: birthday","info")
+		if debug == 1; SENDERROR("OnGeneralClear interrupted: birthday","info")
 		if hour == 0 && minute == 0{
 			"%(gelBase)\1\s[-1]\0"
 			--
@@ -371,14 +378,14 @@ OnGeneralClear{
 	//	"\![bind,Hair,We Like To Party,1]\![raise,OnEquipClothingItem,Crunchy Hat]"
 	//	--
 	}
-	SENDERROR("OnGeneralClear concluded execution successfully","info")
+	if debug == 1; SENDERROR("OnGeneralClear concluded execution successfully","info")
 
 
 }
 
 //Clearing things up when the ghost is already active, like overnight
 OnGeneralClearInternal{
-	SENDERROR("OnGeneralClearInternal started execution successfully","info")
+	if debug == 1; SENDERROR("OnGeneralClearInternal started execution successfully","info")
 	timeswokenses = 0
 	shakenup = 0
 	//how long they've been up today
@@ -391,7 +398,7 @@ OnGeneralClearInternal{
 	"\![set,otherghosttalk,true]"
 	--
 	//	timeasleep = 0
-	SENDERROR("OnGeneralClearInternal concluded execution successfully","info")
+	if debug == 1; SENDERROR("OnGeneralClearInternal concluded execution successfully","info")
 
 
 
@@ -413,7 +420,7 @@ GetYear{
 GetBootDifference{
 	_lastmonth = lastboot[0,"/"]
 	_lastday = lastboot[1,"/"]
-	_lastyear = TOINT(lastboot[2,"/"]) + 1833
+	_lastyear = TOINT(lastboot[2,"/"]) + 1836
 	_val = FUNCTIONEX("time_check.dll","how_many_days",_lastyear,_lastmonth,_lastday,0,0,0)
 	_val * -1
 	return
@@ -531,7 +538,7 @@ GetMonthName{
 			when 7 {"Indiana"}
 			when 8 {"Mockingbird"}
 			when 9 {"Holmes"}
-			when 10 {"Potter"}
+			when 10 {"Hallowed"}
 			when 11 {"Beowulf"}
 			when 12 {"Wizard"}
 		
@@ -583,14 +590,14 @@ OnReload{
 	if GetYear != thisboot[2,","] && day == 1 && minute == 0 && month ==1 {
 		CrossToNewYear
 	}elseif !checkSilentMode && clothes != _oldclothes{
-		"\s[-1]\w8\w8\w8\w8%(gelBase)Ahh, I feel a little fresher in some new duds.\e"
+		"%(gelBase)Ahh, I feel a little fresher in some new duds.\e"
 		"Freshened up a bit.\e"
 		{
 			"%(gelLookForward)Honestly, saying I feel better dressed like this is a lie, %(gelT)because I can't feel anything. "
 			--
-			if ASEARCH("Iris",clothes){
+			if ASEARCH("Iris",clothes) > -1{
 				"%(gelCheery)Flower definitely rocks though.\e"
-			}elseif ASEARCH("Paper Bag",clothes){
+			}elseif ASEARCH("Paper Bag",clothes) > -1{
 				"%(gelLookLeft)You know, because there's absolutely nothing weird about my appearance right now.\e"
 			}else{
 				"\e"
