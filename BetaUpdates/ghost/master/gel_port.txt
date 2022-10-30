@@ -1222,7 +1222,7 @@ OnUpdateVars{
 	INSTANTIATE(&nvrosentient,0)
 	INSTANTIATE(&needlepokes,0)
 	INSTANTIATE(&currentthanks,0)
-	if ISVAR(logginghours) == 0 || currentversion == "V 1.0.1" || currentversion == "V 1.0.0" || currentversion == "V 1.0.2B"{
+	if ISVAR(logginghours) == 0 || currentversion == "V 1.0.1" || currentversion == "V 1.0.0" || currentversion == "V 1.0.2B" {
 		startingLogOff
 	}
 	//this just corrects things, chances are likely it's setting values to the same thing they were before
@@ -1247,7 +1247,7 @@ testisvar{
 
 //Fix Gel to new data for them
 FixPort{
-	SRAND(port)
+	//SRAND(port)
 	--
 	if port > 4500{
 		wishicouldeat = 1	//not sure what this var does, but doesn't seem to be harmful
@@ -1324,9 +1324,6 @@ FixPort{
 	}elseif port == 3839{
 		Gel = "Gra"
 		gcolor = "sky blue"
-		musictastenums+=2
-		musictaste ,= "19"
-		musictaste ,= "6"
 		rogue = 1
 		gelsalterego = "The Best Gel"
 	}elseif port == 2681{

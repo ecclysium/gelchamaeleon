@@ -1650,67 +1650,67 @@ gelArmsLax{
 
 gelArmsChest{
 
-	if emotion != -1; "%(gelClearArms)\i[703]"
+	if emotion > 0; "%(gelClearArms)\i[703]"
 }
 
 
 gelArmsQuestion{
 
-	if emotion != -1; "%(gelClearArms)\i[705]"
+	if emotion > 0; "%(gelClearArms)\i[705]"
 }
 
 
 gelArmsGestL{
 
-	if emotion != -1; "%(gelClearArms)\i[707]"
+	if emotion > 0; "%(gelClearArms)\i[707]"
 }
 
 
 gelArmsGestR{
 
-	if emotion != -1; "%(gelClearArms)\i[717]"
+	if emotion > 0; "%(gelClearArms)\i[717]"
 }
 
 
 gelArmsSmug{
 
-	if emotion != -1; "%(gelClearArms)\i[709]"
+	if emotion > 0; "%(gelClearArms)\i[709]"
 }
 
 
 gelArmsFistChin{
 
-	if emotion != -1; "%(gelClearArms)\i[711]"
+	if emotion > 0; "%(gelClearArms)\i[711]"
 }
 
 
 gelArmsKnees{
 
-	if emotion != -1; "%(gelClearArms)\i[713]"
+	if emotion > 0; "%(gelClearArms)\i[713]"
 }
 
 
 gelArmsCouncil{
 
-	if emotion != -1; "%(gelClearArms)\i[715]"
+	if emotion > 0; "%(gelClearArms)\i[715]"
 }
 
 
 gelArmsHighFive{
 
-	if emotion != -1; "%(gelClearArms)\i[719]"
+	if emotion > 0; "%(gelClearArms)\i[719]"
 }
 
 
 gelArmsHugSelf{
 
-	if emotion != -1; "%(gelClearArms)\i[721]"
+	if emotion > 0; "%(gelClearArms)\i[721]"
 }
 
 
 gelArmsPlayRock{
 
-	if emotion != -1; "%(gelClearArms)\i[723]"
+	if emotion > 0; "%(gelClearArms)\i[723]"
 }
 
 

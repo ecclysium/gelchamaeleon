@@ -833,7 +833,7 @@ TestMenu{
 	returnlines(7)
 	--
 		--
-		if !(checkBadMood || emotion == 5) {
+		if !(checkBadMood || emotion == 5) && emotion != 0{
 			MenuItem("I have a question.", "Menu_QUESTION")
 		}
 		--
