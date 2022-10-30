@@ -973,12 +973,17 @@ surface2000
 	1000interval,bind
 	animation1000.pattern0,overlay,66666,0,0,11
 	
+	//candy corn
+	animation1100.interval,bind
+	animation1100.pattern0,overlay,01110000,0,-3,10	
 		
 	//paper bag emote
 	animation1250.interval,bind
 	animation1250.pattern0,overlay,01125000,0,-3,10
-
 	
+	//pumpkin
+	animation1240.interval,bind
+	animation1240.pattern0,overlay,01124000,0,0,8
 	
 }
 

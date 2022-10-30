@@ -14,7 +14,7 @@ icon,icon.ico
 
 shiori,yaya.dll
 
-//sakura.menu,hidden
+sakura.menu,hidden
 
 sakura.bindgroup500.name,Shirts,Green
 sakura.bindgroup800.name,Shirts,Green Sleeves

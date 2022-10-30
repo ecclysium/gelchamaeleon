@@ -254,10 +254,10 @@ OnLoadOutfit{
 				_outfit+= "\![bind,Pants,Purple Pants,1]"
 			}
 			when "Pumpkin"{
-				_outfit+= "\![bind,Pants,Pumpkin,1]"
+				_outfit+= "\![bind,Hats,Pumpkin,1]"
 			}
 			when "Candy Corn"{
-				_outfit+= "\![bind,Pants,Candy Corn,1]"
+				_outfit+= "\![bind,Hats,Candy Corn,1]"
 			}
 		
 		}

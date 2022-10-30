@@ -315,6 +315,7 @@ OnGelPort{
 	moviemode = 0
 	jabbering = 0	//Jabber and thankful change the meaning of interactions -- punches and pets respectively
 	thankful = 0
+	currentthanks = 0	//for spam prevention
 	silentmode = 0
 	pondering = 0 	//Gel can just sit around looking like they're debating the secrets of the universe sometimes
 	//claustro will be modified based on port, but if it doesn't, for whatever reason, we have a base
@@ -513,7 +514,7 @@ gelNEUTER{
 
 }
 
-gelCOLORIZED{
+gelCOLORIZED : array {
 	"cyan"
 	"the color of fun"
 	"blue"
@@ -530,7 +531,7 @@ gelCOLORIZED{
 
 }
 
-gelPASTELIZED{
+gelPASTELIZED : array {
 	"lavendar"
 	"lavender"
 	"pastel pink"
@@ -576,10 +577,10 @@ PORTGEL{
 			genderlocked = 1
 			gelFEM
 		}else{
-			Gel = gelCARAMELNAMES[ RAND(50) % ARRAYSIZE(gelCARAMELNAMES)]
+			Gel = gelCARAMELNAMES[ port % ARRAYSIZE(gelCARAMELNAMES)]
 		}
 		--
-		gcolor = gelPASTELIZED[ RAND(50) % ARRAYSIZE(gelPASTELIZED)]
+		gcolor = gelPASTELIZED[ port % ARRAYSIZE(gelPASTELIZED)]
 		--
 		gelsalterego = caramelgelalteregoname[port % ARRAYSIZE(caramelgelalteregoname)]
 		
@@ -596,8 +597,8 @@ PORTGEL{
 		}
 		genderlocked = 1
 		
-		Gel = gelGEMININAMES[ RAND(50) % ARRAYSIZE(gelGEMININAMES)]
-		gcolor = gelGEMINICOLORS[ RAND(50) % ARRAYSIZE(gelGEMINICOLORS)]
+		Gel = gelGEMININAMES[ port % ARRAYSIZE(gelGEMININAMES)]
+		gcolor = gelGEMINICOLORS[ port % ARRAYSIZE(gelGEMINICOLORS)]
 		claustro = (port % 22) + 1
 		gelsalterego = "Gemini My Gemini"
 	}elseif port == 233{
@@ -656,7 +657,7 @@ PORTGEL{
 	}elseif port == 1117{
 		Gel = "Tab"
 		gcolor = "dark blue"
-		claustro = RAND(99) + 1
+		claustro = 33
 		genderlocked = 1
 		notouchie = 1
 		rogue = 2
@@ -670,7 +671,7 @@ PORTGEL{
 		Gel = "Gel"
 		gcolor = "iridescence"
 		genderlocked = 1
-		claustro = (port % 10) + 1
+		claustro = (port % 9) + 1
 		gelMASC
 	
 	}elseif port == 1431{
@@ -703,18 +704,18 @@ PORTGEL{
 		Gel = "Scrambled Eggs"
 		gelsalterego = "Over Easy"
 		gcolor = "egg yolk yellow"
-		claustro = (port % 10) + 1
+		claustro = (port % 9) + 1
 	
 	}elseif port == 4034{
 		Gel = "Pel"
 		gelsalterego = "Pel Gumpkin"
 		gcolor = "pumpkin orange"
-		claustro = (port % 10) + 1
+		claustro = (port % 9) + 1
 	
 	}else{
 		Gel = "Gel"
-		gcolor = gelCOLORIZED[ RAND(50) % ARRAYSIZE(gelCOLORIZED)]
-		claustro = (port % 10) + 1
+		gcolor = gelCOLORIZED[ port % ARRAYSIZE(gelCOLORIZED)]
+		claustro = (port % 9) + 1
 		rogue = 0
 		gelsalterego = gelalteregoname[port % ARRAYSIZE(gelalteregoname)]
 	}
@@ -1216,14 +1217,19 @@ OnRenameGhost{
 
 
 OnUpdateVars{
-	currentversion = getVersion
 	INSTANTIATE(&nvrononsenseclicks,0)
 	INSTANTIATE(&betaupdates,0)
 	INSTANTIATE(&nvrosentient,0)
 	INSTANTIATE(&needlepokes,0)
-	if ISVAR(logginghours) == 0 || currentversion == "V 1.0.1" || currentversion == "V 1.0.0"{
+	INSTANTIATE(&currentthanks,0)
+	if ISVAR(logginghours) == 0 || currentversion == "V 1.0.1" || currentversion == "V 1.0.0" || currentversion == "V 1.0.2B"{
 		startingLogOff
 	}
+	//this just corrects things, chances are likely it's setting values to the same thing they were before
+	if rogue < 2{
+		FixPort
+	}
+	currentversion = getVersion
 }
 
 //takes a var and sets it to _argv1
@@ -1233,7 +1239,181 @@ INSTANTIATE{
 	}
 }
 
+testisvar{
+	ERASEVAR("temp")
+	INSTANTIATE(&temp)
+	
+}
 
+//Fix Gel to new data for them
+FixPort{
+	SRAND(port)
+	--
+	if port > 4500{
+		wishicouldeat = 1	//not sure what this var does, but doesn't seem to be harmful
+		claustro = port % 9 + 1
+		--
+		if (port % 10) >= 8{
+			Gel = "Candy"
+			genderlocked = 1
+			gelFEM
+		}else{
+			Gel = gelCARAMELNAMES[ port % ARRAYSIZE(gelCARAMELNAMES)]
+		}
+		--
+		gcolor = gelPASTELIZED[ port % ARRAYSIZE(gelPASTELIZED)]
+		--
+		gelsalterego = caramelgelalteregoname[port % ARRAYSIZE(caramelgelalteregoname)]
+		
+	}elseif port == 8{
+		Gel = "Lucky"
+		gcolor = "green"
+		gelsalterego = "Jackpot Jel"
+	}elseif port == 11 || port == 22 || port == 33 ||port == 44 ||port == 55 ||port == 66 ||port == 77 ||port == 88 ||port == 99 || port == 111 || port == 222  || port == 333 || port == 444 ||port == 555 ||port == 666 ||port == 777 ||port == 888 ||port == 999 ||port == 1111 || port == 2222 || port == 3333 || port == 4444{
+		//It's based off of Ram and Sco, so... gender.
+		if port % 2 {
+			gelFEM
+		}else{
+			gelMASC
+		}
+		genderlocked = 1
+		
+		Gel = gelGEMININAMES[ port % ARRAYSIZE(gelGEMININAMES)]
+		gcolor = gelGEMINICOLORS[ port % ARRAYSIZE(gelGEMINICOLORS)]
+		claustro = (port % 22) + 1
+		gelsalterego = "Gemini My Gemini"
+	}elseif port == 233{
+		//we don't want to double add
+		if music == 0{
+			music = 1
+			OnGainMusicTaste
+			OnGainMusicTaste
+			OnGainMusicTaste
+			OnGainMusicTaste
+			OnGainMusicTaste
+			OnGainMusicTaste
+		}
+		Gel = "Gel~"
+		gelsalterego = "Music Maker"
+	}elseif port == 404{
+		Gel = "Error"
+		gcolor = "go %(fudge) yourself"
+		gelsalterego = "Rotten Gelatin"
+	}elseif port == 420{
+		Gel = "G3l"
+		gcolor = "grass"
+		gelsalterego = "Grass"
+	}elseif port == 434{
+		Gel = "Gel"
+		gcolor = "red"
+		rogue = 1
+		gelsalterego = "AOG's Mint"
+	}elseif port == 934{
+		Gel = "Gen"	//thanks grandma for never getting their name quite right
+		gcolor = "lime"
+		gelFEM
+		genderlocked = 1
+		gelsalterego = "Mispronounced [NAME HERE]"
+	
+	}elseif port == 83 || port == 636 || port == 737 || port == 939{
+		Gel = "Gewetin"
+		gcolor = "pwink"
+		gelsalterego = "The Bwestest Gewetwin Dere Is"
+		claustro = (port % 9) + 1
+		
+	}elseif port == 3839{
+		Gel = "Gra"
+		gcolor = "sky blue"
+		musictastenums+=2
+		musictaste ,= "19"
+		musictaste ,= "6"
+		rogue = 1
+		gelsalterego = "The Best Gel"
+	}elseif port == 2681{
+		Gel = "Neon"
+		gcolor = "neon magenta"
+		gtheyheshe = "ne"
+		gthemhimher = "nem"
+		gtheirhishers = "nir"
+		genderlocked = 1
+		gelsalterego = "Dr. Magenta Neon"
+	
+	}elseif port == 1117{
+		Gel = "Tab"
+		gcolor = "dark blue"
+		claustro = 33
+		genderlocked = 1
+		notouchie = 1
+		rogue = 2
+		gelsalterego = "The Creature of The Void"
+		--
+		"\![bind,Hair,Default,0]\![bind,Hair,Ponytail,1]\![bind,Pants,Ripped Black Jeans,1]\![raise,OnEquipClothingItem,Ripped Black Jeans]\![raise,OnEquipClothingItem,Ponytail]"
+		--
+		gelMASC
+	}elseif port == 1395{
+		gelsalterego = "Dragonesque"
+		Gel = "Gel"
+		gcolor = "iridescent"
+		genderlocked = 1
+		claustro = (port % 9) + 1
+		gelMASC
+	
+	}elseif port == 1431{
+		gelsalterego = "Gel From TV (not really)"
+		Gel = "Gel"
+		gcolor = "arsenic"
+		claustro = 0
+		musictaste = "1"
+		genderlocked = 1
+		gelMASC
+	
+	}elseif port == 1712{
+		gelsalterego = "Iris"
+		Gel = "Iris"
+		gcolor = "rich purple"
+		claustro = 0
+		genderlocked = 1
+		notouchie = 0
+		rogue = 1
+		gelsalterego = "Iris Flower"
+		gelFEM
+	
+	}elseif port == 3023{
+		//there is absolutely nothing weird about this port, aside from them being Bones Montgomery. Think this came to me in a dream honestly.
+		Gel = "Bones Montgomery"
+		gelsalterego = "Montgomery Bones"
+		claustro = port % 100
+	
+	}elseif port == 3995{
+		Gel = "Scrambled Eggs"
+		gelsalterego = "Over Easy"
+		gcolor = "egg yolk yellow"
+		claustro = (port % 9) + 1
+	
+	}elseif port == 4034{
+		Gel = "Pel"
+		gelsalterego = "Pel Gumpkin"
+		gcolor = "pumpkin orange"
+		claustro = (port % 9) + 1
+	
+	}else{
+		Gel = "Gel"
+		gcolor = gelCOLORIZED[port % ARRAYSIZE(gelCOLORIZED)]
+		claustro = (port % 9) + 1
+		gelsalterego = gelalteregoname[port % ARRAYSIZE(gelalteregoname)]
+	}
+	--
+	if port < 1000 && port%2 == 1 && !(port == 83 || port == 636 || port == 737 || port == 939){
+		claustro = port % 100
+	}
+	--
+	if claustro > 10{
+		notouchie = 1
+	}
+	--
+	OnSetDailyClaustro
+	SAVEVAR("yaya_variable.cfg")
+} 
 
 
 

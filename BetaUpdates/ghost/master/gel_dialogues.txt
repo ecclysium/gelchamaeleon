@@ -137,8 +137,6 @@ gelDialogueTired{
 			"%(gelLookSick)I need to defrag, \w8this is way too much data to look through. "
 		
 		}
-	
-	
 	}else{										//Any negative-------------------------------------------
 		"%(gelLookAway)Hmmmn.... if only you were%(not) like that, this would be a lot more interesting \![raise,OnSetVariable,jabbering,2]"
 	}
@@ -340,7 +338,7 @@ gelDialogueNeutral{
 		}else{
 			"%(gelLookAway)Is it raining where you are? \w8%(gelBase)I could look, but I do%(not) feel much of a need. \w8%(gelLookConcerned)What could any kind of sky look like not covered in clouds...\e8"
 		}
-		"%(gelLookUp)%(gelArmsFistChin)I still can%(not) help but think about how crusty and old this place looks... really, %(gelArmsKnees)what is this? Images in an article about the history of .jpgs? "
+		"%(gelLookUp)%(gelArmsFistChin)I still keep thinking about how crusty and old this place looks... really, %(gelArmsKnees)what is this? Images in an article about the history of .jpgs? "
 		
 	}elseif checkGreatTN2{		//Negative Route Pt 1 ---------------------------------------------------
 		if punches > 5{
@@ -403,6 +401,11 @@ gelDialogueNeutral{
 	}else{										//Any positive-------------------------------------------
 		"%(gelSelfCare0)"
 		"%(gelSelfCare0)"
+		if day == 31 && month == 10{
+			"%(gelLookForward)Hey, today%(is) that Hallowed day you have, right? %(gelHmm)The one with all the costumes?"
+			if gwhatsupwithyourinternalclock > -1; "%(gelLookAtInternet).\w4.\w4. Oh wow! \w8\w8\w8\w8%(gelLookForward)%(gelFurrowed)%(gelFrown)Sorry, I thought I found proof \_a[Q_MUTANTS]mutants\_a existed in your time for a little bit. %(gelLookAway)%(gelUh)It was just someone a little too good with makeup and effect gum though."
+			
+		}
 	}
 	
 	//Stagger versions (unlocked at the .5 mark)
@@ -429,7 +432,7 @@ gelDialogueNeutral{
 		"%(gelLookAtInternet)%(gelArmsFistChin)\w8\w8.\w8.\w8.\w8%(gelLookAway)Browsing your web is always a weird journey.\w4.\w4."
 		"%(gelLookForward)%(gelArmsFistChin)%(gelConfused)Am I going to have to make a special sort of webcrawler for this place? Where%(is) the documentation for your 'Internet'? "
 		{
-			"%(gelLookForward)%(gelArmsKnees)Okay, hear me out: %(gelBigSmile)Image with %(weirdItem) on %(weirdItem), but it%(is) tinted %(gcolor). "
+			"%(gelLookForward)%(gelArmsKnees)Okay, hear me out: %(gelBigSmile)Image with %(weirdItem) on %(weirdItem), but it%(is) tinted %gcolor. "
 			--
 			"\w8\w8\n\n[half]%(gelLookAway)%(gelFrown)%(okay), maybe not that one..."
 			""
@@ -485,21 +488,7 @@ gelDialogueNeutral{
 	
 	if sight == 1{
 	
-		//"\![raise,OnCheckForDiscord]\e"	
-		{
-			_DiscordOpen = FUNCTIONEX("findwin.dll","find",,"Chrome_WidgetWin_1")
-			if _DiscordOpen == 1{
-				"Oh, hey, Discord. %(gelHmm)Who you talkin%(guh) to?\e"
-			}
-			
-			_RiseToRuinsOpen = FUNCTIONEX("findwin.dll","find",,"LWJGL")
-			if _RiseToRuinsOpen == 1{
-				"%(gelHuh)What are you doing in that game?\e"
-				"%(gelLookForward)%(gelHmm)How are your villagers doing?\e"
-				"%(gelHmm)How many days have you survived?\e"
-				"%(gelHmm)Tell me, honestly-- how bad is it? %(gelHuh)In Rise to Ruin?\e"
-			}
-		}
+		"\![raise,OnCheckForDiscord]\e"	
 		
 		//"\![raise,OnCheckForDragonAge]\e"
 		//:pensive: maybe another day

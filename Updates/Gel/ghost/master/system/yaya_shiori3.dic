@@ -1,67 +1,67 @@
 //******************************************************************************
 /*
-SHIORI/3.0§ŒäƒXƒNƒŠƒvƒg for YAYA
+SHIORI/3.0åˆ¶å¾¡ã‚¹ã‚¯ãƒªãƒ—ãƒˆ for YAYA
 
-g—p‰Â”\‚È•Ï”
+ä½¿ç”¨å¯èƒ½ãªå¤‰æ•°
 
 SHIORI3FW.Status
-@‰Šú‹N“®ƒXƒe[ƒ^ƒX Run‚Å‰Šú‰»Ï‚İ
+ã€€åˆæœŸèµ·å‹•ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ Runã§åˆæœŸåŒ–æ¸ˆã¿
 
 SHIORI3FW.Eventid
-@ƒCƒxƒ“ƒgID
+ã€€ã‚¤ãƒ™ãƒ³ãƒˆID
 
 SHIORI3FW.LastTalk
-@’¼‘O‚Ìƒg[ƒNi‚·‚×‚Äj
+ã€€ç›´å‰ã®ãƒˆãƒ¼ã‚¯ï¼ˆã™ã¹ã¦ï¼‰
 
 SHIORI3FW.LastAITalk
-@’¼‘O‚Ìƒ‰ƒ“ƒ_ƒ€ƒg[ƒN
+ã€€ç›´å‰ã®ãƒ©ãƒ³ãƒ€ãƒ ãƒˆãƒ¼ã‚¯
 
 SHIORI3FW.LastSurface
-@’¼‘O‚É•\¦‚µ‚Ä‚¢‚½ƒT[ƒtƒBƒX SHIORI3FW.LastSurface[0] ‚ª‚³‚­‚ç‘¤
+ã€€ç›´å‰ã«è¡¨ç¤ºã—ã¦ã„ãŸã‚µãƒ¼ãƒ•ã‚£ã‚¹ SHIORI3FW.LastSurface[0] ãŒã•ãã‚‰å´
 
 SHIORI3FW.IsVisible
-@Œ»İƒT[ƒtƒBƒX‚ª•\¦‚³‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©(1/0) SHIORI3FW.IsVisible[0] ‚ª‚³‚­‚ç‘¤
+ã€€ç¾åœ¨ã‚µãƒ¼ãƒ•ã‚£ã‚¹ãŒè¡¨ç¤ºã•ã‚Œã¦ã„ã‚‹ã‹ã©ã†ã‹(1/0) SHIORI3FW.IsVisible[0] ãŒã•ãã‚‰å´
 
 SHIORI3FW.HWnd
 SHIORI3FW.BalloonHWnd
-@ƒLƒƒƒ‰ƒEƒCƒ“ƒhƒEEƒoƒ‹[ƒ“‚ÌHWNDB SHIORI3FW.HWnd[0] ‚ª‚³‚­‚ç‘¤
+ã€€ã‚­ãƒ£ãƒ©ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒ»ãƒãƒ«ãƒ¼ãƒ³ã®HWNDã€‚ SHIORI3FW.HWnd[0] ãŒã•ãã‚‰å´
 
 SHIORI3FW.UniqueID
-@Auth.SSTP‚Ég—p‚·‚éID
+ã€€Auth.SSTPã«ä½¿ç”¨ã™ã‚‹ID
 
 SHIORI3FW.Capability
-@ID: capability‚Å—ˆ‚½ƒx[ƒXƒEƒFƒA‚Ìƒwƒbƒ_ˆ—”\—ÍF”Ä—p”z—ñ
+ã€€ID: capabilityã§æ¥ãŸãƒ™ãƒ¼ã‚¹ã‚¦ã‚§ã‚¢ã®ãƒ˜ãƒƒãƒ€å‡¦ç†èƒ½åŠ›ï¼šæ±ç”¨é…åˆ—
 
 SHIORI3FW.GhostName
-@ƒS[ƒXƒg–¼š
+ã€€ã‚´ãƒ¼ã‚¹ãƒˆåâ˜…
 
 SHIORI3FW.ShellName
 SHIORI3FW.ShellPath
-@ƒVƒFƒ‹–¼‚ÆƒpƒXš
+ã€€ã‚·ã‚§ãƒ«åã¨ãƒ‘ã‚¹â˜…
 
 SHIORI3FW.BalloonName
 SHIORI3FW.BalloonPath
-@ƒoƒ‹[ƒ“–¼‚ÆƒpƒXš
+ã€€ãƒãƒ«ãƒ¼ãƒ³åã¨ãƒ‘ã‚¹â˜…
 
-g—p‰Â”\‚È‹^—ƒCƒxƒ“ƒg
+ä½¿ç”¨å¯èƒ½ãªç–‘ä¼¼ã‚¤ãƒ™ãƒ³ãƒˆ
 
 OnSHIORI3FW.SurfaceRestore
-@OnSurfaceRestore‚Ì–{‘Ì”ñˆË‘¶”Å
+ã€€OnSurfaceRestoreã®æœ¬ä½“éä¾å­˜ç‰ˆ
 
 OnSHIORI3FW.ChangeSelfInfo
-@ã‹Lšƒ}[ƒN‚ª‚Â‚¢‚½•Ï”‚ªXV‚³‚ê‚½‚Æ‚«‚ÉŒÄ‚Ño‚³‚ê‚é
+ã€€ä¸Šè¨˜â˜…ãƒãƒ¼ã‚¯ãŒã¤ã„ãŸå¤‰æ•°ãŒæ›´æ–°ã•ã‚ŒãŸã¨ãã«å‘¼ã³å‡ºã•ã‚Œã‚‹
 
 */
 //******************************************************************************
 
 
 //------------------------------------------------------------------------------
-//ˆÈ‰º‚Ìdefine‚ÍŠî–{“I‚É˜M‚ç‚È‚¢‚Å‰º‚³‚¢
+//ä»¥ä¸‹ã®defineã¯åŸºæœ¬çš„ã«å¼„ã‚‰ãªã„ã§ä¸‹ã•ã„
 //------------------------------------------------------------------------------
 
-// ƒ`ƒFƒCƒ“
-#globaldefine	CHAIN{{		{{CHAIN	/* ‚Ç‚¤‚àŒë‹L‚³‚ê‚éê‡‚ª‚ ‚é‚æ‚¤‚È‚Ì‚Å */
-#globaldefine	CHAIN}}		}}CHAIN	/* “¯ã */
+// ãƒã‚§ã‚¤ãƒ³
+#globaldefine	CHAIN{{		{{CHAIN	/* ã©ã†ã‚‚èª¤è¨˜ã•ã‚Œã‚‹å ´åˆãŒã‚ã‚‹ã‚ˆã†ãªã®ã§ */
+#globaldefine	CHAIN}}		}}CHAIN	/* åŒä¸Š */
 #globaldefine	{{CHAIN		{ switch CHAIN.Index {
 #globaldefine	}}CHAIN		} CHAIN.Index++ }
 
@@ -73,12 +73,12 @@ OnSHIORI3FW.ChangeSelfInfo
 //******************************************************************************
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼Fload
-//‹@”\@Fƒ[ƒh‚Ìˆ—
+//é–¢æ•°åï¼šload
+//æ©Ÿèƒ½ã€€ï¼šãƒ­ãƒ¼ãƒ‰æ™‚ã®å‡¦ç†
 //------------------------------------------------------------------------------
 load
 {
-	// •¶š/•¶š—ñ’è”
+	// æ–‡å­—/æ–‡å­—åˆ—å®šæ•°
 	C_CRLF2 = CHR(0xd,0xa,0xd,0xa)
 	C_CRLF = CHR(0xd,0xa)
 	C_BYTE1 = CHR(0x1)
@@ -107,7 +107,7 @@ load
 		SAVEVAR()
 	}
 
-	// ‰‰ñ‹N“®‚Ì‰Šú‰»
+	// åˆå›èµ·å‹•æ™‚ã®åˆæœŸåŒ–
 	if ISVAR('aitalkinterval') == 0 {
 		aitalkinterval   = TALK_INTERVAL
 	}
@@ -119,7 +119,7 @@ load
 	}
 	ghostuptimes += 1
 
-	// –ˆ‰ñ‹N“®‚Ì‰Šú‰»
+	// æ¯å›èµ·å‹•æ™‚ã®åˆæœŸåŒ–
 	SHIORI3FW.ResetAITalkInterval()
 	
 	_sec = GETSECCOUNT()
@@ -173,7 +173,7 @@ load
 
 	SHIORI3FW.SetDelayEvent('',0)
 
-	//‰ß‹ŒİŠ·—piascii•Ï”j
+	//éå»äº’æ›ç”¨ï¼ˆasciiå¤‰æ•°ï¼‰
 	if ISFUNC('restore_old_variables') {
 		EVAL('restore_old_variables')
 	}
@@ -190,7 +190,10 @@ load
 	
 	foreach _fa;_f {
 		if ISFUNC(_f) {
-			LOGGING("ŒxFŠÖ”/ƒCƒxƒ“ƒg %(_f) ‚ÍƒVƒXƒeƒ€«‘‚Åã‘‚«‚³‚ê‚Ü‚·")
+			//LOGGING("è­¦å‘Šï¼šé–¢æ•°/ã‚¤ãƒ™ãƒ³ãƒˆ %(_f) ã¯ã‚·ã‚¹ãƒ†ãƒ è¾æ›¸ã§ä¸Šæ›¸ãã•ã‚Œã¾ã™")
+			//Note from Ecclysium: the above is causing an error on behalf of incomplete string. 
+			//This translates to 'Warning: function/event %(_f) will be overwritten in the system dictionary'
+			//This does not seem to be strictly necessary, so it's commented out.
 		}
 	}
 }
@@ -200,8 +203,8 @@ load
 //******************************************************************************
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼Funload
-//‹@”\@FI—¹ˆ—
+//é–¢æ•°åï¼šunload
+//æ©Ÿèƒ½ã€€ï¼šçµ‚äº†å‡¦ç†
 //------------------------------------------------------------------------------
 unload
 {
@@ -216,7 +219,7 @@ unload
 	AyaLoad.FuncEnumExec('OnGhostUnload','descending')
 	AyaLoad.FuncEnumExec('OnSystemUnload','descending')
 	
-	// •Û‘¶‚·‚é•K—v‚Ì‚È‚¢•Ï”‚ğíœ
+	// ä¿å­˜ã™ã‚‹å¿…è¦ã®ãªã„å¤‰æ•°ã‚’å‰Šé™¤
 	_var = <<'
 array_eventtranslate
 array_translateinternal
@@ -289,7 +292,7 @@ C_CRLF2
 C_CRLF
 C_BYTE1
 '>>
-	//ˆÈ‰º‚Í•Û‘¶
+	//ä»¥ä¸‹ã¯ä¿å­˜
 	//SHIORI3FW.ShellName
 	//SHIORI3FW.ShellNameOld
 	//SHIORI3FW.ShellPath
@@ -313,8 +316,8 @@ C_BYTE1
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FAyaTest.Eval
-//‹@”\@Fó‚¯æ‚Á‚½•¶š—ñ‚ğEVAL‚µ‚Ä•Ô‚·
+//é–¢æ•°åï¼šAyaTest.Eval
+//æ©Ÿèƒ½ã€€ï¼šå—ã‘å–ã£ãŸæ–‡å­—åˆ—ã‚’EVALã—ã¦è¿”ã™
 //------------------------------------------------------------------------------
 AyaTest.Eval
 {
@@ -331,9 +334,9 @@ AyaTest.Eval
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FAyaLoad.FuncEnumExec
-//‹@”\@FŠÖ”ƒŠƒXƒg‚ğì¬‚µƒ\[ƒg‚µ‚ÄÀs
-//ˆø”@F0=ƒCƒxƒ“ƒg 1=ƒ\[ƒg‡(ascending,descending)
+//é–¢æ•°åï¼šAyaLoad.FuncEnumExec
+//æ©Ÿèƒ½ã€€ï¼šé–¢æ•°ãƒªã‚¹ãƒˆã‚’ä½œæˆã—ã‚½ãƒ¼ãƒˆã—ã¦å®Ÿè¡Œ
+//å¼•æ•°ã€€ï¼š0=ã‚¤ãƒ™ãƒ³ãƒˆ 1=ã‚½ãƒ¼ãƒˆé †(ascending,descending)
 //------------------------------------------------------------------------------
 AyaLoad.FuncEnumExec : void
 {
@@ -351,9 +354,9 @@ AyaLoad.FuncEnumExec : void
 //request
 //******************************************************************************
 //------------------------------------------------------------------------------
-//ŠÖ”–¼Frequest
-//‹@”\@Fó‚¯æ‚Á‚½•¶š—ñ‚ğSHIORIƒŠƒNƒGƒXƒgƒwƒbƒ_‚Æ‚µ‚Ä‰ğÍ‚µ‚½ŒãA
-//        OnRequest‚ğŠˆ«‰»‚µ‚Ü‚·
+//é–¢æ•°åï¼šrequest
+//æ©Ÿèƒ½ã€€ï¼šå—ã‘å–ã£ãŸæ–‡å­—åˆ—ã‚’SHIORIãƒªã‚¯ã‚¨ã‚¹ãƒˆãƒ˜ãƒƒãƒ€ã¨ã—ã¦è§£æã—ãŸå¾Œã€
+//        OnRequestã‚’æ´»æ€§åŒ–ã—ã¾ã™
 //------------------------------------------------------------------------------
 request
 {
@@ -361,7 +364,7 @@ request
 	//test(_argv[0])
 	//return
 	
-	if SUBSTR(_argv[0],0,3) == '?? ' { //‹Ê‚Å‚ÌƒeƒXƒg—p
+	if SUBSTR(_argv[0],0,3) == '?? ' { //ç‰ã§ã®ãƒ†ã‚¹ãƒˆç”¨
 		'!! ' + JOIN(AyaTest.Eval(ERASE(_argv[0],0,3)),',')
 		return
 	}
@@ -371,17 +374,17 @@ request
 	_lineend = STRSTR(_reqdata, C_CRLF, _linestart)
 	
 	if _lineend <= 0 {
-		//1s–Ú‚·‚ç‚È‚¢I
+		//1è¡Œç›®ã™ã‚‰ãªã„ï¼
 		"SHIORI/3.0 400 Bad Request%(C_CRLF)Charset: %(S_CHARSET)%(C_CRLF2)"
 		return
 	}
 	_lin = SUBSTR(_reqdata,_linestart,(_lineend - _linestart))
 
-	// ƒŠƒNƒGƒXƒgí•Ê‚ÆƒvƒƒgƒRƒ‹–¼‚Ìæ“¾@ƒGƒ‰[‚È‚ç400
+	// ãƒªã‚¯ã‚¨ã‚¹ãƒˆç¨®åˆ¥ã¨ãƒ—ãƒ­ãƒˆã‚³ãƒ«åã®å–å¾—ã€€ã‚¨ãƒ©ãƒ¼ãªã‚‰400
 	REQ.COMMAND  = _lin[0," SHIORI"]
 	REQ.PROTOCOL = "SHIORI" + _lin[1," SHIORI"]
 
-	// ƒŠƒNƒGƒXƒgƒwƒbƒ_‚Ìæ“¾
+	// ãƒªã‚¯ã‚¨ã‚¹ãƒˆãƒ˜ãƒƒãƒ€ã®å–å¾—
 	var.req.key   = IARRAY
 	var.req.value = IARRAY
 	var.req.rawvalue = IARRAY
@@ -391,14 +394,14 @@ request
 	
 	status = ''
 	SHIORI3FW.Eventid=''
-	SHIORI3FW.SecurityLevel='Internal' //ŒİŠ·«‚Ì‚½‚ßƒfƒtƒHƒ‹ƒg‚ÍInternal
+	SHIORI3FW.SecurityLevel='Internal' //äº’æ›æ€§ã®ãŸã‚ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã¯Internal
 	
 	while _lineend > _linestart {
-		//s•ªŠ„
+		//è¡Œåˆ†å‰²
 		_linestart = _lineend + 2
 		_lineend = STRSTR(_reqdata, C_CRLF, _linestart)
 		
-		//‹ós‚à‚µ‚­‚Í‚İ‚Â‚©‚ç‚È‚©‚Á‚½
+		//ç©ºè¡Œã‚‚ã—ãã¯ã¿ã¤ã‹ã‚‰ãªã‹ã£ãŸ
 		if _lineend <= _linestart {
 			break
 		}
@@ -414,7 +417,7 @@ request
 		
 		_lin = SUBSTR(_reqdata,_linestart,(_lineend - _linestart))
 				
-		// ƒL[‚Æ’l‚ğæ“¾
+		// ã‚­ãƒ¼ã¨å€¤ã‚’å–å¾—
 		_len = STRLEN(_lin)
 		_pos = STRSTR(_lin,": ",0)
 		var.req.key ,= (_key = SUBSTR(_lin,0,_pos))
@@ -424,7 +427,7 @@ request
 			break
 		}
 
-		// ƒCƒxƒ“ƒgID–¼Ì‚ğæ“¾
+		// ã‚¤ãƒ™ãƒ³ãƒˆIDåç§°ã‚’å–å¾—
 		if _key == "Charset" {
 			if S_CHARSET != _value {
 				void SETSETTING('charset.output',_value)
@@ -432,8 +435,7 @@ request
 			}
 		}
 		elseif _key == "ID" {
-			// æ“¾@–¼‘Oæ“ª‚ª"On"‚Å‚È‚¢‚È‚ç•t‰Á
-		
+			// å–å¾—ã€€åå‰å…ˆé ­ãŒ"On"ã§ãªã„ãªã‚‰ä»˜åŠ 
 			SHIORI3FW.Eventid = _value
 			if SUBSTR(SHIORI3FW.Eventid, 0, 2) != "On" {
 				SHIORI3FW.Eventid = "On_" + SHIORI3FW.Eventid
@@ -441,12 +443,11 @@ request
 			
 			if SHIORI3FW.Eventid == 'OnAiTalk' || SHIORI3FW.Eventid == 'OnAITalk' {
 				SHIORI3FW.Eventid = 'OnAITalkNewEvent'
-				
 			}
 
 			SHIORI3FW.EventidTranslate = SHIORI3FW.TranslateEvent(SHIORI3FW.Eventid)
 
-			// ƒnƒ“ƒhƒ‰‚ª–³‚¢ê‡‚Í‘¦•Ô‚é
+			// ãƒãƒ³ãƒ‰ãƒ©ãŒç„¡ã„å ´åˆã¯å³è¿”ã‚‹
 			if !ISFUNC(SHIORI3FW.EventidTranslate) && !SHIORI3FW.IsImportantEvent {
 				SHIORI3FW.MakeEmptyResponse(SHIORI3FW.Eventid)
 				--
@@ -456,11 +457,11 @@ request
 			}
 			_idparsed = 1
 		}
-		// ƒZƒLƒ…ƒŠƒeƒBƒŒƒxƒ‹
+		// ã‚»ã‚­ãƒ¥ãƒªãƒ†ã‚£ãƒ¬ãƒ™ãƒ«
 		elseif _key == 'SecurityLevel' {
 			SHIORI3FW.SecurityLevel = _value
 		}
-		// ƒx[ƒXƒEƒFƒA–¼æ“¾
+		// ãƒ™ãƒ¼ã‚¹ã‚¦ã‚§ã‚¢åå–å¾—
 		elseif _key == 'Sender' {
 			if basewarenameex == '' {
 				basewarenameex = _value
@@ -473,13 +474,13 @@ request
 			status = _value
 		}
 
-		//“Á’è‚ÌƒCƒxƒ“ƒg‚ğœ‚«External‚È‚ç204‚Å•Ô‚é
+		//ç‰¹å®šã®ã‚¤ãƒ™ãƒ³ãƒˆã‚’é™¤ãExternalãªã‚‰204ã§è¿”ã‚‹
 		if SHIORI3FW.SecurityLevel == 'External' && SHIORI3FW.Eventid != 'OnXUkagakaLinkOpen' {
 			SHIORI3FW.MakeEmptyResponse
 			return
 		}
 
-		// ƒL[‚Æ’l‚ğ‹L‰¯
+		// ã‚­ãƒ¼ã¨å€¤ã‚’è¨˜æ†¶
 		var.req.rawvalue ,= _value
 		
 		if SHIORI3FW.AUTO_DATA_CONVERT {
@@ -490,7 +491,7 @@ request
 				var.req.value ,= TOREAL(_value)
 			}
 			else {
-				var.req.value ,= REPLACE(_value, C_BYTE1, ",")	// ƒoƒCƒg’l1‚ÍƒJƒ“ƒ}‰»‚µ‚Ä‚µ‚Ü‚¤
+				var.req.value ,= REPLACE(_value, C_BYTE1, ",")	// ãƒã‚¤ãƒˆå€¤1ã¯ã‚«ãƒ³ãƒåŒ–ã—ã¦ã—ã¾ã†
 			}
 		}
 		else {
@@ -501,15 +502,6 @@ request
 	OnRequest
 }
 
-TOAUTOEX
-{
-	_v = _argv[0]
-	if TOSTR(TOAUTO(_v)) == _v {
-		TOAUTO(_v)
-		return
-	}
-	_v
-}
 
 SHIORI3FW.TranslateEvent
 {
@@ -528,15 +520,15 @@ SHIORI3FW.TranslateEvent
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FOnRequest
-//‹@”\@Fó‚¯æ‚Á‚½ƒŠƒNƒGƒXƒg‚É‰‚¶‚½ˆ—‚ğs‚¢‚Ü‚·
+//é–¢æ•°åï¼šOnRequest
+//æ©Ÿèƒ½ã€€ï¼šå—ã‘å–ã£ãŸãƒªã‚¯ã‚¨ã‚¹ãƒˆã«å¿œã˜ãŸå‡¦ç†ã‚’è¡Œã„ã¾ã™
 //------------------------------------------------------------------------------
 OnRequest
 {
-	// ƒRƒ}ƒ“ƒh•Ê‚Éˆ—•ªŠò
+	// ã‚³ãƒãƒ³ãƒ‰åˆ¥ã«å‡¦ç†åˆ†å²
 	case REQ.COMMAND {
 	when "NOTIFY" {
-		// NOTIFYƒŠƒNƒGƒXƒg
+		// NOTIFYãƒªã‚¯ã‚¨ã‚¹ãƒˆ
 		void SHIORI3FW.RaiseIDEvent
 		"SHIORI/3.0 204 No Content%(C_CRLF)Charset: %(S_CHARSET)%(C_CRLF)"
 		--
@@ -544,7 +536,7 @@ OnRequest
 	}
 
 	when "GET" {
-		// GETƒŠƒNƒGƒXƒg
+		// GETãƒªã‚¯ã‚¨ã‚¹ãƒˆ
 		if (_result = SHIORI3FW.RaiseIDEvent) == "" {
 			SHIORI3FW.MakeEmptyResponse(SHIORI3FW.Eventid)
 		}
@@ -571,7 +563,7 @@ OnRequest
 	}
 
 	others
-		// –¢’m‚ÌƒŠƒNƒGƒXƒg
+		// æœªçŸ¥ã®ãƒªã‚¯ã‚¨ã‚¹ãƒˆ
 		"SHIORI/3.0 400 Bad Request%(C_CRLF)"
 	}
 
@@ -582,8 +574,8 @@ OnRequest
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FSHIORI3FW.GetLastErrorLog
-//‹@”\@FƒGƒ‰[ƒƒO‚É•\¦‚·‚×‚«•¶š—ñ‚ğì¬‚µ‚Ü‚·
+//é–¢æ•°åï¼šSHIORI3FW.GetLastErrorLog
+//æ©Ÿèƒ½ã€€ï¼šã‚¨ãƒ©ãƒ¼ãƒ­ã‚°ã«è¡¨ç¤ºã™ã¹ãæ–‡å­—åˆ—ã‚’ä½œæˆã—ã¾ã™
 //------------------------------------------------------------------------------
 SHIORI3FW.GetLastErrorLog
 {
@@ -637,8 +629,8 @@ SHIORI3FW.GetLastErrorLog
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FSHIORI3FW.InitAdditionalReturn
-//‹@”\@F’Ç‰Áƒwƒbƒ_—p•Ï”‚ğ‰Šú‰»‚µ‚Ü‚·
+//é–¢æ•°åï¼šSHIORI3FW.InitAdditionalReturn
+//æ©Ÿèƒ½ã€€ï¼šè¿½åŠ ãƒ˜ãƒƒãƒ€ç”¨å¤‰æ•°ã‚’åˆæœŸåŒ–ã—ã¾ã™
 //------------------------------------------------------------------------------
 SHIORI3FW.InitAdditionalReturn : void
 {
@@ -646,9 +638,9 @@ SHIORI3FW.InitAdditionalReturn : void
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FSHIORI3FW.PushAdditionalReturn
-//‹@”\@Fƒwƒbƒ_‚ğ’Ç‰Á‚µ‚Ü‚· (İ’è‚ÍƒŠƒNƒGƒXƒg‚²‚Æ‚ÉƒŠƒZƒbƒg‚³‚ê‚Ü‚·)
-//ˆø”@F_argv[0] ƒwƒbƒ_–¼  _argv[1] ’l
+//é–¢æ•°åï¼šSHIORI3FW.PushAdditionalReturn
+//æ©Ÿèƒ½ã€€ï¼šãƒ˜ãƒƒãƒ€ã‚’è¿½åŠ ã—ã¾ã™ (è¨­å®šã¯ãƒªã‚¯ã‚¨ã‚¹ãƒˆã”ã¨ã«ãƒªã‚»ãƒƒãƒˆã•ã‚Œã¾ã™)
+//å¼•æ•°ã€€ï¼š_argv[0] ãƒ˜ãƒƒãƒ€å  _argv[1] å€¤
 //------------------------------------------------------------------------------
 SHIORI3FW.PushAdditionalReturn : void
 {
@@ -658,9 +650,9 @@ SHIORI3FW.PushAdditionalReturn : void
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FSHIORI3FW.Push_X_SSTP_PassThru
-//‹@”\@FX-SSTP-PassThruƒwƒbƒ_‚ğ’Ç‰Á‚µ‚Ü‚· (İ’è‚ÍƒŠƒNƒGƒXƒg‚²‚Æ‚ÉƒŠƒZƒbƒg‚³‚ê‚Ü‚·)
-//ˆø”@F_argv[0] ƒwƒbƒ_–¼  _argv[1] ’l
+//é–¢æ•°åï¼šSHIORI3FW.Push_X_SSTP_PassThru
+//æ©Ÿèƒ½ã€€ï¼šX-SSTP-PassThruãƒ˜ãƒƒãƒ€ã‚’è¿½åŠ ã—ã¾ã™ (è¨­å®šã¯ãƒªã‚¯ã‚¨ã‚¹ãƒˆã”ã¨ã«ãƒªã‚»ãƒƒãƒˆã•ã‚Œã¾ã™)
+//å¼•æ•°ã€€ï¼š_argv[0] ãƒ˜ãƒƒãƒ€å  _argv[1] å€¤
 //------------------------------------------------------------------------------
 SHIORI3FW.Push_X_SSTP_PassThru : void
 {
@@ -669,8 +661,8 @@ SHIORI3FW.Push_X_SSTP_PassThru : void
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FSHIORI3FW.ClearAdditionalReturnVariable
-//‹@”\@F’Ç‰Áƒwƒbƒ_—p•Ï”‚ğíœ‚µ‚Ü‚·
+//é–¢æ•°åï¼šSHIORI3FW.ClearAdditionalReturnVariable
+//æ©Ÿèƒ½ã€€ï¼šè¿½åŠ ãƒ˜ãƒƒãƒ€ç”¨å¤‰æ•°ã‚’å‰Šé™¤ã—ã¾ã™
 //------------------------------------------------------------------------------
 SHIORI3FW.ClearAdditionalReturnVariable : void
 {
@@ -678,9 +670,9 @@ SHIORI3FW.ClearAdditionalReturnVariable : void
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FSHIORI3FW.GetAdditionalReturns
-//‹@”\@F’Ç‰Áƒwƒbƒ_‚ğ“WŠJ‚µ‚Ü‚·
-//•Ô’l@F’Ç‰Á‚·‚×‚«ƒwƒbƒ_•¶š—ñ ÅŒã‚Í•K‚¸‰üs‚ÅI‚í‚é
+//é–¢æ•°åï¼šSHIORI3FW.GetAdditionalReturns
+//æ©Ÿèƒ½ã€€ï¼šè¿½åŠ ãƒ˜ãƒƒãƒ€ã‚’å±•é–‹ã—ã¾ã™
+//è¿”å€¤ã€€ï¼šè¿½åŠ ã™ã¹ããƒ˜ãƒƒãƒ€æ–‡å­—åˆ— æœ€å¾Œã¯å¿…ãšæ”¹è¡Œã§çµ‚ã‚ã‚‹
 //------------------------------------------------------------------------------
 SHIORI3FW.GetAdditionalReturns
 {
@@ -690,8 +682,8 @@ SHIORI3FW.GetAdditionalReturns
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FSHIORI3FW.AssembleReferenceHeader
-//‹@”\@Fres_reference*•Ï”‚ğ‡ŸŒŸ¸‚µ‚Ä•Ô‘——p‚ÌReference•¶š—ñ‚ğì¬‚µ‚Ü‚·
+//é–¢æ•°åï¼šSHIORI3FW.AssembleReferenceHeader
+//æ©Ÿèƒ½ã€€ï¼šres_reference*å¤‰æ•°ã‚’é †æ¬¡æ¤œæŸ»ã—ã¦è¿”é€ç”¨ã®Referenceæ–‡å­—åˆ—ã‚’ä½œæˆã—ã¾ã™
 //------------------------------------------------------------------------------
 SHIORI3FW.AssembleReferenceHeader
 {
@@ -753,9 +745,9 @@ SHIORI3FW.AssembleReferenceHeader
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FSHIORI3FW.IsImportantEvent
-//‹@”\@Fâ‘Î‚É’Ê’m‚·‚×‚«ƒCƒxƒ“ƒg‚ğ¯•Ê‚µ‚Ü‚·
-//ˆø”@F_argv[0] (–{“–‚Ì)ƒCƒxƒ“ƒg–¼
+//é–¢æ•°åï¼šSHIORI3FW.IsImportantEvent
+//æ©Ÿèƒ½ã€€ï¼šçµ¶å¯¾ã«é€šçŸ¥ã™ã¹ãã‚¤ãƒ™ãƒ³ãƒˆã‚’è­˜åˆ¥ã—ã¾ã™
+//å¼•æ•°ã€€ï¼š_argv[0] (æœ¬å½“ã®)ã‚¤ãƒ™ãƒ³ãƒˆå
 //------------------------------------------------------------------------------
 SHIORI3FW.IsImportantEvent
 {
@@ -771,19 +763,19 @@ SHIORI3FW.IsImportantEvent
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FSHIORI3FW.RaiseIDEvent
-//‹@”\@Fw’è‚³‚ê‚½–¼‘O‚ÌŠÖ”‚ğÀs‚µ‚ÄŒ‹‰Ê‚ğæ“¾‚µ‚Ü‚·
+//é–¢æ•°åï¼šSHIORI3FW.RaiseIDEvent
+//æ©Ÿèƒ½ã€€ï¼šæŒ‡å®šã•ã‚ŒãŸåå‰ã®é–¢æ•°ã‚’å®Ÿè¡Œã—ã¦çµæœã‚’å–å¾—ã—ã¾ã™
 //------------------------------------------------------------------------------
 SHIORI3FW.RaiseIDEvent
 {
-	//reference&PassThru_Ins •Ï”‚ğì¬
+	//reference&PassThru_Ins å¤‰æ•°ã‚’ä½œæˆ
 	SHIORI3FW.MakeReferenceAndPassThruInsVariable
 	
 	_event = SHIORI3FW.EventidTranslate
 	
 	_result_internal = ''
 	if SHIORI3FW.Eventid == "OnSecondChange" {
-		// OnSecondChange‚È‚çƒ‰ƒ“ƒ_ƒ€ƒg[ƒNŠÖ˜Aˆ—
+		// OnSecondChangeãªã‚‰ãƒ©ãƒ³ãƒ€ãƒ ãƒˆãƒ¼ã‚¯é–¢é€£å‡¦ç†
 		_event = SHIORI3FW.ControlAITalk(_event)
 		_event = SHIORI3FW.TranslateEvent(_event)
 	}
@@ -802,7 +794,7 @@ SHIORI3FW.RaiseIDEvent
 		SHIORI3FW.CanTalkFlag = _can_talk
 	}
 
-	// ƒCƒxƒ“ƒgŠˆ«‰»
+	// ã‚¤ãƒ™ãƒ³ãƒˆæ´»æ€§åŒ–
 	_result = ''
 	if ISFUNC(_event) {
 		_result = TOSTR(EVAL(_event))
@@ -812,12 +804,12 @@ SHIORI3FW.RaiseIDEvent
 	}
 	
 	if _result != '' {
-		// ’x‰„EVAL
+		// é…å»¶EVAL
 		_talk = RE_SPLIT(_result,'(' + EVAL_DELIM + '|' + CHAIN_DELIM + ')')
 		_delim = RE_GETSTR
 		_n = ARRAYSIZE(_delim)
 		
-		//æ‚É“à•”ƒgƒ‰ƒ“ƒXƒŒ[ƒg
+		//å…ˆã«å†…éƒ¨ãƒˆãƒ©ãƒ³ã‚¹ãƒ¬ãƒ¼ãƒˆ
 		if SHIORI3FW.Eventid != 'OnTranslate' {
 			_as = ARRAYSIZE(array_translateinternal)
 			if _as >= 1 {
@@ -831,14 +823,14 @@ SHIORI3FW.RaiseIDEvent
 			}
 		}
 		
-		//Œã‚©‚ç’x‰„İ’è
+		//å¾Œã‹ã‚‰é…å»¶è¨­å®š
 		for _i = 0 ; _i < _n ; _i += 1 {
 			if _delim[_i] == EVAL_DELIM {
-				// ’x‰„EVAL
+				// é…å»¶EVAL
 				void EVAL(_talk[_i + 1])
 			}
 			elseif _delim[_i] == CHAIN_DELIM {
-				// ƒ`ƒFƒCƒ“ˆ—
+				// ãƒã‚§ã‚¤ãƒ³å‡¦ç†
 				SHIORI3FW.StartChainTalk(_talk[_i + 1])
 			}
 		}
@@ -861,36 +853,36 @@ SHIORI3FW.RaiseIDEvent
 		}
 	}
 
-	// reference&PassThru_Ins •Ï”‚ğƒNƒŠƒA
+	// reference&PassThru_Ins å¤‰æ•°ã‚’ã‚¯ãƒªã‚¢
 	SHIORI3FW.ClearReferenceAndPassThruInsVariable
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FSHIORI3FW.MakeEmptyResponse
-//‹@”\@F"204‚ğ•Ô‚µ‚Ä‚Í‚¢‚¯‚È‚¢ƒŠƒNƒGƒXƒg"‚ğ”»’è‚µ‚ÄA
-//        “K³‚È‰“š•¶š—ñ‚ğì¬‚µ‚Ü‚·
-//ˆø”@F_argv[0] ƒCƒxƒ“ƒg–¼
+//é–¢æ•°åï¼šSHIORI3FW.MakeEmptyResponse
+//æ©Ÿèƒ½ã€€ï¼š"204ã‚’è¿”ã—ã¦ã¯ã„ã‘ãªã„ãƒªã‚¯ã‚¨ã‚¹ãƒˆ"ã‚’åˆ¤å®šã—ã¦ã€
+//        é©æ­£ãªå¿œç­”æ–‡å­—åˆ—ã‚’ä½œæˆã—ã¾ã™
+//å¼•æ•°ã€€ï¼š_argv[0] ã‚¤ãƒ™ãƒ³ãƒˆå
 //------------------------------------------------------------------------------
 SHIORI3FW.MakeEmptyResponse
 {
 	case _argv[0] {
 	when "OnFirstBoot", "OnBoot", "OnWindowStateRestore", "OnGhostChanged"
-		// ƒXƒR[ƒv0/1‚ÌŠî–{ƒT[ƒtƒBƒX‚ğo‚·•K—v‚ª‚ ‚éƒCƒxƒ“ƒg
+		// ã‚¹ã‚³ãƒ¼ãƒ—0/1ã®åŸºæœ¬ã‚µãƒ¼ãƒ•ã‚£ã‚¹ã‚’å‡ºã™å¿…è¦ãŒã‚ã‚‹ã‚¤ãƒ™ãƒ³ãƒˆ
 		"SHIORI/3.0 200 OK%(C_CRLF)Sender: AYA%(C_CRLF)Charset: %(S_CHARSET)%(C_CRLF)/
 			Value: \0\s[0]\1\s[10]\e%(C_CRLF)"
 	when "OnClose"
-		// I—¹w¦‚ğo‚·•K—v‚ª‚ ‚éƒCƒxƒ“ƒg
+		// çµ‚äº†æŒ‡ç¤ºã‚’å‡ºã™å¿…è¦ãŒã‚ã‚‹ã‚¤ãƒ™ãƒ³ãƒˆ
 		"SHIORI/3.0 200 OK%(C_CRLF)Sender: AYA%(C_CRLF)Charset: %(S_CHARSET)%(C_CRLF)/
 			Value: \0\-\e%(C_CRLF)"
 	others
-		// ã‹LˆÈŠO‚Å‚Í204‚ğ•Ô‘—‚µ‚Ä—Ç‚¢
+		// ä¸Šè¨˜ä»¥å¤–ã§ã¯204ã‚’è¿”é€ã—ã¦è‰¯ã„
 		"SHIORI/3.0 204 No Content%(C_CRLF)Charset: %(S_CHARSET)%(C_CRLF)"
 	}
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FSHIORI3FW.ResetAITalkInterval
-//‹@”\@FAIƒg[ƒN”­“®ˆ—ƒJƒEƒ“ƒ^‚ÌƒŠƒZƒbƒg
+//é–¢æ•°åï¼šSHIORI3FW.ResetAITalkInterval
+//æ©Ÿèƒ½ã€€ï¼šAIãƒˆãƒ¼ã‚¯ç™ºå‹•å‡¦ç†ã‚«ã‚¦ãƒ³ã‚¿ã®ãƒªã‚»ãƒƒãƒˆ
 //------------------------------------------------------------------------------
 SHIORI3FW.ResetAITalkInterval
 {
@@ -900,15 +892,15 @@ SHIORI3FW.ResetAITalkInterval
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FSHIORI3FW.ControlAITalk
-//‹@”\@FAIƒg[ƒN”­“®ˆ—A•Ï”ƒf[ƒ^‚Ì©“®•Û‘¶ˆ—
-//ˆø”@F_argv[0] ƒCƒxƒ“ƒg–¼
+//é–¢æ•°åï¼šSHIORI3FW.ControlAITalk
+//æ©Ÿèƒ½ã€€ï¼šAIãƒˆãƒ¼ã‚¯ç™ºå‹•å‡¦ç†ã€å¤‰æ•°ãƒ‡ãƒ¼ã‚¿ã®è‡ªå‹•ä¿å­˜å‡¦ç†
+//å¼•æ•°ã€€ï¼š_argv[0] ã‚¤ãƒ™ãƒ³ãƒˆå
 //------------------------------------------------------------------------------
 SHIORI3FW.ControlAITalk
 {
 	_return_value = _argv[0]
-	//SENDERROR(reference4,"warning")
-	if TOINT(reference[3]) { //able to talk
+	
+	if TOINT(reference[3]) { //å–‹ã‚Œã‚‹
 		if SHIORI3FW.DelayEventTime {
 			SHIORI3FW.DelayEventTime--
 
@@ -919,24 +911,22 @@ SHIORI3FW.ControlAITalk
 				}
 			}
 		}
-		if aitalkinterval > 0 {		// Talk interval is non-zero
+		if aitalkinterval > 0 {		// ãƒˆãƒ¼ã‚¯é–“éš”ãŒé0
 			_sec = GETSECCOUNT()
 			_diff = _sec - SHIORI3FW.LastAITalkTime
-			//SENDERROR(_diff,"info")
-			if _diff >= aitalkinterval {	// Interval time exceeded
+			if _diff >= aitalkinterval {	// ãƒˆãƒ¼ã‚¯é–“éš”ã®è¨­å®šæ™‚é–“ã‚’è¶ŠãˆãŸ
 				if SHIORI3FW.CanTalk() {
 					if (_sec - SHIORI3FW.LastTalkTime) >= 6 {
 						if (_sec - SHIORI3FW.TalkEndTime) >= 6 {
 							if SHIORI3FW.IsAITalkComplete == 0 {
 								_return_value = "OnAITalkNewEvent"
 								SHIORI3FW.IsAITalkComplete = 1
-								//SENDERROR("returning new ai talk event","warning")
 							}
 						}
 					}
 				}
 			}
-			elseif _diff == (aitalkinterval*2/3) { //2/3‚ÅSurfaceRestore
+			elseif _diff == (aitalkinterval*2/3) { //2/3ã§SurfaceRestore
 				if SHIORI3FW.CanTalk() {
 					if (_sec - SHIORI3FW.LastTalkTime) >= 4 {
 						if (_sec - SHIORI3FW.TalkEndTime) >= 2 {
@@ -961,9 +951,9 @@ SHIORI3FW.ControlAITalk
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FSHIORI3FW.SetDelayEvent/GetDelayEvent
-//‹@”\@Fu’x‚ê‚Ä’‚évƒCƒxƒ“ƒg‚Ì“o˜^/æ“¾
-//ˆø”@F_argv[0] ƒCƒxƒ“ƒg _argv[1] ’x‚êsec.
+//é–¢æ•°åï¼šSHIORI3FW.SetDelayEvent/GetDelayEvent
+//æ©Ÿèƒ½ã€€ï¼šã€Œé…ã‚Œã¦å–‹ã‚‹ã€ã‚¤ãƒ™ãƒ³ãƒˆã®ç™»éŒ²/å–å¾—
+//å¼•æ•°ã€€ï¼š_argv[0] ã‚¤ãƒ™ãƒ³ãƒˆ _argv[1] é…ã‚Œsec.
 //------------------------------------------------------------------------------
 
 SHIORI3FW.SetDelayEvent : void
@@ -971,7 +961,7 @@ SHIORI3FW.SetDelayEvent : void
 	if STRLEN(_argv[0]) != 0 && _argv[1] {
 		SHIORI3FW.DelayEventTime = TOINT(_argv[1])
 		SHIORI3FW.DelayEvent = _argv[0]
-		SHIORI3FW.DelayEventReference = _argv[2,100] //”ÍˆÍŠO‚Íí‚ç‚ê‚é‚Ì‚Å‚±‚ê‚ÅOK
+		SHIORI3FW.DelayEventReference = _argv[2,100] //ç¯„å›²å¤–ã¯å‰Šã‚‰ã‚Œã‚‹ã®ã§ã“ã‚Œã§OK
 	}
 	else {
 		SHIORI3FW.DelayEventTime = 0
@@ -986,8 +976,8 @@ SHIORI3FW.GetDelayEvent
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FSHIORI3FW.MakeReferenceAndPassThruInsVariable
-//‹@”\@FReference*ƒwƒbƒ_‚©‚çreference*•Ï”/PassThru_Ins.*•Ï”‚ğì¬‚µ‚Ü‚·
+//é–¢æ•°åï¼šSHIORI3FW.MakeReferenceAndPassThruInsVariable
+//æ©Ÿèƒ½ã€€ï¼šReference*ãƒ˜ãƒƒãƒ€ã‹ã‚‰reference*å¤‰æ•°/PassThru_Ins.*å¤‰æ•°ã‚’ä½œæˆã—ã¾ã™
 //------------------------------------------------------------------------------
 SHIORI3FW.MakeReferenceAndPassThruInsVariable : void {
 	SHIORI3FW.ReferenceList = IARRAY
@@ -1003,7 +993,7 @@ SHIORI3FW.MakeReferenceAndPassThruInsVariable : void {
 			reference[_refnum] = _value
 			reference.raw[_refnum] = var.req.rawvalue[_i]
 
-			if SHIORI3FW.REF_ACCEL==0 {//1‚É‚·‚é‚Æ‚‘¬‰»
+			if SHIORI3FW.REF_ACCEL==0 {//1ã«ã™ã‚‹ã¨é«˜é€ŸåŒ–
 				_varname = 'reference'+_refnum
 				LETTONAME(_varname, _value)
 				SHIORI3FW.ReferenceList ,= _varname
@@ -1021,8 +1011,8 @@ SHIORI3FW.MakeReferenceAndPassThruInsVariable : void {
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FSHIORI3FW.ClearReferenceAndPassThruInsVariable
-//‹@”\@Freference*&PassThru_Ins.*•Ï”‚ğíœ‚µ‚Ü‚·
+//é–¢æ•°åï¼šSHIORI3FW.ClearReferenceAndPassThruInsVariable
+//æ©Ÿèƒ½ã€€ï¼šreference*&PassThru_Ins.*å¤‰æ•°ã‚’å‰Šé™¤ã—ã¾ã™
 //------------------------------------------------------------------------------
 SHIORI3FW.ClearReferenceAndPassThruInsVariable : void {
 	foreach SHIORI3FW.ReferenceList; _refname { ERASEVAR(_refname) }
@@ -1033,11 +1023,11 @@ SHIORI3FW.ClearReferenceAndPassThruInsVariable : void {
 }
 
 //******************************************************************************
-//ƒ`ƒFƒCƒ“§Œä
+//ãƒã‚§ã‚¤ãƒ³åˆ¶å¾¡
 //******************************************************************************
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FSHIORI3FW.InitChain
-//‹@”\@F‰Šú‰»
+//é–¢æ•°åï¼šSHIORI3FW.InitChain
+//æ©Ÿèƒ½ã€€ï¼šåˆæœŸåŒ–
 //------------------------------------------------------------------------------
 SHIORI3FW.InitChain
 {
@@ -1047,20 +1037,20 @@ SHIORI3FW.InitChain
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FSHIORI3FW.StartChainTalk
-//‹@”\@Fƒ`ƒFƒCƒ“î•ñ‚ğ‰ğÍ‚µ‚Äƒ`ƒFƒCƒ“ˆ—‚ğŠJn‚µ‚Ü‚·
-//ˆø”@F_argv[0] ƒCƒxƒ“ƒgID
+//é–¢æ•°åï¼šSHIORI3FW.StartChainTalk
+//æ©Ÿèƒ½ã€€ï¼šãƒã‚§ã‚¤ãƒ³æƒ…å ±ã‚’è§£æã—ã¦ãƒã‚§ã‚¤ãƒ³å‡¦ç†ã‚’é–‹å§‹ã—ã¾ã™
+//å¼•æ•°ã€€ï¼š_argv[0] ã‚¤ãƒ™ãƒ³ãƒˆID
 //------------------------------------------------------------------------------
 SHIORI3FW.StartChainTalk
 {
-	// ƒ`ƒFƒCƒ“–¼‚ª–³‚¢‚È‚ç‰½‚à‚µ‚È‚¢
+	// ãƒã‚§ã‚¤ãƒ³åãŒç„¡ã„ãªã‚‰ä½•ã‚‚ã—ãªã„
 	if _argv[0] == ''; return
 
-	// ƒ`ƒFƒCƒ“‹­§I—¹ˆ—
+	// ãƒã‚§ã‚¤ãƒ³å¼·åˆ¶çµ‚äº†å‡¦ç†
 	if _argv[0] == 'end' {
 		SHIORI3FW.EndChainTalk
 	}
-	// V‚½‚Éƒ`ƒFƒCƒ“ŠJn
+	// æ–°ãŸã«ãƒã‚§ã‚¤ãƒ³é–‹å§‹
 	else {
 		CHAIN.IDName = _argv[0]
 		CHAIN.Script = ''
@@ -1070,17 +1060,17 @@ SHIORI3FW.StartChainTalk
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FSHIORI3FW.StartChainTalkScriptDirect
-//‹@”\@F’¼ÚŸ‚Ìƒ`ƒFƒCƒ“‚ÌƒXƒNƒŠƒvƒg‚ğw’è‚µ‚Ü‚·
-//ˆø”@F_argv[0] ƒXƒNƒŠƒvƒg
+//é–¢æ•°åï¼šSHIORI3FW.StartChainTalkScriptDirect
+//æ©Ÿèƒ½ã€€ï¼šç›´æ¥æ¬¡ã®ãƒã‚§ã‚¤ãƒ³ã®ã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’æŒ‡å®šã—ã¾ã™
+//å¼•æ•°ã€€ï¼š_argv[0] ã‚¹ã‚¯ãƒªãƒ—ãƒˆ
 //------------------------------------------------------------------------------
 SHIORI3FW.StartChainTalkScriptDirect
 {
-	// ƒ`ƒFƒCƒ“‹­§I—¹ˆ—
+	// ãƒã‚§ã‚¤ãƒ³å¼·åˆ¶çµ‚äº†å‡¦ç†
 	if _argv[0] == '' {
 		SHIORI3FW.EndChainTalk
 	}
-	// V‚½‚Éƒ`ƒFƒCƒ“ŠJn
+	// æ–°ãŸã«ãƒã‚§ã‚¤ãƒ³é–‹å§‹
 	else {
 		CHAIN.IDName = ''
 		CHAIN.Script = _argv[0]
@@ -1090,8 +1080,8 @@ SHIORI3FW.StartChainTalkScriptDirect
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FSHIORI3FW.IsChain
-//‹@”\@Fƒ`ƒFƒCƒ“’†‚©‚Ç‚¤‚©‚ğ•Ô‚µ‚Ü‚·
+//é–¢æ•°åï¼šSHIORI3FW.IsChain
+//æ©Ÿèƒ½ã€€ï¼šãƒã‚§ã‚¤ãƒ³ä¸­ã‹ã©ã†ã‹ã‚’è¿”ã—ã¾ã™
 //------------------------------------------------------------------------------
 SHIORI3FW.IsChain
 {
@@ -1108,8 +1098,8 @@ SHIORI3FW.IsChain
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FChainTalk
-//‹@”\@Fƒ`ƒFƒCƒ“ˆ—@SHIORI3EV.OnAITalkNewEvent‚©‚çÀs‚³‚ê‚Ü‚·
+//é–¢æ•°åï¼šChainTalk
+//æ©Ÿèƒ½ã€€ï¼šãƒã‚§ã‚¤ãƒ³å‡¦ç†ã€€SHIORI3EV.OnAITalkNewEventã‹ã‚‰å®Ÿè¡Œã•ã‚Œã¾ã™
 //------------------------------------------------------------------------------
 ChainTalk
 {
@@ -1133,8 +1123,8 @@ ChainTalk
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FSHIORI3FW.EndChainTalk
-//‹@”\@Fƒ`ƒFƒCƒ“‚ğI—¹‚µ‚Ü‚·
+//é–¢æ•°åï¼šSHIORI3FW.EndChainTalk
+//æ©Ÿèƒ½ã€€ï¼šãƒã‚§ã‚¤ãƒ³ã‚’çµ‚äº†ã—ã¾ã™
 //------------------------------------------------------------------------------
 SHIORI3FW.EndChainTalk
 {
@@ -1144,8 +1134,8 @@ SHIORI3FW.EndChainTalk
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FSHIORI3FW.ChainTime
-//‹@”\@Fƒ`ƒFƒCƒ“’†‚ÌŠÔ‚ğæ“¾‚µ‚Ü‚·
+//é–¢æ•°åï¼šSHIORI3FW.ChainTime
+//æ©Ÿèƒ½ã€€ï¼šãƒã‚§ã‚¤ãƒ³ä¸­ã®æ™‚é–“ã‚’å–å¾—ã—ã¾ã™
 //------------------------------------------------------------------------------
 SHIORI3FW.ChainTime
 {
@@ -1158,8 +1148,8 @@ SHIORI3FW.ChainTime
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FSHIORI3FW.ClearChainVariable
-//‹@”\@Fƒ`ƒFƒCƒ“§Œä—p‚Ì•Ï”‚ğÁ‹‚µ‚Ü‚·
+//é–¢æ•°åï¼šSHIORI3FW.ClearChainVariable
+//æ©Ÿèƒ½ã€€ï¼šãƒã‚§ã‚¤ãƒ³åˆ¶å¾¡ç”¨ã®å¤‰æ•°ã‚’æ¶ˆå»ã—ã¾ã™
 //------------------------------------------------------------------------------
 SHIORI3FW.ClearChainVariable
 {
@@ -1170,11 +1160,11 @@ SHIORI3FW.ClearChainVariable
 }
 
 //******************************************************************************
-//ƒlƒbƒgƒ[ƒNXVŒã‚É‚Å‚«‚½ dl2 ƒtƒ@ƒCƒ‹‚ÉŠÖ‚·‚éˆ’u
+//ãƒãƒƒãƒˆãƒ¯ãƒ¼ã‚¯æ›´æ–°å¾Œã«ã§ããŸ dl2 ãƒ•ã‚¡ã‚¤ãƒ«ã«é–¢ã™ã‚‹å‡¦ç½®
 //******************************************************************************
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FSHIORI3FW.Dl2ToDll
-//‹@”\@Fˆ—‚ÌŠJn
+//é–¢æ•°åï¼šSHIORI3FW.Dl2ToDll
+//æ©Ÿèƒ½ã€€ï¼šå‡¦ç†ã®é–‹å§‹
 //------------------------------------------------------------------------------
 SHIORI3FW.Dl2ToDll
 {
@@ -1182,15 +1172,15 @@ SHIORI3FW.Dl2ToDll
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FSHIORI3FW.ExecuteDl2ToDll
-//‹@”\@Fw’è‚µ‚½ƒfƒBƒŒƒNƒgƒŠ‚É‘¶İ‚·‚édl2‚ğˆ—
-//ˆø”@F_argv[0] ˆ—‘ÎÛƒpƒXiAYA dll‚©‚ç‚Ì‘Š‘ÎƒpƒXw’èj
+//é–¢æ•°åï¼šSHIORI3FW.ExecuteDl2ToDll
+//æ©Ÿèƒ½ã€€ï¼šæŒ‡å®šã—ãŸãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã«å­˜åœ¨ã™ã‚‹dl2ã‚’å‡¦ç†
+//å¼•æ•°ã€€ï¼š_argv[0] å‡¦ç†å¯¾è±¡ãƒ‘ã‚¹ï¼ˆAYA dllã‹ã‚‰ã®ç›¸å¯¾ãƒ‘ã‚¹æŒ‡å®šï¼‰
 //------------------------------------------------------------------------------
 SHIORI3FW.ExecuteDl2ToDll
 {
-	// w’èƒfƒBƒŒƒNƒgƒŠ“à‚Ìƒtƒ@ƒCƒ‹‚ğ—ñ‹“
+	// æŒ‡å®šãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªå†…ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’åˆ—æŒ™
 	_files   = TOLOWER(FENUM(_argv[0]))
-	// Šg’£qdl2‚Ìƒtƒ@ƒCƒ‹‚ğƒŠƒXƒg‚É’~Ï‚·‚é@qƒfƒBƒŒƒNƒgƒŠ“à‚àÄ‹A“I‚Éˆ—‚·‚é
+	// æ‹¡å¼µå­dl2ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ãƒªã‚¹ãƒˆã«è“„ç©ã™ã‚‹ã€€å­ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªå†…ã‚‚å†å¸°çš„ã«å‡¦ç†ã™ã‚‹
 	_targets = IARRAY
 	foreach _files; _file {
 		if SUBSTR(_file, 0, 1) == '\'
@@ -1202,7 +1192,7 @@ SHIORI3FW.ExecuteDl2ToDll
 		}
 	}
 
-	// Šg’£qdl2‚ğdll‚Ö–¼‘O•ÏX‚·‚é@‹Œdll‚ÍÁ‹‚·‚é
+	// æ‹¡å¼µå­dl2ã‚’dllã¸åå‰å¤‰æ›´ã™ã‚‹ã€€æ—§dllã¯æ¶ˆå»ã™ã‚‹
 	foreach _targets; _target {
 		_path = _argv[0] + '\' + _target
 		void FDEL(_path + '.dll')
@@ -1211,11 +1201,11 @@ SHIORI3FW.ExecuteDl2ToDll
 }
 
 //******************************************************************************
-//ƒCƒ“ƒXƒg[ƒ‹ÏƒS[ƒXƒgƒŠƒXƒg‚Ì\’z
+//ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«æ¸ˆã‚´ãƒ¼ã‚¹ãƒˆãƒªã‚¹ãƒˆã®æ§‹ç¯‰
 //******************************************************************************
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FOn_installedghostname
-//‹@”\@FƒCƒ“ƒXƒg[ƒ‹ÏƒS[ƒXƒg–¼’Ê’mƒCƒxƒ“ƒg
+//é–¢æ•°åï¼šOn_installedghostname
+//æ©Ÿèƒ½ã€€ï¼šã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«æ¸ˆã‚´ãƒ¼ã‚¹ãƒˆåé€šçŸ¥ã‚¤ãƒ™ãƒ³ãƒˆ
 //------------------------------------------------------------------------------
 
 On_installedghostname
@@ -1224,25 +1214,25 @@ On_installedghostname
 	installedsakuralist = IARRAY
 	installedkerolist   = IARRAY
 
-	// materiaA‚à‚µ‚­‚ÍƒCƒxƒ“ƒg‚©‚ç‚Ìæ“¾‚ªw¦‚³‚ê‚Ä‚¢‚È‚¯‚ê‚Îƒtƒ@ƒCƒ‹‘–¸‚Åæ“¾‚·‚éˆ—‚ğÀs
+	// materiaã€ã‚‚ã—ãã¯ã‚¤ãƒ™ãƒ³ãƒˆã‹ã‚‰ã®å–å¾—ãŒæŒ‡ç¤ºã•ã‚Œã¦ã„ãªã‘ã‚Œã°ãƒ•ã‚¡ã‚¤ãƒ«èµ°æŸ»ã§å–å¾—ã™ã‚‹å‡¦ç†ã‚’å®Ÿè¡Œ
 	if basewarename == 'embryo' || !SHIORI3FW.IGLIST_ACCEL {
 		SHIORI3FW.StructInstalledGhostList
 		return
 	}
 
-	// Reference‚©‚çæ“¾
+	// Referenceã‹ã‚‰å–å¾—
 	installedghostlist = reference.raw
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FSHIORI3FW.StructInstalledGhostList
-//‹@”\@F\’z
+//é–¢æ•°åï¼šSHIORI3FW.StructInstalledGhostList
+//æ©Ÿèƒ½ã€€ï¼šæ§‹ç¯‰
 //------------------------------------------------------------------------------
 SHIORI3FW.StructInstalledGhostList
 {
 	if !SHIORI3FW.IGLIST_MAX; return
 
-	// ghostƒfƒBƒŒƒNƒgƒŠ”z‰º‚ÌƒfƒBƒŒƒNƒgƒŠ‚ğ’Šo
+	// ghostãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªé…ä¸‹ã®ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’æŠ½å‡º
 	_filelist = FENUM('..\..\..')
 	_dirlist  = IARRAY
 	foreach _filelist; _file {
@@ -1250,7 +1240,7 @@ SHIORI3FW.StructInstalledGhostList
 	}
 	_dirnum = ARRAYSIZE(_dirlist)
 
-	// æ“¾ŠJnˆÊ’u‚Ææ“¾”‚ğ‹‚ß‚é
+	// å–å¾—é–‹å§‹ä½ç½®ã¨å–å¾—æ•°ã‚’æ±‚ã‚ã‚‹
 	_num = 0
 	if SHIORI3FW.IGLIST_MAX == -1 {
 		StructGhostList.Index = 0
@@ -1263,17 +1253,17 @@ SHIORI3FW.StructInstalledGhostList
 		if _num > _dirnum; _num = _dirnum
 	}
 
-	// ƒŠƒXƒgì¬åˆ—
+	// ãƒªã‚¹ãƒˆä½œæˆä¸»å‡¦ç†
 	for _i = 0; _i < _num; _i++ {
-		// æ“¾ˆÊ’u‚ÌXV
+		// å–å¾—ä½ç½®ã®æ›´æ–°
 		StructGhostList.Index++
 		
 		if StructGhostList.Index >= _dirnum; StructGhostList.Index = 0
 
-		// descript.txt‚©‚çî•ñæ“¾
+		// descript.txtã‹ã‚‰æƒ…å ±å–å¾—
 		_ghostname = SHIORI3FW.GetGhostNameFromDescriptTxt(/
 						'..\..\..' + _dirlist[StructGhostList.Index])
-		// ƒŠƒXƒg‚Ö’Ç‰Á
+		// ãƒªã‚¹ãƒˆã¸è¿½åŠ 
 		if ARRAYSIZE(_ghostname) {
 			installedghostlist  ,= _ghostname[0]
 			installedsakuralist ,= _ghostname[1]
@@ -1283,9 +1273,9 @@ SHIORI3FW.StructInstalledGhostList
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FSHIORI3FW.GetGhostNameFromDescriptTxt
-//‹@”\@Fdescript.txt‚©‚çname/sakura.name/kero.name‚ğæ“¾‚µ‚Ü‚·
-//ˆø”@F_argv[0] æ“¾‘ÎÛ‚ÌƒS[ƒXƒgƒfƒBƒŒƒNƒgƒŠ
+//é–¢æ•°åï¼šSHIORI3FW.GetGhostNameFromDescriptTxt
+//æ©Ÿèƒ½ã€€ï¼šdescript.txtã‹ã‚‰name/sakura.name/kero.nameã‚’å–å¾—ã—ã¾ã™
+//å¼•æ•°ã€€ï¼š_argv[0] å–å¾—å¯¾è±¡ã®ã‚´ãƒ¼ã‚¹ãƒˆãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª
 //------------------------------------------------------------------------------
 SHIORI3FW.GetGhostNameFromDescriptTxt
 {
@@ -1318,17 +1308,17 @@ SHIORI3FW.GetGhostNameFromDescriptTxt
 }
 
 //******************************************************************************
-//•¶ version 3 ƒVƒXƒeƒ€ŠÖ” / ƒVƒXƒeƒ€•Ï”‚Ì•âŠ®
+//æ–‡ version 3 ã‚·ã‚¹ãƒ†ãƒ é–¢æ•° / ã‚·ã‚¹ãƒ†ãƒ å¤‰æ•°ã®è£œå®Œ
 //FUNCTIONEX / SAORI
 //******************************************************************************
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FFUNCTIONLOAD
-//‹@”\@FSAORI‚ğ“Ç‚İ‚İ‚Ü‚·
-//ˆø”@F_argv[0]@ ‘ÎÛDLL–¼
+//é–¢æ•°åï¼šFUNCTIONLOAD
+//æ©Ÿèƒ½ã€€ï¼šSAORIã‚’èª­ã¿è¾¼ã¿ã¾ã™
+//å¼•æ•°ã€€ï¼š_argv[0]ã€€ å¯¾è±¡DLLå
 //------------------------------------------------------------------------------
 FUNCTIONLOAD
 {
-	// load@ƒGƒ‰[‚È‚ç”²‚¯‚é@‰‰ñ‚Ìload‚È‚çGET Version‚ğ‘—o‚·‚é
+	// loadã€€ã‚¨ãƒ©ãƒ¼ãªã‚‰æŠœã‘ã‚‹ã€€åˆå›ã®loadãªã‚‰GET Versionã‚’é€å‡ºã™ã‚‹
 	_r_load = LOADLIB(_argv[0])
 	if !_r_load {
 		0
@@ -1346,10 +1336,10 @@ FUNCTIONLOAD
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FFUNCTIONEX
-//‹@”\@FSAORI‚ğÀs‚µ‚Ü‚·
-//ˆø”@F_argv[0]@ ‘ÎÛDLL–¼
-//@@@@_argv[1]` Argument0`
+//é–¢æ•°åï¼šFUNCTIONEX
+//æ©Ÿèƒ½ã€€ï¼šSAORIã‚’å®Ÿè¡Œã—ã¾ã™
+//å¼•æ•°ã€€ï¼š_argv[0]ã€€ å¯¾è±¡DLLå
+//ã€€ã€€ã€€ã€€_argv[1]ï½ Argument0ï½
 //------------------------------------------------------------------------------
 FUNCTIONEX
 {
@@ -1358,7 +1348,7 @@ FUNCTIONEX
 		return
 	}
 
-	// ƒŠƒNƒGƒXƒg•¶š—ñ‚ğì¬
+	// ãƒªã‚¯ã‚¨ã‚¹ãƒˆæ–‡å­—åˆ—ã‚’ä½œæˆ
 	_reqheader = /
 		"EXECUTE SAORI/1.0%(C_CRLF)Charset: %(CHARSETLIBEX(_argv[0]))%(C_CRLF)Sender: AYA%(C_CRLF)SecurityLevel: Local%(C_CRLF)"
 	for _i = 1; _i < _argc; _i++ {
@@ -1366,7 +1356,7 @@ FUNCTIONEX
 	}
 	_reqheader += C_CRLF
 
-	// Às
+	// å®Ÿè¡Œ
 	SHIORI3FW.RequestLib(_argv[0], _reqheader)
 
 	if var.lib.result != ''
@@ -1375,17 +1365,17 @@ FUNCTIONEX
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FSAORI
-//‹@”\@FSAORI‚ğÀs‚µ‚Ü‚·
-//        FUNCTIONEX‚ÌƒVƒmƒjƒ€Bˆê’i‰º‘Ê‚ª“ü‚é•ªFUNCTIONEX‚æ‚è’á‘¬‚É‚È‚è‚Ü‚·‚ªA
-//        ‹C‚É‚·‚é‚Ù‚Ç‚Å‚Í‚ ‚è‚Ü‚¹‚ñB
+//é–¢æ•°åï¼šSAORI
+//æ©Ÿèƒ½ã€€ï¼šSAORIã‚’å®Ÿè¡Œã—ã¾ã™
+//        FUNCTIONEXã®ã‚·ãƒãƒ‹ãƒ ã€‚ä¸€æ®µä¸‹é§„ãŒå…¥ã‚‹åˆ†FUNCTIONEXã‚ˆã‚Šä½é€Ÿã«ãªã‚Šã¾ã™ãŒã€
+//        æ°—ã«ã™ã‚‹ã»ã©ã§ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚
 //------------------------------------------------------------------------------
 SAORI { FUNCTIONEX(_argv) }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FSHIORI3FW.SendGETVersion
-//‹@”\@FSAORI‚ÖGET Version‚ğ‘—o‚µ‚Ü‚·
-//ˆø”@F_argv[0] SAORIƒtƒ@ƒCƒ‹–¼
+//é–¢æ•°åï¼šSHIORI3FW.SendGETVersion
+//æ©Ÿèƒ½ã€€ï¼šSAORIã¸GET Versionã‚’é€å‡ºã—ã¾ã™
+//å¼•æ•°ã€€ï¼š_argv[0] SAORIãƒ•ã‚¡ã‚¤ãƒ«å
 //------------------------------------------------------------------------------
 SHIORI3FW.SendGETVersion
 {
@@ -1395,44 +1385,44 @@ SHIORI3FW.SendGETVersion
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FSHIORI3FW.RequestLib
-//‹@”\@FSAORI‚ÖƒŠƒNƒGƒXƒg‚ğ‘—o‚µAŒ‹‰Ê‚ğ“¾‚Ü‚·
-//ˆø”@F_argv[0] SAORIƒtƒ@ƒCƒ‹–¼
-//@@@@_argv[1] ƒŠƒNƒGƒXƒg•¶š—ñ
+//é–¢æ•°åï¼šSHIORI3FW.RequestLib
+//æ©Ÿèƒ½ã€€ï¼šSAORIã¸ãƒªã‚¯ã‚¨ã‚¹ãƒˆã‚’é€å‡ºã—ã€çµæœã‚’å¾—ã¾ã™
+//å¼•æ•°ã€€ï¼š_argv[0] SAORIãƒ•ã‚¡ã‚¤ãƒ«å
+//ã€€ã€€ã€€ã€€_argv[1] ãƒªã‚¯ã‚¨ã‚¹ãƒˆæ–‡å­—åˆ—
 //------------------------------------------------------------------------------
 SHIORI3FW.RequestLib
 {
 	LIB.PROTOCOL   = ''
 	LIB.STATUSCODE = ''
 
-	// ƒŠƒNƒGƒXƒg‘—o
+	// ãƒªã‚¯ã‚¨ã‚¹ãƒˆé€å‡º
 	_result = REQUESTLIB(_argv[0], _argv[1])
 
-	// Œ‹‰Ê‚Ì‰ğÍ
+	// çµæœã®è§£æ
 
-	// ‰üs‚Å•ªŠ„
+	// æ”¹è¡Œã§åˆ†å‰²
 	_lines = RE_SPLIT(_result, C_CRLF)
 
-	// ƒvƒƒgƒRƒ‹–¼‚ÆŒ‹‰Ê‚Ìæ“¾
+	// ãƒ—ãƒ­ãƒˆã‚³ãƒ«åã¨çµæœã®å–å¾—
 	_seppos = STRSTR(_lines[0], ' ', 0)
 	if _seppos == -1; return
 	LIB.PROTOCOL   = SUBSTR(_lines[0], 0, _seppos)
 	LIB.STATUSCODE = SUBSTR(_lines[0], _seppos + 1, STRLEN(_lines[0]) - _seppos - 1)
 
-	// ƒŒƒXƒ|ƒ“ƒXƒwƒbƒ_‚Ìæ“¾
+	// ãƒ¬ã‚¹ãƒãƒ³ã‚¹ãƒ˜ãƒƒãƒ€ã®å–å¾—
 	var.lib.key   = IARRAY
 	var.lib.value = IARRAY
 	var.lib.result = ''
 	
 	_skip = 1
 	foreach _lines; _lin {
-		// 1s–Ú‚Í”ò‚Î‚·
+		// 1è¡Œç›®ã¯é£›ã°ã™
 		if _skip {
 			_skip = 0
 			continue
 		}
 
-		// ƒL[‚Æ’l‚ğæ“¾
+		// ã‚­ãƒ¼ã¨å€¤ã‚’å–å¾—
 		_len         = STRLEN(_lin)
 		_pos         = STRSTR(_lin, ': ', 0)
 		var.lib.key ,= (_key = SUBSTR(_lin, 0, _pos))
@@ -1463,10 +1453,10 @@ SHIORI3FW.RequestLib
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FSHIORI3FW.MakeValueexVariable
-//‹@”\@FƒŠƒNƒGƒXƒgƒwƒbƒ_‚©‚çvalueex*•Ï”‚ğì¬‚µ‚Ü‚·
-//ˆø”@F_argv[0] SAORIƒtƒ@ƒCƒ‹–¼
-//@@@@_argv[1] ƒŠƒNƒGƒXƒg•¶š—ñ
+//é–¢æ•°åï¼šSHIORI3FW.MakeValueexVariable
+//æ©Ÿèƒ½ã€€ï¼šãƒªã‚¯ã‚¨ã‚¹ãƒˆãƒ˜ãƒƒãƒ€ã‹ã‚‰valueex*å¤‰æ•°ã‚’ä½œæˆã—ã¾ã™
+//å¼•æ•°ã€€ï¼š_argv[0] SAORIãƒ•ã‚¡ã‚¤ãƒ«å
+//ã€€ã€€ã€€ã€€_argv[1] ãƒªã‚¯ã‚¨ã‚¹ãƒˆæ–‡å­—åˆ—
 //------------------------------------------------------------------------------
 SHIORI3FW.MakeValueexVariable
 {
@@ -1483,8 +1473,8 @@ SHIORI3FW.MakeValueexVariable
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FSHIORI3FW.ClearValueexVariable
-//‹@”\@Fvalueex*•Ï”‚ğíœ‚µ‚Ü‚·
+//é–¢æ•°åï¼šSHIORI3FW.ClearValueexVariable
+//æ©Ÿèƒ½ã€€ï¼švalueex*å¤‰æ•°ã‚’å‰Šé™¤ã—ã¾ã™
 //------------------------------------------------------------------------------
 SHIORI3FW.ClearValueexVariable
 {
@@ -1494,8 +1484,8 @@ SHIORI3FW.ClearValueexVariable
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FSHIORI3FW.SaoriUnloadAll
-//‹@”\@Fƒ[ƒh‚³‚ê‚Ä‚¢‚éSAORI‚ğ‚·‚×‚Äunload‚µ‚Ü‚·
+//é–¢æ•°åï¼šSHIORI3FW.SaoriUnloadAll
+//æ©Ÿèƒ½ã€€ï¼šãƒ­ãƒ¼ãƒ‰ã•ã‚Œã¦ã„ã‚‹SAORIã‚’ã™ã¹ã¦unloadã—ã¾ã™
 //------------------------------------------------------------------------------
 SHIORI3FW.SaoriUnloadAll
 {
@@ -1505,8 +1495,8 @@ SHIORI3FW.SaoriUnloadAll
 }
 
 //------------------------------------------------------------------------------
-//ŠÖ”–¼FSHIORI3FW.RegisterTempVar
-//‹@”\@FI—¹‚Éíœ‚·‚éƒOƒ[ƒoƒ‹•Ï”‚ğ“o˜^‚µ‚Ü‚·B
+//é–¢æ•°åï¼šSHIORI3FW.RegisterTempVar
+//æ©Ÿèƒ½ã€€ï¼šçµ‚äº†æ™‚ã«å‰Šé™¤ã™ã‚‹ã‚°ãƒ­ãƒ¼ãƒãƒ«å¤‰æ•°ã‚’ç™»éŒ²ã—ã¾ã™ã€‚
 //------------------------------------------------------------------------------
 SHIORI3FW.RegisterTempVar
 {
@@ -1518,9 +1508,9 @@ SHIORI3FW.RegisterTempVar
 }
 
 //------------------------------------------------------------------------------
-//@ŠÖ”–¼FSHIORI3FW.RemoveAllTags
-//@‹@”\@F‘S‚Ä‚Ì‚³‚­‚çƒXƒNƒŠƒvƒgƒ^ƒO‚ğÁ‹‚·‚éB
-//@ˆø”@Fargv0ƒeƒLƒXƒg
+//ã€€é–¢æ•°åï¼šSHIORI3FW.RemoveAllTags
+//ã€€æ©Ÿèƒ½ã€€ï¼šå…¨ã¦ã®ã•ãã‚‰ã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚¿ã‚°ã‚’æ¶ˆå»ã™ã‚‹ã€‚
+//ã€€å¼•æ•°ã€€ï¼šargv0ï¼ãƒ†ã‚­ã‚¹ãƒˆ
 //------------------------------------------------------------------------------
 SHIORI3FW.RemoveAllTags
 {
@@ -1530,8 +1520,8 @@ SHIORI3FW.RemoveAllTags
 }
 
 //------------------------------------------------------------------------------
-//@ŠÖ”–¼FSHIORI3FW.CanTalk
-//@‹@”\@FStatusƒwƒbƒ_‚©‚ç‚µ‚á‚×‚ê‚é‚©‚Ç‚¤‚©‚ğ”»’è‚·‚é
+//ã€€é–¢æ•°åï¼šSHIORI3FW.CanTalk
+//ã€€æ©Ÿèƒ½ã€€ï¼šStatusãƒ˜ãƒƒãƒ€ã‹ã‚‰ã—ã‚ƒã¹ã‚Œã‚‹ã‹ã©ã†ã‹ã‚’åˆ¤å®šã™ã‚‹
 //------------------------------------------------------------------------------
 SHIORI3FW.CanTalk
 {
@@ -1557,7 +1547,7 @@ SHIORI3FW.CanTalk
 }
 
 //******************************************************************************
-//”z—ñ‘€ì
+//é…åˆ—æ“ä½œ
 //******************************************************************************
 JOIN
 {
@@ -1588,7 +1578,7 @@ REVERSE
 
 UNIQUE
 {
-	//ARRAYDEDUP(_argv)
+	ARRAYDEDUP(_argv)
 }
 
 SPLITEX
@@ -1635,18 +1625,18 @@ AVERAGE
 }
 
 //******************************************************************************
-// ƒVƒXƒeƒ€‚Åˆ—‚·‚éƒCƒxƒ“ƒgŒQ
+// ã‚·ã‚¹ãƒ†ãƒ ã§å‡¦ç†ã™ã‚‹ã‚¤ãƒ™ãƒ³ãƒˆç¾¤
 //******************************************************************************
 SHIORI3EV.OnUpdateReady : void
 {
-	// OnUpdateReady‚È‚çƒ[ƒh’†‚ÌSAORI‚ğ‚·‚×‚Äunload‚·‚é
+	// OnUpdateReadyãªã‚‰ãƒ­ãƒ¼ãƒ‰ä¸­ã®SAORIã‚’ã™ã¹ã¦unloadã™ã‚‹
 	SHIORI3FW.SaoriUnloadAll
 }
 
 SHIORI3EV.OnUpdateComplete : void
 {
-	// OnUpdateComplete‚È‚çdl2‚ğ’T‚·B‘¶İ‚µ‚½‚ç“¯–¼‚Ìdll‚ğíœAdl2‚Ídll‚ÉƒŠƒl[ƒ€‚·‚é
-	// ‚à‚Á‚Æ‚àAYA©g‚ª‘ÎÛ‚¾‚Á‚½ê‡‚Í‚Ç‚¤‚µ‚æ‚¤‚à‚È‚¢‚ªB
+	// OnUpdateCompleteãªã‚‰dl2ã‚’æ¢ã™ã€‚å­˜åœ¨ã—ãŸã‚‰åŒåã®dllã‚’å‰Šé™¤ã€dl2ã¯dllã«ãƒªãƒãƒ¼ãƒ ã™ã‚‹
+	// ã‚‚ã£ã¨ã‚‚AYAè‡ªèº«ãŒå¯¾è±¡ã ã£ãŸå ´åˆã¯ã©ã†ã—ã‚ˆã†ã‚‚ãªã„ãŒã€‚
 	SHIORI3FW.Dl2ToDll
 }
 
@@ -1786,7 +1776,7 @@ SHIORI3EV.OnBalloonChange : void
 //------------------------------------------------------------------------------
 SHIORI3EV.OnAITalkNewEvent
 {
-	//ŒİŠ·—pˆ—
+	//äº’æ›ç”¨å‡¦ç†
 	_old_name = SHIORI3FW.TranslateEvent('OnAiTalk')
 	if ISFUNC(_old_name) {
 		EVAL(_old_name)
@@ -1798,7 +1788,7 @@ SHIORI3EV.OnAITalkNewEvent
 		return
 	}
 	
-	//---- ’Êí‚Ìƒ‰ƒ“ƒ_ƒ€ƒg[ƒNA‚½‚¾‚µƒ`ƒFƒCƒ“’†‚Íƒ`ƒFƒCƒ“ƒg[ƒN
+	//---- é€šå¸¸ã®ãƒ©ãƒ³ãƒ€ãƒ ãƒˆãƒ¼ã‚¯ã€ãŸã ã—ãƒã‚§ã‚¤ãƒ³ä¸­ã¯ãƒã‚§ã‚¤ãƒ³ãƒˆãƒ¼ã‚¯
 	if SHIORI3FW.IsChain {
 		ChainTalk
 	}
@@ -1807,7 +1797,7 @@ SHIORI3EV.OnAITalkNewEvent
 	}
 }
 
-//---- SHIORI ŠÖ˜Aî•ñ ------------------------------------------------------------------
+//---- SHIORI é–¢é€£æƒ…å ± ------------------------------------------------------------------
 SHIORI3EV.On_version
 {
 	GETSETTING('coreinfo.version')
@@ -1829,7 +1819,7 @@ SHIORI3EV.On_name
 }
 
 //******************************************************************************
-// ƒfƒoƒbƒO
+// ãƒ‡ãƒãƒƒã‚°
 //******************************************************************************
 SHIORI3EV.On_enable_log : void
 {
@@ -1866,7 +1856,7 @@ DUMP : void
 }
 
 //******************************************************************************
-// Œn•Ï”
+// æ™‚åˆ»ç³»å¤‰æ•°
 //******************************************************************************
 year    { GETTIME[0] }
 month   { GETTIME[1] }
@@ -1914,10 +1904,11 @@ ghostupmin_total
 }
 
 //******************************************************************************
-// ƒƒ‚ƒŠŒn•Ï”
+// ãƒ¡ãƒ¢ãƒªç³»å¤‰æ•°
 //******************************************************************************
 memoryload         { GETMEMINFO[0] }
 memorytotalphys    { GETMEMINFO[1] }
 memoryavailphys    { GETMEMINFO[2] }
 memorytotalvirtual { GETMEMINFO[3] }
 memoryavailvirtual { GETMEMINFO[4] }
+

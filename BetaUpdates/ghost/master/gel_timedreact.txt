@@ -146,6 +146,7 @@ Menu_THANKGEL{
 	
 	//mark as complete
 	thankful = 0
+	currentthanks++
 	
 	
 	case emotion{

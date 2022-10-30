@@ -66,6 +66,8 @@ sakura.menuitem52,301
 sakura.menuitem53,302
 sakura.menuitem54,-
 sakura.menuitem55,1000
+sakura.menuitem1100,1100
 sakura.menuitem1212,1212
+sakura.menuitem1240,1240
 sakura.menuitem1250,1250
 sakura.menuitem1300,-

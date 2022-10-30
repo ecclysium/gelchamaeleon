@@ -100,7 +100,11 @@ On_readmebutton.caption
 //------------------------------------------------------------------------------
 On_vanishbutton.caption
 {
-	if checkGreatTN1{
+	if (port == 83 || port == 636 || port == 737 || port == 939){
+		"Dewete Me"
+		"Yeah Ok Uninstaww"
+		"Kiww Me Awweady"
+	}elseif checkGreatTN1{
 		"Uninstall"
 	}else{
 		"Kill"

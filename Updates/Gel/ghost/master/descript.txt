@@ -29,7 +29,7 @@ sakura.bindgroup802.name,Shirts,Baja Sleeves
 sakura.bindgroup502.addid,802
 
 sakura.bindgroup503.name,Shirts,Peach
-sakura.bindgroup803.name,Shirts,PeachSleeves
+sakura.bindgroup803.name,Shirts,Peach Sleeves
 sakura.bindgroup503.addid,803
 
 sakura.bindgroup504.name,Shirts,VOC Certified
@@ -50,7 +50,9 @@ sakura.bindgroup250.name,Hair,Default
 sakura.bindgroup251.name,Hair,Ponytail
 sakura.bindgroup1250.name,Hats,Paper Bag
 //sakura.bindgroup102.name,Hats,Iris
-sakura.bindgroup1000.name,Hats,We Like To Party
+sakura.bindgroup1000.name,Hats,Crunchy Hat
+sakura.bindgroup1240.name,Hats,Pumpkin
+sakura.bindgroup1100.name,Hats,Candy Corn
 sakura.bindgroup1212.name,Hats,Santa Hat
 
 

@@ -119,13 +119,13 @@ OnGelEMOTIONBase{
 				"%(gelBase)That was a good sleep...\e"
 				"%(gelBase)A full %_sleptfor hours...\e"
 			}elseif infoperminute >= 70 && useractive == 1{
-				OnMakeWoke
+				_sleptfor = OnMakeWoke
 				"%(gelBase)What's with all the racket, %username.\w4.\w4.?\e"
 				"%(gelBase)Whuzzup?\w8 You're bein' loud.\e"
 			
 			//If Gel's fully rested, they'll just nod off now and again
 			}elseif fullnightsrest == 1 && timeasleep > 1 && timeasleep < 120 && useractive == 1{
-				OnMakeWoke
+				_sleptfor = OnMakeWoke
 				"%(gelBase)Mmnf.\e"
 				"%(gelBase)Snrk.\e"
 				"%(gelBase)Oh, I fell asleep again.\w4.\w4.\e"
@@ -174,7 +174,7 @@ OnGelEMOTIONBase{
 				minsinemotion=0
 				
 			//Become curious
-			}elseif infoperminute > 48 && lastinter > 10 && shakenup < 3{
+			}elseif infoperminute > 45 && lastinter > 10 && shakenup < 3{
 				emotion = 14
 				minsinemotion=0
 			}
@@ -343,14 +343,14 @@ OnMakeUncomfortable{
 
 }
 
-OnMakeScared{
+OnMakeScared : void{
 	emotion = 6
 	reason = reference0
 	minsinemotion = 0
 
 }
 
-OnMakeAngry{
+OnMakeAngry : void {
 	emotion = 10
 	reason = reference0
 	minsinemotion = 0
@@ -367,13 +367,13 @@ OnMakeWoke{
 		askgel = 5
 
 	}
+
+	minsinemotion = 0
+	emotion = 0
+	timeasleep = 0		
+	
 	//return full hours asleep
 	timeasleep / 2
-	
-	minsinemotion=0
-	
-	emotion = 0
-	timeasleep = 0			
 	
 }
 

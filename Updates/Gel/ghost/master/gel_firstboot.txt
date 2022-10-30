@@ -425,6 +425,8 @@ OnGelNickname{
 				"Ritz"
 			}when "bernard"{
 				"Barney"
+			}when "Tyler"{
+				"Ty"
 			}others{
 				username
 			}

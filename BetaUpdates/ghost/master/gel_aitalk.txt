@@ -40,6 +40,7 @@ RandomTalkEx : nonoverlap
 						"%(gelDialogueTired)"
 					}
 					when 1{
+						"\![raise,OnCheckForDiscord]\e"	
 						gelDialogueNeutral
 						if _rand == 0{
 							gelDialoguePositive
@@ -185,6 +186,7 @@ OnMinuteChange
 	//We check this first for the sake of birthdays, New Years, and monthly wrap overs.
 	if minute == 0{
 		OnHourChange
+		currentthanks = 0
 	}
 	//Calc info per minute
 	if actcountallowed == 1{

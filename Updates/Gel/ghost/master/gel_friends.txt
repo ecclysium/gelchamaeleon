@@ -17,8 +17,7 @@ Info_AddFriend{
 		_username = FUNCTIONEX("findwin.dll","getcaption","Chrome_WidgetWin_1")
 		if "@" _in_ _username{
 			if _username != ""{
-				_username = REPLACE(_username, " - ", "")
-				_username = REPLACE(_username, "Discord", "")
+				_username = REPLACE(_username, " - Discord", "")
 			}
 			"Oh, is it %_username from Discord?\n\n"
 			_username = REPLACE(_username, "@", "")
@@ -847,19 +846,16 @@ OnSwitchPort{
 	//if the target file with wanted port already exists, and it is a valid entry
 	if _newport != 0 && _opentarg > 0 {
 		
-		
 		//we already saved the old info -- doesn't matter if it fails, if it does it doesn't exist anyways
 		_dummy = FDEL("yaya_variable.cfg")
 		FCLOSE(_targetfile)
 		//change the target's name to the necessary one
 		_dummy = FRENAME(_targetfile,"yaya_variable.cfg")
 		if _dummy == 0{
-			"%(gelLookAtInternet)ERROR: could not overwrite yaya_variable.cfg, former deleted at success %_dummya"
+			"%(gelLookAtInternet)ERROR: could not overwrite yaya_variable.cfg"
 		}
 		RESTOREVAR("yaya_variable.cfg")
 		forcedport = 1
-		--
-		OnLoadOutfit
 		--
 		OnBoot
 	
@@ -879,8 +875,7 @@ OnSwitchPort{
 		--
 		//tell them who to be
 		forcedport = _newport
-		OnFirstBootSummoned
-		
+		OnFirstBootSummoned	
 	}
 
 }

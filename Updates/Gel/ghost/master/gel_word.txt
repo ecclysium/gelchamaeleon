@@ -1489,7 +1489,7 @@ shijoSearchHistory{
 
 }
 
-//sexual content filter 
+//sexual content filter is needed, these are currently unused
 namelessSensitiveContent{
 	"her porn folder"
 	"the fanfic she wrote when she was 12"
@@ -1770,6 +1770,7 @@ BadWordDictionary: array{
 }
 
 //Sentences will be separated by spaces, the those two commented out trans slurs will have to be handled special
+//for username rejection
 SlurDictionary: array{
 	"tranny"
 	"shemale"
@@ -1783,7 +1784,7 @@ SlurDictionary: array{
 	"gypsy"
 	"trap"
 	"dyke"
-	
+	"beaner"
 	
 }
 

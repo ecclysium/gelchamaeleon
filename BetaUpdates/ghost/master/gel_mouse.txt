@@ -225,7 +225,7 @@ MouseMove0Head{
 	useractive = 1
 	
 	//Handle reactions by assured negatives, then by emotion and trust. (neutral is at the bottom to catch unfinished emotions too)
-	if thankful > 0{
+	if thankful > 0 && currentthanks < 3{
 		//thankfulness always nets friendship -- but that happens in thankfulness too, so we only have a bonus here
 		addtrust(1)
 		
@@ -949,7 +949,7 @@ MouseMove0Face
 	useractive = 1
 	
 	//Handle reactions by assured negatives, then by emotion and trust. (neutral is at the bottom to catch unfinished emotions too)
-	if thankful > 0{
+	if thankful > 0 && currentthanks < 3{
 		
 		if checkGreatTN2{
 			//get some trust bonuses from this, but not forever

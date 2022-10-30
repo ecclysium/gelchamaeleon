@@ -1548,7 +1548,7 @@ gelLookAtInternet{
 gelEarTwitch{
 
 	//"\i[272]\w2\i[270]\w1\i[271]\w1\i[270]"
-	"%(gelClearEars)\i[272]\w2\![anim,clear,272]\i[270]\w1\![anim,clear,270]\i[271]\w1\![anim,clear,271]\i[270]"
+	if emotion != -1; "%(gelClearEars)\i[272]\w2\![anim,clear,272]\i[270]\w1\![anim,clear,270]\i[271]\w1\![anim,clear,271]\i[270]"
 }
 
 gelPickThreeCorruption{
@@ -1650,67 +1650,67 @@ gelArmsLax{
 
 gelArmsChest{
 
-	"%(gelClearArms)\i[703]"
+	if emotion != -1; "%(gelClearArms)\i[703]"
 }
 
 
 gelArmsQuestion{
 
-	"%(gelClearArms)\i[705]"
+	if emotion != -1; "%(gelClearArms)\i[705]"
 }
 
 
 gelArmsGestL{
 
-	"%(gelClearArms)\i[707]"
+	if emotion != -1; "%(gelClearArms)\i[707]"
 }
 
 
 gelArmsGestR{
 
-	"%(gelClearArms)\i[717]"
+	if emotion != -1; "%(gelClearArms)\i[717]"
 }
 
 
 gelArmsSmug{
 
-	"%(gelClearArms)\i[709]"
+	if emotion != -1; "%(gelClearArms)\i[709]"
 }
 
 
 gelArmsFistChin{
 
-	"%(gelClearArms)\i[711]"
+	if emotion != -1; "%(gelClearArms)\i[711]"
 }
 
 
 gelArmsKnees{
 
-	"%(gelClearArms)\i[713]"
+	if emotion != -1; "%(gelClearArms)\i[713]"
 }
 
 
 gelArmsCouncil{
 
-	"%(gelClearArms)\i[715]"
+	if emotion != -1; "%(gelClearArms)\i[715]"
 }
 
 
 gelArmsHighFive{
 
-	"%(gelClearArms)\i[719]"
+	if emotion != -1; "%(gelClearArms)\i[719]"
 }
 
 
 gelArmsHugSelf{
 
-	"%(gelClearArms)\i[721]"
+	if emotion != -1; "%(gelClearArms)\i[721]"
 }
 
 
 gelArmsPlayRock{
 
-	"%(gelClearArms)\i[723]"
+	if emotion != -1; "%(gelClearArms)\i[723]"
 }
 
 

@@ -34,11 +34,13 @@ OpenMenu
 		res_reference0=""
 	}
 	--
+	"\![set,autoscroll,disable]"
+	--
 	//Make sure Gel is awake to respond, first.
 	if emotion == -1{
 		_sleptfor = timeasleep/2
-		"%(gelBase)Hnn?"
-		"%(gelBase)Zzzzz..."
+		"\b2%(gelBase)Hnn?"
+		"\b2%(gelBase)Zzzzz..."
 		--
 		if _sleptfor > 1{
 			MenuItem("Wake %Gel up\, it's been %_sleptfor hours...","Menu_WAKE",200)
@@ -752,7 +754,7 @@ OpenMenu
 				"unknown"
 		}
 		--
-		", info: %TOINT(infoperminute)"
+		", info: %TOINT(infoperminute), trust: %trust"
 	}
 	--
 	"\e"
@@ -770,7 +772,8 @@ returnlines{
 
 
 TestMenu{
-
+	"\![set,autoscroll,disable]"
+	--
 	"Test opener"
 	--
 	"\b2\n\_q"
@@ -1024,7 +1027,7 @@ OnChoiceTimeout
 
 
 Menu_PRIVACY{
-	"\_q"
+	"\_q\![set,autoscroll,disable]"
 	--
 	"\![*]Seeing Programs Open: \_a[Menu_FLIPSIGHT]"
 	--
@@ -1088,9 +1091,9 @@ Menu_FLIPACTCOUNT{
 
 Menu_SAVE{
 	if forcedport > 0{
-		"\b2\_q"	
+		"\b2\![set,autoscroll,disable]\_q"	
 	}else{
-		"\_q"
+		"\![set,autoscroll,disable]\_q"
 	}
 	--
 	if FSIZE("yaya_variable.cfg.bak") > 0{
@@ -1134,7 +1137,7 @@ GETSAVEPORT{
 
 
 Menu_SETTINGS{
-	"\b2\_q"
+	"\b2\![set,autoscroll,disable]\_q"
 	--
 	if talkbehavior{
 		"\![*]Talk rate: \_a[Menu_TALKINTERVAL]Whenever\_a\n"
@@ -1142,7 +1145,12 @@ Menu_SETTINGS{
 		_talkrate = aitalkinterval / 60
 		"\![*]Talk rate: \_a[Menu_TALKINTERVAL]%_talkrate\_a\n"
 	}
-	
+	--
+	if silentmode{
+		"\![*]Silent Mode: \_a[Menu_SILENTMODE]ON\_a\n"
+	}else{
+		"\![*]Silent Mode: \_a[Menu_SILENTMODE]OFF\_a\n"
+	}
 	--
 	if swearing == 1{
 		"\![*]Cussing: \_a[OnFlipSwearing]ON\_a\n"
@@ -1201,7 +1209,7 @@ Menu_FLIPBETA{
 
 Menu_PROFILE{
 	if firsttimeusersetup >= 2{
-		"\_q"
+		"\![set,autoscroll,disable]\_q"
 		--
 		if username != "" && username != "Windows User"{
 			"\![*]Name: \_a[Menu_CHANGENAME]%username\_a "
@@ -1273,7 +1281,7 @@ OnMenu_NICKCHANGED{
 		remtrust(1)
 		"%(gelAngry)Hey! That is not a very nice nickname!\![open,inputbox,OnMenu_NICKCHANGED]"
 	}else{
-		username = reference0
+		nicknamed = reference[0]
 		if checkBadMood{
 			"%(gelLookForward)Sure, you can be %nickname, I guess."
 		}else{
@@ -1421,6 +1429,8 @@ OnSetTime{
 
 
 Menu_GELSBEINGWEIRDAGAIN{
+	"\![set,autoscroll,disable]"
+	--
 	if checkLessEqTN2 {
 		"%(gelBase)"
 		"%(gelLookAway)"
@@ -1439,7 +1449,7 @@ Menu_GELSBEINGWEIRDAGAIN{
 			"%(gelSmug)FFFFFuck you! %(gelLookForward)%(gelSmug)\w8\w8 No. \![raise,OnSetVariable,jabbering,2]<3\e"
 			"%(gelLookAway)You do%(not) get to talk to me. \![raise,OnSetVariable,jabbering,2]\e"
 			"%(gelAngry)What do you want, motherfucker?\![raise,OnSetVariable,jabbering,2]"
-			"%(gelSquint)What? What could you even fucking want with me? \![raise,OnSetVariable,jabbering,2]\e"
+			"%(gelSquint)What? What could you even fucking want with me? \![raise,OnSetVariable,jabbering,2]"
 			"%(gelSquint)...Okay, what the fuck do you want?????\![raise,OnSetVariable,jabbering,2]"
 		
 		}
@@ -1455,8 +1465,7 @@ Menu_GELSBEINGWEIRDAGAIN{
 		"%(gelUh)I do%(not) have to let you talk to me, you know.\e"
 	
 	}
-	//elseif ASEARCH("Paper Bag",clothes) && emotion > 0 {
-	elseif 0 && emotion > 0 {
+	elseif ASEARCH("Paper Bag",clothes) > -1 && (emotion > 0 && emotion < 10 || emotion == 14){
 		"What? %(gelHmm)Why are you looking at me like that?"
 		"%(gelExcited)Is this about the bag?"
 		"You%(are) looking at me funny."
@@ -1492,11 +1501,11 @@ Menu_GELSBEINGWEIRDAGAIN{
 	--
 	//A lot of interactions are only available if Gel is in a good mood.
 	if emotion == 1 || emotion == 14{
-		if ASEARCH("Paper Bag",clothes){
-			//MenuItem("Take that bag off your head!","Menu_RMBAG")
-			//MenuItem("%Gel\, please remove the bag.","Menu_RMBAG")
-			//MenuItem("Remove the paper bag\, %Gel.","Menu_RMBAG")
-		}elseif ASEARCH("Iris",clothes){
+		if ASEARCH("Paper Bag",clothes) > -1{
+			MenuItem("Take that bag off your head!","Menu_RMBAG")
+			MenuItem("%Gel\, please remove the bag.","Menu_RMBAG")
+			MenuItem("Remove the paper bag\, %Gel.","Menu_RMBAG")
+		}elseif ASEARCH("Iris",clothes) > -1{
 			MenuItem("Nice flower.","Menu_COMPLIMENTIRIS")
 			MenuItem("Pretty flower!","Menu_COMPLIMENTIRIS")
 		}elseif "VOC" _in_ clothes{
@@ -1639,7 +1648,7 @@ Menu_BRIEFBREAK{
 
 Menu_Functions
 {
-	"\b2"
+	"\b2\![set,autoscroll,disable]"
 	--
 	if checkBadMood{
 		"%(gelLookForward)%(gelSlashMouth)If I have to."
@@ -1713,6 +1722,8 @@ Menu_RecycleBin
 
 Menu_SystemInfo //Partially copied from the GT template, but I tweaked a few things
 {
+	"\![set,autoscroll,disable]"
+	--
 	os_name = FUNCTIONEX("saori_cpuid.dll","os.name")
 	os_version = FUNCTIONEX("saori_cpuid.dll","os.version")
 	cpu_name = FUNCTIONEX("saori_cpuid.dll","cpu.name")
@@ -1761,7 +1772,7 @@ Menu_QUIETDOWN{
 }
 
 Menu_SILENTMODE{
-	if silentmode = 0{
+	if silentmode == 0{
 		case emotion{
 			
 			//Gel is asleep - impossible at the moment
@@ -1879,10 +1890,10 @@ Menu_COMMUNICATEOPEN
 Menu_RMBAG{
 	"Fine.\w8 "
 	"%(okay).\w4.\w4. "
-	"%(gelBase)\w4"
-	"%(gelBase)\w4"
+	"%(gelBase)\w8"
+	"%(gelBase)\w8"
 	--
-	"\![bind,Hats,Paper Bag Emote,0]"
+	"\![bind,Hats,Paper Bag,0]"
 	--
 	clothes = REPLACE(clothes, "Paper Bag,", "")
 	--
@@ -1900,6 +1911,8 @@ Menu_RMBAG{
 
 
 Menu_ViewFriendsList{
+	"\b2\![set,autoscroll,disable]"
+	--
 	if (trust < -5) || (claustro < 15){
 		"Click on someone for more.\n\n"
 		"Uh, here.\n\n"
@@ -2028,6 +2041,8 @@ OnMenu_HOLDTHIS_given{
 		holdinginfo = ""
 		"%(gelSquint)I%(am) not falling for that one, %username. Do%(not) be meta.\e"
 	
+	}elseif holdinginfo == ""{
+		"%(gelLookConfused)This is just an empty string."
 	}else{
 		"Let me know when you need it again.\e"
 	}
@@ -2191,6 +2206,7 @@ QuestionRefuse{
 
 
 Menu_QUESTION{
+	
 	if port != 1117{
 		"%(gelBase)%(gelHmm)Oh, you %(wanna) ask me something?"
 		"Yeah?"
@@ -2222,9 +2238,8 @@ Menu_QUESTION{
 		"Okay?"
 	
 	}
-	
 	--
-	"\b2\n[half]\_q"
+	"\b2\![set,autoscroll,disable]\n[half]\_q"
 	--
 	MenuItem("People","Ask_PEOPLE")
 	--
@@ -2245,8 +2260,8 @@ Menu_QUESTION{
 		MenuItem("Jerry","Q_JERRY")
 	}
 	--
-	MenuItem("Statistics","Menu_STATISTICS")
-	--
+	//MenuItem("Statistics","Menu_STATISTICS")
+	//--
 	"\n"
 	--
 	MenuItem("Back","OpenMenu")
@@ -2255,7 +2270,7 @@ Menu_QUESTION{
 
 
 Ask_PEOPLE{
-	"\t\_q"
+	"\t\_q\![set,autoscroll,disable]"
 	--
 	if willow == -1{
 		"\![*]??????          "
@@ -2320,7 +2335,7 @@ Ask_PEOPLE{
 
 
 Ask_CONCEPTS{
-"\t\_q"
+	"\t\_q\![set,autoscroll,disable]"
 	--
 	if qvacation == -1{
 		"\![*]????????        "
@@ -2400,7 +2415,7 @@ Ask_CONCEPTS{
 
 
 Ask_ATLAS{
-	"\t\_q"
+	"\t\_q\![set,autoscroll,disable]"
 	--
 	if qatlascity == -1{
 		"\![*]??? ????         "
@@ -2427,7 +2442,7 @@ Ask_ATLAS{
 	}else{
 		MenuItem("The Jackets","Q_JACKETS",0)
 		--
-		"      "
+		"     "
 	}
 	--
 	if qdome == -1{

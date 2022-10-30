@@ -612,7 +612,6 @@ Info_LightsOut_CHECKWIN{
 //ELEPHANT: Does not seem to be triggering since the YAYA update. So it just sends a notif.
 //In theory, if it called, the dialogue would work. 
 OnOtherGhostTalk  {
-	if debug == 1; SENDERROR("OtherGhostTalk called","info")
 	//ignore anything after a \e, as that is often stats and pings and all that
 	_theysay = TOLOWER(reference4)[0,"\e"]
 	_command = TOLOWER(reference4)[1,"\e"]
@@ -717,56 +716,70 @@ CHECKFORMENTION{
 
 OnCheckForDiscord{
 
-
+	//to be here, it will have already checked for having access to looking at programs
+	
+	
 	_username = FUNCTIONEX("findwin.dll","getcaption","Chrome_WidgetWin_1")
-		if "@" _in_ _username{
-			if _username != ""{
-				_username = REPLACE(_username, " - ", "")
-				_username = REPLACE(_username, "Discord", "")
-			}
-			_username = REPLACE(_username, "@", "")
-			
-			//See if this someone in Discord is someone we know
-			_namecheck = ASEARCH(_username,Info_FriendNames)
-			_nickcheck = ASEARCH(_username,Info_FriendNicks)
-			if _namecheck > -1 ||_nickcheck > -1{
-				if _namecheck > _nickcheck{
-					thisfriend = friendslist[_namecheck,"#"]
-				//if they're equal, they're the same, anyways, so... who cares?
-				}else{
-					thisfriend = friendslist[_nickcheck,"#"]
-				}
-				
-				
-				"Hey, is%(not) that your %(Info_Friend_GenderedRelation)? How are they doing?\e"
-				if thisfriend[3] != "not sure"{
-					"Is that your %thisfriend[3] %(Info_Friend_GenderedRelation) you're talking to?\e"
-				}
-				//If they're one of Gel's friends
-				if thisfriend[5] == 2{
-					"Oh, hey, %thisfriend[1]! Tell them I say hi, %username!\e"
-					"Are you talking to %thisfriend[1]? Tell them I said hi!\e"
-				}
-				
-			
-			//If they don't recognize this, but Discord's DMs are pulled up...... new f r o n d?
-			}else{
-				thisfriend[0] = _username
-				thisfriend[1] = _username
-				"Hey, %username, who's %_username? Is that one of your friends?"
-				--
-				AYATEMPLATE.MenuItem("They're...","Info_AddFriendDiscordNameConfirm")
-				--
-				AYATEMPLATE.MenuItem("It's not important","QuestionRefuse")
-			
-			}
+	if "@" _in_ _username{
+		if _username != ""{
+			_username = REPLACE(_username, " - Discord", "")
 		}
-
-
-
-
-
-
+		_username = REPLACE(_username, "@", "")
+		
+		//See if this someone in Discord is someone we know
+		_namecheck = ASEARCH(_username,Info_FriendNames)
+		_nickcheck = ASEARCH(_username,Info_FriendNicks)
+		if _namecheck > -1 ||_nickcheck > -1{
+			if _namecheck > _nickcheck{
+				thisfriend = friendslist[_namecheck,"#"]
+			//if they're equal, they're the same, anyways, so... who cares?
+			}else{
+				thisfriend = friendslist[_nickcheck,"#"]
+			}
+			
+			
+			"Hey, is%(not) that your %(Info_Friend_GenderedRelation)? How are they doing?\e"
+			if thisfriend[3] != "not sure"{
+				"Is that your %thisfriend[3] %(Info_Friend_GenderedRelation) you're talking to?\e"
+			}
+			//If they're one of Gel's friends
+			if thisfriend[5] == 2{
+				"Oh, hey, %thisfriend[1]! Tell them I say hi, %username!\e"
+				"Are you talking to %thisfriend[1]? Tell them I said hi!\e"
+			}
+			
+		
+		//If they don't recognize this, but Discord's DMs are pulled up...... new f r o n d?
+		}else{
+			thisfriend[0] = _username
+			thisfriend[1] = _username
+			"Hey, %username, who's %_username? Is that one of your friends?"
+			--
+			AYATEMPLATE.MenuItem("They're...","Info_AddFriendDiscordNameConfirm")
+			--
+			AYATEMPLATE.MenuItem("It's not important","QuestionRefuse")
+		
+		}
+	}else{
+	//to be here, Gel must be in the neutral emotion
+	//This is where called this function, and so it will recurse until it gets something that isn't this.
+		"%(gelDialogueNeutral)"
+		
+		_DiscordOpen = FUNCTIONEX("findwin.dll","find",,"Chrome_WidgetWin_1")
+		if _DiscordOpen == 1{
+			"Oh, hey, Discord. %(gelHmm)Who you talkin%(guh) to?\e"
+		}
+		
+		_RiseToRuinsOpen = FUNCTIONEX("findwin.dll","find",,"LWJGL")
+		if _RiseToRuinsOpen == 1{
+			"%(gelHuh)What are you doing in that game?\e"
+			"%(gelLookForward)%(gelHmm)How are your villagers doing?\e"
+			"%(gelHmm)How many days have you survived?\e"
+			"%(gelHmm)Tell me, honestly-- how bad is it? %(gelHuh)In Rise to Ruin?\e"
+		}
+		
+	
+	}
 
 }
 

@@ -754,7 +754,7 @@ OpenMenu
 				"unknown"
 		}
 		--
-		", info: %TOINT(infoperminute)"
+		", info: %TOINT(infoperminute), trust: %trust"
 	}
 	--
 	"\e"
@@ -2041,6 +2041,8 @@ OnMenu_HOLDTHIS_given{
 		holdinginfo = ""
 		"%(gelSquint)I%(am) not falling for that one, %username. Do%(not) be meta.\e"
 	
+	}elseif holdinginfo == ""{
+		"%(gelLookConfused)This is just an empty string."
 	}else{
 		"Let me know when you need it again.\e"
 	}
