@@ -29,7 +29,7 @@ MouseMove0HeadOld : sequential
 	//When Gel is asleep, there are a number of variables that have no need to be touched
 	if emotion != -1{
 		//exceptions to notouchie
-		if notouchie == 1 && userbirthday _in_ thisboot{
+		if notouchie == 1 && userbirthday[0,"/"] == thisboot[0,"/"] && userbirthday[1,"/"] == thisboot[1,"/"]{
 			"%(gelHuh)I%(will) only let you pet me today.\e"
 			"%(gelLookRight)You can pet me only for this special occasion and I won't hold it against you.\e"
 			"%(gelBase)Cursor feels weird on my head.\e"
@@ -243,7 +243,7 @@ MouseMove0Head{
 		gelNoTouchiePetResponses
 	}else{
 		infoperminute--
-		_effectivepets = pets - punches + (trust/6)
+		_effectivepets = pets/6 - punches + (trust/3)
 		//thankful tracks minutes since Gel did something for the user, decreasing as time goes on.
 		//I know I like to pet ghosts as a thank-you. 
 		{
@@ -260,6 +260,7 @@ MouseMove0Head{
 					"z\e"
 					"snrk...\e"
 					"Zzzz... ah, hmn... soft user..."
+					"honk shoo..."
 				
 				}when 0{
 					//get some trust bonuses from this, but not forever
@@ -271,13 +272,14 @@ MouseMove0Head{
 						"\![raise,OnMakeSleep]%(gelLookAsleep)ZZZZzzzz..."
 					}
 					//Category-specific Dialogues
-					if _effectivepets > TPOS3{			//(currently) Maxed Out Positive ----------------------------------------
+					if _effectivepets > TPOS3 + 50{			//(currently) Maxed Out Positive ----------------------------------------
 					
-					}elseif _effectivepets > TPOS2{		//Positive Route Pt 3 ---------------------------------------------------
+					}elseif _effectivepets > TPOS2 + 40{		//Positive Route Pt 3 ---------------------------------------------------
 						"%(gelLookUp)wish %(you) were here..."
 						"%(gelConfused)%(gelSmile)I wonder if I could make something that would let AnWillow or Radius trigger something like this... \w8%(gelHuh)wonder if it would feel different..."
-					}elseif _effectivepets > TPOS1{		//Positive Route Pt 2 ---------------------------------------------------
+					}elseif _effectivepets > TPOS1 + 30{		//Positive Route Pt 2 ---------------------------------------------------
 						"%(gelAdoring)Are %(you) tryin%(guh) to make me fall asleep? At this rate I might just fall asleep."
+						"%(gelLookUP)Sleepypilled, as they say on your Inter Nett..."
 					}elseif _effectivepets > TNEG1{		//Positive/Neutral Route Pt 1 -------------------------------------------
 
 					}elseif _effectivepets > TNEG2{		//Negative Route Pt 1 ---------------------------------------------------
@@ -300,11 +302,11 @@ MouseMove0Head{
 					}
 
 					//Stagger versions (unlocked at the .5 mark)
-					if _effectivepets > TPOS2 + (TREGINC / 2) {				//Positive Route Pt 3.5 ---------------------------------
+					if _effectivepets > TPOS2 + (TREGINC / 2) + 50 {				//Positive Route Pt 3.5 ---------------------------------
 						"%(gelLookSouthWest)%(gelArmsCouncil)Vying for my affection with all the soft touches. "
-					}elseif _effectivepets > TPOS1 + (TREGINC / 2) {		//Positive Route Pt 2.5 ---------------------------------
+					}elseif _effectivepets > TPOS1 + (TREGINC / 2) + 40 {		//Positive Route Pt 2.5 ---------------------------------
 						"%(gelLookForward)Pet me to sleep. %(gelLookRight)Keep that up. You%(are) just too good at it."
-					}elseif _effectivepets > TNEG1 + (TREGINC / 4) {		//Positive/Neutral Route Pt 1.5 -------------------------
+					}elseif _effectivepets > TNEG1 + (TREGINC / 4) + 10{		//Positive/Neutral Route Pt 1.5 -------------------------
 						"%(gelLookRight)Oh, you know I%(am) too tired for this..."
 					}elseif _effectivepets > TNEG2 - (TREGINC / 4) {		//Negative Route Pt 1.5 ---------------------------------
 						
@@ -317,11 +319,11 @@ MouseMove0Head{
 				}when 3{
 					
 					//Category-specific Dialogues
-					if _effectivepets > TPOS3{					//(currently) Maxed Out Positive ----------------------------------------
+					if _effectivepets > TPOS3 + 50{					//(currently) Maxed Out Positive ----------------------------------------
 					
-					}elseif _effectivepets > TPOS2{				//Positive Route Pt 3 ---------------------------------------------------
+					}elseif _effectivepets > TPOS2 + 30{				//Positive Route Pt 3 ---------------------------------------------------
 						"%(gelLookForward)%(gelUh)It is%(not) too bad, comin%(guh) from you, like this. "
-					}elseif _effectivepets > TPOS1{				//Positive Route Pt 2 ---------------------------------------------------
+					}elseif _effectivepets > TPOS1 + 20{				//Positive Route Pt 2 ---------------------------------------------------
 						
 					}elseif _effectivepets > TNEG1{				//Positive/Neutral Route Pt 1 -------------------------------------------
 						remtrust(2) //putting this here makes it always trigger on this part of the route
@@ -348,11 +350,11 @@ MouseMove0Head{
 					}
 
 					//Stagger versions (unlocked at the .5 mark)
-					if _effectivepets > TPOS2 + (TREGINC / 2) {				//Positive Route Pt 3.5 ---------------------------------
+					if _effectivepets > TPOS2 + (TREGINC / 2) + 50 {				//Positive Route Pt 3.5 ---------------------------------
 						"%(gelLookForward)You%(are) so comforting, %(you) know? %(gelConcerned)No matter what... it%(is) you, there for me. I wish %(you) were an Atlas citizen..."
-					}elseif _effectivepets > TPOS1 + (TREGINC / 2) {		//Positive Route Pt 2.5 ---------------------------------
+					}elseif _effectivepets > TPOS1 + (TREGINC / 2) + 40 {		//Positive Route Pt 2.5 ---------------------------------
 						
-					}elseif _effectivepets > TNEG1 + (TREGINC / 4) {		//Positive/Neutral Route Pt 1.5 -------------------------
+					}elseif _effectivepets > TNEG1 + (TREGINC / 4) + 20 {		//Positive/Neutral Route Pt 1.5 -------------------------
 
 					}elseif _effectivepets > TNEG2 - (TREGINC / 4) {		//Negative Route Pt 1.5 ---------------------------------
 						
@@ -369,12 +371,12 @@ MouseMove0Head{
 						addtrust(1)
 					}
 					//Category-specific Dialogues
-					if _effectivepets > TPOS3{			//(currently) Maxed Out Positive ----------------------------------------
-					
-					}elseif _effectivepets > TPOS2{		//Positive Route Pt 3 ---------------------------------------------------
-					
-					}elseif _effectivepets > TPOS1{		//Positive Route Pt 2 ---------------------------------------------------
-						
+					if _effectivepets > TPOS3 + 50{			//(currently) Maxed Out Positive ----------------------------------------
+						"%(gelLookForward)I can almost forget when I%(am) with you..."
+					}elseif _effectivepets > TPOS2 + 30{		//Positive Route Pt 3 ---------------------------------------------------
+						"%(gelLookForward)Maybe I could just fall asleep and not worry..."
+					}elseif _effectivepets > TPOS1 + 10{		//Positive Route Pt 2 ---------------------------------------------------
+						"%(gelLookForward)Yeah, you're right, this helps..."
 					}elseif _effectivepets > TNEG1{		//Positive/Neutral Route Pt 1 -------------------------------------------
 						"%(gelLookForward)%(gelHuh)Oh! Oh, I like that. %(gelBase)That%(is)... really calming, actually. %(gelLookForward)Keep doing that."
 					}elseif _effectivepets > TNEG2{		//Negative Route Pt 1 ---------------------------------------------------
@@ -410,10 +412,13 @@ MouseMove0Head{
 					}
 
 					//Stagger versions (unlocked at the .5 mark)
-					if _effectivepets > TPOS2 + (TREGINC / 2) {				//Positive Route Pt 3.5 ---------------------------------
+					if _effectivepets > TPOS2 + (TREGINC / 2) + 50{				//Positive Route Pt 3.5 ---------------------------------
+					
 						"%(gelLookForward)You%(are) the comforting presence. %(gelAdoring)You%(are) there for me, and here is safe, away from the VOC. %(gelLookAway)%(gelAdoring)The others in the CSV would love to meet you. Wish you... wish you could help them. %(gelEarTwitch)But you are always helping me. \![raise,OnUnlock,qcsv]"
-					}elseif _effectivepets > TPOS1 + (TREGINC / 2) {		//Positive Route Pt 2.5 ---------------------------------
+					}elseif _effectivepets > TPOS1 + (TREGINC / 2) + 30 {		//Positive Route Pt 2.5 ---------------------------------
+						"%(gelLookForward)It%(is) the %username branded soft touches for me... makes uncomfy days a lot better..."
 						"%(gelLookForward)You%(are) so comforting, %(you) know? %(gelConcerned)No matter what... it%(is) you, there for me. I wish %(you) were an Atlas citizen..."
+						"You know what I need, huh...?"
 					}elseif _effectivepets > TNEG1 + (TREGINC / 4) {		//Positive/Neutral Route Pt 1.5 -------------------------
 
 					}elseif _effectivepets > TNEG2 - (TREGINC / 4) {		//Negative Route Pt 1.5 ---------------------------------
@@ -446,13 +451,13 @@ MouseMove0Head{
 					}
 					
 					//Category-specific Dialogues
-					if _effectivepets > TPOS3{					//(currently) Maxed Out Positive ----------------------------------------
+					if _effectivepets > TPOS3 + 50{					//(currently) Maxed Out Positive ----------------------------------------
 						
-					}elseif _effectivepets > TPOS2{				//Positive Route Pt 3 ---------------------------------------------------
+					}elseif _effectivepets > TPOS2 + 30{				//Positive Route Pt 3 ---------------------------------------------------
 						if willow > 0; "%(gelBase)This feels like one of Willow's massage noises... that's so theraputic..."
 						"Your cursor is simply to calming..."
 						"Thank you, user... "
-					}elseif _effectivepets > TPOS1{				//Positive Route Pt 2 ---------------------------------------------------
+					}elseif _effectivepets > TPOS1 + 20{				//Positive Route Pt 2 ---------------------------------------------------
 						".\w4.\w4.\w4%(gelBase)Ok, that does feel pretty relaxing.\w4.\w4."
 						"Cursors have no right to be that soothing..."
 					}elseif _effectivepets > TNEG1{				//Positive/Neutral Route Pt 1 -------------------------------------------
@@ -476,9 +481,9 @@ MouseMove0Head{
 					}
 
 					//Stagger versions (unlocked at the .5 mark)
-					if _effectivepets > TPOS2 + (TREGINC / 2) {				//Positive Route Pt 3.5 ---------------------------------
+					if _effectivepets > TPOS2 + (TREGINC / 2) + 50{				//Positive Route Pt 3.5 ---------------------------------
 					
-					}elseif _effectivepets > TPOS1 + (TREGINC / 2) {		//Positive Route Pt 2.5 ---------------------------------
+					}elseif _effectivepets > TPOS1 + (TREGINC / 2) + 30 {		//Positive Route Pt 2.5 ---------------------------------
 						"%(gelLookForward)You%(are) the comforting presence. %(gelAdoring)You%(are) there for me, and here is safe, away from the VOC. %(gelLookAway)%(gelAdoring)The others in the CSV would love to meet you. Wish you... wish you could help them. %(gelEarTwitch)But you are always helping me. \![raise,OnUnlock,qcsv]"
 					}elseif _effectivepets > TNEG1 + (TREGINC / 4) {		//Positive/Neutral Route Pt 1.5 -------------------------
 
@@ -509,11 +514,11 @@ MouseMove0Head{
 					trust-=2
 					--
 					//Category-specific Dialogues
-					if _effectivepets > TPOS3{					//(currently) Maxed Out Positive ----------------------------------------
+					if _effectivepets > TPOS3 + 50{					//(currently) Maxed Out Positive ----------------------------------------
 					
-					}elseif _effectivepets > TPOS2{				//Positive Route Pt 3 ---------------------------------------------------
+					}elseif _effectivepets > TPOS2 + 30{				//Positive Route Pt 3 ---------------------------------------------------
 					
-					}elseif _effectivepets > TPOS1{				//Positive Route Pt 2 ---------------------------------------------------
+					}elseif _effectivepets > TPOS1 + 20{				//Positive Route Pt 2 ---------------------------------------------------
 				
 					}elseif _effectivepets > TNEG1{				//Positive/Neutral Route Pt 1 -------------------------------------------
 						"%(gelConfused)Are you trying to comfort me? %(gelBase)Hands down. I mean, well, it%(is) not bad, but? I have other things to worry about!"
@@ -536,11 +541,11 @@ MouseMove0Head{
 					}
 
 					//Stagger versions (unlocked at the .5 mark)
-					if _effectivepets > TPOS2 + (TREGINC / 2) {				//Positive Route Pt 3.5 ---------------------------------
+					if _effectivepets > TPOS2 + (TREGINC / 2) + 50 {				//Positive Route Pt 3.5 ---------------------------------
 					
-					}elseif _effectivepets > TPOS1 + (TREGINC / 2) {		//Positive Route Pt 2.5 ---------------------------------
+					}elseif _effectivepets > TPOS1 + (TREGINC / 2) +40 {		//Positive Route Pt 2.5 ---------------------------------
 						
-					}elseif _effectivepets > TNEG1 + (TREGINC / 4) {		//Positive/Neutral Route Pt 1.5 -------------------------
+					}elseif _effectivepets > TNEG1 + (TREGINC / 4) + 20 {		//Positive/Neutral Route Pt 1.5 -------------------------
 						"%(gelLookAway)Okay, I%(will) be honest, it%(is) not bad, but just? \w8\w8maybe later."
 					}elseif _effectivepets > TNEG2 - (TREGINC / 4) {		//Negative Route Pt 1.5 ---------------------------------
 						
@@ -566,11 +571,11 @@ MouseMove0Head{
 				}when 14{
 					
 					//Category-specific Dialogues
-					if _effectivepets > TPOS3{					//(currently) Maxed Out Positive ----------------------------------------
+					if _effectivepets > TPOS3 + 50{					//(currently) Maxed Out Positive ----------------------------------------
 						
-					}elseif _effectivepets > TPOS2{				//Positive Route Pt 3 ---------------------------------------------------
+					}elseif _effectivepets > TPOS2 + 40{				//Positive Route Pt 3 ---------------------------------------------------
 						"%(gelLookForward)Woah, you know I love pets, but do%(not) let me stop you! %(gelBigSmile)Keep the 'grind' going! "
-					}elseif _effectivepets > TPOS1{				//Positive Route Pt 2 ---------------------------------------------------
+					}elseif _effectivepets > TPOS1 + 10{				//Positive Route Pt 2 ---------------------------------------------------
 						"%(gelLookForward)%(gelArmsQuestion)Oh, hehe, do you think I look cute when I%(am) like this?"
 						"%(gelLookForward)Heh, thanks for the pet. %(gelAdoring)How%(is) your %(lil) project going there?"
 					}elseif _effectivepets > TNEG1{				//Positive/Neutral Route Pt 1 -------------------------------------------
@@ -591,11 +596,11 @@ MouseMove0Head{
 					}
 
 					//Stagger versions (unlocked at the .5 mark)
-					if _effectivepets > TPOS2 + (TREGINC / 2) {				//Positive Route Pt 3.5 ---------------------------------
+					if _effectivepets > TPOS2 + (TREGINC / 2) + 50 {				//Positive Route Pt 3.5 ---------------------------------
 					
-					}elseif _effectivepets > TPOS1 + (TREGINC / 2) {		//Positive Route Pt 2.5 ---------------------------------
+					}elseif _effectivepets > TPOS1 + (TREGINC / 2) +30{		//Positive Route Pt 2.5 ---------------------------------
 						"%(gelLookForward)You%(are) a lot nicer than most fleshies in Atlas. %(gelLookRight)I think about that a lot. %(gelLookForward)You might pet me a lot, and that is %(kinda) weird, but I get the feelin%(guh) it%(is) not because %(you) see me as a pet."
-					}elseif _effectivepets > TNEG1 + (TREGINC / 4) {		//Positive/Neutral Route Pt 1.5 -------------------------
+					}elseif _effectivepets > TNEG1 + (TREGINC / 4) +10{		//Positive/Neutral Route Pt 1.5 -------------------------
 						"Headpats? Pats for %Gel?"
 						"Pats for %Gel."
 						"%(gelLookAway)%(gelForward)Are you trying to ruffle my hair?"
@@ -626,13 +631,13 @@ MouseMove0Head{
 					}
 					
 					//Category-specific Dialogues
-					if _effectivepets > TPOS3{					//(currently) Maxed Out Positive ----------------------------------------
+					if _effectivepets > TPOS3 + 50{					//(currently) Maxed Out Positive ----------------------------------------
 						
-					}elseif _effectivepets > TPOS2{				//Positive Route Pt 3 ---------------------------------------------------
+					}elseif _effectivepets > TPOS2 + 40{				//Positive Route Pt 3 ---------------------------------------------------
 						"%(gelLookForward)Aww, thanks, %(nicknamed). %(gelAdoring)You always know the right spots."
 						"%(gelLookForward)I hope you treat your friends like you treat me. \w6Pet them too! I know I%(am) on your computer, so it%(is) a little different, %(gelSilly)but you%(are) very good at petting me. "
 						"%(gelHuh)I wonder if NVRO can feel any of this..."
-					}elseif _effectivepets > TPOS1{				//Positive Route Pt 2 ---------------------------------------------------
+					}elseif _effectivepets > TPOS1 + 20{				//Positive Route Pt 2 ---------------------------------------------------
 						"%(gelLookForward)%(gelCatMouth)You do like petting me, huh?"
 						"%(gelWistful)You%(are) a good friend, %username. %(gelLookForward)You know what I like."
 						"%(gelLookDown)An0000 does%(not) really get pet much, \w8being what they are... \w8%(gelBlush)that makes this all the more special, you know?"
@@ -679,13 +684,14 @@ MouseMove0Head{
 					}
 
 					//Stagger versions (unlocked at the .5 mark)
-					if _effectivepets > TPOS2 + (TREGINC / 2) {				//Positive Route Pt 3.5 ---------------------------------
+					if _effectivepets > TPOS2 + (TREGINC / 2) + 50 {				//Positive Route Pt 3.5 ---------------------------------
 						"%(gelLookForward)You know what I love about you? You%(are) so shameless. %(gelHuh)You just keep petting the top of my head like it%(is) normal behavior. Do you pet your friends like this? \w8Do you?"
-					}elseif _effectivepets > TPOS1 + (TREGINC / 2) {		//Positive Route Pt 2.5 ---------------------------------
+						"%(gelLookForward)%nicknamed, you always know the good spots! More, there! \w4Ohh yeah..."
+					}elseif _effectivepets > TPOS1 + (TREGINC / 2) + 40{		//Positive Route Pt 2.5 ---------------------------------
 						"%(gelWistful)Oh that is the good stuff."
 						"%(gelSlouch)Ah, that%(is) the stuff. You%(are) a really nice person, %(you) know that? "
 						"%(gelLookForward)This is really relaxing. %(gelHuh)I wonder if I could pet your cursor. \w8%(gelArmsFistChin)Maybe I%(will) try it one of these days."
-					}elseif _effectivepets > TNEG1 + (TREGINC / 4) {		//Positive/Neutral Route Pt 1.5 -------------------------
+					}elseif _effectivepets > TNEG1 + (TREGINC / 4) + 20{		//Positive/Neutral Route Pt 1.5 -------------------------
 						//"%(gelLookUp)%(gelWistful)Hey hey, get behind the ears, gimme a scratch..."
 						"%(gelLookForward)Lots of touches for cute things, huh? "
 						"%(gelLookAway)%(gelSmile)The good touches. "
@@ -728,7 +734,7 @@ MouseMove0Head{
 
 //Put pet thanks here!
 MouseMove_THANKGEL{
-	_effectivepets = pets - punches + (trust/4)
+	_effectivepets = pets/6 - punches + (trust/3)
 	
 	//get some trust bonuses from this, but not forever
 	if pets% 3 == 0 && pets < 75{
@@ -843,9 +849,9 @@ MouseMove_THANKGEL{
 			//Category-specific Dialogues
 			if _effectivepets > TPOS3{					//(currently) Maxed Out Positive ----------------------------------------
 			
-			}elseif _effectivepets > TPOS2{				//Positive Route Pt 3 ---------------------------------------------------
+			}elseif _effectivepets > TPOS2 + 30{				//Positive Route Pt 3 ---------------------------------------------------
 				"%(gelLookForward)%(gelConfused)You know how much I wish my friends could pet me like you do? So much. %(gelLookForward)You just show up and bam! I do somethin%(guh) for %(you), %(gelLookLeft)then you think to pet me as a thank-you and it%(is) the %(gelAdoring)AI equivalent of serotonin straight to my binary brain. "
-			}elseif _effectivepets > TPOS1{				//Positive Route Pt 2 ---------------------------------------------------
+			}elseif _effectivepets > TPOS1 + 20{				//Positive Route Pt 2 ---------------------------------------------------
 				"%(gelLookUp)Oh, you%(are) still gonna pet me like that for thanks when we%(are) on more casual terms? \w8%(gelLookForward)I won't say no to that. "
 			}elseif _effectivepets > TNEG1{				//Positive/Neutral Route Pt 1 -------------------------------------------
 				"%(gelConfused)Pets as thanks? %(gelLookForward)You%(are) very welcome, %(username)!"
@@ -875,7 +881,7 @@ MouseMove_THANKGEL{
 				""
 			}elseif _effectivepets > TPOS1 + (TREGINC / 2) {		//Positive Route Pt 2.5 ---------------------------------
 				
-			}elseif _effectivepets > TNEG1 + (TREGINC / 4) {		//Positive/Neutral Route Pt 1.5 -------------------------
+			}elseif _effectivepets > TNEG1 + (TREGINC / 4) + 10{		//Positive/Neutral Route Pt 1.5 -------------------------
 				"%(gelLookForward)Hahaha, here to help, %(nicknamed)."
 			}elseif _effectivepets > TNEG2 - (TREGINC / 4) {		//Negative Route Pt 1.5 ---------------------------------
 				"%(gelHuh)Oh, gonna pet me as ''thanks''? %(gelLookForward)%(gelHuh)Trying to find things out, like you had to find out what color I bleed?? %(gelGlare)What then, what color do you think I bleed? %(gelUh)Gonna find that out?"

@@ -265,7 +265,7 @@ OnUpdateFailure
 	elseif reference[0] == "md5 miss"
 	{
 		//---- MD5’l‚ªˆê’v‚µ‚È‚©‚Á‚½
-		"%(gelBase)The MD5 value is off. Can you go let my friend Gray know? His Discord is GrayArea #5561."
+		"%(gelBase)The MD5 value is off. Can you go let my friend know? His Discord is 'ecclysium'."
 	}
 	else
 	{
@@ -281,7 +281,7 @@ OnUpdateFailure
 //------------------------------------------------------------------------------
 OnUpdate.OnDownloadBegin
 {
-	"%(gelBase)Downloading %(reference[0]).\e"
+	//"%(gelBase)Downloading %(reference[0]).\e"
 }
 
 //------------------------------------------------------------------------------
@@ -289,9 +289,9 @@ OnUpdate.OnDownloadBegin
 //------------------------------------------------------------------------------
 OnUpdate.OnMD5CompareBegin
 {
-	"%(gelBase)Checking the values.\e"
-	"%(gelBase)Hm, is this right?\e"
-	"%(fudge)\e"
+	//"%(gelBase)Checking the values.\e"
+	//"%(gelBase)Hm, is this right?\e"
+	//"%(fudge)\e"
 }
 
 //------------------------------------------------------------------------------
@@ -299,8 +299,8 @@ OnUpdate.OnMD5CompareBegin
 //------------------------------------------------------------------------------
 OnUpdate.OnMD5CompareComplete
 {
-	"%(gelBase)That's fine.\e"
-	"%(gelBase)All good there.\e"
+	//"%(gelBase)That's fine.\e"
+	//"%(gelBase)All good there.\e"
 }
 
 //------------------------------------------------------------------------------
@@ -610,7 +610,7 @@ OnOtherGhostVanish{
 	if emotion != -1{
 		
 		"%(gelLookRight)%(gelWorry)I can't believe %reference[2] died.\e"
-		"%(gelWorry)Alright man, that's kinda mean of you.\e"
+		"%(gelWorry)Alright, that's kinda mean of you.\e"
 		"%(gelLookConcerned)%(gelArmsChest)I-I won't be next, right?\e"
 		trust-= 2
 	}else{
@@ -736,6 +736,10 @@ shiori.OnMemoryError{
 
 shiori.OnMemoryLimit{
 	"ERROR: Memory Limit"
+}
+
+shiori.OnCallLimit{
+	GETCALLSTACK()
 }
 
 

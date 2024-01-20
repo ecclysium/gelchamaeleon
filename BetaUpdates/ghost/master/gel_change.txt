@@ -261,7 +261,7 @@ OnGhostCalledOtherPartTwo{
 	--
 	_pal = reference2
 		if lastboot != thisboot{
-		if userbirthday == (thisboot[0,"/"] + thisboot[1,"/"]){
+		if userbirthday[0,"/"] == thisboot[0,"/"] && userbirthday[1,"/"] == thisboot[1,"/"]{
 			//birthday is covered mostly in ONBOOT_SETUP, this is a stub in case we want to make sure the full message only plays once by interference
 			
 		}else{

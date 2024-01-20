@@ -15,7 +15,7 @@ Info_AddFriend{
 	thisfriend += "," + ","+ ","+ ","+ ","
 	if sight == 1{
 		_username = FUNCTIONEX("findwin.dll","getcaption","Chrome_WidgetWin_1")
-		if "@" _in_ _username{
+		if "Discord" _in_ _username && "@" _in_ _username{
 			if _username != ""{
 				_username = REPLACE(_username, " - Discord", "")
 			}
@@ -318,8 +318,8 @@ OnInfo_AddFriend_KnowsGel{
 	
 	}
 
-
 }
+
 
 Info_AddFriend_ConfirmFriend{
 	_pronoun = thisfriend[4]
@@ -368,15 +368,17 @@ Info_AddFriend_ConfirmFriend{
 
 Info_AddFriend_WriteFriend{
 	friends+= 1
-	friendslist += thisfriend
+	friendslist += thisfriend + "#"
+	//Now put it in our bonus storage file for safety
+	Info_UpdateFriendFile
+	
+	
 	thankful = 2
-	_dummy = FOPEN("relations.txt", "a")
-	_dummy = FWRITE("relations.txt", thisfriend)
-	_dummy = FCLOSE("relations.txt")
+	"I%(will) be sure to remember. I like knowing about the people in your life.\e"
+	
 	--
 	"\![set,choicetimeout,150]"
-	--
-	"I%(will) be sure to remember. I like knowing about the people in your life.\e"
+	
 
 }
 
@@ -387,24 +389,42 @@ Info_LoadFriendList{
 	if _dummy == 1{
 		//we're gonna rewrite this
 		friendslist = ""
+		//first line is number of pals
+		friends = TOINT(FREAD("relations.txt"))
 
 		//counter
 		_i = 0
 		while _i < friends{
 			//yoink the line
 			_temp = FREAD("relations.txt")
-			//hashtags are illegal characters here, because we use them as delimeters
-			_temp = REPLACE(_temp, "#", "")
-			//To have Gel "double check to make sure they know them"
-			if _temp[5] == 1{
-				_temp[5] = 2
+			if _temp != -1 && _temp != ""{
+				if _temp == "-1"{
+					SENDERROR("Uh oh spaghettios. This entity has been lost.","error")
+					friends--
+					
+				}else{
+					//hashtags are illegal characters here, because we use them as delimeters
+					_temp = REPLACE(_temp, "#", "")
+					//To have Gel "double check to make sure they know them"
+					if _temp[5] == 1{
+						_temp[5] = 2
+					}
+					//write this line to the array
+					friendslist[_i, "#"] += _temp + "#"
+				}
+				
+			}else{
+				SENDERROR("Invalid line in friends list/end reached at value: %_temp","error")
 			}
-			//write this line to the array
-			friendslist[_i, "#"] += _temp + "#"
 			//update counter
 			_i++
 		
 		}
+	}else{
+		//file did not exist
+		SENDERROR("No file found. Restarting friendships.","error")
+		friends = 0
+		
 	}
 	FCLOSE("relations.txt")
 }
@@ -414,6 +434,7 @@ Info_UpdateFriendFile{
 	if _dummy == 1{
 
 		_i = 0
+		FWRITE("relations.txt", TOSTR(friends))
 		while _i < friends{
 			FWRITE("relations.txt", friendslist[_i,"#"])
 			_i++
@@ -561,8 +582,8 @@ Info_FriendNicks: array{
 Info_EditFriend{
 	thisfriend = IARRAY
 	thisfriend = friendslist[i,"#"]
-	"%(gelLookForward)What do you want to edit?\n"
-//	--
+	"\n\n\_q"
+	--
 //	AYATEMPLATE.MenuItem("Their name","Info_EditFriend_Name")
 	--
 	AYATEMPLATE.MenuItem("Their nickname/handle","Info_EditFriend_Nick")
@@ -576,6 +597,8 @@ Info_EditFriend{
 	if thisfriend[5] == 0{
 		AYATEMPLATE.MenuItem("Actually\, they know you now","Info_EditFriend_Knowsgel")
 	}
+	--
+	"\_q\_l[0,0]%(gelLookForward)What do you want to edit?\n"
 
 }
 

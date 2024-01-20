@@ -211,7 +211,7 @@ OnClothesChange{
 		}
 	}
 	--
-	if userbirthday == (thisboot[0,"/"] + thisboot[1,"/"]){
+	if userbirthday[0,"/"] == thisboot[0,"/"] && userbirthday[1,"/"] == thisboot[1,"/"]{
 		"\![bind,Hats,Crunchy Hat,1]\![raise,OnEquipClothingItem,Crunchy Hat]"
 	
 	}else{
@@ -312,6 +312,7 @@ UnEquipAllNonShirt{
 //Clean up variables that are temp and that sort.
 ONCLOSE_VAR{
 	if debug == 1; SENDERROR("ONCLOSE_VAR started execution successfully","info")
+	Info_UpdateFriendFile
 	//It's important to stay clean-- ones that are forced to multi-function use and cache.
 	ERASEVAR("thisfriend","friendslist","friendslist","reference0","reference1","reference2","reference3","i","buffer","play","temp","testarray")
 	//Flags that will be reset on boot as it is, if needed.
@@ -332,6 +333,7 @@ ONCLOSE_VAR{
 	
 	//it should do this automatically, but no harm in this either.
 	SAVEVAR("yaya_variable.cfg")
+	
 	if debug == 1; SENDERROR("ONCLOSE_VAR concluded execution successfully","info")
 }
 
@@ -360,7 +362,7 @@ OnGeneralClear{
 	SetTimeSensitiveGreeting
 	--
 	//birthday boot will short-circuit the regular boot
-	if userbirthday _in_ thisboot{
+	if userbirthday[0,"/"] == thisboot[0,"/"] && userbirthday[1,"/"] == thisboot[1,"/"]{
 		if debug == 1; SENDERROR("OnGeneralClear interrupted: birthday","info")
 		if hour == 0 && minute == 0{
 			"%(gelBase)\1\s[-1]\0"
@@ -448,8 +450,9 @@ OnWatcherAlreadyDead{
 }
 
 OnStopActCount{
-	_val = FUNCTIONEX("activitycounter.dll",sakurahwnd,"stop")
 	actcountallowed = 0
+	_val = FUNCTIONEX("activitycounter.dll",sakurahwnd,"stop")
+	
 //	"Saori execution: %_val"
 
 }
@@ -694,7 +697,7 @@ OnBootPartTwo
 	//the \e will actually keep the rest from happening if the conditions are met
 	--
 	if lastboot != thisboot{
-		if userbirthday == (thisboot[0,"/"] + thisboot[1,"/"]){
+		if userbirthday[0,"/"] == thisboot[0,"/"] && userbirthday[1,"/"] == thisboot[1,"/"]{
 			//birthday is covered mostly in ONBOOT_SETUP, this is a stub in case we want to make sure the full message only plays once by interference
 			
 		}else{

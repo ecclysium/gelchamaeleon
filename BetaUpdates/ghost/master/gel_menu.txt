@@ -54,7 +54,200 @@ OpenMenu
 		"\n"
 	
 	}else{
-		"\n\n\n\n[-300]"
+		
+		--
+		"\b2\n\n\n[50]\_q"
+		--
+		"\![*]\__q[Menu_AITALK]Say something\__q "
+		//MenuItem("Talk about something","Menu_AITALK")
+		//MenuItem("Say something","Menu_AITALK")
+		//MenuItem("What's up?","Menu_AITALK")
+		//MenuItem("What's on your mind?","Menu_AITALK")
+		
+		--
+		if ( STRLEN(AYATEMPLATE.LastTalk) > 8 ) {
+			" or "
+			--
+			"\![*]\__q[Menu_LASTTALK]Repeat\__q "
+			//"\![*]\q[What w,Menu_LASTTALK] "
+			//MenuItem("What was that?","Menu_LASTTALK")
+			//MenuItem("What was that?","Menu_LASTTALK")
+			//MenuItem("What was that?","Menu_LASTTALK")
+			//MenuItem("What was that?","Menu_LASTTALK")
+			//MenuItem("Could you repeat that?","Menu_LASTTALK")
+			//MenuItem("Could you repeat that?","Menu_LASTTALK")
+			if checkGreatTP2{
+				"\![*]\__q[Menu_LASTTALK]Pordon\__q "
+			}
+		}
+	//I mean, I suppose we may need this later, but Gel now randomly may attempt conversation, so we won't let the user initiate it
+	//	--	
+	//	MenuItem("Talk to other ghosts","Menu_GHOSTCOMSTART")
+		--
+		//refusal to interact would have been cut off already
+		"\n[half]"
+		--
+		if !(checkBadMood || emotion == 5) {
+			MenuItem("I have a question.", "Menu_QUESTION")
+		}
+		--
+		//They have to be ready to go before they can play games or ask questions
+		if firsttimeusersetup > 1{
+			MenuItem("Hey\, %(Gel)...","Menu_GELSBEINGWEIRDAGAIN")
+		}
+		--
+		if firsttimeusersetup <= 0{
+			MenuItem("First Time User Setup","FirstBoot_FIRSTTIMEUSERSETUP")
+		}else{
+			if thankful > 0{
+				MenuItem("Thanks, %Gel.","Menu_THANKGEL")
+			
+			}
+			case askgel{
+			
+				when 1{
+					
+					//deprecated, open slot
+					
+				}when 2{
+					MenuItem("Good %(GetTimeSlot)","Menu_GOODX")
+				}when 3{
+					MenuItem("How are you?","Menu_HOWISGEL")
+				}when 4{
+					MenuItem("You feeling okay?","Menu_HOWISGEL")
+				}when 5{
+					MenuItem("Sleep well?","Menu_ASKSLEEP")
+				}when 6{
+					MenuItem("Sorry for hitting you!","Menu_PUNCHREGRET")
+				}when 0{
+					//When Gel doesn't have a reaction, use emotion-based specials
+					case emotion{
+					
+						when 14{
+							if awkwardsilence == 0{
+								MenuItem("%Gel\, I'm busy! Shhh!","Menu_QUIETDOWN")
+								MenuItem("%Gel\, I'm trying to focus! Shhh!","Menu_QUIETDOWN")
+							}
+						
+						}when 5{
+							if claustro > 20{
+								MenuItem("%Gel\, you seem upset.","Menu_UPSETGEL")
+								MenuItem("%Gel\, you seem uncomfortable.","Menu_UPSETGEL")
+								MenuItem("Are you ok?","Menu_UPSETGEL")
+							
+							}else{
+								MenuItem("%Gel\, you seem a little... grouchy.","Menu_UPSETGEL")
+							
+							}
+						
+						}
+									
+					}
+				
+				}
+				
+			
+			}
+		}
+		--
+		if holdinginfo != ""{
+			"\n\![*]\__q[Menu_HOLDTHIS_remind]Remember\__q"
+			--
+			"   or   "
+			--
+			"\![*]\__q[OnTasks]To-Dos\__q"
+		}else{
+			MenuItem("To-Dos","OnTasks")
+		}
+		
+		
+		--
+		if awkwardsilence == 1 && checkGreatTN1{
+			MenuItem("Sorry %Gel\, I was trying to focus.","Menu_LETTALK")
+		}
+	//	--
+	//	MenuItem("Settings","Menu_SETTINGS",150)
+		
+		--
+		//MenuItem("Do a task","Menu_Functions")
+		"\n\![*]\__q[Menu_Functions]Ask a favor\__q   or   \![*]\__q[Menu_COMMUNICATEOPEN]Chat\__q"
+		//--
+		//"\n[-100]            or   "
+		//--		
+		//MenuItem("Talk","Menu_COMMUNICATEOPEN")
+		--
+	//	MenuItem("Checklist","OnTasks")
+		--
+	//	AYATEMPLATE.MenuItem("Stats for Nerds","Menu_TESTSANDSTATS")
+	//	--
+		MenuItem("Nevermind","Menu_CANCEL",150)
+		
+	}
+	--
+	//spacing
+	"\n\n[half]"
+	--
+	//even out spacing
+	if !questionableweather && emotion != -1{
+		"\n"
+	}
+	--
+	if gwhatsupwithyourinternalclock >= 2{
+		"\f[height,-2]\f[align,center]\f[color,dodgerblue]%(Privacy)%(Save)------------------------------%(Settings)%(Profile)\n\f[color,whitesmoke]%(GetTime) %day %(GetMonthName) %year AD "
+	}else{
+		"\f[height,-2]\f[align,center]\f[color,dodgerblue]%(Privacy)%(Save)------------------------------%(Settings)%(Profile)\n\f[color,whitesmoke]%(GetTime) %day %(GetMonthName) %(GetYear) PCR "
+	}
+	--
+	//Bonus info for debugging
+	if debug == 1 {
+		"\nPort #%port %(currentversion), "
+		--
+		case emotion{
+			when 1
+				"neutral"
+			when 3
+				"dazed"
+			when 4
+				"bored"
+			when 5
+				"uncomfortable"
+			when 6
+				"scared"
+			when 10	
+				"angry"
+			when 14	
+				"curious"
+			else
+				"unknown"
+		}
+		--
+		", info: %TOINT(infoperminute), trust: %trust\n"
+	}
+	--
+	//the weird weather.... found formally in gel_word.
+	//Happens if user turned it on and Gel is awake.
+	if questionableweather == 1 && emotion >= 0{
+		WeirdWeather
+	}
+	--
+	"\_l[0,0]\_q\f[height,+2]\f[align,left]%(gelMenuOpeners)\e"
+}
+
+//_argv[0] is the number of lines to go back
+returnlines{
+	_out = ""
+	for _i = 0 ; _i < _argv[0] ; _i++ {
+		_out+="\n[-100]"
+	}
+	_out
+}
+
+
+
+
+
+gelMenuOpeners{
+	"\n\n\n\n[-300]"
 		--
 		/*
 		/	NOTE:
@@ -285,7 +478,7 @@ OpenMenu
 				
 
 			}elseif checkGreatTP2{		//Positive Route Pt 2 ---------------------------------------------------
-				"%(gelLookForward)why, %firstnick"
+				"%(gelLookForward)why, %firstnickname"
 				
 			}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
 				"%(gelLookForward)what are you tryin%(guh) to do?"
@@ -589,186 +782,9 @@ OpenMenu
 
 	}
 
-		
-		--
-		"\b2\n\n\_q"
-		--
-		"\![*]\__q[Menu_AITALK]Say something\__q "
-		//MenuItem("Talk about something","Menu_AITALK")
-		//MenuItem("Say something","Menu_AITALK")
-		//MenuItem("What's up?","Menu_AITALK")
-		//MenuItem("What's on your mind?","Menu_AITALK")
-		
-		--
-		if ( STRLEN(AYATEMPLATE.LastTalk) > 8 ) {
-			" or "
-			--
-			"\![*]\__q[Menu_LASTTALK]Repeat\__q "
-			//"\![*]\q[What w,Menu_LASTTALK] "
-			//MenuItem("What was that?","Menu_LASTTALK")
-			//MenuItem("What was that?","Menu_LASTTALK")
-			//MenuItem("What was that?","Menu_LASTTALK")
-			//MenuItem("What was that?","Menu_LASTTALK")
-			//MenuItem("Could you repeat that?","Menu_LASTTALK")
-			//MenuItem("Could you repeat that?","Menu_LASTTALK")
-			if checkGreatTP2{
-				"\![*]\__q[Menu_LASTTALK]Pordon\__q "
-			}
-		}
-	//I mean, I suppose we may need this later, but Gel now randomly may attempt conversation, so we won't let the user initiate it
-	//	--	
-	//	MenuItem("Talk to other ghosts","Menu_GHOSTCOMSTART")
-		--
-		//refusal to interact would have been cut off already
-		"\n[half]"
-		--
-		if !(checkBadMood || emotion == 5) {
-			MenuItem("I have a question.", "Menu_QUESTION")
-		}
-		--
-		//They have to be ready to go before they can play games or ask questions
-		if firsttimeusersetup > 1{
-			MenuItem("Hey\, %(Gel)...","Menu_GELSBEINGWEIRDAGAIN")
-		}
-		--
-		if firsttimeusersetup <= 0{
-			MenuItem("First Time User Setup","FirstBoot_FIRSTTIMEUSERSETUP")
-		}else{
-			if thankful > 0{
-				MenuItem("Thanks, %Gel.","Menu_THANKGEL")
-			
-			}
-			case askgel{
-			
-				when 1{
-					
-					//deprecated, open slot
-					
-				}when 2{
-					MenuItem("Good %(GetTimeSlot)","Menu_GOODX")
-				}when 3{
-					MenuItem("How are you?","Menu_HOWISGEL")
-				}when 4{
-					MenuItem("You feeling okay?","Menu_HOWISGEL")
-				}when 5{
-					MenuItem("Sleep well?","Menu_ASKSLEEP")
-				}when 6{
-					MenuItem("Sorry for hitting you!","Menu_PUNCHREGRET")
-				}when 0{
-					//When Gel doesn't have a reaction, use emotion-based specials
-					case emotion{
-					
-						when 14{
-							if awkwardsilence == 0{
-								MenuItem("%Gel\, I'm busy! Shhh!","Menu_QUIETDOWN")
-								MenuItem("%Gel\, I'm trying to focus! Shhh!","Menu_QUIETDOWN")
-							}
-						
-						}when 5{
-							if claustro > 20{
-								MenuItem("%Gel\, you seem upset.","Menu_UPSETGEL")
-								MenuItem("%Gel\, you seem uncomfortable.","Menu_UPSETGEL")
-								MenuItem("Are you ok?","Menu_UPSETGEL")
-							
-							}else{
-								MenuItem("%Gel\, you seem a little... grouchy.","Menu_UPSETGEL")
-							
-							}
-						
-						}
-									
-					}
-				
-				}
-				
-			
-			}
-		}
-		--
-		if holdinginfo != ""{
-			MenuItem("What was that info?","Menu_HOLDTHIS_remind")
-		}
-		--
-		if awkwardsilence == 1 && checkGreatTN1{
-			MenuItem("Sorry %Gel\, I was trying to focus.","Menu_LETTALK")
-		}
-	//	--
-	//	MenuItem("Settings","Menu_SETTINGS",150)
-		
-		--
-		//MenuItem("Do a task","Menu_Functions")
-		"\n\![*]\__q[Menu_Functions]Ask a favor\__q   or   \![*]\__q[Menu_COMMUNICATEOPEN]Chat\__q"
-		//--
-		//"\n[-100]            or   "
-		//--		
-		//MenuItem("Talk","Menu_COMMUNICATEOPEN")
-		--
-	//	MenuItem("Checklist","OnTasks")
-		--
-	//	AYATEMPLATE.MenuItem("Stats for Nerds","Menu_TESTSANDSTATS")
-	//	--
-		MenuItem("Nevermind","Menu_CANCEL",150)
-		
-	}
-	--
-	//spacing
-	"\n\n[half]"
-	--
-	//even out spacing
-	if !questionableweather && emotion != -1{
-		"\n"
-	}
-	--
-	if gwhatsupwithyourinternalclock >= 2{
-		"\f[height,-2]\f[align,center]\f[color,dodgerblue]%(Privacy)%(Save)------------------------------%(Settings)%(Profile)\n\f[color,whitesmoke]%(GetTime) %day %(GetMonthName) %year AD "
-	}else{
-		"\f[height,-2]\f[align,center]\f[color,dodgerblue]%(Privacy)%(Save)------------------------------%(Settings)%(Profile)\n\f[color,whitesmoke]%(GetTime) %day %(GetMonthName) %(GetYear) PCR "
-	}
-	--
-	//the weird weather.... found formally in gel_word.
-	//Happens if user turned it on and Gel is awake.
-	if questionableweather == 1 && emotion >= 0{
-		WeirdWeather
-	}
-	--
-	//Bonus info for debugging
-	if debug == 1 {
-		"\nPort #%port %(currentversion), "
-		--
-		case emotion{
-			when 1
-				"neutral"
-			when 3
-				"dazed"
-			when 4
-				"bored"
-			when 5
-				"uncomfortable"
-			when 6
-				"scared"
-			when 10	
-				"angry"
-			when 14	
-				"curious"
-			else
-				"unknown"
-		}
-		--
-		", info: %TOINT(infoperminute), trust: %trust"
-	}
-	--
-	"\e"
-	
+
 }
 
-//_argv[0] is the number of lines to go back
-returnlines{
-	_out = ""
-	for _i = 0 ; _i < _argv[0] ; _i++ {
-		_out+="\n[-100]"
-	}
-	_out
-}
 
 
 TestMenu{
@@ -1084,6 +1100,7 @@ Menu_FLIPACTCOUNT{
 		//This is the instance where we need to close the SAORI
 		OnStopActCount
 	}else{
+		//start countdown (gives enough break in case of accidental toggling and other oddities with the SAORI having to take time to shut down)
 		actcountallowed = 30
 	}
 	thankful=2
@@ -1214,7 +1231,7 @@ Menu_PROFILE{
 		if username != "" && username != "Windows User"{
 			"\![*]Name: \_a[Menu_CHANGENAME]%username\_a "
 		}else{
-			"\![*]\_a[Menu_CHANGENICK]Set name\_a "
+			"\![*]\_a[Menu_CHANGENAME]Set name\_a "
 		}
 		--
 		"\n"
@@ -1465,7 +1482,7 @@ Menu_GELSBEINGWEIRDAGAIN{
 		"%(gelUh)I do%(not) have to let you talk to me, you know.\e"
 	
 	}
-	elseif ASEARCH("Paper Bag",clothes) > -1 && (emotion > 0 && emotion < 10 || emotion == 14){
+	elseif ASEARCH('Paper Bag',clothes) > -1 && (emotion > 0 && emotion < 10 || emotion == 14){
 		"What? %(gelHmm)Why are you looking at me like that?"
 		"%(gelExcited)Is this about the bag?"
 		"You%(are) looking at me funny."
@@ -1501,7 +1518,7 @@ Menu_GELSBEINGWEIRDAGAIN{
 	--
 	//A lot of interactions are only available if Gel is in a good mood.
 	if emotion == 1 || emotion == 14{
-		if ASEARCH("Paper Bag",clothes) > -1{
+		if ASEARCH('Paper Bag',clothes) > -1{
 			MenuItem("Take that bag off your head!","Menu_RMBAG")
 			MenuItem("%Gel\, please remove the bag.","Menu_RMBAG")
 			MenuItem("Remove the paper bag\, %Gel.","Menu_RMBAG")
@@ -1519,6 +1536,8 @@ Menu_GELSBEINGWEIRDAGAIN{
 	}
 	--
 	MenuItem("Wanna play Rock Paper Scissors?","OnInfo_RockPaperScissors","xxx")
+	--
+	MenuItem("I want to play Lights Out","Info_LightsOut_Menu")
 	--
 	MenuItem("Hold this!","Menu_HOLDTHIS")
 	--
@@ -1648,17 +1667,9 @@ Menu_BRIEFBREAK{
 
 Menu_Functions
 {
-	"\b2\![set,autoscroll,disable]"
+	"\_q\b2\![set,autoscroll,disable]\n\n"
 	--
-	if checkBadMood{
-		"%(gelLookForward)%(gelSlashMouth)If I have to."
-	}else{
-		"%(gelLookForward)What can I do?"
-		"Yeah, %(gelLookForward)I can do stuff for %(you)."
-	}
-	
-	--
-	MenuItem("Open the Calendar","Menu_OpenCalendar",200)
+	MenuItem("Open the Calendar","Menu_OpenCalendar")
 	--
 	MenuItem("Open SSP Preferences","Menu_SSPPrefs")
 	--
@@ -1670,9 +1681,30 @@ Menu_Functions
 	--
 	MenuItem("Update","Menu_UpdateCheck")
 	--
-	MenuItem("Back","OpenMenu",200)
+	"\n"
+	--
+	MenuItem("Back","OpenMenu")
+	--
+	"\_q\_l[0,0]%(Menu_Functions_Openers)"
 	
 }
+
+
+Menu_Functions_Openers{
+	if checkBadMood{
+		"%(gelLookForward)%(gelSlashMouth)If I have to."
+		"%(gelLookAway)%(gelFrown)%(okay)."
+		"%(gelLookAway)%(gelSquint)Suuure."
+	}else{
+		"%(gelLookForward)What can I do?"
+		"Yeah, %(gelLookForward)I can do stuff for %(you)."
+		"Oh, %(gelLookForward)yeah, I can do stuffs."
+		if trust < TPOS2{
+			"%(gelLookForward)I'm here to help."
+		}
+	}
+	
+}	
 
 Menu_OpenCalendar
 {
@@ -1911,20 +1943,13 @@ Menu_RMBAG{
 
 
 Menu_ViewFriendsList{
+	//sync just in case
+	Info_UpdateFriendFile
 	"\b2\![set,autoscroll,disable]"
+	
 	--
-	if (trust < -5) || (claustro < 15){
-		"Click on someone for more.\n\n"
-		"Uh, here.\n\n"
-		"Here's the info.\n\n"
-		if trust < -30{
-			"%(gelLookRight)\i[75]Your 'friends', my insufferable liege.\n\n"
-		}
-	}else{
-		"Click on someone to see more!\n\n"
-		"All the info, right here. Just click one.\n\n"
-		"Click whatever!\n\n"
-	}
+	"\n\n\_q"
+	
 	--
 	_i = 0
 	i = 0
@@ -1946,7 +1971,22 @@ Menu_ViewFriendsList{
 	//kill it
 	buffer = ""
 	--
-	MenuItem("Back","Menu_GELSBEINGWEIRDAGAIN",150)
+	MenuItem("Back","Menu_GELSBEINGWEIRDAGAIN")
+	--
+	"\_q\_l[0,0]"
+	--
+	if (trust < -5) || (claustro < 15){
+		"Click on someone for more.\n\n"
+		"Uh, here.\n\n"
+		"Here's the info.\n\n"
+		if trust < -30{
+			"%(gelLookRight)\i[75]Your 'friends', my insufferable liege.\n\n"
+		}
+	}else{
+		"Click on someone to see more!\n\n"
+		"All the info, right here. Just click one.\n\n"
+		"Click whatever!\n\n"
+	}
 
 
 }
@@ -1969,7 +2009,16 @@ Menu_DisplayFriend{
 }
 
 OnMenu_ViewFriend{
-	"\![set,choicetimeout,10000]"
+	"\![set,choicetimeout,10000]\n\n\n\_q"
+	--
+	i = reference0
+	MenuItem("Edit information","Info_EditFriend")
+	--
+	MenuItem("Delete contact","Info_DeleteFriend")
+	--
+	MenuItem("Back to the list","Menu_ViewFriendsList")
+	--
+	"\_q\_l[0,0]"
 	--
 	thisfriend = IARRAY
 	thisfriend = friendslist[reference0,"#"]
@@ -2018,13 +2067,6 @@ OnMenu_ViewFriend{
 	--
 	"\n"
 	--
-	i = reference0
-	MenuItem("Edit information","Info_EditFriend")
-	--
-	MenuItem("Delete contact","Info_DeleteFriend")
-	--
-	MenuItem("Back to the list","Menu_ViewFriendsList")
-	
 }
 
 
@@ -2253,7 +2295,7 @@ Menu_QUESTION{
 	--
 	//The special slot
 	if qwhylowes == 1{
-		MenuItem("Why Lowes?","Q_LOWES")
+		MenuItem("Why Lowes?","Q_WHYLOWES")
 	}elseif qainstain == 1{
 		MenuItem("Ain Stain??","Q_AINSTAIN")
 	}elseif qjerry == 1{

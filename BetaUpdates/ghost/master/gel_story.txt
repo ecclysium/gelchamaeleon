@@ -36,7 +36,7 @@ UNLOCK{
 }
 
 getVersion{
-	"V 1.0.2"
+	"V 1.0.2.1B"
 }
 
 
@@ -61,7 +61,7 @@ addtrust{
 		//You must know about Willow to get to here
 		if !willow && trust+_argv[0] >= TPOS2{
 			failedtrust += _argv[0]				//failedtrust is just a for fun statistic
-		}elseif yourechilltalk && trust +_argv[0] >= TPOS1{
+		}elseif yourechilltalk==0 && trust +_argv[0] >= TPOS1{
 			failedtrust += _argv[0]
 		}else{
 			trust+=_argv[0]
@@ -558,7 +558,7 @@ Anchor434{
 			}
 			
 		}else{
-			"434? %(gelLookForward)%(gelHmm)They%(are) pretty fun. They%(are) AnShijoWicker's friend port. %(gelLookForward)The two of them like playing this VR game, AOG12, together. \w8Shijo has a lot of connections and a lot of skills that helps me out. "
+			"434? %(gelLookForward)%(gelHmm)They%(are) pretty fun. They%(are) AnShijoWicker's friend port. %(gelLookForward)The two of them like playing this VR game, AOG12, together. \w8Shijo has a lot of connections and a lot of skills that help me out. "
 			if qfourthreefour != 0{
 				"%(gelLookForward)434 is pretty fun to be around, but maybe a little too close to Shijo. %(gelLookRight)%(gelFurrowed)It probably wont develop like the AnTaboo port, but... urgh. %(gelLookForward)Shijo and that Gel hang out a lot. %(gelSlashMouth)They%(are) starting to diverge from the rest of us, but... %(gelFurrowed)no good way to make them stop, %(you) know? "
 			}
@@ -1291,7 +1291,7 @@ Q_JACKETS : nonoverlap{
 		"%(gelLookForward)%(gelFrown)Pinkjackets respond to medical emergencies, driving out and, %(gelHmm)well, being EMTs when there%(is) a call."
 		//red pending
 		//navy
-		"%(gelLookForward)The navyjackets— \w8\w8the Representatives are the people in charge of each District. %(gelConfused)%(gelArmsFistChin)Like, uh, a governor? %(gelArmsQuestion)I guess? %(gelLookForward)%(gelFrown)I did%(not) read the explanation on your Internet very deep. There%(is) three of them. \![raise,OnUnlock,qdistricts]"
+		"%(gelLookForward)The navyjackets-- \w8\w8the Representatives are the people in charge of each District. %(gelConfused)%(gelArmsFistChin)Like, uh, a governor? %(gelArmsQuestion)I guess? %(gelLookForward)%(gelFrown)I did%(not) read the explanation on your Internet very deep. There%(is) three of them. \![raise,OnUnlock,qdistricts]"
 		"%(gelLookForward)Representatives are sometimes called navyjackets. There are three in charge of each District. %(gelLookRight)%(gelSlashMouth)%(gelArmsFistChin)There%(is) the Criminal Rep, the District Rep, and the Upstanding Rep. %(gelLookForward)%(gelArmsFistChin)To a lesser degree, also the Medical Rep. "
 		//dg
 		"%(gelLookForward)D-greenjackets are CINE. Dark green is their color, that is. %(gelFrown)They%(are) pretty much cops. %(gelLookRight)%(gelSlashMouth)CINE stands for Criminal Impetus Neutralisis En-force. \w8%(gelLookForward)They oversee those who oversee security cameras, and are the ones that actually go outside to handle those criminal situations."
@@ -1302,7 +1302,7 @@ Q_JACKETS : nonoverlap{
 		if checkGreatTP1{
 			"\![raise,OnIncrement,violetjackets]%(gelLookForward)Ah, there are violetjackets, hehe. %(gelBigSmile)%(gelExcited)My usual targets. %(gelLookForward)They%(are) the people that keep records. Historians, really. \w6VOC Librarians will wear violet too. They say it%(is) good to show respect for people like that, so they made them more visible."
 			//Only happens if they've explained violetjackets to you before
-			if !violetjackets; "\![raise,OnIncrement,violetjackets]%(gelLookForward)%(gelCatMouth)%(gelEarsUp)Violetjackets are fun to terrorize. %(gelLookForward)I like to make fake versions of Clippy and put them on their tablets. %(gelLookRight)%(gelAmused)They%(are) perfectly helpful little Clippies, but still spooks them. %(gelLookForward)The librarians in Hyleg tower call me the Helpful Ghost. %(gelSmug)Little do they know I am also slowly going through every last record they store. %(gelLookForward)Historians I do%(not) reveal anything to, of course. \w8They%(will) never know I was there."
+			if violetjackets < 5; "\![raise,OnIncrement,violetjackets]%(gelLookForward)%(gelCatMouth)%(gelEarsUp)Violetjackets are fun to terrorize. %(gelLookForward)I like to make fake versions of Clippy and put them on their tablets. %(gelLookRight)%(gelAmused)They%(are) perfectly helpful little Clippies, but still spooks them. %(gelLookForward)The librarians in Hyleg tower call me the Helpful Ghost. %(gelSmug)Little do they know I am also slowly going through every last record they store. %(gelLookForward)Historians I do%(not) reveal anything to, of course. \w8They%(will) never know I was there."
 		}
 	
 	}

@@ -4,4 +4,4 @@ surfacecount,176
 update_result,NG(404)
 firstboot,690918200
 commitmemorysize,2550526
-lastboot,720422635
+lastboot,759106599

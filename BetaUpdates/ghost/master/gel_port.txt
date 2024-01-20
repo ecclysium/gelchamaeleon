@@ -339,7 +339,7 @@ OnGelPort{
 	//USER SETTINGS
 	epilepsywarning = 0
 	firsttimeusersetup = -1
-	swearing = 1
+	swearing = 0
 	questionableweather = 0
 	sight = 0
 	gwhatsupwithyourinternalclock = -1
@@ -684,7 +684,6 @@ PORTGEL{
 		gelMASC
 	
 	}elseif port == 1712{
-		gelsalterego = "Iris"
 		Gel = "Iris"
 		gcolor = "rich purple"
 		claustro = 0
@@ -694,6 +693,13 @@ PORTGEL{
 		gelsalterego = "Iris Flower"
 		gelFEM
 	
+	}elseif port == 2083{
+		Gel = "Ghel"
+		gcolor = gelCOLORIZED[ port % ARRAYSIZE(gelCOLORIZED)]
+		claustro = (port % 9) + 1
+		rogue = 0
+		gelsalterego = gelalteregoname[port % ARRAYSIZE(gelalteregoname)]
+		
 	}elseif port == 3023{
 		//there is absolutely nothing weird about this port, aside from them being Bones Montgomery. Think this came to me in a dream honestly.
 		Gel = "Bones Montgomery"
@@ -1228,6 +1234,9 @@ OnUpdateVars{
 	//this just corrects things, chances are likely it's setting values to the same thing they were before
 	if rogue < 2{
 		FixPort
+	}
+	if port == 2083{
+		Gel = "Ghel"
 	}
 	currentversion = getVersion
 }

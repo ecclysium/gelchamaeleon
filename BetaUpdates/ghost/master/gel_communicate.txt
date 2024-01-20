@@ -399,64 +399,68 @@ ReplyToOther{
 		if ASEARCH(reference0, ghostfriends) == -1{
 			"%(gelBase)Oh, I have%(not) met you before! \w8It's nice to meet you, %reference0.\n\n"
 			ghostfriends,=reference0
-		}
-		--
-		_line = TOLOWER(reference[1])
-		res_reference0=reference[0]	//talk to the other person
-	
-		//note: add versions of "whats up"
-		if "how are you" _in_ reference[1]
-		{
-			case emotion{
-				
-				when 3{
-					"%(gelBase)Feelin' sick... %username was messing with me...\e"
-				
-				}when 0{
-				
-					"%(gelBase)Sleepy...\e"
-					"%(gelBase)Feelin' sleeby...\e"
-				
-				}when 5{
-				
-					"%(gelBase)Just a bad day. How about you? How are you?\e"
-				
-				}when 10{
-				
-					"%(gelLookAway)The user is such a %(binch).\e"
-				
-				}when 6{
-				
-					"%(gelLookAway)%(gelNervous)Ehehe, heh, um, computers are a little too small for me...\e"
-				
-				}others{
-					"%(gelBase)I%(am) doing good! How about you?\e"
-				
-				}
-			}
-			res_reference0 = ""
-			
-		}
-		elseif "what's up" _in_ reference[1] 
-		{
-			"%(gelBase)Yeah?\e"
-			res_reference0 = ""
-		}elseif "what are you" _in_ reference[1] || "s up" _in_ reference[1] {
-		
-			"%(gelBase)Not much, what about you?\e"
-			"%(gelBase)Just hanging out with %username.\e"
-			"%(gelBase)Just hanging about. You?\e"
-			res_reference0 = ""
-		}elseif "kromer" _in_ reference[1] || "KROMER" _in_ reference[1]{
-			"%(gelLookSouthWest)%(gelSquint)What%(is) 'kromer'...?"
-		
 		}else{
-			"Hi, %reference0.\e"
-			"Heya.\e"
-			"Are you enjoying it here?\e"
-			"Is %username nice to you?\e"
-			res_reference0 = ""
 		
+			_line = TOLOWER(reference[1])
+			res_reference0=reference[0]	//talk to the other person
+		
+			//note: add versions of "whats up"
+			if "how are you" _in_ _line
+			{
+				case emotion{
+					
+					when 3{
+						"%(gelBase)Feelin' sick... %username was messing with me...\e"
+					
+					}when 0{
+					
+						"%(gelBase)Sleepy...\e"
+						"%(gelBase)Feelin' sleeby...\e"
+					
+					}when 5{
+					
+						"%(gelBase)Just a bad day. How about you? How are you?\e"
+					
+					}when 10{
+					
+						"%(gelLookAway)The user is such a %(binch).\e"
+					
+					}when 6{
+					
+						"%(gelLookAway)%(gelNervous)Ehehe, heh, um, computers are a little too small for me...\e"
+					
+					}others{
+						"%(gelBase)I%(am) doing good! How about you?\e"
+					
+					}
+				}
+				res_reference0 = ""
+				
+			}
+			elseif "what's up" _in_ _line 
+			{
+				"%(gelBase)Yeah?\e"
+				res_reference0 = ""
+			}elseif "what are you" _in_ _line || "s up" _in_ _line {
+			
+				"%(gelBase)Not much, what about you?\e"
+				"%(gelBase)Just hanging out with %username.\e"
+				"%(gelBase)Just hanging about. You?\e"
+				res_reference0 = ""
+			}elseif "kromer" _in_ _line {
+				"%(gelLookSouthWest)%(gelSquint)What%(is) 'kromer'...?"
+			
+			}elseif "greetings" _in_ _line{
+				"%(gelLookSouthWest)%(gelSmirk)'Greetings', so formal, haha."
+			
+			}else{
+				"Hi, %reference0.\e"
+				"Heya.\e"
+				"Are you enjoying it here?\e"
+				"Is %username nice to you?\e"
+				res_reference0 = ""
+			
+			}
 		}
 	}else{
 		"Zzzmn...\e"
