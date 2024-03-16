@@ -536,7 +536,7 @@ Info_LightsOut_START{
 // arg 0 is the height
 // arg 1 is the width
 Info_LightsOut_DISPLAY{
-	"\C\_q\b2\c  "
+	"\C\_q\b2\c\*\![set,balloontimeout,-1]  "
 	--
 	_output = ""
 
@@ -552,7 +552,7 @@ Info_LightsOut_DISPLAY{
 		_output += "\n  "
 	
 	}
-	
+	_output += MenuItem("End","OpenMenu",150)
 	_output
 
 }

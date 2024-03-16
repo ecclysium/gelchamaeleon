@@ -1,6 +1,36 @@
 Gel by GrayArea/Ecclysium
 
 
+MARCH 16, 2024 --- V.1.1.0 ANNIVERSARY MINI-UPDATE
+	+ A few new dialogues
+	+ More birthday dialogues
+	+ Finished Santa Hat dressup item, which may be worn in December
+	+ Finished Lights Out minigame
+	+ Reformatted menu
+	+ Added one more joke Gel, named Ghel
+	+ Rework of friends system (delete relations.txt if yours is broken) 
+
+	- A whole host of bugfixes
+	- Gel stops talking in the middle of dialogue
+
+   **THIS IS A 1.1 UPDATE AS GEL IS NOT NECESSARILY EXPECTING TO BE UPDATED FURTHER.
+
+
+
+OCTOBER 30, 2022 --- V1.0.2 HALLOWEEN PATCH/MINI-UPDATE
+	+ Rebalanced relationship system
+	+ A handful of new dialogues
+	+ A new method of post-processing dialogue that should be unnoticeable but I'm very happy with, and will improve how Gel pauses in conversations
+	+ Two new Halloween dressups
+	+ Added new Joke Gels :3
+
+	- Fixed a bunch of visual bugs
+	- Fixed a bunch of dialogue bugs
+	- Fixed a lot of other assorted bugs
+	- Made questions easier to access
+	- Removed null randomtalks
+
+
 MARCH 17, 2022 --- V1.0.1 PATCH
    	-Right-click menu visual fixes
 	-AFK detection fixes

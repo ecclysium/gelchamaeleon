@@ -3,13 +3,13 @@ __system_settings_version__,2
 balloon,C:\Users\ihave\Desktop\Ukagaka\AlphaVerTest\balloon\Varia Sunset 165\
 inputbox.left,2760
 GroupFlagOverride,nocheck,
-scriptbox.left,3249
+scriptbox.left,3235
 Char9.center,3115
 shiori.debugnotify,0
-Char.VirtualDesktop,988a7fb3-08d0-4caa-ac5b-d20df25690e3
+Char.VirtualDesktop,28d1c84b-0b6b-45e4-86d0-09a71c0af53c
 Update.TestMode,1
-Char0.center,3873
-scriptbox.top,561
+Char0.center,3625
+scriptbox.top,610
 shell,shell\master\
 FirstBoot,booted
 Char1.center,1039

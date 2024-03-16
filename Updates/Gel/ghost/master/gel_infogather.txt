@@ -457,12 +457,50 @@ Info_RockPaperScissors_End{
 
 
 
+Info_LightsOut_Menu{
+	if ISVAR("loheight") == 0; loheight = 5
+	if ISVAR("lowidth") == 0; lowidth = 5
+	
+	"\_q"
+	--
+	"Board Height: \__q[Info_LightsOut_MHEIGHT]\![*]\__q%loheight\__q[Info_LightsOut_PHEIGHT]\![*]\__q\n"
+	--
+	"Board Width: \__q[Info_LightsOut_MWIDTH]\![*]\__q%lowidth\__q[Info_LightsOut_PWIDTH]\![*]\__q\n\n[half]"
+	--
+	"\__q[Info_LightsOut_START]Play Now!\__q"
+
+}
+
+Info_LightsOut_MHEIGHT{
+	if loheight > 0{
+		loheight--
+	}
+	Info_LightsOut_Menu
+}
+
+Info_LightsOut_PHEIGHT{
+	loheight++
+	Info_LightsOut_Menu
+}
+
+Info_LightsOut_MWIDTH{
+	if lowidth > 0{
+		lowidth--
+	}
+	Info_LightsOut_Menu
+}
+
+Info_LightsOut_PWIDTH{
+	lowidth++
+	Info_LightsOut_Menu
+}
+
 
 Info_LightsOut_START{
 
 	//Settings
-	_HEIGHT = 8
-	_WIDTH = 7
+	_HEIGHT = loheight
+	_WIDTH = lowidth
 	_ontoken = 1
 	_offtoken = 0
 	
@@ -498,7 +536,7 @@ Info_LightsOut_START{
 // arg 0 is the height
 // arg 1 is the width
 Info_LightsOut_DISPLAY{
-	"\C\_q\b2\c  "
+	"\C\_q\b2\c\*\![set,balloontimeout,-1]  "
 	--
 	_output = ""
 
@@ -507,13 +545,14 @@ Info_LightsOut_DISPLAY{
 
 		//for each part in that row
 		for _r = 0 ; _r < _argv[1] ; _r++{
-			_output += Info_LightsOut_DISPLAYPIECE(lightsoutgrid[_c * _argv[1] + _r],_c,_r,_argv[0],_argv[1],lightsoutgrid) //+ " Height: " + _argv[0] + " Width: " + _argv[1]
+			_output += Info_LightsOut_DISPLAYPIECE(lightsoutgrid[_c * _argv[1] + _r],_c,_r,_argv[0],_argv[1],lightsoutgrid) 
+			//+ " Height: " + _argv[0] + " Width: " + _argv[1]
 		}
 		
 		_output += "\n  "
 	
 	}
-	
+	_output += MenuItem("End","OpenMenu",150)
 	_output
 
 }
@@ -542,23 +581,22 @@ Info_LightsOut_DISPLAYPIECE{
 }
 
 
-// ref 0 is the column (x) (row?)
-// ref 1 is the row (y) (column?)
+// ref 0 is the row
+// ref 1 is the column
 // ref 2 is the height
 // ref 3 is the width
 // ref 4 is the board
-OnInfo_LightsOut_FLICK{
-	
+OnInfo_LightsOut_FLICK {
 	//the function itself will check for boundaries and will not execute if the point is not in bounds
-	Info_LightsOut_INVERTPIECE(reference[0],reference[1],reference[2],reference[3],reference[4])
-	Info_LightsOut_INVERTPIECE(reference[0]+1,reference[1],reference[2],reference[3],reference[4])
-	Info_LightsOut_INVERTPIECE(reference[0],reference[1]+1,reference[2],reference[3],reference[4])
-	Info_LightsOut_INVERTPIECE(reference[0]-1,reference[1],reference[2],reference[3],reference[4])
-	Info_LightsOut_INVERTPIECE(reference[0],reference[1]-1,reference[2],reference[3],reference[4])
+	Info_LightsOut_INVERTPIECE(reference[0],reference[1],reference[2],reference[3]) 
+	Info_LightsOut_INVERTPIECE(reference[0]+1,reference[1],reference[2],reference[3]) 
+	if reference[1]+1 < reference[3]; Info_LightsOut_INVERTPIECE(reference[0],reference[1]+1,reference[2],reference[3]) 
+	Info_LightsOut_INVERTPIECE(reference[0]-1,reference[1],reference[2],reference[3]) 
+	Info_LightsOut_INVERTPIECE(reference[0],reference[1]-1,reference[2],reference[3]) 
 	--
 	_checkwin = Info_LightsOut_CHECKWIN
-	if _checkwin != ""{
-		Info_LightsOut_DISPLAY(reference[2],reference[3],reference[4])
+	if _checkwin == ""{
+		Info_LightsOut_DISPLAY(reference[2],reference[3])
 	}else{
 		//Checkwin will return the win message
 		_checkwin
@@ -575,7 +613,7 @@ OnInfo_LightsOut_FLICK{
 // arg 2 is the height
 // arg 3 is the width
 // arg 4 is the board
-Info_LightsOut_INVERTPIECE{
+Info_LightsOut_INVERTPIECE : void{
 	//     if this is a valid column 		and		   if this is a valid row
 	if _argv[0] <= _argv[3] && _argv[0] >= 0 && _argv[1] < _argv[2] && _argv[1] >= 0{
 	
@@ -593,8 +631,10 @@ Info_LightsOut_INVERTPIECE{
 
 
 Info_LightsOut_CHECKWIN{
-	if ASEARCH(lightsoutgrid,1) == 0{
+	if ASEARCH(1,lightsoutgrid) == -1{
 		"\cYou win!"
+	}else{
+		""
 	}
 }
 
@@ -768,6 +808,8 @@ OnCheckForDiscord{
 		_DiscordOpen = FUNCTIONEX("findwin.dll","find",,"Chrome_WidgetWin_1")
 		if _DiscordOpen == 1{
 			"Oh, hey, Discord. %(gelHmm)Who you talkin%(guh) to?\e"
+			"Oh, is that Discord?\e"
+			"Messaging apps these days... I think?\e"
 		}
 		
 		_RiseToRuinsOpen = FUNCTIONEX("findwin.dll","find",,"LWJGL")
@@ -871,24 +913,42 @@ OnToDoExplanation{
 
 
 OnTasks{
-	"Here you are!"
+	"\_q\n\n\n[20]"
+	--
+	if todos > 2{
+		"\b2"
+	}
+	//--
+	//_buffer = ""
+	//for _i = 0; _i < todos; _i++{
+	//	_buffer += "\n"
+	//}
+	//_buffer
 	--
 	OnDisplayToDos
 	--
-	OnDisplayDailies
+	//AYATEMPLATE.MenuItem("Edit Tasks","OnToDosOrDaily")
+	//--
+	AYATEMPLATE.MenuItem("Add To-Do","OnToDo_Add","1")
 	--
-	OnDisplayWeeklies
-	--
-	AYATEMPLATE.MenuItem("Edit Tasks","OnToDosOrDaily")
+	if todos > 0; AYATEMPLATE.MenuItem("Remove To-Do","OnToDo_Rem","2")
 	--
 	AYATEMPLATE.MenuItem("Nevermind.","OpenMenu")
+	--
+	if todos == 0{
+		"\_l[0,0]\_q%(gelLookForward)Pretty empty. %(gelConfused)We should add one."
+		"\_l[0,0]\_q%(gelLookForward)%(gelArmsFistChin)You %(gonna) add something to this?"
+	}else{
+		"\_l[0,0]\_qHere you are! Click to check one off."
+	}
+	
 
 
 
 
 }
 
-
+//No longer linked to. Recurring tasks are not currently supported.
 OnToDosOrDaily{
 	if (todos == 0) && (dailies == 0){
 		"%(gelBase)Sure, what can I help you set up?"
@@ -975,12 +1035,13 @@ OnToDo_Added{
 
 OnDisplayToDos{
 	//this controls what element of the list we're at
-	_i = 0
-	i = 0
+	//_i = 0
+	//i = 0
 	//what will become the output is put here
-	buffer = ""
+	//buffer = ""
 	SETDELIM(todolist, ",")
 	--
+	/*
 	while _i < todos{
 		--
 		//access the needed item from the list and add it to the buffer along with it's number in the list (for proper access)
@@ -988,30 +1049,31 @@ OnDisplayToDos{
 		_i+=1
 		--
 	}
+	*/
 	--
-	"\n%(OnDisplayToDo)"
+	"%(OnDisplayToDo)"
 	--
 	//kill it
-	buffer = ""
+	//buffer = ""
 
 
 }
 
 //I am not a good role model. Sorry for the recursion. 
 //the buffer is the friends list, calculates items location, and adds it to the list, then incrementing and calling itself to display the next friend
-OnDisplayToDo{
-	//get this info
-	_name = buffer[i*2]
-	_var = buffer[i*2+1]
 
-	if i < todos{
-		//inc
-		i+= 1
+
+//no longer recursive.
+OnDisplayToDo : all{
+	_i = 0
+	while _i < todos{
+		_name = todolist[_i]
+		_i+= 1
 		//output this item (treating it as needed), and recurse
 		if interactionstate == 2{
-			"\![*]\q[%_name,OnToDo_RemoveItem,%_var]\n%(OnDisplayToDo)"
+			"\![*]\q[%_name,OnToDo_RemoveItem,%_i]\n"
 		}else{
-			"\![*]\q[%_name,OnToDo_CheckOffItem,%_var]\n%(OnDisplayToDo)"
+			"\![*]\q[%_name,OnToDo_CheckOffItem,%_i]\n"
 		}
 		
 	}
@@ -1022,13 +1084,13 @@ OnDisplayToDo{
 OnToDo_CheckOffItem{
 	todos-=1
 	totaltodoscomplete+=1
-	_i = 0
-	//access the given item
-	while _i < reference0{
-		_i++
-	}
+	_i = TOINT(reference0)
 	//delete
 	todolist[_i] = IARRAY
+	if todos == 0{ 
+		//this cleans up stray commas
+		todolist = IARRAY
+	}
 	--
 	if checkGreatTP1{
 		"Woo! I%(am) proud of you."
@@ -1050,11 +1112,7 @@ OnToDo_CheckOffItem{
 //remove item, do not add to stats
 OnToDo_RemoveItem{
 	todos-=1
-	_i = 0
-	//access the given item
-	while _i < reference0{
-		_i++
-	}
+	_i = TOINT(reference0)
 	//delete
 	todolist[_i] = IARRAY
 	--

@@ -155,7 +155,7 @@ checkStaggerLessEqTN2{
 
 //Perhaps soon I will move over to Ecclysium...
 GraysDiscord{
-	"GrayArea #5561"
+	"ecclysium on Discord"
 }
 
 //why do i even have these
@@ -421,12 +421,9 @@ fudge{
 			"flip flop"
 			"frick"
 			"*CENSORED*"
-		}
-
-				
+		}		
 
 	}
-	
 
 }
 
@@ -1327,7 +1324,7 @@ cedricSearchHistory{
 //	"'what did i do wrong'"
 	"'how to spell %(randomMisspelledWord)'"
 	"'why did my wife try to kill me'"
-//	"'what does a normal marriage look like'"
+	"'what does a normal marriage look like'"
 //	"'why did my daugher leave me'"
 	"'how to get %(messyStain) out of a expensive sweater'"
 //	"'how to not be depressed'"
@@ -1364,7 +1361,7 @@ cedricSearchHistory{
 	"'how to be a better parent'"
 	"'getting over it'"
 	"'how to contact someone who cant be found'"
-//	"'why does everyone i love leave me'"
+	"'why does everyone i love leave me'"
 	"'am i being monitored by a non gov agency'"
 	"'whos in my search history'"
 	"'how to hide your search history from hackers'"
@@ -1385,7 +1382,7 @@ cedricSearchHistory{
 	"'how to ask your boss for a vacation after your daughter left you' like he keeps deciding against it"
 //	"'why dont i have friends'"
 	"'why don't my coworkers like me'"
-//	"'why doesn't my daughter like me'"
+	"'why doesn't my daughter like me'"
 	"'how to make friends as a single dad'"
 //	"'how to stop crying all the time'"
 //	"'how to make your daughter come home'"
@@ -1426,6 +1423,10 @@ graceSearchHistory{
 	"'can i microwave a burrito'"
 	"'can you eat a mutated roach if you cook it'"
 	"'what to do if you mistook a cat for a mutated roach'"
+	"'why do people think jawful is cute'"
+	"'why do cats not have jaws'"
+	"'cats'"
+	"'pictures of cats QITH JAWS'"
 	"'am i hallucinating'"
 	"'how high am i quez'"
 
@@ -1481,7 +1482,7 @@ shijoSearchHistory{
 	"'macaroni from scratch'"
 	"'memes'"
 	"'pets that are legal to have'"
-	
+	"'how to grow a dog'"
 	"'voc projects'"
 	"'how were the gemini systems devised'"
 	"'voc proj WILL'"
@@ -1637,6 +1638,9 @@ idk{
 
 
 WeirdWeather{
+	//so we can adjust when we are too long
+	_toolong = 0
+	_weatherandmoon = skyandmoon
 	//temperature
 	_temp = RAND(10000) - 4999
 	"%_temp "
@@ -1645,15 +1649,25 @@ WeirdWeather{
 	"K"
 	"C"
 	--
+	if STRLEN(_weatherandmoon) > 43{
+		"%_weatherandmoon\n[-75]"
+	}else{
+		"%_weatherandmoon\n[-35]"
+	}
+
+}
+
+skyandmoon{
 	"\nSky: "
-	--
 	//skies
+	--
 	//bad relationship/upset
 	if checkLessEqTN2 || emotion == 6 || emotion == 10 || emotion == 3{
 		"acid rain"
 		"poison clouds"
 		"knife hail"
 		"oil tornado"
+		"Jeffery Bezos from your Internet"
 		"what happened to the ocean %username WHAT HAPPENED TO THE OCEAN"
 		
 	//good relationship/happy
@@ -1662,9 +1676,18 @@ WeirdWeather{
 		"yeah that's green"
 		"thirty five leafs"
 		"thirty five leaves"
+		"a"
+		"uwu"
+		"tastey"
+		"is this what they call clouds"
+		"memes"
 		if ARRAYSIZE(gelsFriend) > 0{
 			"%(gelsFriend)???"
 		}
+		"I want to touch it"
+		"why is it cold"
+		"why is it hot"
+		"%(VRGame)"
 	
 	//neutral/meh
 	}else{
@@ -1678,6 +1701,17 @@ WeirdWeather{
 		"beans?"
 		"sand in your joints"
 		"tripods"
+		"i tripped"
+		"a remote island away from here"
+		"out roleplaying"
+		"weather"
+		"ow my camera lenses hurt"
+		"how do you surf?"
+		"batman"
+		"calling the moon"
+		"ring ring"
+		"''banana phone''"
+		
 	}
 	
 
@@ -1685,20 +1719,43 @@ WeirdWeather{
 	", Moon: "
 	--
 	//moon state
-	"red"
-	"rainbow"
-	"dripping oil"
-	"on vacation"
-	"eating dirt"
-	"turning"
-	"smells like yellow"
-	"children"
-	if qdruid; "actually DRUiDs with guns"
-	if willow > 0; "will is that you?"
-	if timesmadesick > 10 ; "milkshakin%(guh)"
-	
-
-
+	//short ones
+	{
+		"red"
+		"rainbow"
+		"dripping oil"
+		"on vacation"
+		"eating dirt"
+		"playing in puddles"
+		"exercising"
+		"got a gym membership"
+		"copying me"
+		"browsing"
+		"grew an eye"
+		"grew two eyes"
+		"tell it to stop dancing"
+		"turning"
+		"smells like yellow"
+		"children"
+		"gone fishing"
+		"looking edible"
+		"hi"
+		if timesmadesick > 10 ; "milkshakin%(guh)"
+	}
+	//long
+	{
+		"posting on the Chain I mean Internet"
+		"it%(is) %(okay) I guess"
+		"acutallly I like the moon"
+		"I heard it's cheese?"
+		"please cut me a slice"
+		"ooo lookee me im the MOON"
+		if qdruid; "actually DRUiDs with guns"
+		"got social media"
+		if willow > 0; "will is that you?"
+		--
+		"\n[-50]"
+	}
 }
 
 

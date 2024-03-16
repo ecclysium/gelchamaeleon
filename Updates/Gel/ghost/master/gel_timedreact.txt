@@ -1098,7 +1098,7 @@ GOOD_Afternoon{
 			
 			
 		}elseif checkGreatTP1 {		//Positive Route Pt 1 -------------------------------------------
-			"%(gelLookForward)Happy afternoon, %firstnick. %(gelHmm)Is that sky blue on your internet actually that comforting? %(gelLookForward)%(gelFurrowed)It looks fake."
+			"%(gelLookForward)Happy afternoon, %firstnickname. %(gelHmm)Is that sky blue on your internet actually that comforting? %(gelLookForward)%(gelFurrowed)It looks fake."
 		}elseif checkGreatTN1{		//Positive/Neutral Route Pt 0 -------------------------------------------
 			"%(gelLookForward)Good afternoon! %(gelLookRight)It sure is after noon. %(gelLookForward)I think it%(is) pretty silly that you history-buffs like calling it that."
 
@@ -1563,7 +1563,7 @@ GOOD_Orange{
 		}elseif checkStaggerGreatTP2 {		//Positive Route Pt 1.5 ---------------------------------
 			if port == 434; "%(gelLookUp)The sky cresting over the lands, warning us for the night-monsters to arrive... %(gelLookForward)%(gelCatMouth)Good orange."
 		}elseif checkStaggerGreatTP1 {		//Positive/Neutral Route Pt 0.5 -------------------------
-			"%(gelLookForward)Good orange! Ah, this is my favorite time of day. It%(is)— \w8%(gelHmm)um, just evening to you, huh? %(gelConfused)Right? "
+			"%(gelLookForward)Good orange! Ah, this is my favorite time of day. It%(is)-- \w8%(gelHmm)um, just evening to you, huh? %(gelConfused)Right? "
 			"%(gelLookForward)Good orange Atlas! %(gelLookAway)%(gelFurrowed)Or, uh, %(nicknamed)'s world. %(gelLookForward)How%(has) your day been? \w8Thanks for thinking of me."
 		}elseif checkStaggerGreatTN1{		//Negative Route Pt 1.5 ---------------------------------
 			"Oh, orange, %username. %(gelLookForward)The day is ending for your sort of people, and mine are looking up to something they can never have in the sky. %(gelUh)But, it%(is) a new day, soon. \w8\w8\n\n[half]%(gelLookForward)%(gelHmm)Will you make new choices?"
@@ -2611,8 +2611,8 @@ Menu_HOWISGEL{
 			
 		//ERROR
 		}others{
-			"%(fudge) if I know. The things I feel... have%(not) been implemented yet. Tell %(GraysDiscord) on Discord.\e"
-			"Honestly? I dunno. My code does%(not) account for this. %(gelLookAway)You might want to mention it to %(GraysDiscord) on Discord.\e"
+			"%(fudge) if I know. The things I feel... have%(not) been implemented yet. Tell %(GraysDiscord).\e"
+			"Honestly? I dunno. My code does%(not) account for this. %(gelLookAway)You might want to mention it to %(GraysDiscord).\e"
 		}
 	
 	

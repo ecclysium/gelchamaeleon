@@ -211,11 +211,14 @@ OnClothesChange{
 		}
 	}
 	--
-	if userbirthday[0,"/"] == thisboot[0,"/"] && userbirthday[1,"/"] == thisboot[1,"/"]{
+	if (userbirthday[0,"/"] == thisboot[0,"/"] && userbirthday[1,"/"] == thisboot[1,"/"]) || (3 == thisboot[0,"/"] && 16 == thisboot[1,"/"]){
 		"\![bind,Hats,Crunchy Hat,1]\![raise,OnEquipClothingItem,Crunchy Hat]"
 	
 	}else{
 		"\![bind,Hats,Crunchy Hat,0]"
+		if  month == 12{
+			"\![bind,Hats,Crunchy Hat,0]\![bind,Hats,Santa Hat,1]\![raise,OnEquipClothingItem,Santa Hat]"
+		}
 	
 	}
 	--
@@ -361,25 +364,8 @@ OnGeneralClear{
 	timeasleep = 0
 	SetTimeSensitiveGreeting
 	--
-	//birthday boot will short-circuit the regular boot
-	if userbirthday[0,"/"] == thisboot[0,"/"] && userbirthday[1,"/"] == thisboot[1,"/"]{
-		if debug == 1; SENDERROR("OnGeneralClear interrupted: birthday","info")
-		if hour == 0 && minute == 0{
-			"%(gelBase)\1\s[-1]\0"
-			--
-			BirthdayNightCount
-		
-		}else{
-			"%(gelBase)\1\s[-1]\0"
-			--
-			BirthdayBoot
-		
-		}
-		
-		--
-	//	"\![bind,Hair,We Like To Party,1]\![raise,OnEquipClothingItem,Crunchy Hat]"
-	//	--
-	}
+	OnBdayCheck
+	--
 	if debug == 1; SENDERROR("OnGeneralClear concluded execution successfully","info")
 
 
@@ -1383,6 +1369,51 @@ OnGetDay{
 //******************************************************************************
 
 
+//Guide through what needs to happen
+OnBdayCheck{
+	//birthday boot will short-circuit the regular boot
+	if userbirthday[0,"/"] == thisboot[0,"/"] && userbirthday[1,"/"] == thisboot[1,"/"]{
+		if silentmode == 0{
+			"\_v[sounds/welcomeuser.wav]"
+		}
+		--
+		"%(gelLookBoot)\0\w8\w8\w8\w8%(gelLookBoot)%(gelPickThreeCorruption)\w8\w8\w8%(gelLookBoot)%(gelPickTwoCorruption)\![bind,Hats,Crunchy Hat,1]\![raise,OnEquipClothingItem,Crunchy Hat]\w8\w9\w8\w9%(gelLookForward)"
+		--
+		if (3 == thisboot[0,"/"] && 16 == thisboot[1,"/"]){
+			DualBirthdayBoot
+		}else{
+			if hour == 0 && minute == 0{
+				"%(gelBase)\1\s[-1]\0"
+				--
+				BirthdayNightCount
+			
+			}else{
+				"%(gelBase)\1\s[-1]\0"
+				--
+				BirthdayBoot
+			
+			}
+		}
+		
+		--
+		"\e"
+	//	"\![bind,Hair,We Like To Party,1]\![raise,OnEquipClothingItem,Crunchy Hat]"
+	//	--
+	}elseif (3 == thisboot[0,"/"] && 16 == thisboot[1,"/"]){
+		if silentmode == 0{
+			"\_v[sounds/welcomeuser.wav]"
+		}
+		--
+		"%(gelLookBoot)\0\w8\w8\w8\w8%(gelLookBoot)%(gelPickThreeCorruption)\w8\w8\w8%(gelLookBoot)%(gelPickTwoCorruption)\![bind,Hats,Crunchy Hat,1]\![raise,OnEquipClothingItem,Crunchy Hat]\w8\w9\w8\w9%(gelLookForward)"
+		--
+		GelBirthdayBoot
+		--
+		"\e"
+	}
+
+}
+
+
 BirthdayNightCount{
 
 	"\_v[sounds/484267__inspectorj__party-pack-horn-coil-01-long-01.wav]\w2And the clock strikes Night on your birthday!\x"
@@ -1434,6 +1465,28 @@ DontSingHappyBirthday{
 
 }
 
+//Both User and Gel bday
+DualBirthdayBoot{
+	if checkGreatTP1{
+		"%(gelLookForward)%(gelGrin)Hey, %(nicknamed), %(nicknamed)! Guess what? \w8\w8%(gelExcited)It%(is) both of our birthdays! This was the last update of An0000 before sentience, and the day you were… fleshy birthed! \w8\w8%(gelLookRight)%(gelConfused)%(gelGrin)You fleshies are still a little gross, but somewhere in the sky, it%(is) another rotation just for you. Happy birthday, %(username)."
+	}else{
+		"%(gelLookForward)O-oh hey, %(username). Nothin%(guh) to see here... uh, do%(not) mind the hat, I was just trying to have a little fun on my own."
+	}
+}
+
+
+//just Gel Bday (March 16)
+GelBirthdayBoot{
+	if checkGreatTP3{
+		"%(gelLookForward)%(gelArmsFistChin)You know, one thing I did%(not) know until I read your internet is the sun moves. Or... \w4well, it seems to move?? %(gelSurprise)But you do%(not) actually see it see it, it just is a little different. Different shadows different parts of the year. The world… spins. %(gelLookConfused)The Rainbow Rebels always talked about the world revolving, but I did%(not) know it was actually. I thought it was a phrase!%(br)\w8\w8%(gelLookForward)%(gelLookNervous)But, well, it%(has) been another revolution around the sun since An0000 went sentient long ago. %(gelLookAway)I... %(gelLookForward)%(gelAdoring)well, happy birthday to me."
+	
+	}elseif checkGreatTP1{
+		"%(gelCheery)Hey, %(nicknamed), it%(is) my birthday! \w8Well, not my birthday really, but An0000’s. \w8\w8It%(is) my birthday on a technicality, hehehe. The rest of the series were all created at different times… but I wanna reason to wear a party hat!"
+	}else{
+		"%(gelLookForward)O-oh hey, %(username). Nothin%(guh) to see here… uh, do%(not) mind the hat, I was just trying to have a little fun on my own."
+	}
+
+}
 
 
 

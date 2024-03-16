@@ -3,8 +3,8 @@ charset,Shift_JIS
 //シェル一式のライセンスは以下のようになります。
 //http://creativecommons.org/licenses/by-nc-nd/2.1/jp/
 
-craftman,GrayArea
-craftmanurl,hjskjdfgREMINDMETOFINISHMYSITE 
+craftman,Ecclysium
+craftmanurl,https://ecclysium.github.io/
 
 name,master
 type,shell

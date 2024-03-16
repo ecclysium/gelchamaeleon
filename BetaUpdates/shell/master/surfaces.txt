@@ -762,6 +762,31 @@ surface3000
 	animation1000.pattern11,overlay,66666,100,0,38
 	animation1000.pattern13,overlay,66666,100,0,35
 	animation1000.pattern14,start,1000
+	
+	//Santa hat!
+	animation1212.interval,bind + always
+	animation1212.pattern0,overlay,31121200,0,0,0
+	animation1212.pattern5,overlay,31121200,750,0,3
+	animation1212.pattern6,overlay,31121200,100,0,5
+	animation1212.pattern7,overlay,31121200,100,0,7
+	animation1212.pattern10,overlay,31121200,1500,0,5
+	animation1212.pattern11,overlay,31121200,100,0,3
+	animation1212.pattern13,overlay,31121200,100,0,0
+	animation1212.pattern14,start,1212
+	
+	animation1212.collision1212,145,240,165,290,JingleBell
+	
+	//sparkle effect for hats
+	animation1213.interval,never
+	animation1213.pattern0,overlay,01121201,0,-20,40
+	animation1213.pattern1,overlay,01121202,100,-20,40
+	animation1213.pattern2,overlay,01121201,150,-20,40
+	animation1213.pattern3,overlay,01121202,200,-20,40
+	animation1213.pattern4,overlay,01121201,140,-20,40
+	animation1213.pattern5,overlay,01121202,100,-20,40
+	animation1213.pattern6,overlay,01121201,120,-20,40
+	animation1213.pattern7,overlay,01121202,180,-20,40
+	animation1213.pattern8,overlay,-1,150,0,0
 
 
 	
@@ -976,6 +1001,25 @@ surface2000
 	//candy corn
 	animation1100.interval,bind
 	animation1100.pattern0,overlay,01110000,0,-3,10	
+	
+	//Santa hat!
+	animation1212.interval,bind
+	animation1212.pattern0,overlay,01121200,0,-5,12
+	animation1212.pattern1,start,1212
+	
+	animation1212.collision1212,155,205,185,235,JingleBell
+	
+	//sparkle effect for hats
+	animation1213.interval,never
+	animation1213.pattern0,overlay,01121201,0,-10,10
+	animation1213.pattern1,overlay,01121202,100,-10,10
+	animation1213.pattern2,overlay,01121201,150,-10,10
+	animation1213.pattern3,overlay,01121202,200,-10,10
+	animation1213.pattern4,overlay,01121201,140,-10,10
+	animation1213.pattern5,overlay,01121202,100,-10,10
+	animation1213.pattern6,overlay,01121201,120,-10,10
+	animation1213.pattern7,overlay,01121202,180,-10,10
+	animation1213.pattern8,overlay,-1,150,0,0
 		
 	//paper bag emote
 	animation1250.interval,bind

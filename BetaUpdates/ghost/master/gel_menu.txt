@@ -34,7 +34,7 @@ OpenMenu
 		res_reference0=""
 	}
 	--
-	"\![set,autoscroll,disable]"
+	"\![set,autoscroll,disable]\n[half]"
 	--
 	//Make sure Gel is awake to respond, first.
 	if emotion == -1{
@@ -230,7 +230,11 @@ OpenMenu
 		WeirdWeather
 	}
 	--
-	"\_l[0,0]\_q\f[height,+2]\f[align,left]%(gelMenuOpeners)\e"
+	"\_l[0,0]\_q\f[height,+2]\f[align,left]"
+	--
+	if emotion != -1{
+		"%(gelMenuOpeners)\e"
+	}
 }
 
 //_argv[0] is the number of lines to go back
@@ -247,7 +251,7 @@ returnlines{
 
 
 gelMenuOpeners{
-	"\n\n\n\n[-300]"
+	//"\n\n\n\n[-300]"
 		--
 		/*
 		/	NOTE:
@@ -1997,7 +2001,8 @@ Menu_DisplayFriend{
 	//get this info
 	_name = buffer[i*2]
 	_var = buffer[i*2+1]
-
+	"\![set,autoscroll,disable]"
+	--
 	if i < friends{
 		//inc
 		i+= 1

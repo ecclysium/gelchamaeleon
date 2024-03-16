@@ -235,20 +235,25 @@ OnUpdateComplete
 {
 	if reference[0] == "none"
 	{
-		//---- 更新すべきファイルが無かった
+		
 		"%(gelBase)Oh, looks like nothing new.\e"
 		"%(gelBase)Nothing major enough I need to grab it, looks like.\e"
 	}
 	else
 	{
-		//---- 実際に更新が完了した
-		if checkBadMood{
+		OnUpdateVars
+		if (userbirthday[0,"/"] == thisboot[0,"/"] && userbirthday[1,"/"] == thisboot[1,"/"]) || (3 == thisboot[0,"/"] && 16 == thisboot[1,"/"]){
+			//OnClothesChange
+			--
+			OnBdayCheck
+		}
+		elseif checkBadMood{
 			"%(gelLookForward)%(gelT)Well, at least I have some better memories in mind now.\e"
 		}else{
 			"%(gelBase)Alrighty, I%(am) all synced up!\e"
 		}
 		
-		OnUpdateVars
+		
 	}
 }
 

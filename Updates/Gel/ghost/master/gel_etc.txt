@@ -235,20 +235,25 @@ OnUpdateComplete
 {
 	if reference[0] == "none"
 	{
-		//---- 更新すべきファイルが無かった
+		
 		"%(gelBase)Oh, looks like nothing new.\e"
 		"%(gelBase)Nothing major enough I need to grab it, looks like.\e"
 	}
 	else
 	{
-		//---- 実際に更新が完了した
-		if checkBadMood{
+		OnUpdateVars
+		if (userbirthday[0,"/"] == thisboot[0,"/"] && userbirthday[1,"/"] == thisboot[1,"/"]) || (3 == thisboot[0,"/"] && 16 == thisboot[1,"/"]){
+			//OnClothesChange
+			--
+			OnBdayCheck
+		}
+		elseif checkBadMood{
 			"%(gelLookForward)%(gelT)Well, at least I have some better memories in mind now.\e"
 		}else{
 			"%(gelBase)Alrighty, I%(am) all synced up!\e"
 		}
 		
-		OnUpdateVars
+		
 	}
 }
 
@@ -265,7 +270,7 @@ OnUpdateFailure
 	elseif reference[0] == "md5 miss"
 	{
 		//---- MD5値が一致しなかった
-		"%(gelBase)The MD5 value is off. Can you go let my friend Gray know? His Discord is GrayArea #5561."
+		"%(gelBase)The MD5 value is off. Can you go let my friend know? His Discord is 'ecclysium'."
 	}
 	else
 	{
@@ -281,7 +286,7 @@ OnUpdateFailure
 //------------------------------------------------------------------------------
 OnUpdate.OnDownloadBegin
 {
-	"%(gelBase)Downloading %(reference[0]).\e"
+	//"%(gelBase)Downloading %(reference[0]).\e"
 }
 
 //------------------------------------------------------------------------------
@@ -289,9 +294,9 @@ OnUpdate.OnDownloadBegin
 //------------------------------------------------------------------------------
 OnUpdate.OnMD5CompareBegin
 {
-	"%(gelBase)Checking the values.\e"
-	"%(gelBase)Hm, is this right?\e"
-	"%(fudge)\e"
+	//"%(gelBase)Checking the values.\e"
+	//"%(gelBase)Hm, is this right?\e"
+	//"%(fudge)\e"
 }
 
 //------------------------------------------------------------------------------
@@ -299,8 +304,8 @@ OnUpdate.OnMD5CompareBegin
 //------------------------------------------------------------------------------
 OnUpdate.OnMD5CompareComplete
 {
-	"%(gelBase)That's fine.\e"
-	"%(gelBase)All good there.\e"
+	//"%(gelBase)That's fine.\e"
+	//"%(gelBase)All good there.\e"
 }
 
 //------------------------------------------------------------------------------
@@ -610,7 +615,7 @@ OnOtherGhostVanish{
 	if emotion != -1{
 		
 		"%(gelLookRight)%(gelWorry)I can't believe %reference[2] died.\e"
-		"%(gelWorry)Alright man, that's kinda mean of you.\e"
+		"%(gelWorry)Alright, that's kinda mean of you.\e"
 		"%(gelLookConcerned)%(gelArmsChest)I-I won't be next, right?\e"
 		trust-= 2
 	}else{
@@ -736,6 +741,10 @@ shiori.OnMemoryError{
 
 shiori.OnMemoryLimit{
 	"ERROR: Memory Limit"
+}
+
+shiori.OnCallLimit{
+	GETCALLSTACK()
 }
 
 

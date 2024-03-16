@@ -1239,6 +1239,7 @@ OnUpdateVars{
 		Gel = "Ghel"
 	}
 	currentversion = getVersion
+	--
 }
 
 //takes a var and sets it to _argv1

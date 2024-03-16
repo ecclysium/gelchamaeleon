@@ -36,7 +36,7 @@ UNLOCK{
 }
 
 getVersion{
-	"V 1.0.2.1B"
+	"V 1.1.0"
 }
 
 

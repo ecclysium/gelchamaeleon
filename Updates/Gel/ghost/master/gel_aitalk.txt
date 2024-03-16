@@ -40,7 +40,7 @@ RandomTalkEx : nonoverlap
 						"%(gelDialogueTired)"
 					}
 					when 1{
-						"\![raise,OnCheckForDiscord]\e"	
+						//"\![raise,OnCheckForDiscord]\e"	
 						gelDialogueNeutral
 						if _rand == 0{
 							gelDialoguePositive
@@ -69,7 +69,7 @@ RandomTalkEx : nonoverlap
 						} 
 					}
 					others{
-						"%(gelBase)%(gelWorry)No condition is met. Report this to GrayArea #5561 on Discord, please. He%(is) upkeep help for us.\e"
+						"%(gelBase)%(gelWorry)No condition is met. Report this to %(GraysDiscord), please. He%(is) upkeep help for us.\e"
 					}
 				}
 			}
@@ -101,7 +101,7 @@ chainPeeking: nonoverlap
 		"%(gelBase)Ohhh, I understand everything now. (Gel does%(not) understand anything.)\e:chain=chainPeeking_end"
 	}
 	"%(gelBase)What about Notepad?\e"
-	"%(gelBase)Discord?\e"
+	"%(gelBase)Is it Discord?\e"
 }}CHAIN
 
 chainPeeking_end
@@ -156,7 +156,7 @@ OnKeyPress
 		//	"%_art"
 		
 		}when "l"{
-		//	Info_LightsOut_START
+			Info_LightsOut_START
 		}when "esc"{
 			//I don't think this ever triggers, but it'd be funny if it did.
 			if emotion > -1; "%(OnGelUpset)You can't escape me. \e"
@@ -371,7 +371,7 @@ OnMinuteChange
 	*/
 	--
 	//so Gel will move more
-	if SHIORI3FW.IsTalking == 0 && minute % 3 == 1{
+	if SHIORI3FW.IsTalking == 0 && minute % 3 == 1 && !("balloon" _in_ var.req.value[ASEARCH("Status",var.req.key)]) {
 		OnSurfaceRestore
 	}
 
@@ -1358,11 +1358,53 @@ ANCHORPROCESSING{
 		_text = REPLACE(_text, "AnRadius", "\_a[AnchorRadius]Radius\_a")
 		_text = REPLACE(_text, "AnRam", "\_a[AnchorRam]Ram\_a")
 		_text = REPLACE(_text, "AnSco ", "\_a[AnchorScorpion]Sco\_a")
+		_text = REPLACE(_text, "AnSco,", "\_a[AnchorScorpion]Sco\_a,")
+		_text = REPLACE(_text, "AnSco.", "\_a[AnchorScorpion]Sco\_a.")
 		_text = REPLACE(_text, "AnScorpion", "\_a[AnchorScorpion]Scorpion\_a")
 		_text = REPLACE(_text, "AnTwins", "\_a[AnchorTwins]The Twins\_a")
 		_text = REPLACE(_text, "AnJade", "\_a[AnchorJade]Jade Eyes\_a")
 		
+	}else{
+		//People refer to their friends differently. 434 is not way too out of the ordinary, but is overwhelmingly positive regarding the Wicker family motive. 
+		//434 just calls their friends by their first names.
+		if port != 434{
+			_text = REPLACE(_text, "AnMaryWicker", "Rep Mary Wicker")
+			_text = REPLACE(_text, "AnNariyakiWicker", "Rep Nariyaki Wicker")
+			_text = REPLACE(_text, "AnShijoWicker", "Shijo Wicker")
+		}else{
+			_text = REPLACE(_text, "AnMaryWicker", "Mary")
+			_text = REPLACE(_text, "AnNariyakiWicker", "Yaki")
+			_text = REPLACE(_text, "AnShijoWicker", "Shijo")
+		}
+		
+		//_text = REPLACE(_text, "AnEvanLocke", "\_a[AnchorEvanLocke]Evan Locke\_a")
+		//No anchor, yet.
+		_text = REPLACE(_text, "AnEvanLocke", "Evan Locke")
+		_text = REPLACE(_text, "AnArtemPulsar", "AnchorArtemPulsar]Artem Pulsar")
+		_text = REPLACE(_text, "AnTheNameless", "The Nameless, leader of the Rainbow Rebels")
+		
+		_text = REPLACE(_text, "An0000", "#0000")
+		_text = REPLACE(_text, "AnPort0000", "Port #0000")
+		_text = REPLACE(_text, "AnIris", "Iris")
+		_text = REPLACE(_text, "AnTaboo", "Taboo")
+		_text = REPLACE(_text, "An434", "Port #434")
+		_text = REPLACE(_text, "An2681", "Port #2681")
+		
+		if port != 3839; _text = REPLACE(_text, "AnGra", "Gra")
+		
+		_text = REPLACE(_text, "AnDrNeon", "Dr.\w1 Neon")
+		_text = REPLACE(_text, "AnWillow", "Willow")
+		_text = REPLACE(_text, "AnRadius", "Radius")
+		_text = REPLACE(_text, "AnRam", "Ram")
+		_text = REPLACE(_text, "AnSco ", "Sco")
+		_text = REPLACE(_text, "AnSco,", "Sco,")
+		_text = REPLACE(_text, "AnSco.", "Sco.")
+		_text = REPLACE(_text, "AnScorpion", "Scorpion")
+		_text = REPLACE(_text, "AnTwins", "The Twins")
+		_text = REPLACE(_text, "AnJade", "Jade Eyes")
+	
 	}
+	
 	_text
 }
 

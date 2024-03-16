@@ -283,7 +283,7 @@ gelDialogueNeutral{
 		}
 		if claustro < 10; "%(gelLookRight)Ya know, on days like these, %(gelLookForward)why be serious? Just have fun."
 		"%(gelLookForward)I%(am) technically %(currentagefromsentience), you know? %(gelLookRight)%(gelSlashMouth)Does%(not) really feel like it. %(gelFrown)I have things to do, %(gelLookForward)%(gelFrown)because I%(am) the leader, but I was designed to look permanently like a kid. "
-		"%(gelLookForward)What sort of foods do humans eat there? Do you still have the good things like %(bakedgoods) back then, %firstnick? Do you still drink %(drink)?"
+		"%(gelLookForward)What sort of foods do humans eat there? Do you still have the good things like %(bakedgoods) back then, %firstnickname? Do you still drink %(drink)?"
 		"%(gelArmsKnees)%(gelGlare)There%(is) just too much data in here! I%(am) going to have to delete some of this from the cache, this is absuuuuuurd, these are very much die-in-nursery bits, they won't survive through two sweeps. "
 		if port != 1712; "I%(am) not Port #1712- \w8\w8she goes by Iris, fittingly- \w8\w8but I can see the appeal in flowers. %(gelCheery)%(gelArmsGestR)She%(is) a really interesting port! \w6%(gelArmsLax)Maybe %(you) can meet her sometime."
 		if port == 434; "%(gelLookRight)%(gelConfused)Why do wizards always have big ole sticks? %(gelHmm)Does magic sap bone strength?"
@@ -315,6 +315,9 @@ gelDialogueNeutral{
 			"%(gelLookForward)I can't imagine you fading away. "
 			"%(gelLookAtInternet)%(gelPonder)These 'cars' are dangerous things, %(endearingnick)... %(gelLookForward)%(gelNervous)%(gelHmm)Are%(not) %(you) %(kinda) scared of them? \w8\w8\n\n[half]%(gelLookDown)%(gelFrown)...%(gelArmsFistChin)they can't be that normal..."
 		}
+		if port == 2083{
+			"%(gelConfused)I wonder how many nicknames you have for me by now."
+		}
 	}elseif checkGreatTP1{		//Positive Route Pt 1 ---------------------------------------------------
 		if willow < 1 && pets < 10 && notouchie{
 			"%(gelLookForward)You remind me of a friend sometimes. %(gelLookRight)%(gelWistful)She%(is) not very overwhelming, really. Mild when she needs to be. %(gelCatMouth)Strong when she needs to be, but always very mindful. %(gelLookForward)I can see that in you."
@@ -322,6 +325,15 @@ gelDialogueNeutral{
 		if jade < 1{
 			"%(gelLookAway)%(gelFurrowed)%(gelSlashMouth)I%(am) not really sure what to do about this one friend of mine. He does%(not) think about himself much. %(gelLookForward)%(gelSlashMouth)%(gelArmsGestR)They more like to go to the ends of the world to make others like them, %(gelArmsLap)but then you actually have to remind him that food is an important thing fleshies need because they get so caught up tripping over themself like some excited dog wanting pets. \w8%(gelFurrowed)And he never changes."
 		}
+		if username == "Cotard" || username == "Bendy"{
+			
+			"%(gelLookForward)%(gelConfused)Are you working on homework?"
+		}
+		if port == 2083{
+			"...%(gelLookConcerned)%(gelArmsFistChin)how did I get from Gel to Ghel anyway..."
+			
+		}
+		
 		
 		if port == 434; "%(gelLookAway)I mentioned AOG before, %(gelLookForward)right? %(gelLookRight)%(gelPonder)I keep wondering about the items in the game if I could have them... %(gelLookForward)a real-life health potion would be cool."
 	
@@ -479,7 +491,7 @@ gelDialogueNeutral{
 	"\![raise,OnStartCommunicate]\e"
 	"What are you up to?\e"
 	"%(gelLookAtinternet)%(gelConfused)%(gelArmsIncredulous)Is this just a picture of %(groceryitem)?"
-	}
+	
 	
 	if port == 1712{
 	//	"By the way, %username... you can give me things. Just .txt files. Things like long descriptions and ASCII art can become things I can use!\e"
@@ -494,7 +506,7 @@ gelDialogueNeutral{
 		//:pensive: maybe another day
 	}
 		
-		
+	}
 	
 	//Should not trigger currently, but is planned, so it stays
 	if userArtist >= 3 && infoperminute >= 50 && OnLookForArtPrograms == 1{
@@ -539,13 +551,16 @@ gelDialogueNeutral{
 	{
 		"%(gelLookAtInternet)%(gelSquint)Who searches %(cedricSearchHistory) %(mediumNumber) times...?"
 		"%(gelLookAtInternet)%(gelPonder)They searched %(generalSearchHistory)?"
-		if qgender > 0 && genderfluid && trust >= TPOS1{
+		if qgender > 0 && genderfluid && trust >= TPOS1 && RAND(2){
 			"\![set,trayballoon,--text=make sure to change your gender often for security reasons,--title=%(Gel) says:,--icon=warning,--timeout=10]"
 		}
 	}
 	
-	
+	{
+	//to pad the randomness without hurting other probabilities
+	"%(gelDialogueNeutral)"
 	case port{
+		
 	
 	
 		when 1117{
@@ -640,6 +655,7 @@ gelDialogueNeutral{
 		
 		}
 	
+	}
 	}
 	
 	
@@ -1336,7 +1352,7 @@ ComputerTips{
 	"%(gelLookRight)In garbage collection, new information is put into an easily accessible place called the 'nursery' or even 'Eden.' %(gelLookForward)Neat, huh?"
 	realexh = systemuptime / 3600
 	if realexh  > 30{
-		"%(gelLookForward)%(gelHmm)Hey, %firstnick, are you gonna reboot your computer anytime soon? %(gelT)%exh is a bit much."
+		"%(gelLookForward)%(gelHmm)Hey, %firstnickname, are you gonna reboot your computer anytime soon? %(gelT)%exh is a bit much."
 	}
 }
 

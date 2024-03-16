@@ -371,7 +371,7 @@ OnMinuteChange
 	*/
 	--
 	//so Gel will move more
-	if SHIORI3FW.IsTalking == 0 && minute % 3 == 1{
+	if SHIORI3FW.IsTalking == 0 && minute % 3 == 1 && !("balloon" _in_ var.req.value[ASEARCH("Status",var.req.key)]) {
 		OnSurfaceRestore
 	}
 
